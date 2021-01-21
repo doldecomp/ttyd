@@ -90,3 +90,5 @@ Entry Point: 0x80005240
 .set _SDA_BASE_, 0x80417260
 # Small Data Area (read only) Base
 .set _SDA2_BASE_, 0x80421380
+
+.set NULL, 0x00000000
