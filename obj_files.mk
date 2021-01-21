@@ -40,6 +40,26 @@ TEXT_O_FILES :=                                     \
     $(BUILD_DIR)/asm/effdrv.o                       \
     $(BUILD_DIR)/asm/mobjdrv.o                      \
     $(BUILD_DIR)/asm/evt_mobj.o                     \
+    $(BUILD_DIR)/asm/evt_eff.o                      \
+    $(BUILD_DIR)/asm/evt_paper.o                    \
+    $(BUILD_DIR)/asm/casedrv.o                      \
+    $(BUILD_DIR)/asm/mariost.o                      \
+    $(BUILD_DIR)/asm/evt_case.o                     \
+    $(BUILD_DIR)/asm/evt_img.o                      \
+    $(BUILD_DIR)/asm/imgdrv.o                       \
+    $(BUILD_DIR)/asm/offscreendrv.o                 \
+    $(BUILD_DIR)/asm/evt_offscreen.o                \
+    $(BUILD_DIR)/asm/seq_battle.o                   \
+    $(BUILD_DIR)/asm/evt_hit.o                      \
+    $(BUILD_DIR)/asm/fontmgr.o                      \
+    $(BUILD_DIR)/asm/arc.o                          \
+    $(BUILD_DIR)/asm/arcdiv.o                       \
+    $(BUILD_DIR)/asm/seq_gameover.o                 \
+    $(BUILD_DIR)/asm/evt_bero.o                     \
+    $(BUILD_DIR)/asm/windowdrv.o                    \
+    $(BUILD_DIR)/asm/msgdrv.o                       \
+    $(BUILD_DIR)/asm/parse.o                        \
+    $(BUILD_DIR)/asm/database.o                     \
     $(BUILD_DIR)/asm/text.o
 
 CTORS_O_FILES :=                                    \
