@@ -60,6 +60,38 @@ TEXT_O_FILES :=                                     \
     $(BUILD_DIR)/asm/msgdrv.o                       \
     $(BUILD_DIR)/asm/parse.o                        \
     $(BUILD_DIR)/asm/database.o                     \
+    $(BUILD_DIR)/asm/swdrv.o                        \
+    $(BUILD_DIR)/asm/seq_logo.o                     \
+    $(BUILD_DIR)/asm/mot_walk.o                     \
+    $(BUILD_DIR)/asm/mario_hit.o                    \
+    $(BUILD_DIR)/asm/mario_motion.o                 \
+    $(BUILD_DIR)/asm/mario_sbr.o                    \
+    $(BUILD_DIR)/asm/mot_hammer.o                   \
+    $(BUILD_DIR)/asm/mot_jabara.o                   \
+    $(BUILD_DIR)/asm/mot_jump.o                     \
+    $(BUILD_DIR)/asm/mot_plane.o                    \
+    $(BUILD_DIR)/asm/mot_roll.o                     \
+    $(BUILD_DIR)/asm/mot_ship.o                     \
+    $(BUILD_DIR)/asm/mot_slit.o                     \
+    $(BUILD_DIR)/asm/mot_stay.o                     \
+    $(BUILD_DIR)/asm/evt_cam.o                      \
+    $(BUILD_DIR)/asm/evt_item.o                     \
+    $(BUILD_DIR)/asm/itemdrv.o                      \
+    $(BUILD_DIR)/asm/cardmgr.o                      \
+    $(BUILD_DIR)/asm/party_yoshi.o                  \
+    $(BUILD_DIR)/asm/party.o                        \
+    $(BUILD_DIR)/asm/party_bomhei.o                 \
+    $(BUILD_DIR)/asm/party_hit.o                    \
+    $(BUILD_DIR)/asm/party_kuribo.o                 \
+    $(BUILD_DIR)/asm/party_move.o                   \
+    $(BUILD_DIR)/asm/party_nokonoko.o               \
+    $(BUILD_DIR)/asm/evt_msg.o                      \
+    $(BUILD_DIR)/asm/mario_pouch.o                  \
+    $(BUILD_DIR)/asm/extdrv.o                       \
+    $(BUILD_DIR)/asm/evt_ext.o                      \
+    $(BUILD_DIR)/asm/pmario_sound.o                 \
+    $(BUILD_DIR)/asm/sound.o                        \
+    $(BUILD_DIR)/asm/evt_mario.o                    \
     $(BUILD_DIR)/asm/text.o
 
 CTORS_O_FILES :=                                    \
