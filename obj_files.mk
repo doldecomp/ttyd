@@ -28,6 +28,18 @@ TEXT_O_FILES :=                                     \
     $(BUILD_DIR)/asm/DEMOPad.o                      \
     $(BUILD_DIR)/asm/memory.o                       \
     $(BUILD_DIR)/asm/evtmgr_cmd.o                   \
+    $(BUILD_DIR)/asm/evtmgr.o                       \
+    $(BUILD_DIR)/asm/texPalette.o                   \
+    $(BUILD_DIR)/asm/evt_map.o                      \
+    $(BUILD_DIR)/asm/mapdata.o                      \
+    $(BUILD_DIR)/asm/animdrv.o                      \
+    $(BUILD_DIR)/asm/npcdrv.o                       \
+    $(BUILD_DIR)/asm/evt_npc.o                      \
+    $(BUILD_DIR)/asm/evt_sub.o                      \
+    $(BUILD_DIR)/asm/mario.o                        \
+    $(BUILD_DIR)/asm/effdrv.o                       \
+    $(BUILD_DIR)/asm/mobjdrv.o                      \
+    $(BUILD_DIR)/asm/evt_mobj.o                     \
     $(BUILD_DIR)/asm/text.o
 
 CTORS_O_FILES :=                                    \
