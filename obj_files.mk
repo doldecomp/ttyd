@@ -226,6 +226,59 @@ TEXT_O_FILES :=                                     \
     $(BUILD_DIR)/asm/eff_butterfly_n64.o            \
     $(BUILD_DIR)/asm/eff_cloud_n64.o                \
     $(BUILD_DIR)/asm/eff_coin_n64.o                 \
+    $(BUILD_DIR)/asm/eff_confetti_n64.o             \
+    $(BUILD_DIR)/asm/eff_cool_leaf_n64.o            \
+    $(BUILD_DIR)/asm/eff_crystal_n64.o              \
+    $(BUILD_DIR)/asm/eff_dogabon_attack_n64.o       \
+    $(BUILD_DIR)/asm/eff_expbom_n64.o               \
+    $(BUILD_DIR)/asm/eff_explosion_n64.o            \
+    $(BUILD_DIR)/asm/eff_fall_leaf_n64.o            \
+    $(BUILD_DIR)/asm/eff_fire_dust_n64.o            \
+    $(BUILD_DIR)/asm/eff_fire_ring_n64.o            \
+    $(BUILD_DIR)/asm/eff_fire_spark_n64.o           \
+    $(BUILD_DIR)/asm/eff_fireflower_n64.o           \
+    $(BUILD_DIR)/asm/eff_fireworks_n64.o            \
+    $(BUILD_DIR)/asm/eff_flame_n64.o                \
+    $(BUILD_DIR)/asm/eff_flower_n64.o               \
+    $(BUILD_DIR)/asm/eff_freeze_n64.o               \
+    $(BUILD_DIR)/asm/eff_gareki_n64.o               \
+    $(BUILD_DIR)/asm/eff_glass_n64.o                \
+    $(BUILD_DIR)/asm/eff_guruguru_n64.o             \
+    $(BUILD_DIR)/asm/eff_hatetaka_flush_n64.o       \
+    $(BUILD_DIR)/asm/eff_hit_n64.o                  \
+    $(BUILD_DIR)/asm/eff_hokori_n64.o               \
+    $(BUILD_DIR)/asm/eff_holography_n64.o           \
+    $(BUILD_DIR)/asm/eff_horao_spell_n64.o          \
+    $(BUILD_DIR)/asm/eff_ice_n64.o                  \
+    $(BUILD_DIR)/asm/eff_kameki_tornade_n64.o       \
+    $(BUILD_DIR)/asm/eff_kemuri1_n64.o              \
+    $(BUILD_DIR)/asm/eff_kemuri2_n64.o              \
+    $(BUILD_DIR)/asm/eff_kemuri3_n64.o              \
+    $(BUILD_DIR)/asm/eff_kemuri4_n64.o              \
+    $(BUILD_DIR)/asm/eff_kemuri5_n64.o              \
+    $(BUILD_DIR)/asm/eff_kemuri6_n64.o              \
+    $(BUILD_DIR)/asm/eff_kemuri7_n64.o              \
+    $(BUILD_DIR)/asm/eff_kemuri8_n64.o              \
+    $(BUILD_DIR)/asm/eff_kemuri9_n64.o              \
+    $(BUILD_DIR)/asm/eff_kemuri10_n64.o             \
+    $(BUILD_DIR)/asm/eff_kemuri11_n64.o             \
+    $(BUILD_DIR)/asm/eff_kemuri12_n64.o             \
+    $(BUILD_DIR)/asm/eff_kumokumo_chip_n64.o        \
+    $(BUILD_DIR)/asm/eff_kumokumo_n64.o             \
+    $(BUILD_DIR)/asm/eff_lensflare_n64.o            \
+    $(BUILD_DIR)/asm/eff_magic1_n64.o               \
+    $(BUILD_DIR)/asm/eff_magic2_n64.o               \
+    $(BUILD_DIR)/asm/eff_magic3_n64.o               \
+    $(BUILD_DIR)/asm/eff_magic_horao_n64.o          \
+    $(BUILD_DIR)/asm/eff_n64.o                      \
+    $(BUILD_DIR)/asm/eff_onpu_n64.o                 \
+    $(BUILD_DIR)/asm/eff_opuku_jetw_n64.o           \
+    $(BUILD_DIR)/asm/eff_opuku_jetwrain_n64.o       \
+    $(BUILD_DIR)/asm/eff_opuku_wcurtain_n64.o       \
+    $(BUILD_DIR)/asm/eff_opuku_wgun_n64.o           \
+    $(BUILD_DIR)/asm/eff_opuku_wprotect_n64.o       \
+    $(BUILD_DIR)/asm/eff_packn_bfire_n64.o          \
+    $(BUILD_DIR)/asm/eff_peach_dust_n64.o           \
     $(BUILD_DIR)/asm/text.o                         \
     $(BUILD_DIR)/asm/dolphin_lib.o
 
