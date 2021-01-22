@@ -168,6 +168,48 @@ TEXT_O_FILES :=                                     \
     $(BUILD_DIR)/asm/win_item.o                     \
     $(BUILD_DIR)/asm/win_mario.o                    \
     $(BUILD_DIR)/asm/win_log.o                      \
+    $(BUILD_DIR)/asm/evt_win.o                      \
+    $(BUILD_DIR)/asm/win_main.o                     \
+    $(BUILD_DIR)/asm/evt_cloud.o                    \
+    $(BUILD_DIR)/asm/unit_party_clauda.o            \
+    $(BUILD_DIR)/asm/unit_party_yoshi.o             \
+    $(BUILD_DIR)/asm/unit_party_chuchurina.o        \
+    $(BUILD_DIR)/asm/unit_party_sanders.o           \
+    $(BUILD_DIR)/asm/unit_party_vivian.o            \
+    $(BUILD_DIR)/asm/himo.o                         \
+    $(BUILD_DIR)/asm/party_vivian.o                 \
+    $(BUILD_DIR)/asm/party_cloud.o                  \
+    $(BUILD_DIR)/asm/party_chuchu.o                 \
+    $(BUILD_DIR)/asm/unit_party_nokotarou.o         \
+    $(BUILD_DIR)/asm/unit_party_christine.o         \
+    $(BUILD_DIR)/asm/battle_weapon_power.o          \
+    $(BUILD_DIR)/asm/filemgr.o                      \
+    $(BUILD_DIR)/asm/mot_hip.o                      \
+    $(BUILD_DIR)/asm/eff_fire.o                     \
+    $(BUILD_DIR)/asm/battle_actrecord.o             \
+    $(BUILD_DIR)/asm/battle_audience_kinopio.o      \
+    $(BUILD_DIR)/asm/battle_acrobat.o               \
+    $(BUILD_DIR)/asm/eff_spark.o                    \
+    $(BUILD_DIR)/asm/eff_updown.o                   \
+    $(BUILD_DIR)/asm/eff_charge.o                   \
+    $(BUILD_DIR)/asm/eff_toge_flush.o               \
+    $(BUILD_DIR)/asm/battle_status_effect.o         \
+    $(BUILD_DIR)/asm/eff_ice.o                      \
+    $(BUILD_DIR)/asm/eff_torch.o                    \
+    $(BUILD_DIR)/asm/eff_bomb.o                     \
+    $(BUILD_DIR)/asm/ac_shot.o                      \
+    $(BUILD_DIR)/asm/eff_ripple.o                   \
+    $(BUILD_DIR)/asm/evt_env.o                      \
+    $(BUILD_DIR)/asm/envdrv.o                       \
+    $(BUILD_DIR)/asm/ac_lst_rc_keep.o               \
+    $(BUILD_DIR)/asm/battle_audience.o              \
+    $(BUILD_DIR)/asm/mario_cam.o                    \
+    $(BUILD_DIR)/asm/unit_object_tree.o             \
+    $(BUILD_DIR)/asm/unit_object_switch.o           \
+    $(BUILD_DIR)/asm/battle_icon.o                  \
+    $(BUILD_DIR)/asm/evt_telop.o                    \
+    $(BUILD_DIR)/asm/ac_repeatedly_lv.o             \
+    $(BUILD_DIR)/asm/battle_message.o               \
     $(BUILD_DIR)/asm/text.o
 
 CTORS_O_FILES :=                                    \
