@@ -128,6 +128,46 @@ TEXT_O_FILES :=                                     \
     $(BUILD_DIR)/asm/mario_balloon.o                \
     $(BUILD_DIR)/asm/evt_nannpc.o                   \
     $(BUILD_DIR)/asm/eff_fukidashi.o                \
+    $(BUILD_DIR)/asm/eff_kemuri.o                   \
+    $(BUILD_DIR)/asm/eff_butterfly.o                \
+    $(BUILD_DIR)/asm/eff_confetti.o                 \
+    $(BUILD_DIR)/asm/mario_kemuri.o                 \
+    $(BUILD_DIR)/asm/evt_fade.o                     \
+    $(BUILD_DIR)/asm/evt_light.o                    \
+    $(BUILD_DIR)/asm/ac_repeatedly.o                \
+    $(BUILD_DIR)/asm/battle_stage.o                 \
+    $(BUILD_DIR)/asm/evt_audience.o                 \
+    $(BUILD_DIR)/asm/mot_damage.o                   \
+    $(BUILD_DIR)/asm/mot_yoshi.o                    \
+    $(BUILD_DIR)/asm/evt_batstage.o                 \
+    $(BUILD_DIR)/asm/statuswindow.o                 \
+    $(BUILD_DIR)/asm/evt_seq.o                      \
+    $(BUILD_DIR)/asm/eff_damage_star.o              \
+    $(BUILD_DIR)/asm/eff_hit.o                      \
+    $(BUILD_DIR)/asm/eff_mario_balloon.o            \
+    $(BUILD_DIR)/asm/eff_small_star.o               \
+    $(BUILD_DIR)/asm/eff_mugi.o                     \
+    $(BUILD_DIR)/asm/mario_party.o                  \
+    $(BUILD_DIR)/asm/eff_stardust.o                 \
+    $(BUILD_DIR)/asm/eff_recovery.o                 \
+    $(BUILD_DIR)/asm/eff_miss_star.o                \
+    $(BUILD_DIR)/asm/eff_nice.o                     \
+    $(BUILD_DIR)/asm/dvdmgr.o                       \
+    $(BUILD_DIR)/asm/unit_mario.o                   \
+    $(BUILD_DIR)/asm/evt_twoddisp.o                 \
+    $(BUILD_DIR)/asm/eff_breath_fire.o              \
+    $(BUILD_DIR)/asm/battle_attack_audience.o       \
+    $(BUILD_DIR)/asm/battle_stage_object.o          \
+    $(BUILD_DIR)/asm/mot_dokan.o                    \
+    $(BUILD_DIR)/asm/party_motion.o                 \
+    $(BUILD_DIR)/asm/evt_snd.o                      \
+    $(BUILD_DIR)/asm/arammgr.o                      \
+    $(BUILD_DIR)/asm/win_root.o                     \
+    $(BUILD_DIR)/asm/win_party.o                    \
+    $(BUILD_DIR)/asm/win_badge.o                    \
+    $(BUILD_DIR)/asm/win_item.o                     \
+    $(BUILD_DIR)/asm/win_mario.o                    \
+    $(BUILD_DIR)/asm/win_log.o                      \
     $(BUILD_DIR)/asm/text.o
 
 CTORS_O_FILES :=                                    \
