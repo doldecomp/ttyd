@@ -210,7 +210,24 @@ TEXT_O_FILES :=                                     \
     $(BUILD_DIR)/asm/evt_telop.o                    \
     $(BUILD_DIR)/asm/ac_repeatedly_lv.o             \
     $(BUILD_DIR)/asm/battle_message.o               \
-    $(BUILD_DIR)/asm/text.o
+    $(BUILD_DIR)/asm/eff_whirlwind_n64.o            \
+    $(BUILD_DIR)/asm/eff_akari_charge_n64.o         \
+    $(BUILD_DIR)/asm/eff_akari_pose_n64.o           \
+    $(BUILD_DIR)/asm/eff_akari_sflush_n64.o         \
+    $(BUILD_DIR)/asm/eff_balloon_heiho_n64.o        \
+    $(BUILD_DIR)/asm/eff_balloon_n64.o              \
+    $(BUILD_DIR)/asm/eff_blow_n64.o                 \
+    $(BUILD_DIR)/asm/eff_bomb_n64.o                 \
+    $(BUILD_DIR)/asm/eff_bomhei_n64.o               \
+    $(BUILD_DIR)/asm/eff_booboo_n64.o               \
+    $(BUILD_DIR)/asm/eff_breath_fire_n64.o          \
+    $(BUILD_DIR)/asm/eff_broken_barrier_n64.o       \
+    $(BUILD_DIR)/asm/eff_bush_n64.o                 \
+    $(BUILD_DIR)/asm/eff_butterfly_n64.o            \
+    $(BUILD_DIR)/asm/eff_cloud_n64.o                \
+    $(BUILD_DIR)/asm/eff_coin_n64.o                 \
+    $(BUILD_DIR)/asm/text.o                         \
+    $(BUILD_DIR)/asm/dolphin_lib.o
 
 CTORS_O_FILES :=                                    \
     $(BUILD_DIR)/asm/ctors.o
