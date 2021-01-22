@@ -19,8 +19,8 @@ TARGET := ttyd_jp
 
 BUILD_DIR := build/$(TARGET)
 
-SRC_DIRS := src
-ASM_DIRS := asm
+SRC_DIRS := src src/battle src/battle/ac src/battle/sac src/battle/unit src/eff src/evt src/mario src/mot src/party src/seq src/win
+ASM_DIRS := asm asm/battle asm/battle/ac asm/battle/sac asm/battle/unit asm/eff asm/evt asm/mario asm/mot asm/party asm/seq asm/win
 
 # Inputs
 S_FILES := $(wildcard asm/*.s)
