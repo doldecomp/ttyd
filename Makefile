@@ -72,11 +72,8 @@ PYTHON  := python3
 INCLUDES := -i . -I- -i include
 
 ASFLAGS := -mgekko -I include
-LDFLAGS := -map $(MAP) -fp hard
-CFLAGS  := -Cpp_exceptions off -proc gekko -fp hard -Os -nodefaults -msgstyle gcc $(INCLUDES)
-
-# for postprocess.py
-PROCFLAGS := -fprologue-fixup=old_stack
+LDFLAGS := -map $(MAP) -fp hard -nodefaults
+CFLAGS  := -Cpp_exceptions off -proc gekko -fp hard -O4,p -nodefaults -msgstyle gcc $(INCLUDES)
 
 # elf2dol needs to know these in order to calculate sbss correctly.
 SDATA_PDHR := 9
@@ -120,8 +117,7 @@ $(ELF): $(O_FILES) $(LDSCRIPT)
 $(BUILD_DIR)/%.o: %.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
-$(BUILD_DIR)/%.o: %.cpp
+$(BUILD_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
-	$(PYTHON) $(POSTPROC) $(PROCFLAGS) $@
 
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true

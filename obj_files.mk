@@ -92,6 +92,42 @@ TEXT_O_FILES :=                                     \
     $(BUILD_DIR)/asm/pmario_sound.o                 \
     $(BUILD_DIR)/asm/sound.o                        \
     $(BUILD_DIR)/asm/evt_mario.o                    \
+    $(BUILD_DIR)/asm/evt_door.o                     \
+    $(BUILD_DIR)/asm/evt_party.o                    \
+    $(BUILD_DIR)/asm/event.o                        \
+    $(BUILD_DIR)/asm/evt_shop.o                     \
+    $(BUILD_DIR)/asm/evt_pouch.o                    \
+    $(BUILD_DIR)/asm/evt_kinopio.o                  \
+    $(BUILD_DIR)/asm/npc_event.o                    \
+    $(BUILD_DIR)/asm/cam_shift.o                    \
+    $(BUILD_DIR)/asm/seq_load.o                     \
+    $(BUILD_DIR)/asm/evt_bg.o                       \
+    $(BUILD_DIR)/asm/battle.o                       \
+    $(BUILD_DIR)/asm/battle_ac.o                    \
+    $(BUILD_DIR)/asm/battle_damage.o                \
+    $(BUILD_DIR)/asm/battle_detect.o                \
+    $(BUILD_DIR)/asm/battle_disp.o                  \
+    $(BUILD_DIR)/asm/battle_event_cmd.o             \
+    $(BUILD_DIR)/asm/battle_event_default.o         \
+    $(BUILD_DIR)/asm/battle_event_subset.o          \
+    $(BUILD_DIR)/asm/battle_information.o           \
+    $(BUILD_DIR)/asm/battle_mario.o                 \
+    $(BUILD_DIR)/asm/battle_menu_disp.o             \
+    $(BUILD_DIR)/asm/battle_pad.o                   \
+    $(BUILD_DIR)/asm/battle_seq.o                   \
+    $(BUILD_DIR)/asm/battle_seq_command.o           \
+    $(BUILD_DIR)/asm/battle_sub.o                   \
+    $(BUILD_DIR)/asm/battle_unit.o                  \
+    $(BUILD_DIR)/asm/battle_unit_event.o            \
+    $(BUILD_DIR)/asm/ac_stick_keep_left.o           \
+    $(BUILD_DIR)/asm/ac_timing_a.o                  \
+    $(BUILD_DIR)/asm/evt_damage.o                   \
+    $(BUILD_DIR)/asm/battle_camera.o                \
+    $(BUILD_DIR)/asm/battle_item_data.o             \
+    $(BUILD_DIR)/asm/battle_monosiri.o              \
+    $(BUILD_DIR)/asm/mario_balloon.o                \
+    $(BUILD_DIR)/asm/evt_nannpc.o                   \
+    $(BUILD_DIR)/asm/eff_fukidashi.o                \
     $(BUILD_DIR)/asm/text.o
 
 CTORS_O_FILES :=                                    \
