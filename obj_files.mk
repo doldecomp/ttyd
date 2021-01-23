@@ -23,7 +23,7 @@ TEXT_O_FILES :=                                     \
     $(BUILD_DIR)/asm/lightdrv.o                     \
     $(BUILD_DIR)/asm/mapdrv.o                       \
     $(BUILD_DIR)/asm/shadowdrv.o                    \
-    $(BUILD_DIR)/asm/seq/seqdrv.o                   \
+    $(BUILD_DIR)/src/seq/seqdrv.o                   \
     $(BUILD_DIR)/asm/DEMOInit.o                     \
     $(BUILD_DIR)/asm/DEMOPad.o                      \
     $(BUILD_DIR)/asm/memory.o                       \

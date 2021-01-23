@@ -720,7 +720,7 @@ effMugiKemuri2Entry:
 /* 8013B3DC 001383DC  38 80 00 00 */	li r4, 0
 /* 8013B3E0 001383E0  93 BE 00 0C */	stw r29, 0xc(r30)
 /* 8013B3E4 001383E4  38 A0 01 F4 */	li r5, 0x1f4
-/* 8013B3E8 001383E8  4B EC 9C CD */	bl func_800050B4
+/* 8013B3E8 001383E8  4B EC 9C CD */	bl memset
 /* 8013B3EC 001383EC  3C 60 80 14 */	lis r3, effMugiKemuri2Main@ha
 /* 8013B3F0 001383F0  3C 80 80 2F */	lis r4, lbl_802F34F0@ha
 /* 8013B3F4 001383F4  38 03 AC F0 */	addi r0, r3, effMugiKemuri2Main@l
@@ -914,7 +914,7 @@ effMugiKemuriEntry:
 /* 8013B6C4 001386C4  38 80 00 00 */	li r4, 0
 /* 8013B6C8 001386C8  93 9F 00 0C */	stw r28, 0xc(r31)
 /* 8013B6CC 001386CC  38 A0 01 F4 */	li r5, 0x1f4
-/* 8013B6D0 001386D0  4B EC 99 E5 */	bl func_800050B4
+/* 8013B6D0 001386D0  4B EC 99 E5 */	bl memset
 /* 8013B6D4 001386D4  3C 80 80 14 */	lis r4, effMugiKemuriMain@ha
 /* 8013B6D8 001386D8  3C 60 80 2F */	lis r3, lbl_802F34F0@ha
 /* 8013B6DC 001386DC  38 04 B0 38 */	addi r0, r4, effMugiKemuriMain@l

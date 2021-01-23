@@ -153,14 +153,14 @@ lbl_80418518:
 .global lbl_80418538
 lbl_80418538:
 	.skip 0x20
-.global lbl_80418558
-lbl_80418558:
+.global next_p0
+next_p0:
 	.skip 0x4
-.global lbl_8041855C
-lbl_8041855C:
+.global next_p1
+next_p1:
 	.skip 0x4
-.global lbl_80418560
-lbl_80418560:
+.global seqWork
+seqWork:
 	.skip 0x20
 .global lbl_80418580
 lbl_80418580:

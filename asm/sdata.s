@@ -102,15 +102,19 @@ lbl_8040F480:
 .global lbl_8040F4A0
 lbl_8040F4A0:
 	.incbin "baserom.dol", 0x3BEA20, 0x10
-.global lbl_8040F4B0
-lbl_8040F4B0:
+    
+    # seqdrv
+.global now_seq
+now_seq:
 	.incbin "baserom.dol", 0x3BEA30, 0x4
-.global lbl_8040F4B4
-lbl_8040F4B4:
+.global next_seq
+next_seq:
 	.incbin "baserom.dol", 0x3BEA34, 0x4
-.global lbl_8040F4B8
-lbl_8040F4B8:
-	.incbin "baserom.dol", 0x3BEA38, 0x8
+.global prev_seq
+prev_seq:
+	.incbin "baserom.dol", 0x3BEA38, 0x4
+
+    .incbin "baserom.dol", 0x3BEA3C, 0x4
 .global lbl_8040F4C0
 lbl_8040F4C0:
 	.incbin "baserom.dol", 0x3BEA40, 0x8

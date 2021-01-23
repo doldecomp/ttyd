@@ -15,8 +15,8 @@ lbl_80302DC8:
 .global lbl_80302DE8
 lbl_80302DE8:
 	.incbin "baserom.dol", 0x2FFDE8, 0x58
-.global lbl_80302E40
-lbl_80302E40:
+.global seq_data
+seq_data:
 	.incbin "baserom.dol", 0x2FFE40, 0x60
 .global lbl_80302EA0
 lbl_80302EA0:
