@@ -12,12 +12,19 @@ typedef struct seqdrv_work {
 	u32 field_0x1C; //0x1C
 } seqdrv_work;
 
-struct UnkStruct80410310 {
-    char filler0[0x1314];
+// TODO: Port all symbols from known decomp
+struct MarioState {
+    char filler0[0x174];
+	u32 mGSW0; //0x174, first entry is a u32
+	u32 mGSFW[0x100]; //0x178
+	u8 mGSW[0x800]; //0x578
+	u32 mLSWF[0x10]; //0xD78
+	u8 mLSW[0x400]; //0xDB8
+    char filler11B8[0x15C];
     u32 tickStore1;
     u32 tickStore2;
 };
 
-extern struct UnkStruct80410310 *lbl_80410310;
+extern struct MarioState *gp; // gp
 
 #endif

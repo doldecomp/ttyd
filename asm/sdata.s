@@ -187,8 +187,8 @@ lbl_804102E4:
 .global lbl_80410308
 lbl_80410308:
 	.incbin "baserom.dol", 0x3BF888, 0x8
-.global lbl_80410310
-lbl_80410310:
+.global gp
+gp:
 	.incbin "baserom.dol", 0x3BF890, 0x4
 .global lbl_80410314
 lbl_80410314:

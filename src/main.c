@@ -11,8 +11,8 @@ void main(void) {
         DEMOBeforeRender();
         func_8006E66C();
         marioStMain();
-        lbl_80410310->tickStore1 = OSGetTick() - beforeTick;
+        gp->tickStore1 = OSGetTick() - beforeTick;
         DEMODoneRender();
-        lbl_80410310->tickStore2 = OSGetTick() - beforeTick;
+        gp->tickStore2 = OSGetTick() - beforeTick;
     }
 }

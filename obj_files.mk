@@ -60,7 +60,7 @@ TEXT_O_FILES :=                                     \
     $(BUILD_DIR)/asm/msgdrv.o                       \
     $(BUILD_DIR)/asm/parse.o                        \
     $(BUILD_DIR)/asm/database.o                     \
-    $(BUILD_DIR)/asm/swdrv.o                        \
+    $(BUILD_DIR)/src/swdrv.o                        \
     $(BUILD_DIR)/asm/seq/seq_logo.o                 \
     $(BUILD_DIR)/asm/mot/mot_walk.o                 \
     $(BUILD_DIR)/asm/mario/mario_hit.o              \
