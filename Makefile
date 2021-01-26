@@ -23,8 +23,9 @@ SRC_DIRS := src src/battle src/battle/ac src/battle/sac src/battle/unit src/eff 
 ASM_DIRS := asm asm/battle asm/battle/ac asm/battle/sac asm/battle/unit asm/eff asm/evt asm/mario asm/mot asm/party asm/seq asm/win
 
 # Inputs
-S_FILES := $(wildcard asm/*.s)
-CPP_FILES := $(wildcard src/*.cpp)
+S_FILES := $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
+C_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
+CPP_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
 LDSCRIPT := $(BUILD_DIR)/ldscript.lcf
 
 # Outputs
@@ -38,6 +39,9 @@ O_FILES := $(INIT_O_FILES) $(EXTAB_O_FILES) $(EXTABINDEX_O_FILES) $(TEXT_O_FILES
            $(CTORS_O_FILES) $(DTORS_O_FILES) $(RODATA_O_FILES) $(DATA_O_FILES)    \
            $(BSS_O_FILES) $(SDATA_O_FILES) $(SBSS_O_FILES) $(SDATA2_O_FILES) 	  \
 		   $(SBSS2_O_FILES)
+
+GLOBAL_ASM_C_FILES != grep -rl 'GLOBAL_ASM(' $(C_FILES)
+GLOBAL_ASM_O_FILES = $(addprefix $(BUILD_DIR)/,$(GLOBAL_ASM_C_FILES:.c=.o))
 
 #-------------------------------------------------------------------------------
 # Tools
@@ -65,6 +69,9 @@ LD      := $(WINE) tools/mwcc_compiler/GC/2.7/mwldeppc.exe
 ELF2DOL := tools/elf2dol
 SHA1SUM := sha1sum
 PYTHON  := python3
+
+ASM_PROCESSOR_DIR := tools/asm_processor
+ASM_PROCESSOR := $(ASM_PROCESSOR_DIR)/compile.sh
 
 #POSTPROC := tools/postprocess.py
 
@@ -114,10 +121,14 @@ $(ELF): $(O_FILES) $(LDSCRIPT)
 	$(LD) $(LDFLAGS) -o $@ -lcf $(LDSCRIPT) $(O_FILES)
 # The Metrowerks linker doesn't generate physical addresses in the ELF program headers. This fixes it somehow.
 	$(OBJCOPY) $@ $@
+
+$(GLOBAL_ASM_O_FILES): BUILD_C := $(ASM_PROCESSOR) "$(CC) $(CFLAGS)" "$(AS) $(ASFLAGS)"
+BUILD_C ?= $(CC) $(CFLAGS) -c -o
+
 $(BUILD_DIR)/%.o: %.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
 $(BUILD_DIR)/%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(BUILD_C) $@ $<
 
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true

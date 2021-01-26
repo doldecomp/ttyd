@@ -92,3 +92,8 @@ Entry Point: 0x80005240
 .set _SDA2_BASE_, 0x80421380
 
 .set NULL, 0x00000000
+
+.macro glabel label
+    .global \label
+    \label:
+.endm
