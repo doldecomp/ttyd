@@ -11,6 +11,7 @@ ttyd_jp.dol: `sha1: cf559d97fef1b3efb8788126250aee88f0491410`
 ### Required tools
 
 * [devkitPro](https://devkitpro.org/wiki/Getting_Started)
+* python3
 * gcc
 
 ### Instructions
