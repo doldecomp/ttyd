@@ -1,12 +1,14 @@
 #include "global.h"
 
-extern s32 now_seq; // lbl_8040F4B0
-extern s32 next_seq; // lbl_8040F4B4
-extern s32 prev_seq; // lbl_8040F4B8
+// .sdata symbols
+s32 now_seq = -1;
+s32 next_seq = -1;
+s32 prev_seq = -1;
 
-extern char* next_p0; // lbl_80418558
-extern char* next_p1; // lbl_8041855C
-extern seqdrv_work seqWork; // lbl_80418560
+// .sbss symbols
+seqdrv_work seqWork;
+char* next_p1;
+char* next_p0;
 
 BOOL seqCheckSeq(void);
 s32 seqGetNextSeq(void);
@@ -16,10 +18,16 @@ void seqSetSeq(s32 seq, char* p0, char* p1);
 void seqMain(void);
 void seqInit_MARIOSTORY(void);
 
-extern void sysWaitDrawSync(void);
-extern void(*seq_data[8][3])(seqdrv_work*);
-
-extern void memset(void *mem, int c, int size);
+void(*seq_data[8][3])(seqdrv_work*) = {
+	{seq_logoInit, seq_logoMain, seq_logoExit},
+	{seq_titleInit, seq_titleMain, seq_titleExit},
+	{seq_gameInit, seq_gameMain, seq_gameExit},
+	{seq_mapChangeInit, seq_mapChangeMain, seq_mapChangeExit},
+	{seq_battleInit, seq_battleMain, seq_battleExit},
+	{seq_gameOverInit, seq_gameOverMain, seq_gameOverExit},
+	{seq_loadInit, seq_loadMain, seq_loadExit},
+	{seq_e3Init, seq_e3Main, seq_e3Exit}
+};
 
 void seqInit_MARIOSTORY(void) {
 	memset(&seqWork, 0, sizeof(seqWork));
