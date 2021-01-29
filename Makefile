@@ -8,6 +8,25 @@ ifneq ($(findstring MSYS,$(shell uname)),)
   WINDOWS := 1
 endif
 
+# Import the SDK path variable and set the paths.
+SDK_BASE_PATH := $(SDK_BASE_PATH)
+SDK_LIB_PATH  := $(SDK_BASE_PATH)/HW2/lib
+SDK_INC_PATH  := $(SDK_BASE_PATH)/include
+
+# Check if SDK is not defined, error if not defined.
+ifeq ($(SDK_BASE_PATH),)
+$(error You have not defined SDK_BASE_PATH. Please ensure the Gamecube SDK is installed and point SDK_BASE_PATH as an environment variable to its location.)
+endif
+
+# Import the Codewarrior GC 2.7 path variable and set the include path as well.
+CW_BASE_PATH := $(CW_BASE_PATH)
+CW_INC_PATH  := $(CW_BASE_PATH)/PowerPC_EABI_Support/MSL/MSL_C
+
+# Check if CW is not defined, error if not defined.
+ifeq ($(CW_BASE_PATH),)
+$(error You have not defined CW_BASE_PATH. Please ensure Codewarrior for Gamecube is installed and point CW_BASE_PATH as an environment variable to its location.)
+endif
+
 #-------------------------------------------------------------------------------
 # Files
 #-------------------------------------------------------------------------------
@@ -84,11 +103,11 @@ ASM_PROCESSOR_DIR := tools/asm_processor
 ASM_PROCESSOR := $(ASM_PROCESSOR_DIR)/compile.sh
 
 # Options
-INCLUDES := -i . -I- -i include
+INCLUDES := -i . -I- -i include -i $(SDK_INC_PATH) -ir $(CW_INC_PATH)
 
 ASFLAGS := -mgekko -I include
 LDFLAGS := -map $(MAP) -fp hard -nodefaults -linkmode lessram
-CFLAGS  := -Cpp_exceptions off -proc gekko -fp hard -O4,p -nodefaults -msgstyle gcc -sdata 48 -sdata2 8 -inline deferred -use_lmw_stmw on $(INCLUDES)
+CFLAGS  := -Cpp_exceptions off -proc gekko -fp hard -O4,p -nodefaults -msgstyle gcc -sdata 48 -sdata2 8 -inline deferred -use_lmw_stmw on -enum int $(INCLUDES)
 
 # elf2dol needs to know these in order to calculate sbss correctly.
 SDATA_PDHR := 9

@@ -456,13 +456,15 @@ void write_dol(DOL_map *map, const char *dol)
 	}
     
     // align the DOL file to 0x100.
-    if(verbosity >= 2)
-        fprintf(stderr, "Aligning DOL to 256 bytes...\n");
-    unsigned int bytes_to_write = -(unsigned) fsize(dolf) & 0xff;
-    uint8_t zero[bytes_to_write]; // sigh
-    memset(zero, 0x00, sizeof(zero));
-    fwrite(zero, sizeof(zero[0]), bytes_to_write, dolf);
-	
+    if (verbosity >= 2)
+        fputs("Aligning DOL to 256 bytes...\n", stderr);
+    unsigned bytes_to_write = -(unsigned) fsize(dolf) & 0xff;
+    if (bytes_to_write) {
+        uint8_t zero[bytes_to_write];
+        memset(zero, 0, bytes_to_write);
+        fwrite(zero, 1, bytes_to_write, dolf);
+    }
+
 	if(verbosity >= 2)
 		fprintf(stderr, "All done!\n");
 	
