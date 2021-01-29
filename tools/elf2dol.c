@@ -399,6 +399,15 @@ void fcpy(FILE *dst, FILE *src, uint32_t dst_off, uint32_t src_off, uint32_t siz
 	free(blockbuf);
 }
 
+// https://stackoverflow.com/questions/238603/how-can-i-get-a-files-size-in-c
+int fsize(FILE *fp){
+    int prev=ftell(fp);
+    fseek(fp, 0L, SEEK_END);
+    int sz=ftell(fp);
+    fseek(fp,prev,SEEK_SET); //go back to where we were
+    return sz;
+}
+
 void write_dol(DOL_map *map, const char *dol)
 {
 	FILE *dolf;
@@ -445,6 +454,14 @@ void write_dol(DOL_map *map, const char *dol)
 		fcpy(dolf, map->elf, swap32(map->header.data_off[i]), map->data_elf_off[i],
 		     swap32(map->header.data_size[i]));
 	}
+    
+    // align the DOL file to 0x100.
+    if(verbosity >= 2)
+        fprintf(stderr, "Aligning DOL to 256 bytes...\n");
+    unsigned int bytes_to_write = -(unsigned) fsize(dolf) & 0xff;
+    uint8_t zero[bytes_to_write]; // sigh
+    memset(zero, 0x00, sizeof(zero));
+    fwrite(zero, sizeof(zero[0]), bytes_to_write, dolf);
 	
 	if(verbosity >= 2)
 		fprintf(stderr, "All done!\n");
