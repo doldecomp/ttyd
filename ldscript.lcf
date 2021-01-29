@@ -430,7 +430,9 @@ GROUP:{
         dtors.o(.dtors)
     }
     .rodata ALIGN(0x20):{
-        rodata.o(.rodata)
+        rodata_1.o(.rodata)
+        texPalette.o(.rodata)
+        rodata_2.o(.rodata)
     }
     .data ALIGN(0x20):{
         data_1.o(.data)

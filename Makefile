@@ -13,7 +13,12 @@ endif
 #-------------------------------------------------------------------------------
 
 # Import the SDK path variable and set the paths.
+ifeq ($(NOWINE),1)
+SDK_BASE_PATH := $(SDK_BASE_PATH_WIN)
+else
 SDK_BASE_PATH := $(SDK_BASE_PATH)
+endif
+
 SDK_LIB_PATH  := $(SDK_BASE_PATH)/HW2/lib
 SDK_INC_PATH  := $(SDK_BASE_PATH)/include
 
@@ -23,7 +28,11 @@ $(error You have not defined SDK_BASE_PATH. Please ensure the Gamecube SDK is in
 endif
 
 # Import the Codewarrior GC 2.7 path variable and set the include path as well.
+ifeq ($(NOWINE),1)
+CW_BASE_PATH := $(CW_BASE_PATH_WIN)
+else
 CW_BASE_PATH := $(CW_BASE_PATH)
+endif
 CW_INC_PATH  := $(CW_BASE_PATH)/PowerPC_EABI_Support/MSL/MSL_C
 
 # Check if CW is not defined, error if not defined.
@@ -42,14 +51,10 @@ TARGET := ttyd_jp
 
 BUILD_DIR := build/$(TARGET)
 
-# Create the folders via recursive search. We need a disgusting second one for each to catch
-# the sub-sub folders. This is not sustainable.
-ASM_DIRS := $(sort $(dir $(wildcard asm/*/)))
-ASM_DIRS += $(sort $(dir $(wildcard asm/*/*/)))
-SRC_DIRS := $(sort $(dir $(wildcard src/*/)))
-SRC_DIRS += $(sort $(dir $(wildcard src/*/*/)))
-DATA_DIRS := $(sort $(dir $(wildcard data/*/)))
-DATA_DIRS += $(sort $(dir $(wildcard data/*/*/)))
+# Create the folders via recursive search.
+ASM_DIRS := $(sort $(shell find asm -type d))
+SRC_DIRS := $(sort $(shell find src -type d))
+DATA_DIRS := $(sort $(shell find data -type d))
 
 # Apply the slash removal after SRC_DIRS is created, otherwise asm/ gets into SRC.
 ASM_DIRS := $(patsubst %/,%,$(ASM_DIRS))
@@ -111,11 +116,17 @@ INCLUDES := -i . -I- -i include -ir $(SDK_INC_PATH) -ir $(CW_INC_PATH)
 
 ASFLAGS := -mgekko -I include
 LDFLAGS := -map $(MAP) -fp hard -nodefaults -linkmode lessram
-CFLAGS  := -Cpp_exceptions off -proc gekko -fp hard -O4,p -nodefaults -msgstyle gcc -sdata 48 -sdata2 8 -inline all,deferred -use_lmw_stmw on -enum int $(INCLUDES)
+CFLAGS  := -Cpp_exceptions off -proc gekko -fp hard -O4,p -nodefaults -msgstyle gcc -sdata 48 -sdata2 8 -inline all,deferred -use_lmw_stmw on -enum int -rostr $(INCLUDES)
 
 # elf2dol needs to know these in order to calculate sbss correctly.
 SDATA_PDHR := 9
 SBSS_PDHR := 10
+
+#-------------------------------------------------------------------------------
+# File Overrides
+#-------------------------------------------------------------------------------
+
+$(BUILD_DIR)/src/texPalette.o: CFLAGS := -Cpp_exceptions off -proc gekko -fp hard -O4,p -nodefaults -msgstyle gcc -sdata 48 -sdata2 0 -inline all,deferred -use_lmw_stmw on -enum int -rostr $(INCLUDES)
 
 #-------------------------------------------------------------------------------
 # Recipes
