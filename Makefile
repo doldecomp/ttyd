@@ -103,7 +103,7 @@ ASM_PROCESSOR_DIR := tools/asm_processor
 ASM_PROCESSOR := $(ASM_PROCESSOR_DIR)/compile.sh
 
 # Options
-INCLUDES := -i . -I- -i include -i $(SDK_INC_PATH) -ir $(CW_INC_PATH)
+INCLUDES := -i . -I- -i include -ir $(SDK_INC_PATH) -ir $(CW_INC_PATH)
 
 ASFLAGS := -mgekko -I include
 LDFLAGS := -map $(MAP) -fp hard -nodefaults -linkmode lessram
