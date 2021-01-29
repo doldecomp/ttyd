@@ -5,8 +5,6 @@ void UnpackTexPalette(TPLHeader* header);
 TPLImageEntry* TEXGet(TPLHeader* header, u32 id);
 void TEXGetGXTexObjFromPalette(TPLHeader* header, GXTexObj* obj, u32 id);
 
-static const float myfloat = 176.0f;
-
 void UnpackTexPalette(TPLHeader* header) {
     TPLImageEntry* entry;
     u16 i;
@@ -35,11 +33,11 @@ void UnpackTexPalette(TPLHeader* header) {
 }
 
 TPLImageEntry* TEXGet(TPLHeader* header, u32 id) {
-	return &header->imageTable[id];
+    return &header->imageTable[id];
 }
 
 void TEXGetGXTexObjFromPalette(TPLHeader* header, GXTexObj* obj, u32 id) {
-	TPLImageEntry* entry = TEXGet(header, id);
+    TPLImageEntry* entry = TEXGet(header, id);
     GXBool mybool;
     
     if (entry->image->minLOD == entry->image->maxLOD) {
@@ -48,26 +46,26 @@ void TEXGetGXTexObjFromPalette(TPLHeader* header, GXTexObj* obj, u32 id) {
        mybool = TRUE;
     }
 
-	GXInitTexObj(
-		obj,
-		entry->image->data,
-		entry->image->width,
-		entry->image->height,
-		entry->image->format,
-		entry->image->wrapS,
-		entry->image->wrapT,
-		mybool
-	);
+    GXInitTexObj(
+        obj,
+        entry->image->data,
+        entry->image->width,
+        entry->image->height,
+        entry->image->format,
+        entry->image->wrapS,
+        entry->image->wrapT,
+        mybool
+    );
 
-	GXInitTexObjLOD(
-		obj,
-		entry->image->minFilter,
-		entry->image->magFilter,
-		entry->image->minLOD,
-		entry->image->maxLOD,
-		entry->image->LODBias,
-		GX_DISABLE,
-		entry->image->edgeLODEnable,
-		GX_ANISO_1
-	);
+    GXInitTexObjLOD(
+        obj,
+        entry->image->minFilter,
+        entry->image->magFilter,
+        entry->image->minLOD,
+        entry->image->maxLOD,
+        entry->image->LODBias,
+        GX_DISABLE,
+        entry->image->edgeLODEnable,
+        GX_ANISO_1
+    );
 }
