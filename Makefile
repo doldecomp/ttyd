@@ -19,11 +19,23 @@ TARGET := ttyd_jp
 
 BUILD_DIR := build/$(TARGET)
 
-SRC_DIRS := src src/battle src/battle/ac src/battle/sac src/battle/unit src/eff src/evt src/mario src/mot src/party src/seq src/win
-ASM_DIRS := asm asm/battle asm/battle/ac asm/battle/sac asm/battle/unit asm/eff asm/evt asm/mario asm/mot asm/party asm/seq asm/win
+# Create the folders via recursive search. We need a disgusting second one for each to catch
+# the sub-sub folders. This is not sustainable.
+ASM_DIRS := $(sort $(dir $(wildcard asm/*/)))
+ASM_DIRS += $(sort $(dir $(wildcard asm/*/*/)))
+SRC_DIRS := $(sort $(dir $(wildcard src/*/)))
+SRC_DIRS += $(sort $(dir $(wildcard src/*/*/)))
+DATA_DIRS := $(sort $(dir $(wildcard data/*/)))
+DATA_DIRS += $(sort $(dir $(wildcard data/*/*/)))
+
+# Apply the slash removal after SRC_DIRS is created, otherwise asm/ gets into SRC.
+ASM_DIRS := $(patsubst %/,%,$(ASM_DIRS))
+SRC_DIRS := $(patsubst %/,%,$(SRC_DIRS))
+DATA_DIRS := $(patsubst %/,%,$(DATA_DIRS))
 
 # Inputs
 S_FILES := $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
+DATA_FILES := $(foreach dir,$(DATA_DIRS),$(wildcard $(dir)/*.s))
 C_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 CPP_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
 LDSCRIPT := $(BUILD_DIR)/ldscript.lcf
@@ -33,9 +45,10 @@ DOL     := $(BUILD_DIR)/$(TARGET).dol
 ELF     := $(DOL:.dol=.elf)
 MAP     := $(BUILD_DIR)/$(TARGET).map
 
-O_FILES := $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file:.c=.o)) \
+O_FILES := $(sort $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file:.c=.o)) \
            $(foreach file,$(CPP_FILES),$(BUILD_DIR)/$(file:.cpp=.o)) \
-           $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file:.s=.o))
+           $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file:.s=.o))) \
+           $(foreach file,$(DATA_FILES),$(BUILD_DIR)/$(file:.s=.o))
 
 GLOBAL_ASM_C_FILES != grep -rl 'GLOBAL_ASM(' $(C_FILES)
 GLOBAL_ASM_O_FILES = $(addprefix $(BUILD_DIR)/,$(GLOBAL_ASM_C_FILES:.c=.o))
@@ -61,7 +74,7 @@ AS      := $(DEVKITPPC)/bin/powerpc-eabi-as
 OBJCOPY := $(DEVKITPPC)/bin/powerpc-eabi-objcopy
 CPP     := cpp -P
 CC      := $(WINE) tools/mwcc_compiler/$(MWCC_VERSION)/mwcceppc.exe
-# Due to bss erroring on less than 2.7, we have to use the 2.7 linker.
+# Due to bss erroring on less than 2.7, we have to use the 2.7 linker. Metrowerks, please.
 LD      := $(WINE) tools/mwcc_compiler/GC/2.7/mwldeppc.exe
 ELF2DOL := tools/elf2dol
 SHA1SUM := sha1sum
@@ -70,13 +83,11 @@ PYTHON  := python3
 ASM_PROCESSOR_DIR := tools/asm_processor
 ASM_PROCESSOR := $(ASM_PROCESSOR_DIR)/compile.sh
 
-#POSTPROC := tools/postprocess.py
-
 # Options
 INCLUDES := -i . -I- -i include
 
 ASFLAGS := -mgekko -I include
-LDFLAGS := -map $(MAP) -fp hard -nodefaults
+LDFLAGS := -map $(MAP) -fp hard -nodefaults -linkmode lessram
 CFLAGS  := -Cpp_exceptions off -proc gekko -fp hard -O4,p -nodefaults -msgstyle gcc -sdata 48 -sdata2 8 -inline deferred -use_lmw_stmw on $(INCLUDES)
 
 # elf2dol needs to know these in order to calculate sbss correctly.
@@ -93,7 +104,7 @@ default: all
 
 all: $(DOL)
 
-ALL_DIRS := build $(BUILD_DIR) $(addprefix $(BUILD_DIR)/,$(SRC_DIRS) $(ASM_DIRS))
+ALL_DIRS := build $(BUILD_DIR) $(addprefix $(BUILD_DIR)/,$(SRC_DIRS) $(ASM_DIRS) $(DATA_DIRS))
 
 # Make sure build directory exists before compiling anything
 DUMMY != mkdir -p $(ALL_DIRS)
