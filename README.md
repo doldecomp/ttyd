@@ -4,7 +4,7 @@ This repo contains a WIP decompilation of Paper Mario: The Thousand Year Door (J
 
 It builds the following DOL:
 
-ttyd_jp.dol: `sha1: cf559d97fef1b3efb8788126250aee88f0491410`
+ttyd_jp.dol: `sha1: f32946b545e9956f62ee79f162ac2b68733a0878`
 
 ## Building
 
