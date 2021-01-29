@@ -59,7 +59,7 @@ GROUP:{
         evt_hit.o(.text)
         fontmgr.o(.text)
         arc.o(.text)
-        arcdiv.o(.text)
+        arcdiv.o(.text)    
         seq_gameover.o(.text)
         evt_bero.o(.text)
         windowdrv.o(.text)

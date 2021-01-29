@@ -33,5 +33,11 @@ extern void seq_loadExit(seqdrv_work* work);
 extern void seq_e3Init(seqdrv_work* work);
 extern void seq_e3Main(seqdrv_work* work);
 extern void seq_e3Exit(seqdrv_work* work);
+extern void* ARCGetStartAddrInMem(const rxArchiveFile* self);
+extern u32 ARCGetLength(const rxArchiveFile* self);
+extern BOOL ARCOpen(const rxArchive* self, const char* path,
+                       rxArchiveFile* pOut);
+extern BOOL ARCClose(rxArchiveFile* self);
+extern BOOL ARCInitHandle(void* pData, rxArchive* pOut);
 
 #endif
