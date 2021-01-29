@@ -8,6 +8,10 @@ ifneq ($(findstring MSYS,$(shell uname)),)
   WINDOWS := 1
 endif
 
+#-------------------------------------------------------------------------------
+# Gamecube SDK and Codewarrior Includes
+#-------------------------------------------------------------------------------
+
 # Import the SDK path variable and set the paths.
 SDK_BASE_PATH := $(SDK_BASE_PATH)
 SDK_LIB_PATH  := $(SDK_BASE_PATH)/HW2/lib
@@ -107,7 +111,7 @@ INCLUDES := -i . -I- -i include -ir $(SDK_INC_PATH) -ir $(CW_INC_PATH)
 
 ASFLAGS := -mgekko -I include
 LDFLAGS := -map $(MAP) -fp hard -nodefaults -linkmode lessram
-CFLAGS  := -Cpp_exceptions off -proc gekko -fp hard -O4,p -nodefaults -msgstyle gcc -sdata 48 -sdata2 8 -inline deferred -use_lmw_stmw on -enum int $(INCLUDES)
+CFLAGS  := -Cpp_exceptions off -proc gekko -fp hard -O4,p -nodefaults -msgstyle gcc -sdata 48 -sdata2 8 -inline all,deferred -use_lmw_stmw on -enum int $(INCLUDES)
 
 # elf2dol needs to know these in order to calculate sbss correctly.
 SDATA_PDHR := 9

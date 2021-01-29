@@ -37,23 +37,24 @@ void seqInit_MARIOSTORY(void) {
 }
 
 void seqMain(void) {
-	if (next_seq != now_seq) {
-        // ?!? This seems to inline seqGetSeq, but I can't reproduce this, not
-        // even with -inline deferred on...
-		if ((s32)now_seq != -1) {
+	if (seqGetNextSeq() != seqGetSeq()) { // why cant you use seqCheckSeq()...
+        // why make a temp? this temp cant be used for the below now_seq
+        // inlined usage.
+        s32 seq = seqGetSeq();
+		if (seq != -1) {
 			sysWaitDrawSync();
-			(*seq_data[now_seq][2])(&seqWork); //call Exit function
+			(*seq_data[seqGetSeq()][2])(&seqWork); //call Exit function
 		}
-		prev_seq = now_seq; //move back
+		prev_seq = seqGetSeq(); //move back
 		memset(&seqWork, 0, sizeof(seqWork));
-		now_seq = next_seq;
-		seqWork.field_0x0 = next_seq;
+		now_seq = seqGetNextSeq();
+		seqWork.field_0x0 = seqGetNextSeq();
 		seqWork.field_0x4 = 0;
 		seqWork.field_0x8 = next_p0;
 		seqWork.field_0xC = next_p1;
-		(*seq_data[next_seq][0])(&seqWork); //call Init function
+		(*seq_data[seqGetNextSeq()][0])(&seqWork); //call Init function
 	}
-	(*seq_data[now_seq][1])(&seqWork); //call Main function
+	(*seq_data[seqGetSeq()][1])(&seqWork); //call Main function
 }
 
 void seqSetSeq(s32 seq, char* p0, char* p1) {
