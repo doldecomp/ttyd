@@ -9,7 +9,7 @@ import os
 from collections import namedtuple
 from io import StringIO
 
-MAX_FN_SIZE = 100
+MAX_FN_SIZE = 999999 # Due to supporting deferred, this needs to be larger as a hack. TODO: Better fix?
 SLOW_CHECKS = False
 
 EI_NIDENT     = 16
@@ -879,6 +879,12 @@ def parse_source(f, opt, framepointer, input_enc, output_enc, print_source=None)
 
     return asm_functions
 
+# https://www.geeksforgeeks.org/python-reversing-list/
+# Reversing a list using slicing technique 
+def Reverse(lst): 
+    new_lst = lst[::-1] 
+    return new_lst 
+
 def fixup_objfile(objfile_name, functions, asm_prelude, assembler, output_enc):
     SECTIONS = ['.data', '.text', '.rodata', '.bss', '.sdata', '.sdata2', '.sbss']
 
@@ -916,6 +922,11 @@ def fixup_objfile(objfile_name, functions, asm_prelude, assembler, output_enc):
     # simplicity we pad with nops/.space so that addresses match exactly, so we
     # don't have to fix up relocations/symbol references.
     all_text_glabels = set()
+
+    # if deferred is passed, functions are in reverse order. Reverse the list accordingly.
+    if deferred == True:
+       functions = Reverse(functions)
+
     for function in functions:
         ifdefed = False
         for sectype, (temp_name, size) in function.data.items():

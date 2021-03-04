@@ -164,7 +164,13 @@ $(ELF): $(LDSCRIPT) $(O_FILES)
 # The Metrowerks linker doesn't generate physical addresses in the ELF program headers. This fixes it somehow.
 	$(OBJCOPY) $@ $@
 
-$(GLOBAL_ASM_O_FILES): BUILD_C := $(ASM_PROCESSOR) "$(CC) $(CFLAGS)" "$(AS) $(ASFLAGS)"
+# Add deferred if needed. Put a stub flag there so compile.sh doesn't complain.
+ifeq ($(findstring deferred,$(CFLAGS)),deferred)
+$(GLOBAL_ASM_O_FILES): BUILD_C := $(ASM_PROCESSOR) "$(CC) $(CFLAGS)" "$(AS) $(ASFLAGS)" "-deferred"
+else
+$(GLOBAL_ASM_O_FILES): BUILD_C := $(ASM_PROCESSOR) "$(CC) $(CFLAGS)" "$(AS) $(ASFLAGS)" "-nodeferred"
+endif
+
 BUILD_C ?= $(CC) $(CFLAGS) -c -o
 
 $(BUILD_DIR)/%.o: %.s
