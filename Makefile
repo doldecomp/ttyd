@@ -61,6 +61,9 @@ ASM_DIRS := $(patsubst %/,%,$(ASM_DIRS))
 SRC_DIRS := $(patsubst %/,%,$(SRC_DIRS))
 DATA_DIRS := $(patsubst %/,%,$(DATA_DIRS))
 
+# Now get rid of non-matchings from asm/, otherwise the assembler attempts to build these.
+ASM_DIRS := $(filter-out $(sort $(shell find asm/non_matchings -type d)),$(ASM_DIRS))
+
 # Inputs
 S_FILES := $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
 DATA_FILES := $(foreach dir,$(DATA_DIRS),$(wildcard $(dir)/*.s))
