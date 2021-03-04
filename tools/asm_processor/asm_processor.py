@@ -885,7 +885,7 @@ def Reverse(lst):
     new_lst = lst[::-1] 
     return new_lst 
 
-def fixup_objfile(objfile_name, functions, asm_prelude, assembler, output_enc):
+def fixup_objfile(objfile_name, functions, asm_prelude, assembler, output_enc, deferred):
     SECTIONS = ['.data', '.text', '.rodata', '.bss', '.sdata', '.sdata2', '.sbss']
 
     with open(objfile_name, 'rb') as f:
@@ -1194,6 +1194,8 @@ def run_wrapped(argv, outfile):
     parser.add_argument('--input-enc', default='latin1', help="Input encoding (default: latin1)")
     parser.add_argument('--output-enc', default='latin1', help="Output encoding (default: latin1)")
     parser.add_argument('-framepointer', dest='framepointer', action='store_true')
+    parser.add_argument('-deferred', dest='deferred', action='store_true')
+    parser.add_argument('-nodeferred', dest='deferred', action='store_false')
     parser.add_argument('-g3', dest='g3', action='store_true')
     group = parser.add_mutually_exclusive_group(required=False)
     group.add_argument('-O1', dest='opt', action='store_const', const='O1')
@@ -1220,7 +1222,7 @@ def run_wrapped(argv, outfile):
         if args.asm_prelude:
             with open(args.asm_prelude, 'rb') as f:
                 asm_prelude = f.read()
-        fixup_objfile(args.objfile, functions, asm_prelude, args.assembler, args.output_enc)
+        fixup_objfile(args.objfile, functions, asm_prelude, args.assembler, args.output_enc, args.deferred)
 
 def run(argv, outfile=sys.stdout.buffer):
     try:
