@@ -1,27 +1,93 @@
-# Paper Mario: The Thousand Year Door
 
-This repo contains a WIP decompilation of Paper Mario: The Thousand Year Door (JP).
+# Paper Mario : The Thousand Year Door [![Discord Badge]][Discord]
 
-It builds the following DOL:
+*A* ***WIP*** *decompilation of the* ***JP*** *version.*
 
-ttyd_jp.dol: `sha1: f32946b545e9956f62ee79f162ac2b68733a0878`
+<br>
+
+---
+
+## DOL
+
+*The* ***DOL*** *built with this repository.*
+
+**File** : `ttyd_jp.dol` <br>
+**SHA1** : `f32946b545e9956f62ee79f162ac2b68733a0878`
+
+---
+
+
+<br>
+
 
 ## Building
 
-### Required packages
+### Requirements
 
-* [devkitPro](https://devkitpro.org/wiki/Getting_Started)
-* python3
-* gcc
+- **[DevKitPro]**
+
+- **[Python3]**
+
+    ```sh
+    pacman -S msys/python3
+    ```
+
+- **[GCC]**
+
+    ```sh
+    pacman -S gcc
+    ```
+
+<br>
 
 ### Instructions
 
-1. Download the Gamecube SDK and make an environment variable called SDK_BASE_PATH that points to this folder such that the folder root has both the HW2 and include folders.
-2. Download the Codewarrior for Gamecube (preferrably 2.7 since it can be found in full) and install it and make CW_BASE_PATH point to this folder where it is installed.
-3. Obtain a clean DOL of TTYD JP and place it in the base working directory and name it `baserom.dol`.
-4. Download GC_WII_COMPILERS.zip from (https://cdn.discordapp.com/attachments/704241951972524063/801641758249320478/GC_WII_COMPILERS.zip) and extract it to tools/mwcc_compiler/.
-5. Run the `make` command
+1. Download the **Gamecube SDK**.
+
+2. Create an **Environment Variable** called  <br>
+   `SDK_BASE_PATH` pointing to its root folder.
+
+   *The root folder should contain* <br>
+   *the `HW2` & `include` folders.*
+
+3. Install **Codewarrior** for the Gamecube.
+
+   *Preferrably use `v2.7` as it can be found in full.*
+
+4. Create an **Environment Variable** called <br>
+  `CW_BASE_PATH` pointing to the installation folder.
+
+5. Obtain a clean **DOL** of `The Thousand Year Door JP` .
+
+6. Place it in the root folder with `baserom.dol` as its name.
+
+7. Download <kbd>**[GC_WII_COMPILERS.zip][GC]**</kbd>
+
+8. Extract it's content to `/tools/mwcc_compiler/` .
+
+9. Run the **Make** command :
+
+    ```sh
+    make
+    ```
+
+<br>
+
+---
+
+<br>
 
 ## Contributions
 
-Contributions and PRs are welcome.
+*`Contributions` / `Pull Requests` are welcome !*
+
+
+<!----------------------------------------------------------------------------->
+
+[DevKitPro]: https://devkitpro.org/wiki/Getting_Started
+[Python3]: https://www.python.org/
+[GCC]: https://gcc.gnu.org/
+[GC]: https://cdn.discordapp.com/attachments/727918646525165659/917185027656286218/GC_WII_COMPILERS.zip
+
+[Discord Badge]: https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white
+[Discord]: https://discord.gg/hKx3FJJgrV
