@@ -38,7 +38,7 @@ f32946b545e9956f62ee79f162ac2b68733a0878
 <!----------------------------------------------------------------------------->
 
 [Discord]: https://discord.gg/hKx3FJJgrV
-[Issues]: https://github.com/doldecomp/sms/issues
+[Issues]: https://github.com/doldecomp/ttyd/issues
 
 [Build]: docs/Building.md
 
