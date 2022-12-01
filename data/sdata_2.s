@@ -2,7 +2,7 @@
 
 
 .section .sdata, "wa"  # 0x8040F260 - 0x80418360
-
+lbl_sdata:
     .incbin "baserom.dol", 0x3BEA3C, 0x4
 .global lbl_8040F4C0
 lbl_8040F4C0:
