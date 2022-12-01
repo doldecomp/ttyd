@@ -1,6 +1,3 @@
-# If defined, wine is not used.
-NOWINE ?= 0
-
 ifneq ($(findstring MINGW,$(shell uname)),)
   WINDOWS := 1
 endif
@@ -8,84 +5,104 @@ ifneq ($(findstring MSYS,$(shell uname)),)
   WINDOWS := 1
 endif
 
+# If 0, tells the console to chill out. (Quiets the make process.)
+VERBOSE ?= 0
+
+# If MAPGENFLAG set to 1, tells LDFLAGS to generate a mapfile, which makes linking take slightly longer.
+MAPGENFLAG ?= 1
+
+ifeq ($(VERBOSE),0)
+  QUIET := @
+endif
+
 #-------------------------------------------------------------------------------
 # Files
 #-------------------------------------------------------------------------------
 
-# Used for elf2dol
-USES_SBSS2 := yes
+NAME := ttyd
+VERSION ?= jp
 
-TARGET := ttyd_jp
-
-BUILD_DIR := build/$(TARGET)
-
-# Create the folders via recursive search.
-ASM_DIRS := $(sort $(shell find asm -type d))
-SRC_DIRS := $(sort $(shell find src -type d))
-DATA_DIRS := $(sort $(shell find data -type d))
-
-# Apply the slash removal after SRC_DIRS is created, otherwise asm/ gets into SRC.
-ASM_DIRS := $(patsubst %/,%,$(ASM_DIRS))
-SRC_DIRS := $(patsubst %/,%,$(SRC_DIRS))
-DATA_DIRS := $(patsubst %/,%,$(DATA_DIRS))
-
-# Now get rid of non-matchings from asm/, otherwise the assembler attempts to build these.
-ASM_DIRS := $(filter-out $(sort $(shell find asm/non_matchings -type d)),$(ASM_DIRS))
+BUILD_DIR := build/$(NAME).$(VERSION)
 
 # Inputs
-C_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
+S_FILES := $(wildcard asm/*.s)
+C_FILES := $(wildcard src/*.c)
+CPP_FILES := $(wildcard src/*.cpp)
+CPP_FILES += $(wildcard src/*.cp)
 LDSCRIPT := $(BUILD_DIR)/ldscript.lcf
 
 # Outputs
-DOL     := $(BUILD_DIR)/$(TARGET).dol
+DOL     := $(BUILD_DIR)/main.dol
 ELF     := $(DOL:.dol=.elf)
-MAP     := $(BUILD_DIR)/$(TARGET).map
+MAP     := $(BUILD_DIR)/$(NAME).$(VERSION).map
+
+ifeq ($(MAPGENFLAG),1)
+  MAPGEN := -map $(MAP)
+endif
 
 include obj_files.mk
-O_FILES := $(ALL)
 
-GLOBAL_ASM_C_FILES != grep -rl 'GLOBAL_ASM(' $(C_FILES)
-GLOBAL_ASM_O_FILES = $(addprefix $(BUILD_DIR)/,$(GLOBAL_ASM_C_FILES:.c=.o))
+O_FILES := $(ALL)
+DEPENDS := $(O_FILES:.o=.d)
+# If a specific .o file is passed as a target, also process its deps
+DEPENDS += $(MAKECMDGOALS:.o=.d)
 
 #-------------------------------------------------------------------------------
 # Tools
 #-------------------------------------------------------------------------------
 
 MWCC_VERSION := GC/1.3.2
+MWLD_VERSION := GC/1.3.2
 
 # Programs
 ifeq ($(WINDOWS),1)
   WINE :=
+  AS      := $(DEVKITPPC)/bin/powerpc-eabi-as.exe
+  CPP     := $(DEVKITPPC)/bin/powerpc-eabi-cpp.exe -P
+  PYTHON  := python
 else
-  WINE := wine
+  WIBO   := $(shell command -v wibo 2> /dev/null)
+  ifdef WIBO
+    WINE ?= wibo
+  else
+    WINE ?= wine
+  endif
+  # Disable wine debug output for cleanliness
+  export WINEDEBUG ?= -all
+  # Default devkitPPC path
+  DEVKITPPC ?= /opt/devkitpro/devkitPPC
+  DEPENDS   := $(DEPENDS:.d=.d.unix)
+  AS      := $(DEVKITPPC)/bin/powerpc-eabi-as
+  CPP     := $(DEVKITPPC)/bin/powerpc-eabi-cpp -P
+  PYTHON  := python3
 endif
-
-ifeq ($(NOWINE),1)
-  WINE :=
-endif
-
-AS      := $(DEVKITPPC)/bin/powerpc-eabi-as
-OBJCOPY := $(DEVKITPPC)/bin/powerpc-eabi-objcopy
-CPP     := cpp -P
-CC      := $(WINE) tools/mwcc_compiler/$(MWCC_VERSION)/mwcceppc.exe
-LD      := $(WINE) tools/mwcc_compiler/$(MWCC_VERSION)/mwldeppc.exe
+CC      = $(WINE) tools/mwcc_compiler/$(MWCC_VERSION)/mwcceppc.exe
+LD      := $(WINE) tools/mwcc_compiler/$(MWLD_VERSION)/mwldeppc.exe
 ELF2DOL := tools/elf2dol
 SHA1SUM := sha1sum
-PYTHON  := python3
 
-ASM_PROCESSOR_DIR := tools/asm_processor
-ASM_PROCESSOR := $(ASM_PROCESSOR_DIR)/compile.sh
+TRANSFORM_DEP := tools/transform-dep.py
+FRANK := tools/franklite.py
 
 # Options
-INCLUDES := -i . -I- -i include
+INCLUDES := -i include/
+ASM_INCLUDES := -I include/
 
-ASFLAGS := -mgekko -I include
-LDFLAGS := -map $(MAP) -fp hard -nodefaults
-CFLAGS  := -Cpp_exceptions off -proc gekko -fp hard -O4,p -nodefaults -msgstyle gcc -sdata 48 -sdata2 8 -inline all,deferred -use_lmw_stmw on -enum int -rostr $(INCLUDES)
+ASFLAGS := -mgekko $(ASM_INCLUDES)
+ifeq ($(VERBOSE),1)
+# this set of LDFLAGS outputs warnings.
+LDFLAGS := $(MAPGEN) -fp hard -nodefaults
+endif
+ifeq ($(VERBOSE),0)
+# this set of LDFLAGS generates no warnings.
+LDFLAGS := $(MAPGEN) -fp hard -nodefaults -w off
+endif
+CFLAGS  := -Cpp_exceptions off -proc gekko -fp hard -O4,p -nodefaults -sdata 48 -sdata2 8 -inline all,deferred -use_lmw_stmw on -enum int -rostr $(INCLUDES)
 
-# elf2dol needs to know these in order to calculate sbss correctly.
-SDATA_PDHR := 9
-SBSS_PDHR := 10
+ifeq ($(VERBOSE),0)
+# this set of ASFLAGS generates no warnings.
+ASFLAGS += -W
+endif
 
 #-------------------------------------------------------------------------------
 # File Overrides
@@ -103,7 +120,7 @@ default: all
 
 all: $(DOL)
 
-ALL_DIRS := build $(BUILD_DIR) $(addprefix $(BUILD_DIR)/,$(SRC_DIRS) $(ASM_DIRS) $(DATA_DIRS))
+ALL_DIRS := $(sort $(dir $(O_FILES)))
 
 # Make sure build directory exists before compiling anything
 DUMMY != mkdir -p $(ALL_DIRS)
@@ -111,37 +128,73 @@ DUMMY != mkdir -p $(ALL_DIRS)
 .PHONY: tools
 
 $(LDSCRIPT): ldscript.lcf
-	$(CPP) -MMD -MP -MT $@ -MF $@.d -I include/ -I . -DBUILD_DIR=$(BUILD_DIR) -o $@ $<
+	$(QUIET) $(CPP) -MMD -MP -MT $@ -MF $@.d -I include/ -I . -DBUILD_DIR=$(BUILD_DIR) -o $@ $<
 
 $(DOL): $(ELF) | tools
-	$(ELF2DOL) $< $@ $(SDATA_PDHR) $(SBSS_PDHR) $(USES_SBSS2)
-	$(SHA1SUM) -c $(TARGET).sha1
+	$(QUIET) $(ELF2DOL) $< $@
+	$(QUIET) $(SHA1SUM) -c sha1/$(NAME).$(VERSION).sha1
 
 clean:
 	rm -f -d -r build
+	find . -name '*.o' -exec rm {} +
+	find . -name 'ctx.c' -exec rm {} +
+	find ./include -name "*.s" -type f -delete
 	$(MAKE) -C tools clean
-
 tools:
 	$(MAKE) -C tools
 
-$(ELF): $(LDSCRIPT) $(O_FILES)
-	$(LD) $(LDFLAGS) -o $@ -lcf $(LDSCRIPT) $(O_FILES)
-# The Metrowerks linker doesn't generate physical addresses in the ELF program headers. This fixes it somehow.
-	$(OBJCOPY) $@ $@
+# ELF creation makefile instructions
+$(ELF): $(O_FILES) $(LDSCRIPT)
+	@echo Linking ELF $@
+	$(QUIET) @echo $(O_FILES) > build/o_files
+	$(QUIET) $(LD) $(LDFLAGS) -o $@ -lcf $(LDSCRIPT) @build/o_files
 
-# Add deferred if needed. Put a stub flag there so compile.sh doesn't complain.
-ifeq ($(findstring deferred,$(CFLAGS)),deferred)
-$(GLOBAL_ASM_O_FILES): BUILD_C := $(ASM_PROCESSOR) "$(CC) $(CFLAGS)" "$(AS) $(ASFLAGS)" "-deferred"
-else
-$(GLOBAL_ASM_O_FILES): BUILD_C := $(ASM_PROCESSOR) "$(CC) $(CFLAGS)" "$(AS) $(ASFLAGS)" "-nodeferred"
-endif
+%.d.unix: %.d $(TRANSFORM_DEP)
+	@echo Processing $<
+	$(QUIET) $(PYTHON) $(TRANSFORM_DEP) $< $@
 
-BUILD_C ?= $(CC) $(CFLAGS) -c -o
+-include $(DEPENDS)
 
 $(BUILD_DIR)/%.o: %.s
-	$(AS) $(ASFLAGS) -o $@ $<
+	@echo Assembling $<
+	$(QUIET) mkdir -p $(dir $@)
+	$(QUIET) $(AS) $(ASFLAGS) -o $@ $<
+
+# for files with capitalized .C extension
+$(BUILD_DIR)/%.o: %.C
+	@echo "Compiling " $<
+	$(QUIET) mkdir -p $(dir $@)
+	$(QUIET) $(CC) $(CFLAGS) -c -o $(dir $@) $<
 
 $(BUILD_DIR)/%.o: %.c
-	$(BUILD_C) $@ $<
+	@echo "Compiling " $<
+	$(QUIET) mkdir -p $(dir $@)
+	$(QUIET) $(CC) $(CFLAGS) -c -o $(dir $@) $<
+
+$(BUILD_DIR)/%.o: %.cp
+	@echo "Compiling " $<
+	$(QUIET) mkdir -p $(dir $@)
+	$(QUIET) $(CC) $(CFLAGS) -c -o $(dir $@) $<
+
+$(BUILD_DIR)/%.o: %.cpp
+	@echo "Compiling " $<
+	$(QUIET) mkdir -p $(dir $@)
+	$(QUIET) $(CC) $(CFLAGS) -c -o $(dir $@) $<
+
+### Extremely lazy recipes for generating context ###
+# Example usage: make build/pikmin2.usa/src/plugProjectYamashitaU/farmMgr.h
+$(BUILD_DIR)/%.h: %.c
+	@echo "Compiling and generating context for " $<
+	$(QUIET) $(CC) $(CFLAGS) -E -c -o $@ $<
+
+$(BUILD_DIR)/%.h: %.cp
+	@echo "Compiling and generating context for " $<
+	$(QUIET) $(CC) $(CFLAGS) -E -c -o $@ $<
+	
+$(BUILD_DIR)/%.h: %.cpp
+	@echo "Compiling and generating context for " $<
+	$(QUIET) $(CC) $(CFLAGS) -E -c -o $@ $<
+
+### Debug Print ###
 
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
