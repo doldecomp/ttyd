@@ -1,4 +1,5 @@
 #include "global.h"
+#include "Dolphin/os.h"
 #include "texpalette.h"
 
 void UnpackTexPalette(TPLHeader* header);

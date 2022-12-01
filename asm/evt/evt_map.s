@@ -2,7 +2,6 @@
 
 
 .section .text, "ax"  # 0x800055E0 - 0x802C0EE0
-.balign 8
 .global N_evt_mapdisp_onoff
 N_evt_mapdisp_onoff:
 /* 800375F0 000345F0  94 21 FF F0 */	stwu r1, -0x10(r1)
