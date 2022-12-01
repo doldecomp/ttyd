@@ -10,7 +10,7 @@ weaponGetPowerTatsumaki:
 /* 80183D2C 00180D2C  90 01 00 14 */	stw r0, 0x14(r1)
 /* 80183D30 00180D30  BF C1 00 08 */	stmw r30, 8(r1)
 /* 80183D34 00180D34  7C 9E 23 78 */	mr r30, r4
-/* 80183D38 00180D38  80 6D 17 10 */	lwz r3, lbl_80418970-_SDA_BASE_(r13)
+/* 80183D38 00180D38  80 6D 17 10 */	lwz r3, lbl_80418970@sda21(r13)
 /* 80183D3C 00180D3C  4B F6 FB 19 */	bl BattleGetMarioPtr
 /* 80183D40 00180D40  83 FE 00 20 */	lwz r31, 0x20(r30)
 /* 80183D44 00180D44  38 60 00 F3 */	li r3, 0xf3
@@ -65,7 +65,7 @@ lbl_80183DCC:
 .global weaponGetACOutputParam
 weaponGetACOutputParam:
 /* 80183DD8 00180DD8  80 04 00 20 */	lwz r0, 0x20(r4)
-/* 80183DDC 00180DDC  80 AD 17 10 */	lwz r5, lbl_80418970-_SDA_BASE_(r13)
+/* 80183DDC 00180DDC  80 AD 17 10 */	lwz r5, lbl_80418970@sda21(r13)
 /* 80183DE0 00180DE0  54 03 10 3A */	slwi r3, r0, 2
 /* 80183DE4 00180DE4  80 04 00 24 */	lwz r0, 0x24(r4)
 /* 80183DE8 00180DE8  7C 65 1A 14 */	add r3, r5, r3
@@ -105,7 +105,7 @@ weaponGetPowerFromPartyAttackLv:
 /* 80183E54 00180E54  90 01 00 14 */	stw r0, 0x14(r1)
 /* 80183E58 00180E58  BF C1 00 08 */	stmw r30, 8(r1)
 /* 80183E5C 00180E5C  7C 9E 23 78 */	mr r30, r4
-/* 80183E60 00180E60  83 ED 17 10 */	lwz r31, lbl_80418970-_SDA_BASE_(r13)
+/* 80183E60 00180E60  83 ED 17 10 */	lwz r31, lbl_80418970@sda21(r13)
 /* 80183E64 00180E64  80 63 00 08 */	lwz r3, 8(r3)
 /* 80183E68 00180E68  4B F6 F6 89 */	bl BattleTransPartyId
 /* 80183E6C 00180E6C  80 1F 1C B8 */	lwz r0, 0x1cb8(r31)
@@ -174,7 +174,7 @@ weaponGetPowerFromMarioHammerLv:
 /* 80183F40 00180F40  BF A1 00 14 */	stmw r29, 0x14(r1)
 /* 80183F44 00180F44  7C 7D 1B 78 */	mr r29, r3
 /* 80183F48 00180F48  7C 9E 23 78 */	mr r30, r4
-/* 80183F4C 00180F4C  80 AD 17 10 */	lwz r5, lbl_80418970-_SDA_BASE_(r13)
+/* 80183F4C 00180F4C  80 AD 17 10 */	lwz r5, lbl_80418970@sda21(r13)
 /* 80183F50 00180F50  80 05 1C B8 */	lwz r0, 0x1cb8(r5)
 /* 80183F54 00180F54  54 1F FF FE */	rlwinm r31, r0, 0x1f, 0x1f, 0x1f
 /* 80183F58 00180F58  4B F4 DD 1D */	bl func_800D1C74
@@ -209,7 +209,7 @@ weaponGetPowerFromMarioJumpLv:
 /* 80183FB8 00180FB8  BF A1 00 14 */	stmw r29, 0x14(r1)
 /* 80183FBC 00180FBC  7C 7D 1B 78 */	mr r29, r3
 /* 80183FC0 00180FC0  7C 9E 23 78 */	mr r30, r4
-/* 80183FC4 00180FC4  80 AD 17 10 */	lwz r5, lbl_80418970-_SDA_BASE_(r13)
+/* 80183FC4 00180FC4  80 AD 17 10 */	lwz r5, lbl_80418970@sda21(r13)
 /* 80183FC8 00180FC8  80 05 1C B8 */	lwz r0, 0x1cb8(r5)
 /* 80183FCC 00180FCC  54 1F FF FE */	rlwinm r31, r0, 0x1f, 0x1f, 0x1f
 /* 80183FD0 00180FD0  4B F4 DC A5 */	bl func_800D1C74

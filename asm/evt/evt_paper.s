@@ -11,7 +11,7 @@ evt_paper_delete:
 /* 8006D194 0006A194  80 83 00 18 */	lwz r4, 0x18(r3)
 /* 8006D198 0006A198  80 84 00 00 */	lwz r4, 0(r4)
 /* 8006D19C 0006A19C  4B FC 3A 31 */	bl evtGetValue
-/* 8006D1A0 0006A1A0  80 8D 90 B0 */	lwz r4, gp-_SDA_BASE_(r13)
+/* 8006D1A0 0006A1A0  80 8D 90 B0 */	lwz r4, gp@sda21(r13)
 /* 8006D1A4 0006A1A4  80 84 00 14 */	lwz r4, 0x14(r4)
 /* 8006D1A8 0006A1A8  7C 04 00 D0 */	neg r0, r4
 /* 8006D1AC 0006A1AC  7C 00 23 78 */	or r0, r0, r4
@@ -34,7 +34,7 @@ evt_paper_entry:
 /* 8006D1E4 0006A1E4  80 83 00 18 */	lwz r4, 0x18(r3)
 /* 8006D1E8 0006A1E8  80 84 00 00 */	lwz r4, 0(r4)
 /* 8006D1EC 0006A1EC  4B FC 39 E1 */	bl evtGetValue
-/* 8006D1F0 0006A1F0  80 8D 90 B0 */	lwz r4, gp-_SDA_BASE_(r13)
+/* 8006D1F0 0006A1F0  80 8D 90 B0 */	lwz r4, gp@sda21(r13)
 /* 8006D1F4 0006A1F4  7C 7F 1B 78 */	mr r31, r3
 /* 8006D1F8 0006A1F8  38 A0 00 00 */	li r5, 0
 /* 8006D1FC 0006A1FC  80 84 00 14 */	lwz r4, 0x14(r4)
