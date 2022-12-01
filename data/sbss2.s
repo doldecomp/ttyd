@@ -1,4 +1,4 @@
-.section .sbss2, "wa"  # 0x803C17E0 - 0x80423364
+.section .sbss2, "", @nobits # 0x803C17E0 - 0x80423364
 
 .global lbl_80422F60
 lbl_80422F60:
