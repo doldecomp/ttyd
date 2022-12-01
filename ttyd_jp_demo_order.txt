@@ -1,0 +1,634 @@
+main.o
+system.o
+seq_game.o
+seq_mapchange.o
+seq_title.o
+bgdrv.o
+cam_road.o
+seqdef.o
+camdrv.o
+dispdrv.o
+fadedrv.o
+hitdrv.o
+icondrv.o
+lightdrv.o
+mapdrv.o
+shadowdrv.o
+seqdrv.o
+DEMOInit.o
+DEMOPad.o
+memory.o
+evtmgr_cmd.o
+evtmgr.o
+texPalette.o
+evt_map.o
+mapdata.o
+animdrv.o
+npcdrv.o
+evt_npc.o
+evt_sub.o
+mario.o
+effdrv.o
+mobjdrv.o
+evt_mobj.o
+evt_eff.o
+evt_paper.o
+casedrv.o
+mariost.o
+evt_case.o
+evt_img.o
+imgdrv.o
+offscreendrv.o
+evt_offscreen.o
+seq_battle.o
+evt_hit.o
+fontmgr.o
+arc.o
+arcdrv.o
+seq_gameover.o
+evt_bero.o
+windowdrv.o
+msgdrv.o
+parse.o
+database.o
+swdrv.o
+seq_logo.o
+mot_walk.o
+mario_hit.o
+mario_motion.o
+mario_sbr.o
+mot_hammer.o
+mot_jabara.o
+mot_jump.o
+mot_plane.o
+mot_roll.o
+mot_ship.o
+mot_slit.o
+mot_stay.o
+evt_cam.o
+item_data.o
+evt_item.o
+itemdrv.o
+cardmgr.o
+party_yoshi.o
+party.o
+party_bomhei.o
+party_data.o
+party_hit.o
+party_kuribo.o
+party_move.o
+party_nokonoko.o
+evt_msg.o
+mario_pouch.o
+extdrv.o
+evt_ext.o
+pmario_sound.o
+sound.o
+evt_mario.o
+evt_door.o
+npc_data.o
+evt_party.o
+event.o
+evt_shop.o
+evt_pouch.o
+evt_kinopio.o
+npc_event.o
+cam_shift.o
+seq_load.o
+evt_bg.o
+battle.o
+battle_ac.o
+battle_damage.o
+battle_detect.o
+battle_disp.o
+battle_event_cmd.o
+battle_event_default.o
+battle_event_subset.o
+battle_information.o
+battle_mario.o
+battle_menu_disp.o
+battle_party.o
+battle_pad.o
+battle_seq.o
+battle_seq_command.o
+battle_sub.o
+battle_ufo.o
+battle_unit.o
+battle_unit_event.o
+ac_stick_keep_left.o
+ac_table.o
+ac_timing_a.o
+evt_damage.o
+battle_camera.o
+battle_item_data.o
+battle_monosiri.o
+mario_balloon.o
+evt_nannpc.o
+eff_fukidashi.o
+eff_kemuri.o
+eff_butterfly.o
+eff_confetti.o
+mario_kemuri.o
+evt_fade.o
+evt_light.o
+ac_repeatedly.o
+battle_stage.o
+evt_audience.o
+mot_damage.o
+mot_yoshi.o
+evt_batstage.o
+statuswindow.o
+evt_seq.o
+battle_database_common.o
+eff_damage_star.o
+eff_hit.o
+eff_mario_balloon.o
+eff_small_star.o
+eff_mugi.o
+mario_party.o
+eff_stardust.o
+eff_recovery.o
+eff_miss_star.o
+eff_nice.o
+dvdmgr.o
+unit_mario.o
+evt_twoddisp.o
+eff_breath_fire.o
+battle_attack_audience.o
+battle_stage_object.o
+mot_dokan.o
+party_motion.o
+evt_snd.o
+arammgr.o
+win_root.o
+win_party.o
+win_badge.o
+win_item.o
+win_mario.o
+win_log.o
+evt_win.o
+win_main.o
+evt_cloud.o
+unit_party_clauda.o
+unit_party_yoshi.o
+unit_party_chuchurina.o
+unit_party_sanders.o
+unit_party_vivian.o
+himo.o
+party_vivian.o
+party_cloud.o
+party_chuchu.o
+unit_party_nokotarou.o
+unit_party_christine.o
+battle_weapon_power.o
+filemgr.o
+mot_hip.o
+eff_fire.o
+battle_actrecord.o
+battle_audience_kinopio.o
+battle_acrobat.o
+eff_spark.o
+eff_updown.o
+eff_charge.o
+eff_toge_flush.o
+battle_status_effect.o
+eff_ice.o
+eff_torch.o
+eff_bomb.o
+unit_bomzou.o
+ac_shot.o
+eff_ripple.o
+evt_env.o
+envdrv.o
+unit_koura.o
+ac_lst_rc_keep.o
+battle_audience.o
+mario_cam.o
+unit_object_tree.o
+unit_object_switch.o
+battle_icon.o
+evt_telop.o
+ac_repeatedly_lv.o
+battle_message.o
+eff_whirlwind_n64.o
+eff_akari_charge_n64.o
+eff_akari_pose_n64.o
+eff_akari_sflush_n64.o
+eff_balloon_heiho_n64.o
+eff_balloon_n64.o
+eff_blow_n64.o
+eff_bomb_n64.o
+eff_bomhei_n64.o
+eff_booboo_n64.o
+eff_breath_fire_n64.o
+eff_broken_barrier_n64.o
+eff_bush_n64.o
+eff_butterfly_n64.o
+eff_cloud_n64.o
+eff_coin_n64.o
+eff_confetti_n64.o
+eff_cool_leaf_n64.o
+eff_crystal_n64.o
+eff_dogabon_attack_n64.o
+eff_expbom_n64.o
+eff_explosion_n64.o
+eff_fall_leaf_n64.o
+eff_fire_dust_n64.o
+eff_fire_ring_n64.o
+eff_fire_spark_n64.o
+eff_fireflower_n64.o
+eff_fireworks_n64.o
+eff_flame_n64.o
+eff_flower_n64.o
+eff_freeze_n64.o
+eff_gareki_n64.o
+eff_glass_n64.o
+eff_guruguru_n64.o
+eff_hagetaka_flush_n64.o
+eff_hit_n64.o
+eff_hokori_n64.o
+eff_holography_n64.o
+eff_horao_spell_n64.o
+eff_ice_n64.o
+eff_kameki_tornade_n64.o
+eff_kemuri1_n64.o
+eff_kemuri2_n64.o
+eff_kemuri3_n64.o
+eff_kemuri4_n64.o
+eff_kemuri5_n64.o
+eff_kemuri6_n64.o
+eff_kemuri7_n64.o
+eff_kemuri8_n64.o
+eff_kemuri9_n64.o
+eff_kemuri10_n64.o
+eff_kemuri11_n64.o
+eff_kemuri12_n64.o
+eff_kumokumo_chip_n64.o
+eff_kumokumo_n64.o
+eff_lensflare_n64.o
+eff_magic1_n64.o
+eff_magic2_n64.o
+eff_magic3_n64.o
+eff_magic_horao_n64.o
+eff_n64.o
+eff_onpu_n64.o
+eff_opuku_jetw_n64.o
+eff_opuku_jetwrain_n64.o
+eff_opuku_wcurtain_n64.o
+eff_opuku_wgun_n64.o
+eff_opuku_wprotect_n64.o
+eff_packn_bfire_n64.o
+eff_peach_dust_n64.o
+eff_pikkyolo_n64.o
+eff_pokopi_pcharge_n64.o
+eff_pokopi_pipo_n64.o
+eff_pokopi_thunder_n64.o
+eff_pturn_n64.o
+eff_radiation_n64.o
+eff_rappa_n64.o
+eff_recover_heart_n64.o
+eff_release_n64.o
+eff_ripple_n64.o
+eff_rothammer_fail_n64.o
+eff_rothammer_success_n64.o
+eff_rubble_n64.o
+eff_shock_n64.o
+eff_small_star_n64.o
+eff_snow_n64.o
+eff_snowfall_n64.o
+eff_snowman_n64.o
+eff_sstar_n64.o
+eff_stamp_n64.o
+eff_star_power_n64.o
+eff_stardust2_n64.o
+eff_stardust_n64.o
+eff_stone_smoke_n64.o
+eff_sunlight_n64.o
+eff_sweat_n64.o
+eff_thruhammer_n64.o
+eff_thunder_n64.o
+eff_thunderflare_n64.o
+eff_timestamp_n64.o
+eff_vapor_n64.o
+eff_wangflush_n64.o
+eff_water_damage_n64.o
+eff_snow_dust_n64.o
+seq_demo.o
+evt_movefloor.o
+battle_enemy_item.o
+evt_badgeshop.o
+evt_johoya.o
+peach.o
+koopa.o
+evt_uranaisi.o
+eff_batfukidashi.o
+unit_system.o
+countdown.o
+ac_stick_rotate.o
+ac_button_down.o
+ac_timing_wide.o
+battle_break_slot.o
+nameent.o
+evt_window.o
+ac_pendulum_crane_timing.o
+eff_starpoint.o
+eff_puniballoon.o
+eff_peach_fukidashi.o
+ac_air_gauge.o
+eff_kemutest.o
+ac_crane_timing.o
+eff_starstone.o
+eff_itemget.o
+battle_seq_end.o
+battle_ac_help.o
+kpa_act.o
+koopa_motion.o
+koopa_hit.o
+eff_pointget.o
+eff_stageclear.o
+eff_fall.o
+eff_levelup.o
+eff_break.o
+eff_mobj_broken.o
+eff_mahojin.o
+eff_nozle.o
+eff_mizutama.o
+eff_minigame.o
+eff_splash.o
+eff_treasure_map.o
+eff_kiss.o
+eff_funemizu.o
+evt_yuugijou.o
+eff_mist.o
+eff_teresa.o
+ac_power_gauge.o
+ac_power_gauge_lv.o
+sac_bakugame.o
+ac_signal_timing.o
+battle_audience_kind_data.o
+mail_data.o
+sac_scissor.o
+sac_zubastar.o
+ac_gauge_timing.o
+evt_urouro.o
+ac_shot_target.o
+eff_sheep.o
+eff_batten.o
+winmgr.o
+ac_gauge_timing2.o
+eff_naniga.o
+eff_sandars.o
+eff_rankup.o
+eff_irekaeru.o
+ac_power_gauge_lv2.o
+eff_scanning.o
+eff_toiki.o
+eff_mist2.o
+eff_particle.o
+sac_genki.o
+sac_common.o
+sac_deka.o
+eff_ibuki.o
+sac_muki.o
+ac_monosiri_target.o
+sac_suki.o
+romfont.o
+seq_e3.o
+battle_status_icon.o
+evt_lottery.o
+eff_mahorn.o
+eff_spirit.o
+eff_indirect.o
+eff_syuryou.o
+eff_uranoko.o
+eff_hibashira.o
+evt_lecture.o
+eff_number.o
+eff_laser.o
+eff_machinegun.o
+eff_las_mon.o
+eff_sleep.o
+eff_energy.o
+eff_nokotarou.o
+eff_queen.o
+eff_queen2.o
+eff_gonbaba_breath.o
+evt_memcard.o
+gxsub.o
+eff_majinai.o
+eff_mahorn2.o
+eff_ultra_hammer.o
+TRK_MINNOW_DOLPHIN.a mainloop.c
+TRK_MINNOW_DOLPHIN.a nubevent.c
+TRK_MINNOW_DOLPHIN.a nubinit.c
+TRK_MINNOW_DOLPHIN.a msg.c
+TRK_MINNOW_DOLPHIN.a msgbuf.c
+TRK_MINNOW_DOLPHIN.a serpoll.c
+TRK_MINNOW_DOLPHIN.a usr_put.c
+TRK_MINNOW_DOLPHIN.a dispatch.c
+TRK_MINNOW_DOLPHIN.a msghndlr.c
+TRK_MINNOW_DOLPHIN.a support.c
+TRK_MINNOW_DOLPHIN.a mutex_TRK.c
+TRK_MINNOW_DOLPHIN.a notify.c
+TRK_MINNOW_DOLPHIN.a flush_cache.c
+TRK_MINNOW_DOLPHIN.a mem_TRK.c
+TRK_MINNOW_DOLPHIN.a targimpl.c
+TRK_MINNOW_DOLPHIN.a targsupp.s
+TRK_MINNOW_DOLPHIN.a __exception.s
+TRK_MINNOW_DOLPHIN.a mpc_7xx_603e.c
+TRK_MINNOW_DOLPHIN.a dolphin_trk.c
+TRK_MINNOW_DOLPHIN.a main_TRK.c
+TRK_MINNOW_DOLPHIN.a dolphin_trk_glue.c
+TRK_MINNOW_DOLPHIN.a targcont.c
+TRK_MINNOW_DOLPHIN.a target_options.c
+TRK_MINNOW_DOLPHIN.a mslsupp.c
+TRK_MINNOW_DOLPHIN.a UDP_Stubs.c
+TRK_MINNOW_DOLPHIN.a main.c
+TRK_MINNOW_DOLPHIN.a CircleBuffer.c
+TRK_MINNOW_DOLPHIN.a main.c_.text_8025752C
+TRK_MINNOW_DOLPHIN.a MWTrace.c
+TRK_MINNOW_DOLPHIN.a MWCriticalSection_gc.cpp
+Runtime.PPCEABI.H.a __mem.c
+Runtime.PPCEABI.H.a __va_arg.c
+Runtime.PPCEABI.H.a global_destructor_chain.c
+Runtime.PPCEABI.H.a runtime.c
+Runtime.PPCEABI.H.a Gecko_setjmp.c
+Runtime.PPCEABI.H.a GCN_mem_alloc.c
+MSL_C.PPCEABI.bare.H.a abort_exit.c
+MSL_C.PPCEABI.bare.H.a alloc.c
+MSL_C.PPCEABI.bare.H.a errno.c
+MSL_C.PPCEABI.bare.H.a ansi_files.c
+MSL_C.PPCEABI.bare.H.a ansi_fp.c
+MSL_C.PPCEABI.bare.H.a buffer_io.c
+MSL_C.PPCEABI.bare.H.a critical_regions.gamecube.c
+MSL_C.PPCEABI.bare.H.a ctype.c
+MSL_C.PPCEABI.bare.H.a direct_io.c
+MSL_C.PPCEABI.bare.H.a locale.c
+MSL_C.PPCEABI.bare.H.a file_io.c
+MSL_C.PPCEABI.bare.H.a FILE_POS.C
+MSL_C.PPCEABI.bare.H.a mbstring.c
+MSL_C.PPCEABI.bare.H.a mem.c
+MSL_C.PPCEABI.bare.H.a mem_funcs.c
+MSL_C.PPCEABI.bare.H.a misc_io.c
+MSL_C.PPCEABI.bare.H.a printf.c
+MSL_C.PPCEABI.bare.H.a qsort.c
+MSL_C.PPCEABI.bare.H.a rand.c
+MSL_C.PPCEABI.bare.H.a scanf.c
+MSL_C.PPCEABI.bare.H.a float.c
+MSL_C.PPCEABI.bare.H.a string.c
+MSL_C.PPCEABI.bare.H.a strtold.c
+MSL_C.PPCEABI.bare.H.a strtoul.c
+MSL_C.PPCEABI.bare.H.a wchar_io.c
+MSL_C.PPCEABI.bare.H.a uart_console_io_gcn.c
+MSL_C.PPCEABI.bare.H.a e_acos.c
+MSL_C.PPCEABI.bare.H.a e_asin.c
+MSL_C.PPCEABI.bare.H.a e_atan2.c
+MSL_C.PPCEABI.bare.H.a e_fmod.c
+MSL_C.PPCEABI.bare.H.a e_hypot.c
+MSL_C.PPCEABI.bare.H.a e_log.c
+MSL_C.PPCEABI.bare.H.a e_pow.c
+MSL_C.PPCEABI.bare.H.a e_rem_pio2.c
+MSL_C.PPCEABI.bare.H.a k_cos.c
+MSL_C.PPCEABI.bare.H.a k_rem_pio2.c
+MSL_C.PPCEABI.bare.H.a k_sin.c
+MSL_C.PPCEABI.bare.H.a k_tan.c
+MSL_C.PPCEABI.bare.H.a s_atan.c
+MSL_C.PPCEABI.bare.H.a s_copysign.c
+MSL_C.PPCEABI.bare.H.a s_cos.c
+MSL_C.PPCEABI.bare.H.a s_floor.c
+MSL_C.PPCEABI.bare.H.a s_frexp.c
+MSL_C.PPCEABI.bare.H.a s_ldexp.c
+MSL_C.PPCEABI.bare.H.a s_modf.c
+MSL_C.PPCEABI.bare.H.a s_sin.c
+MSL_C.PPCEABI.bare.H.a s_tan.c
+MSL_C.PPCEABI.bare.H.a w_acos.c
+MSL_C.PPCEABI.bare.H.a w_asin.c
+MSL_C.PPCEABI.bare.H.a w_atan2.c
+MSL_C.PPCEABI.bare.H.a w_fmod.c
+MSL_C.PPCEABI.bare.H.a w_hypot.c
+MSL_C.PPCEABI.bare.H.a w_log.c
+MSL_C.PPCEABI.bare.H.a w_pow.c
+MSL_C.PPCEABI.bare.H.a e_sqrt.c
+MSL_C.PPCEABI.bare.H.a math_ppc.c
+MSL_C.PPCEABI.bare.H.a w_sqrt.c
+musyx.a seq.c
+musyx.a synth.c
+musyx.a seq_api.c
+musyx.a snd_synthapi.c
+musyx.a stream.c
+musyx.a synthdata.c
+musyx.a synthmacros.c
+musyx.a synthvoice.c
+musyx.a synth_ac.c
+musyx.a synth_adsr.c
+musyx.a synth_vsamples.c
+musyx.a synth_dbtab.c
+musyx.a s_data.c
+musyx.a hw_dspctrl.c
+musyx.a hw_volconv.c
+musyx.a snd3d.c
+musyx.a snd_init.c
+musyx.a snd_math.c
+musyx.a snd_midictrl.c
+musyx.a snd_service.c
+musyx.a HARDWARE.C
+musyx.a hw_aramdma.c
+musyx.a hw_dolphin.c
+musyx.a hw_memory.c
+musyx.a creverb_fx.c
+musyx.a dsp_import.c
+musyx.a creverb.c
+musyx.a reverb_fx.c
+musyx.a reverb.c
+musyx.a delay_fx.c
+musyx.a chorus_fx.c
+amcstubs.a AmcExi2Stubs.c
+odenotstub.a odenotstub.c
+OdemuExi2.a DebuggerDriver.c
+base.a PPCArch.c
+db.a db.c
+os.a OS.c
+os.a OSAlarm.c
+os.a OSAlloc.c
+os.a OSArena.c
+os.a OSAudioSystem.c
+os.a OSCache.c
+os.a OSContext.c
+os.a OSError.c
+os.a OSExec.c
+os.a OSFatal.c
+os.a OSFont.c
+os.a OSInterrupt.c
+os.a OSLink.c
+os.a OSMemory.c
+os.a OSMutex.c
+os.a OSReboot.c
+os.a OSReset.c
+os.a OSResetSW.c
+os.a OSRtc.c
+os.a OSSync.c
+os.a OSThread.c
+os.a OSTime.c
+os.a __start.c
+os.a __ppc_eabi_init.cpp
+mtx.a mtx.c
+mtx.a mtxvec.c
+mtx.a mtx44.c
+mtx.a mtx44vec.c
+mtx.a vec.c
+dvd.a dvdlow.c
+dvd.a dvdfs.c
+dvd.a dvd.c
+dvd.a dvdqueue.c
+dvd.a dvderror.c
+dvd.a dvdidutils.c
+dvd.a dvdFatal.c
+dvd.a fstload.c
+vi.a vi.c
+demo.a DEMOFont.c
+demo.a DEMOPuts.c
+demo.a DEMOStats.c
+pad.a Padclamp.c
+pad.a Pad.c
+ai.a ai.c
+ar.a ar.c
+ar.a arq.c
+dsp.a dsp.c
+dsp.a dsp_debug.c
+dsp.a dsp_task.c
+card.a CARDBios.c
+card.a CARDUnlock.c
+card.a CARDRdwr.c
+card.a CARDBlock.c
+card.a CARDDir.c
+card.a CARDCheck.c
+card.a CARDMount.c
+card.a CARDFormat.c
+card.a CARDOpen.c
+card.a CARDCreate.c
+card.a CARDRead.c
+card.a CARDWrite.c
+card.a CARDDelete.c
+card.a CARDStat.c
+card.a CARDNet.c
+gx.a GXInit.c
+gx.a GXFifo.c
+gx.a GXAttr.c
+gx.a GXMisc.c
+gx.a GXGeometry.c
+gx.a GXFrameBuf.c
+gx.a GXLight.c
+gx.a GXTexture.c
+gx.a GXBump.c
+gx.a GXTev.c
+gx.a GXPixel.c
+gx.a GXDraw.c
+gx.a GXDisplayList.c
+gx.a GXTransform.c
+gx.a GXPerf.c
+exi.a EXIBios.c
+exi.a EXIUart.c
+si.a SIBios.c
+si.a SISamplingRate.c
+thp.a THPDec.c
+thp.a THPAudio.c

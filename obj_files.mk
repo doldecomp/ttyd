@@ -18,12 +18,16 @@ ALL:=\
 	$(BUILD_DIR)/asm/lightdrv.o\
 	$(BUILD_DIR)/asm/mapdrv.o\
 	$(BUILD_DIR)/asm/shadowdrv.o\
+	$(BUILD_DIR)/data/data_1.o\
+	$(BUILD_DIR)/data/sdata_1.o\
+	$(BUILD_DIR)/data/sbss_1.o\
 	$(BUILD_DIR)/src/seq/seqdrv.o\
 	$(BUILD_DIR)/asm/DEMOInit.o\
 	$(BUILD_DIR)/asm/DEMOPad.o\
 	$(BUILD_DIR)/asm/memory.o\
 	$(BUILD_DIR)/asm/evt/evtmgr_cmd.o\
 	$(BUILD_DIR)/asm/evt/evtmgr.o\
+	$(BUILD_DIR)/data/rodata_1.o\
 	$(BUILD_DIR)/src/texPalette.o\
 	$(BUILD_DIR)/asm/evt/evt_map.o\
 	$(BUILD_DIR)/asm/mapdata.o\
@@ -407,20 +411,16 @@ ALL:=\
 	$(BUILD_DIR)/asm/eff/eff_majinai.o\
 	$(BUILD_DIR)/asm/eff/eff_mahorn2.o\
 	$(BUILD_DIR)/asm/eff/eff_ultra_hammer.o\
-	$(BUILD_DIR)/asm/dolphin_lib.o\
 	$(BUILD_DIR)/asm/eff/eff_gonbara_breath.o\
 	$(BUILD_DIR)/asm/eff/eff_hatetaka_flush_n64.o\
 	$(BUILD_DIR)/asm/eff/eff_mohojin.o\
+	$(BUILD_DIR)/asm/dolphin_lib.o\
 	$(BUILD_DIR)/data/ctors.o\
 	$(BUILD_DIR)/data/dtors.o\
-	$(BUILD_DIR)/data/rodata_1.o\
 	$(BUILD_DIR)/data/rodata_2.o\
-	$(BUILD_DIR)/data/data_1.o\
 	$(BUILD_DIR)/data/data_2.o\
 	$(BUILD_DIR)/data/bss.o\
-	$(BUILD_DIR)/data/sdata_1.o\
 	$(BUILD_DIR)/data/sdata_2.o\
-	$(BUILD_DIR)/data/sbss_1.o\
 	$(BUILD_DIR)/data/sbss_2.o\
 	$(BUILD_DIR)/data/sdata2.o\
 	$(BUILD_DIR)/data/sbss2.o\
