@@ -33,10 +33,7 @@ DATA_DIRS := $(patsubst %/,%,$(DATA_DIRS))
 ASM_DIRS := $(filter-out $(sort $(shell find asm/non_matchings -type d)),$(ASM_DIRS))
 
 # Inputs
-S_FILES := $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
-DATA_FILES := $(foreach dir,$(DATA_DIRS),$(wildcard $(dir)/*.s))
 C_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
-CPP_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
 LDSCRIPT := $(BUILD_DIR)/ldscript.lcf
 
 # Outputs
@@ -44,10 +41,8 @@ DOL     := $(BUILD_DIR)/$(TARGET).dol
 ELF     := $(DOL:.dol=.elf)
 MAP     := $(BUILD_DIR)/$(TARGET).map
 
-O_FILES := $(sort $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file:.c=.o)) \
-           $(foreach file,$(CPP_FILES),$(BUILD_DIR)/$(file:.cpp=.o)) \
-           $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file:.s=.o))) \
-           $(foreach file,$(DATA_FILES),$(BUILD_DIR)/$(file:.s=.o))
+include obj_files.mk
+O_FILES := $(ALL)
 
 GLOBAL_ASM_C_FILES != grep -rl 'GLOBAL_ASM(' $(C_FILES)
 GLOBAL_ASM_O_FILES = $(addprefix $(BUILD_DIR)/,$(GLOBAL_ASM_C_FILES:.c=.o))
