@@ -85,7 +85,7 @@ ASM_PROCESSOR := $(ASM_PROCESSOR_DIR)/compile.sh
 INCLUDES := -i . -I- -i include
 
 ASFLAGS := -mgekko -I include
-LDFLAGS := -map $(MAP) -fp hard -nodefaults -linkmode lessram
+LDFLAGS := -map $(MAP) -fp hard -nodefaults
 CFLAGS  := -Cpp_exceptions off -proc gekko -fp hard -O4,p -nodefaults -msgstyle gcc -sdata 48 -sdata2 8 -inline all,deferred -use_lmw_stmw on -enum int -rostr $(INCLUDES)
 
 # elf2dol needs to know these in order to calculate sbss correctly.

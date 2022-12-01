@@ -424,10 +424,10 @@ GROUP:{
         dolphin_lib.o(.text)
     }
     .ctors ALIGN(0x20):{
-        ctors.o(.ctors)
+        ctors.o(.text)
     }
     .dtors ALIGN(0x20):{
-        dtors.o(.dtors)
+        dtors.o(.text)
     }
     .rodata ALIGN(0x20):{
         rodata_1.o(.rodata)
