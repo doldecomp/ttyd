@@ -1,5 +1,22 @@
 .include "macros.inc"
 
+.section .sbss, "wa"  # 0x803C17E0 - 0x80423364
+.balign 8
+.global lbl_80418410
+lbl_80418410:
+	.skip 0x4
+.global lbl_80418414
+lbl_80418414:
+	.skip 0x4
+.global lbl_80418418
+lbl_80418418:
+	.skip 0x4
+.global lbl_8041841C
+lbl_8041841C:
+	.skip 0x4
+.global lbl_80418420
+lbl_80418420:
+	.skip 0x10
 
 .section .text, "ax"  # 0x800055E0 - 0x802C0EE0
 

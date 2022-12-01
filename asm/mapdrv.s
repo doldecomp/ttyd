@@ -1,5 +1,67 @@
 .include "macros.inc"
 
+.section .sbss, "wa"  # 0x803C17E0 - 0x80423364
+.balign 8
+.global lbl_80418440
+lbl_80418440:
+	.skip 0x4
+.global lbl_80418444
+lbl_80418444:
+	.skip 0x4
+.global lbl_80418448
+lbl_80418448:
+	.skip 0x4
+.global lbl_8041844C
+lbl_8041844C:
+	.skip 0x4
+.global lbl_80418450
+lbl_80418450:
+	.skip 0x4
+.global lbl_80418454
+lbl_80418454:
+	.skip 0x4
+.global lbl_80418458
+lbl_80418458:
+	.skip 0x4
+.global lbl_8041845C
+lbl_8041845C: # actually global?
+	.skip 0x4
+.global lbl_80418460
+lbl_80418460:
+	.skip 0x30
+.global lbl_80418490
+lbl_80418490:
+	.skip 0x4
+.global lbl_80418494
+lbl_80418494:
+	.skip 0x4
+.global lbl_80418498
+lbl_80418498:
+	.skip 0x4
+.global lbl_8041849C
+lbl_8041849C:
+	.skip 0x4
+.global lbl_804184A0
+lbl_804184A0:
+	.skip 0x4
+.global lbl_804184A4
+lbl_804184A4:
+	.skip 0x4
+.global lbl_804184A8
+lbl_804184A8:
+	.skip 0x4
+.global lbl_804184AC
+lbl_804184AC:
+	.skip 0x4
+.global lbl_804184B0
+lbl_804184B0:
+	.skip 0x4
+.global lbl_804184B4
+lbl_804184B4:
+	.skip 0x4
+.global lbl_804184B8
+lbl_804184B8:
+	.skip 0x8
 
 .section .text, "ax"  # 0x800055E0 - 0x802C0EE0
 

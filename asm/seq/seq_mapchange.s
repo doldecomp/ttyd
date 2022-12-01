@@ -6,6 +6,18 @@
 lbl_80302DC8:
 	.incbin "baserom.dol", 0x2FFDC8, 0x20
 
+.section .sbss, "wa"  # 0x803C17E0 - 0x80423364
+.balign 8
+.global lbl_80418388
+lbl_80418388:
+	.skip 0x20
+.global lbl_804183A8
+lbl_804183A8:
+	.skip 0x20
+.global lbl_804183C8
+lbl_804183C8:
+	.skip 0x20
+
 .section .text, "ax"  # 0x800055E0 - 0x802C0EE0
 .global _relUnLoad
 _relUnLoad:

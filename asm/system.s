@@ -8,6 +8,24 @@ lbl_80302C20:
 lbl_80302D8C:
 	.incbin "baserom.dol", 0x2FFD8C, 0x3C
 
+.section .sbss, "wa"  # 0x803C17E0 - 0x80423364
+.balign 8
+lbl_80418360:
+	.skip 0x2
+.balign 4
+lbl_80418364:
+	.skip 0x4
+lbl_80418368:
+	.skip 0x4
+lbl_8041836C:
+	.skip 0x4
+lbl_80418370:
+	.skip 0x4
+lbl_80418374:
+	.skip 0x4
+lbl_80418378:
+	.skip 0x4
+
 .section .text, "ax"  # 0x800055E0 - 0x802C0EE0
 
 .global memcpy_as4
