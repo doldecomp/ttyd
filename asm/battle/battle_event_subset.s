@@ -11,7 +11,7 @@ _binta_effect:
 /* 8010EC6C 0010BC6C  BF 81 00 20 */	stmw r28, 0x20(r1)
 /* 8010EC70 0010BC70  7C 7C 1B 78 */	mr r28, r3
 /* 8010EC74 0010BC74  83 C3 00 18 */	lwz r30, 0x18(r3)
-/* 8010EC78 0010BC78  83 ED 17 10 */	lwz r31, lbl_80418970-_SDA_BASE_(r13)
+/* 8010EC78 0010BC78  83 ED 17 10 */	lwz r31, lbl_80418970@sda21(r13)
 /* 8010EC7C 0010BC7C  80 9E 00 00 */	lwz r4, 0(r30)
 /* 8010EC80 0010BC80  4B F2 1F 4D */	bl evtGetValue
 /* 8010EC84 0010BC84  80 9E 00 04 */	lwz r4, 4(r30)
@@ -59,7 +59,7 @@ _check_through_pos:
 /* 8010ED20 0010BD20  BF 21 00 14 */	stmw r25, 0x14(r1)
 /* 8010ED24 0010BD24  7C 79 1B 78 */	mr r25, r3
 /* 8010ED28 0010BD28  83 A3 00 18 */	lwz r29, 0x18(r3)
-/* 8010ED2C 0010BD2C  83 ED 17 10 */	lwz r31, lbl_80418970-_SDA_BASE_(r13)
+/* 8010ED2C 0010BD2C  83 ED 17 10 */	lwz r31, lbl_80418970@sda21(r13)
 /* 8010ED30 0010BD30  80 9D 00 00 */	lwz r4, 0(r29)
 /* 8010ED34 0010BD34  4B F2 1E 99 */	bl evtGetValue
 /* 8010ED38 0010BD38  80 9D 00 04 */	lwz r4, 4(r29)
@@ -138,7 +138,7 @@ unk_JP_US_EU_30_8010ee30:
 /* 8010EE3C 0010BE3C  BF C1 00 08 */	stmw r30, 8(r1)
 /* 8010EE40 0010BE40  7C 7E 1B 78 */	mr r30, r3
 /* 8010EE44 0010BE44  80 83 00 18 */	lwz r4, 0x18(r3)
-/* 8010EE48 0010BE48  83 ED 17 10 */	lwz r31, lbl_80418970-_SDA_BASE_(r13)
+/* 8010EE48 0010BE48  83 ED 17 10 */	lwz r31, lbl_80418970@sda21(r13)
 /* 8010EE4C 0010BE4C  80 84 00 00 */	lwz r4, 0(r4)
 /* 8010EE50 0010BE50  4B F2 1D 7D */	bl evtGetValue
 /* 8010EE54 0010BE54  7C 60 1B 78 */	mr r0, r3
@@ -172,7 +172,7 @@ _add_star_point_disp_offset:
 /* 8010EEB4 0010BEB4  F3 C1 00 58 */	psq_st f30, 88(r1), 0, qr0
 /* 8010EEB8 0010BEB8  BF 61 00 3C */	stmw r27, 0x3c(r1)
 /* 8010EEBC 0010BEBC  7C 7F 1B 78 */	mr r31, r3
-/* 8010EEC0 0010BEC0  83 CD 17 10 */	lwz r30, lbl_80418970-_SDA_BASE_(r13)
+/* 8010EEC0 0010BEC0  83 CD 17 10 */	lwz r30, lbl_80418970@sda21(r13)
 /* 8010EEC4 0010BEC4  83 A3 00 18 */	lwz r29, 0x18(r3)
 /* 8010EEC8 0010BEC8  80 9D 00 00 */	lwz r4, 0(r29)
 /* 8010EECC 0010BECC  4B F2 1D 01 */	bl evtGetValue
@@ -265,7 +265,7 @@ _check_at_dm_event_wait:
 /* 8010F01C 0010C01C  BF C1 00 08 */	stmw r30, 8(r1)
 /* 8010F020 0010C020  7C 7E 1B 78 */	mr r30, r3
 /* 8010F024 0010C024  80 83 00 18 */	lwz r4, 0x18(r3)
-/* 8010F028 0010C028  83 ED 17 10 */	lwz r31, lbl_80418970-_SDA_BASE_(r13)
+/* 8010F028 0010C028  83 ED 17 10 */	lwz r31, lbl_80418970@sda21(r13)
 /* 8010F02C 0010C02C  80 84 00 00 */	lwz r4, 0(r4)
 /* 8010F030 0010C030  4B F2 1B 9D */	bl evtGetValue
 /* 8010F034 0010C034  7C 60 1B 78 */	mr r0, r3
@@ -308,7 +308,7 @@ lbl_8010F0A4:
 
 .global _disable_restore_command_cursor
 _disable_restore_command_cursor:
-/* 8010F0B8 0010C0B8  80 8D 17 10 */	lwz r4, lbl_80418970-_SDA_BASE_(r13)
+/* 8010F0B8 0010C0B8  80 8D 17 10 */	lwz r4, lbl_80418970@sda21(r13)
 /* 8010F0BC 0010C0BC  38 00 00 00 */	li r0, 0
 /* 8010F0C0 0010C0C0  38 60 00 02 */	li r3, 2
 /* 8010F0C4 0010C0C4  90 04 1C 70 */	stw r0, 0x1c70(r4)

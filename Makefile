@@ -9,38 +9,6 @@ ifneq ($(findstring MSYS,$(shell uname)),)
 endif
 
 #-------------------------------------------------------------------------------
-# Gamecube SDK and Codewarrior Includes
-#-------------------------------------------------------------------------------
-
-# Import the SDK path variable and set the paths.
-ifeq ($(NOWINE),1)
-SDK_BASE_PATH := $(SDK_BASE_PATH_WIN)
-else
-SDK_BASE_PATH := $(SDK_BASE_PATH)
-endif
-
-SDK_LIB_PATH  := $(SDK_BASE_PATH)/HW2/lib
-SDK_INC_PATH  := $(SDK_BASE_PATH)/include
-
-# Check if SDK is not defined, error if not defined.
-ifeq ($(SDK_BASE_PATH),)
-$(error You have not defined SDK_BASE_PATH. Please ensure the Gamecube SDK is installed and point SDK_BASE_PATH as an environment variable to its location.)
-endif
-
-# Import the Codewarrior GC 2.7 path variable and set the include path as well.
-ifeq ($(NOWINE),1)
-CW_BASE_PATH := $(CW_BASE_PATH_WIN)
-else
-CW_BASE_PATH := $(CW_BASE_PATH)
-endif
-CW_INC_PATH  := $(CW_BASE_PATH)/PowerPC_EABI_Support/MSL/MSL_C
-
-# Check if CW is not defined, error if not defined.
-ifeq ($(CW_BASE_PATH),)
-$(error You have not defined CW_BASE_PATH. Please ensure Codewarrior for Gamecube is installed and point CW_BASE_PATH as an environment variable to its location.)
-endif
-
-#-------------------------------------------------------------------------------
 # Files
 #-------------------------------------------------------------------------------
 
@@ -65,10 +33,7 @@ DATA_DIRS := $(patsubst %/,%,$(DATA_DIRS))
 ASM_DIRS := $(filter-out $(sort $(shell find asm/non_matchings -type d)),$(ASM_DIRS))
 
 # Inputs
-S_FILES := $(foreach dir,$(ASM_DIRS),$(wildcard $(dir)/*.s))
-DATA_FILES := $(foreach dir,$(DATA_DIRS),$(wildcard $(dir)/*.s))
 C_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
-CPP_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
 LDSCRIPT := $(BUILD_DIR)/ldscript.lcf
 
 # Outputs
@@ -76,10 +41,8 @@ DOL     := $(BUILD_DIR)/$(TARGET).dol
 ELF     := $(DOL:.dol=.elf)
 MAP     := $(BUILD_DIR)/$(TARGET).map
 
-O_FILES := $(sort $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file:.c=.o)) \
-           $(foreach file,$(CPP_FILES),$(BUILD_DIR)/$(file:.cpp=.o)) \
-           $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file:.s=.o))) \
-           $(foreach file,$(DATA_FILES),$(BUILD_DIR)/$(file:.s=.o))
+include obj_files.mk
+O_FILES := $(ALL)
 
 GLOBAL_ASM_C_FILES != grep -rl 'GLOBAL_ASM(' $(C_FILES)
 GLOBAL_ASM_O_FILES = $(addprefix $(BUILD_DIR)/,$(GLOBAL_ASM_C_FILES:.c=.o))
@@ -105,8 +68,7 @@ AS      := $(DEVKITPPC)/bin/powerpc-eabi-as
 OBJCOPY := $(DEVKITPPC)/bin/powerpc-eabi-objcopy
 CPP     := cpp -P
 CC      := $(WINE) tools/mwcc_compiler/$(MWCC_VERSION)/mwcceppc.exe
-# Due to bss erroring on less than 2.7, we have to use the 2.7 linker. Metrowerks, please.
-LD      := $(WINE) tools/mwcc_compiler/GC/2.7/mwldeppc.exe
+LD      := $(WINE) tools/mwcc_compiler/$(MWCC_VERSION)/mwldeppc.exe
 ELF2DOL := tools/elf2dol
 SHA1SUM := sha1sum
 PYTHON  := python3
@@ -115,10 +77,10 @@ ASM_PROCESSOR_DIR := tools/asm_processor
 ASM_PROCESSOR := $(ASM_PROCESSOR_DIR)/compile.sh
 
 # Options
-INCLUDES := -i . -I- -i include -ir $(SDK_INC_PATH) -ir $(CW_INC_PATH)
+INCLUDES := -i . -I- -i include
 
 ASFLAGS := -mgekko -I include
-LDFLAGS := -map $(MAP) -fp hard -nodefaults -linkmode lessram
+LDFLAGS := -map $(MAP) -fp hard -nodefaults
 CFLAGS  := -Cpp_exceptions off -proc gekko -fp hard -O4,p -nodefaults -msgstyle gcc -sdata 48 -sdata2 8 -inline all,deferred -use_lmw_stmw on -enum int -rostr $(INCLUDES)
 
 # elf2dol needs to know these in order to calculate sbss correctly.

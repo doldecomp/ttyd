@@ -36,7 +36,7 @@ evt_audience_num_updown_in_event:
 /* 801343A0 001313A0  80 84 00 00 */	lwz r4, 0(r4)
 /* 801343A4 001313A4  4B EF BE 09 */	bl evtGetFloat
 /* 801343A8 001313A8  FC 00 08 90 */	fmr f0, f1
-/* 801343AC 001313AC  C0 22 B4 E8 */	lfs f1, lbl_8041C868-_SDA2_BASE_(r2)
+/* 801343AC 001313AC  C0 22 B4 E8 */	lfs f1, lbl_8041C868@sda21(r2)
 /* 801343B0 001313B0  FC 40 00 90 */	fmr f2, f0
 /* 801343B4 001313B4  48 06 79 55 */	bl BattleAudienceAddTargetNum
 /* 801343B8 001313B8  80 01 00 14 */	lwz r0, 0x14(r1)
@@ -337,7 +337,7 @@ evt_audience_jump_position_gravity:
 /* 801347DC 001317DC  90 61 00 0C */	stw r3, 0xc(r1)
 /* 801347E0 001317E0  ED 1E 10 28 */	fsubs f8, f30, f2
 /* 801347E4 001317E4  EC 00 28 28 */	fsubs f0, f0, f5
-/* 801347E8 001317E8  C0 62 B4 EC */	lfs f3, lbl_8041C86C-_SDA2_BASE_(r2)
+/* 801347E8 001317E8  C0 62 B4 EC */	lfs f3, lbl_8041C86C@sda21(r2)
 /* 801347EC 001317EC  90 01 00 08 */	stw r0, 8(r1)
 /* 801347F0 001317F0  EC 63 07 F2 */	fmuls f3, f3, f31
 /* 801347F4 001317F4  C8 21 00 08 */	lfd f1, 8(r1)
@@ -477,7 +477,7 @@ evt_audience_jump_position_firstsp:
 /* 801349F4 001319F4  EC FE 00 28 */	fsubs f7, f30, f0
 /* 801349F8 001319F8  90 81 00 1C */	stw r4, 0x1c(r1)
 /* 801349FC 001319FC  EC 21 28 28 */	fsubs f1, f1, f5
-/* 80134A00 00131A00  C0 42 B4 F0 */	lfs f2, lbl_8041C870-_SDA2_BASE_(r2)
+/* 80134A00 00131A00  C0 42 B4 F0 */	lfs f2, lbl_8041C870@sda21(r2)
 /* 80134A04 00131A04  90 61 00 18 */	stw r3, 0x18(r1)
 /* 80134A08 00131A08  C8 01 00 18 */	lfd f0, 0x18(r1)
 /* 80134A0C 00131A0C  EC 83 08 24 */	fdivs f4, f3, f1
@@ -610,7 +610,7 @@ evt_audience_move_position_speed:
 /* 80134BF0 00131BF0  EC 3E 07 BA */	fmadds f1, f30, f30, f0
 /* 80134BF4 00131BF4  48 13 7C C5 */	bl func_8026C8B8
 /* 80134BF8 00131BF8  FC 40 08 18 */	frsp f2, f1
-/* 80134BFC 00131BFC  C0 02 B4 E8 */	lfs f0, lbl_8041C868-_SDA2_BASE_(r2)
+/* 80134BFC 00131BFC  C0 02 B4 E8 */	lfs f0, lbl_8041C868@sda21(r2)
 /* 80134C00 00131C00  FC 00 E0 00 */	fcmpu cr0, f0, f28
 /* 80134C04 00131C04  EC 22 F8 24 */	fdivs f1, f2, f31
 /* 80134C08 00131C08  FC 20 08 1E */	fctiwz f1, f1
@@ -624,7 +624,7 @@ evt_audience_move_position_speed:
 lbl_80134C28:
 /* 80134C28 00131C28  D0 1F 01 18 */	stfs f0, 0x118(r31)
 lbl_80134C2C:
-/* 80134C2C 00131C2C  C0 02 B4 E8 */	lfs f0, lbl_8041C868-_SDA2_BASE_(r2)
+/* 80134C2C 00131C2C  C0 02 B4 E8 */	lfs f0, lbl_8041C868@sda21(r2)
 /* 80134C30 00131C30  FC 00 E8 00 */	fcmpu cr0, f0, f29
 /* 80134C34 00131C34  41 82 00 14 */	beq lbl_80134C48
 /* 80134C38 00131C38  EC 1D 10 24 */	fdivs f0, f29, f2
@@ -634,7 +634,7 @@ lbl_80134C2C:
 lbl_80134C48:
 /* 80134C48 00131C48  D0 1F 01 1C */	stfs f0, 0x11c(r31)
 lbl_80134C4C:
-/* 80134C4C 00131C4C  C0 02 B4 E8 */	lfs f0, lbl_8041C868-_SDA2_BASE_(r2)
+/* 80134C4C 00131C4C  C0 02 B4 E8 */	lfs f0, lbl_8041C868@sda21(r2)
 /* 80134C50 00131C50  FC 00 F0 00 */	fcmpu cr0, f0, f30
 /* 80134C54 00131C54  41 82 00 14 */	beq lbl_80134C68
 /* 80134C58 00131C58  EC 1E 10 24 */	fdivs f0, f30, f2
@@ -648,10 +648,10 @@ lbl_80134C6C:
 /* 80134C70 00131C70  90 1F 00 FC */	stw r0, 0xfc(r31)
 lbl_80134C74:
 /* 80134C74 00131C74  C0 3F 01 18 */	lfs f1, 0x118(r31)
-/* 80134C78 00131C78  C0 02 B4 E8 */	lfs f0, lbl_8041C868-_SDA2_BASE_(r2)
+/* 80134C78 00131C78  C0 02 B4 E8 */	lfs f0, lbl_8041C868@sda21(r2)
 /* 80134C7C 00131C7C  FC 01 00 40 */	fcmpo cr0, f1, f0
 /* 80134C80 00131C80  40 81 00 10 */	ble lbl_80134C90
-/* 80134C84 00131C84  C0 02 B4 F4 */	lfs f0, lbl_8041C874-_SDA2_BASE_(r2)
+/* 80134C84 00131C84  C0 02 B4 F4 */	lfs f0, lbl_8041C874@sda21(r2)
 /* 80134C88 00131C88  D0 1F 00 E8 */	stfs f0, 0xe8(r31)
 /* 80134C8C 00131C8C  48 00 00 0C */	b lbl_80134C98
 lbl_80134C90:
@@ -772,11 +772,11 @@ evt_audience_move_position_frame:
 lbl_80134E38:
 /* 80134E38 00131E38  C0 5F 01 04 */	lfs f2, 0x104(r31)
 /* 80134E3C 00131E3C  C0 3F 01 00 */	lfs f1, 0x100(r31)
-/* 80134E40 00131E40  C0 02 B4 E8 */	lfs f0, lbl_8041C868-_SDA2_BASE_(r2)
+/* 80134E40 00131E40  C0 02 B4 E8 */	lfs f0, lbl_8041C868@sda21(r2)
 /* 80134E44 00131E44  EC 22 08 28 */	fsubs f1, f2, f1
 /* 80134E48 00131E48  FC 01 00 40 */	fcmpo cr0, f1, f0
 /* 80134E4C 00131E4C  40 81 00 10 */	ble lbl_80134E5C
-/* 80134E50 00131E50  C0 02 B4 F4 */	lfs f0, lbl_8041C874-_SDA2_BASE_(r2)
+/* 80134E50 00131E50  C0 02 B4 F4 */	lfs f0, lbl_8041C874@sda21(r2)
 /* 80134E54 00131E54  D0 1F 00 E8 */	stfs f0, 0xe8(r31)
 /* 80134E58 00131E58  48 00 00 0C */	b lbl_80134E64
 lbl_80134E5C:

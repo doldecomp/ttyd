@@ -78,7 +78,7 @@ evt_bg_set_color:
 /* 800F24D0 000EF4D0  7C 7F 1B 78 */	mr r31, r3
 /* 800F24D4 000EF4D4  7F 83 E3 78 */	mr r3, r28
 /* 800F24D8 000EF4D8  4B F3 E6 F5 */	bl evtGetValue
-/* 800F24DC 000EF4DC  80 02 1C 68 */	lwz r0, lbl_80422FE8-_SDA2_BASE_(r2)
+/* 800F24DC 000EF4DC  80 02 1C 68 */	lwz r0, lbl_80422FE8@sda21(r2)
 /* 800F24E0 000EF4E0  90 01 00 08 */	stw r0, 8(r1)
 /* 800F24E4 000EF4E4  98 61 00 0B */	stb r3, 0xb(r1)
 /* 800F24E8 000EF4E8  38 61 00 0C */	addi r3, r1, 0xc

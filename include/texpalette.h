@@ -1,6 +1,9 @@
 #ifndef __TEXPALETTE_H__
 #define __TEXPALETTE_H__
 
+#include "types.h"
+#include "Dolphin/gx.h"
+
 typedef struct TPLImageHeader {
     u16 height;
     u16 width;

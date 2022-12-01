@@ -6,7 +6,7 @@
 .global BattlePadMultiCheckRepeat
 BattlePadMultiCheckRepeat:
 /* 80114B18 00111B18  1C 63 01 FC */	mulli r3, r3, 0x1fc
-/* 80114B1C 00111B1C  80 AD 17 10 */	lwz r5, lbl_80418970-_SDA_BASE_(r13)
+/* 80114B1C 00111B1C  80 AD 17 10 */	lwz r5, lbl_80418970@sda21(r13)
 /* 80114B20 00111B20  38 03 0F BC */	addi r0, r3, 0xfbc
 /* 80114B24 00111B24  7C 05 00 2E */	lwzx r0, r5, r0
 /* 80114B28 00111B28  7C 03 20 38 */	and r3, r0, r4
@@ -31,7 +31,7 @@ BattlePadCheckRepeat:
 .global BattlePadMultiCheckUp
 BattlePadMultiCheckUp:
 /* 80114B58 00111B58  1C 63 01 FC */	mulli r3, r3, 0x1fc
-/* 80114B5C 00111B5C  80 AD 17 10 */	lwz r5, lbl_80418970-_SDA_BASE_(r13)
+/* 80114B5C 00111B5C  80 AD 17 10 */	lwz r5, lbl_80418970@sda21(r13)
 /* 80114B60 00111B60  38 03 10 AC */	addi r0, r3, 0x10ac
 /* 80114B64 00111B64  7C 05 00 2E */	lwzx r0, r5, r0
 /* 80114B68 00111B68  7C 03 20 38 */	and r3, r0, r4
@@ -56,7 +56,7 @@ BattlePadCheckUp:
 .global BattlePadMultiCheckNow
 BattlePadMultiCheckNow:
 /* 80114B98 00111B98  1C 63 01 FC */	mulli r3, r3, 0x1fc
-/* 80114B9C 00111B9C  80 AD 17 10 */	lwz r5, lbl_80418970-_SDA_BASE_(r13)
+/* 80114B9C 00111B9C  80 AD 17 10 */	lwz r5, lbl_80418970@sda21(r13)
 /* 80114BA0 00111BA0  38 03 10 34 */	addi r0, r3, 0x1034
 /* 80114BA4 00111BA4  7C 05 00 2E */	lwzx r0, r5, r0
 /* 80114BA8 00111BA8  7C 03 20 38 */	and r3, r0, r4
@@ -82,7 +82,7 @@ BattlePadCheckNow:
 BattlePadMultiCheckRecordTrigger:
 /* 80114BD8 00111BD8  1C 63 01 FC */	mulli r3, r3, 0x1fc
 /* 80114BDC 00111BDC  54 80 10 3A */	slwi r0, r4, 2
-/* 80114BE0 00111BE0  80 8D 17 10 */	lwz r4, lbl_80418970-_SDA_BASE_(r13)
+/* 80114BE0 00111BE0  80 8D 17 10 */	lwz r4, lbl_80418970@sda21(r13)
 /* 80114BE4 00111BE4  38 63 0F 44 */	addi r3, r3, 0xf44
 /* 80114BE8 00111BE8  7C 03 02 14 */	add r0, r3, r0
 /* 80114BEC 00111BEC  7C 04 00 2E */	lwzx r0, r4, r0
@@ -106,7 +106,7 @@ BattlePadCheckRecordTrigger:
 .global BattlePadMultiCheckTrigger
 BattlePadMultiCheckTrigger:
 /* 80114C24 00111C24  1C 63 01 FC */	mulli r3, r3, 0x1fc
-/* 80114C28 00111C28  80 AD 17 10 */	lwz r5, lbl_80418970-_SDA_BASE_(r13)
+/* 80114C28 00111C28  80 AD 17 10 */	lwz r5, lbl_80418970@sda21(r13)
 /* 80114C2C 00111C2C  38 03 0F 44 */	addi r0, r3, 0xf44
 /* 80114C30 00111C30  7C 05 00 2E */	lwzx r0, r5, r0
 /* 80114C34 00111C34  7C 03 20 38 */	and r3, r0, r4
@@ -130,13 +130,13 @@ BattlePadCheckTrigger:
 
 .global BattlePadGetNow
 BattlePadGetNow:
-/* 80114C64 00111C64  80 6D 17 10 */	lwz r3, lbl_80418970-_SDA_BASE_(r13)
+/* 80114C64 00111C64  80 6D 17 10 */	lwz r3, lbl_80418970@sda21(r13)
 /* 80114C68 00111C68  80 63 10 34 */	lwz r3, 0x1034(r3)
 /* 80114C6C 00111C6C  4E 80 00 20 */	blr 
 
 .global BattlePadGetTrigger
 BattlePadGetTrigger:
-/* 80114C70 00111C70  80 6D 17 10 */	lwz r3, lbl_80418970-_SDA_BASE_(r13)
+/* 80114C70 00111C70  80 6D 17 10 */	lwz r3, lbl_80418970@sda21(r13)
 /* 80114C74 00111C74  80 63 0F 44 */	lwz r3, 0xf44(r3)
 /* 80114C78 00111C78  4E 80 00 20 */	blr 
 
@@ -161,33 +161,33 @@ lbl_80114CA0:
 /* 80114CB8 00111CB8  80 06 01 08 */	lwz r0, 0x108(r6)
 /* 80114CBC 00111CBC  90 06 01 0C */	stw r0, 0x10c(r6)
 /* 80114CC0 00111CC0  42 00 FF E0 */	bdnz lbl_80114CA0
-/* 80114CC4 00111CC4  80 CD 90 B0 */	lwz r6, gp-_SDA_BASE_(r13)
+/* 80114CC4 00111CC4  80 CD 90 B0 */	lwz r6, gp@sda21(r13)
 /* 80114CC8 00111CC8  54 80 10 3A */	slwi r0, r4, 2
 /* 80114CCC 00111CCC  38 A0 00 00 */	li r5, 0
 /* 80114CD0 00111CD0  7C C6 02 14 */	add r6, r6, r0
 /* 80114CD4 00111CD4  80 C6 13 28 */	lwz r6, 0x1328(r6)
 /* 80114CD8 00111CD8  B0 C3 00 00 */	sth r6, 0(r3)
-/* 80114CDC 00111CDC  80 CD 90 B0 */	lwz r6, gp-_SDA_BASE_(r13)
+/* 80114CDC 00111CDC  80 CD 90 B0 */	lwz r6, gp@sda21(r13)
 /* 80114CE0 00111CE0  7C C6 22 14 */	add r6, r6, r4
 /* 80114CE4 00111CE4  88 C6 13 B8 */	lbz r6, 0x13b8(r6)
 /* 80114CE8 00111CE8  98 C3 00 02 */	stb r6, 2(r3)
-/* 80114CEC 00111CEC  80 CD 90 B0 */	lwz r6, gp-_SDA_BASE_(r13)
+/* 80114CEC 00111CEC  80 CD 90 B0 */	lwz r6, gp@sda21(r13)
 /* 80114CF0 00111CF0  7C C6 22 14 */	add r6, r6, r4
 /* 80114CF4 00111CF4  88 C6 13 BC */	lbz r6, 0x13bc(r6)
 /* 80114CF8 00111CF8  98 C3 00 03 */	stb r6, 3(r3)
-/* 80114CFC 00111CFC  80 CD 90 B0 */	lwz r6, gp-_SDA_BASE_(r13)
+/* 80114CFC 00111CFC  80 CD 90 B0 */	lwz r6, gp@sda21(r13)
 /* 80114D00 00111D00  7C C6 22 14 */	add r6, r6, r4
 /* 80114D04 00111D04  88 C6 13 C0 */	lbz r6, 0x13c0(r6)
 /* 80114D08 00111D08  98 C3 00 04 */	stb r6, 4(r3)
-/* 80114D0C 00111D0C  80 CD 90 B0 */	lwz r6, gp-_SDA_BASE_(r13)
+/* 80114D0C 00111D0C  80 CD 90 B0 */	lwz r6, gp@sda21(r13)
 /* 80114D10 00111D10  7C C6 22 14 */	add r6, r6, r4
 /* 80114D14 00111D14  88 C6 13 C4 */	lbz r6, 0x13c4(r6)
 /* 80114D18 00111D18  98 C3 00 05 */	stb r6, 5(r3)
-/* 80114D1C 00111D1C  80 CD 90 B0 */	lwz r6, gp-_SDA_BASE_(r13)
+/* 80114D1C 00111D1C  80 CD 90 B0 */	lwz r6, gp@sda21(r13)
 /* 80114D20 00111D20  7C C6 22 14 */	add r6, r6, r4
 /* 80114D24 00111D24  88 C6 13 C8 */	lbz r6, 0x13c8(r6)
 /* 80114D28 00111D28  98 C3 00 06 */	stb r6, 6(r3)
-/* 80114D2C 00111D2C  80 CD 90 B0 */	lwz r6, gp-_SDA_BASE_(r13)
+/* 80114D2C 00111D2C  80 CD 90 B0 */	lwz r6, gp@sda21(r13)
 /* 80114D30 00111D30  7C 86 22 14 */	add r4, r6, r4
 /* 80114D34 00111D34  88 84 13 CC */	lbz r4, 0x13cc(r4)
 /* 80114D38 00111D38  98 83 00 07 */	stb r4, 7(r3)
@@ -195,15 +195,15 @@ lbl_80114CA0:
 /* 80114D40 00111D40  98 A3 00 09 */	stb r5, 9(r3)
 /* 80114D44 00111D44  A0 83 00 00 */	lhz r4, 0(r3)
 /* 80114D48 00111D48  90 83 01 08 */	stw r4, 0x108(r3)
-/* 80114D4C 00111D4C  80 8D 90 B0 */	lwz r4, gp-_SDA_BASE_(r13)
+/* 80114D4C 00111D4C  80 8D 90 B0 */	lwz r4, gp@sda21(r13)
 /* 80114D50 00111D50  7C 84 02 14 */	add r4, r4, r0
 /* 80114D54 00111D54  80 84 13 48 */	lwz r4, 0x1348(r4)
 /* 80114D58 00111D58  90 83 00 90 */	stw r4, 0x90(r3)
-/* 80114D5C 00111D5C  80 8D 90 B0 */	lwz r4, gp-_SDA_BASE_(r13)
+/* 80114D5C 00111D5C  80 8D 90 B0 */	lwz r4, gp@sda21(r13)
 /* 80114D60 00111D60  7C 84 02 14 */	add r4, r4, r0
 /* 80114D64 00111D64  80 84 13 38 */	lwz r4, 0x1338(r4)
 /* 80114D68 00111D68  90 83 00 18 */	stw r4, 0x18(r3)
-/* 80114D6C 00111D6C  80 8D 90 B0 */	lwz r4, gp-_SDA_BASE_(r13)
+/* 80114D6C 00111D6C  80 8D 90 B0 */	lwz r4, gp@sda21(r13)
 /* 80114D70 00111D70  7C 84 02 14 */	add r4, r4, r0
 /* 80114D74 00111D74  80 04 13 68 */	lwz r0, 0x1368(r4)
 /* 80114D78 00111D78  90 03 01 80 */	stw r0, 0x180(r3)
@@ -398,7 +398,7 @@ BattlePadManager:
 /* 8011501C 0011201C  3B C0 00 00 */	li r30, 0
 /* 80115020 00112020  3B E0 00 00 */	li r31, 0
 lbl_80115024:
-/* 80115024 00112024  80 0D 17 10 */	lwz r0, lbl_80418970-_SDA_BASE_(r13)
+/* 80115024 00112024  80 0D 17 10 */	lwz r0, lbl_80418970@sda21(r13)
 /* 80115028 00112028  38 7F 0F 2C */	addi r3, r31, 0xf2c
 /* 8011502C 0011202C  7F C4 F3 78 */	mr r4, r30
 /* 80115030 00112030  7C 60 1A 14 */	add r3, r0, r3
@@ -422,7 +422,7 @@ BattlePadInit:
 /* 8011506C 0011206C  3B C0 00 00 */	li r30, 0
 /* 80115070 00112070  3B E0 00 00 */	li r31, 0
 lbl_80115074:
-/* 80115074 00112074  80 0D 17 10 */	lwz r0, lbl_80418970-_SDA_BASE_(r13)
+/* 80115074 00112074  80 0D 17 10 */	lwz r0, lbl_80418970@sda21(r13)
 /* 80115078 00112078  38 7F 0F 2C */	addi r3, r31, 0xf2c
 /* 8011507C 0011207C  7C 60 1A 14 */	add r3, r0, r3
 /* 80115080 00112080  4B FF FE DD */	bl BtlPad_WorkInit
