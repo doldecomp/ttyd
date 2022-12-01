@@ -2,7 +2,7 @@
 
 
 .section .rodata, "wa"  # 0x802C0F20 - 0x80302C20
-
+lbl_rodata:
 	.incbin "baserom.dol", 0x2BDF20, 0x18
 .global lbl_802C0F38
 lbl_802C0F38:
