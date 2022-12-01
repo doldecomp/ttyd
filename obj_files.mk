@@ -243,6 +243,7 @@ ALL:=\
 	$(BUILD_DIR)/asm/eff/eff_gareki_n64.o\
 	$(BUILD_DIR)/asm/eff/eff_glass_n64.o\
 	$(BUILD_DIR)/asm/eff/eff_guruguru_n64.o\
+	$(BUILD_DIR)/asm/eff/eff_hatetaka_flush_n64.o\
 	$(BUILD_DIR)/asm/eff/eff_hit_n64.o\
 	$(BUILD_DIR)/asm/eff/eff_hokori_n64.o\
 	$(BUILD_DIR)/asm/eff/eff_holography_n64.o\
@@ -347,6 +348,7 @@ ALL:=\
 	$(BUILD_DIR)/asm/eff/eff_levelup.o\
 	$(BUILD_DIR)/asm/eff/eff_break.o\
 	$(BUILD_DIR)/asm/eff/eff_mobj_broken.o\
+	$(BUILD_DIR)/asm/eff/eff_mahojin.o\
 	$(BUILD_DIR)/asm/eff/eff_nozle.o\
 	$(BUILD_DIR)/asm/eff/eff_mizutama.o\
 	$(BUILD_DIR)/asm/eff/eff_minigame.o\
@@ -407,13 +409,11 @@ ALL:=\
 	$(BUILD_DIR)/asm/eff/eff_nokotarou.o\
 	$(BUILD_DIR)/asm/eff/eff_queen.o\
 	$(BUILD_DIR)/asm/eff/eff_queen2.o\
+	$(BUILD_DIR)/asm/eff/eff_gonbara_breath.o\
 	$(BUILD_DIR)/asm/evt/evt_memcard.o\
 	$(BUILD_DIR)/asm/eff/eff_majinai.o\
 	$(BUILD_DIR)/asm/eff/eff_mahorn2.o\
 	$(BUILD_DIR)/asm/eff/eff_ultra_hammer.o\
-	$(BUILD_DIR)/asm/eff/eff_gonbara_breath.o\
-	$(BUILD_DIR)/asm/eff/eff_hatetaka_flush_n64.o\
-	$(BUILD_DIR)/asm/eff/eff_mohojin.o\
 	$(BUILD_DIR)/asm/dolphin_lib.o\
 	$(BUILD_DIR)/data/ctors.o\
 	$(BUILD_DIR)/data/dtors.o\
