@@ -1,8 +1,12 @@
 .include "macros.inc"
 
 
-.section .text, "ax"  # 0x800055E0 - 0x802C0EE0
+.section .data, "wa"  # 0x80302C20 - 0x803C17E0
+.balign 8
+lbl_80302DC8:
+	.incbin "baserom.dol", 0x2FFDC8, 0x20
 
+.section .text, "ax"  # 0x800055E0 - 0x802C0EE0
 .global _relUnLoad
 _relUnLoad:
 /* 800074F4 000044F4  94 21 FF F0 */	stwu r1, -0x10(r1)

@@ -1,5 +1,9 @@
 .include "macros.inc"
 
+.section .data, "wa"  # 0x80302C20 - 0x803C17E0
+.balign 8
+lbl_80302DE8:
+	.incbin "baserom.dol", 0x2FFDE8, 0x58
 
 .section .text, "ax"  # 0x800055E0 - 0x802C0EE0
 
