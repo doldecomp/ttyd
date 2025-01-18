@@ -1,0 +1,6 @@
+os.a/OSRtc.c:
+	.text       start:0x80295B04 end:0x802967B8
+	.bss        start:0x8040CF80 end:0x8040CFD8
+
+os.a/OSSync.c:
+	.text       start:0x802967B8 end:0x8029683C

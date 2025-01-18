@@ -1,0 +1,163 @@
+name: MarioSt
+object: sys/main.dol
+hash: cf559d97fef1b3efb8788126250aee88f0491410
+object_base: orig/G8MJ01
+symbols: config/G8MJ01/symbols.txt
+splits: config/G8MJ01/splits.txt
+mw_comment_version: 10
+
+modules:
+- object: files/rel/aaa.rel
+  hash: 66d0e5d1d2e2901c5efd282ed4da5af6938f9461
+  symbols: config/G8MJ01/aaa/symbols.txt
+  splits: config/G8MJ01/aaa/splits.txt
+
+- object: files/rel/aji.rel
+  hash: 56af821581e0503402b73f8932a30138a1cfbba8
+  symbols: config/G8MJ01/aji/symbols.txt
+  splits: config/G8MJ01/aji/splits.txt
+
+- object: files/rel/bom.rel
+  hash: c0846b6084fb85690b3a555ce471973fa7e0d7b1
+  symbols: config/G8MJ01/bom/symbols.txt
+  splits: config/G8MJ01/bom/splits.txt
+
+- object: files/rel/dig.rel
+  hash: f3b088b23a295fb09dadca1ebc256969dc1ea27c
+  symbols: config/G8MJ01/dig/symbols.txt
+  splits: config/G8MJ01/dig/splits.txt
+
+- object: files/rel/dmo.rel
+  hash: 5bd9d6fae723924295807c144bfb20ff9dba64c3
+  symbols: config/G8MJ01/dmo/symbols.txt
+  splits: config/G8MJ01/dmo/splits.txt
+
+- object: files/rel/dou.rel
+  hash: 9560fa09485f1e02e43a07834ec4b8af47547551
+  symbols: config/G8MJ01/dou/symbols.txt
+  splits: config/G8MJ01/dou/splits.txt
+
+- object: files/rel/eki.rel
+  hash: d5eb271be7483d4b01e8160fc46ed754dd1b58af
+  symbols: config/G8MJ01/eki/symbols.txt
+  splits: config/G8MJ01/eki/splits.txt
+
+- object: files/rel/end.rel
+  hash: f577f264bbdc10969ca25f7dbc84833c9564c1ed
+  symbols: config/G8MJ01/end/symbols.txt
+  splits: config/G8MJ01/end/splits.txt
+
+- object: files/rel/gon.rel
+  hash: 4d51e63a545aa2d867887f4a113b073de948956c
+  symbols: config/G8MJ01/gon/symbols.txt
+  splits: config/G8MJ01/gon/splits.txt
+
+- object: files/rel/gor.rel
+  hash: 3bf36642758ea61254b1e4d1b3d3fc89cecb30f4
+  symbols: config/G8MJ01/gor/symbols.txt
+  splits: config/G8MJ01/gor/splits.txt
+
+- object: files/rel/gra.rel
+  hash: ec1704b208654ec1f32a7023bad9f942de392e8a
+  symbols: config/G8MJ01/gra/symbols.txt
+  splits: config/G8MJ01/gra/splits.txt
+
+- object: files/rel/hei.rel
+  hash: a7e27f05a88a80af3e44de29e50ee0563d62ad17
+  symbols: config/G8MJ01/hei/symbols.txt
+  splits: config/G8MJ01/hei/splits.txt
+
+- object: files/rel/hom.rel
+  hash: f1a3590713ca8b06c73cd8fff8dab29bea9a3bfb
+  symbols: config/G8MJ01/hom/symbols.txt
+  splits: config/G8MJ01/hom/splits.txt
+
+- object: files/rel/jin.rel
+  hash: d8124f1e405053a6e27cf4c69df9990fef730c36
+  symbols: config/G8MJ01/jin/symbols.txt
+  splits: config/G8MJ01/jin/splits.txt
+
+- object: files/rel/jon.rel
+  hash: 319e3737b003d87c2f124b83489ad65a93f03479
+  symbols: config/G8MJ01/jon/symbols.txt
+  splits: config/G8MJ01/jon/splits.txt
+
+- object: files/rel/kpa.rel
+  hash: 9f5d731b152343afc51279df109a121fe7d9302a
+  symbols: config/G8MJ01/kpa/symbols.txt
+  splits: config/G8MJ01/kpa/splits.txt
+
+- object: files/rel/las.rel
+  hash: e15faef89101b32f4b7a337058c65b3aba910aa3
+  symbols: config/G8MJ01/las/symbols.txt
+  splits: config/G8MJ01/las/splits.txt
+
+- object: files/rel/moo.rel
+  hash: 357e5b6724557e4eb76f5d70324c860217f6c81a
+  symbols: config/G8MJ01/moo/symbols.txt
+  splits: config/G8MJ01/moo/splits.txt
+
+- object: files/rel/mri.rel
+  hash: 11d11bf8f75eee99fcc304c67fdd414d7f8c85fc
+  symbols: config/G8MJ01/mri/symbols.txt
+  splits: config/G8MJ01/mri/splits.txt
+
+- object: files/rel/muj.rel
+  hash: 10b4f37b948497e48db829c42915e0b23a097fd5
+  symbols: config/G8MJ01/muj/symbols.txt
+  splits: config/G8MJ01/muj/splits.txt
+
+- object: files/rel/nok.rel
+  hash: 54dd220f5ee9f3f496c33479ff474da062f635ee
+  symbols: config/G8MJ01/nok/symbols.txt
+  splits: config/G8MJ01/nok/splits.txt
+
+- object: files/rel/pik.rel
+  hash: 80acba59e6d4d4aea017dbecfabbbddd6461115d
+  symbols: config/G8MJ01/pik/symbols.txt
+  splits: config/G8MJ01/pik/splits.txt
+
+- object: files/rel/qiz.rel
+  hash: 0ba6626026cdc093c56ebb87a6995dcb2c2fa679
+  symbols: config/G8MJ01/qiz/symbols.txt
+  splits: config/G8MJ01/qiz/splits.txt
+
+- object: files/rel/rsh.rel
+  hash: cd279de6fa8d76af5640fab8fb37f9e95d365624
+  symbols: config/G8MJ01/rsh/symbols.txt
+  splits: config/G8MJ01/rsh/splits.txt
+
+- object: files/rel/sys.rel
+  hash: 1243496d414bfde2482d2206121208858cecedea
+  symbols: config/G8MJ01/sys/symbols.txt
+  splits: config/G8MJ01/sys/splits.txt
+
+- object: files/rel/tik.rel
+  hash: 39bad771291224ccd2b4e3b87361d3f2563d1643
+  symbols: config/G8MJ01/tik/symbols.txt
+  splits: config/G8MJ01/tik/splits.txt
+
+- object: files/rel/tou.rel
+  hash: 0b45e0f8d204e8ee394eb33f52b59658b08ccb15
+  symbols: config/G8MJ01/tou/symbols.txt
+  splits: config/G8MJ01/tou/splits.txt
+
+- object: files/rel/tou2.rel
+  hash: dfb56dca8cc27fd24c0da1d812329b37383827c0
+  symbols: config/G8MJ01/tou2/symbols.txt
+  splits: config/G8MJ01/tou2/splits.txt
+
+- object: files/rel/usu.rel
+  hash: 21dcf5444bf9d6f4af7f4ac53d9b9d6aaa4d80f9
+  symbols: config/G8MJ01/usu/symbols.txt
+  splits: config/G8MJ01/usu/splits.txt
+
+- object: files/rel/win.rel
+  hash: 3f212ac788e4885ca68649cc7949d3488888e0b8
+  symbols: config/G8MJ01/win/symbols.txt
+  splits: config/G8MJ01/win/splits.txt
+
+- object: files/rel/yuu.rel
+  hash: 10f5980e6c0e1d725cdf97e63d48477c45a5f628
+  symbols: config/G8MJ01/yuu/symbols.txt
+  splits: config/G8MJ01/yuu/splits.txt

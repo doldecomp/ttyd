@@ -1,0 +1,75 @@
+#pragma once
+
+#include <dolphin/types.h>
+#include "battle/battle.h"
+
+typedef enum BattleActRecordConditionType {
+	kNoFailureCondition, //0x0
+	kConditionJumpLess, //0x1
+	kConditionJumpMore, //0x2
+	kConditionHammerLess, //0x3
+	kConditionHammerMore, //0x4
+	kConditionUseSpecialMovesLess, //0x5
+	kConditionUseSpecialMovesMore, //0x6
+	kConditionMarioTakeLessDamage, //0x7
+	kConditionMarioTakeMoreDamage, //0x8
+	kConditionPartnersTakeLessDamage, //0x9
+	kConditionPartnersTakeMoreDamage, //0xA
+	kConditionPartyTakeLessDamage, //0xB
+	kConditionPartyTakeMoreDamage, //0xC
+	kConditionMarioTakeFewerHits, //0xD
+	kConditionMarioTakeMoreHits, //0xE
+	kConditionPartnersTakeFewerHits, //0xF
+	kConditionPartnersTakeMoreHits, //0x10
+	kConditionPartyTakeFewerHits, //0x11
+	kConditionPartyTakeMoreHits, //0x12
+	kConditionMarioWinMoreHp, //0x13
+	kConditionMarioWinLessHp, //0x14
+	kConditionPowerBounceCombo, //0x15
+	kConditionMarioUseFewerItems, //0x16
+	kConditionMarioUseMoreItems, //0x17
+	kConditionPartnersUseFewerItems, //0x18
+	kConditionPartnersUseMoreItems, //0x19
+	kConditionPartyUseFewerItems, //0x1A
+	kConditionPartyUseMoreItems, //0x1B
+	kConditionMarioSwapPartnersLess, //0x1C
+	kConditionMarioSwapPartnersMore, //0x1D
+	kConditionPartnersSwapPartnersLess, //0x1E
+	kConditionPartnersSwapPartnersMore, //0x1F
+	kConditionPartySwapPartnersLess, //0x20
+	kConditionPartySwapPartnersMore, //0x21
+	kConditionMarioAttackAudienceLess, //0x22
+	kConditionMarioAttackAudienceMore, //0x23
+	kConditionPartnersAttackAudienceLess, //0x24
+	kConditionPartnersAttackAudienceMore, //0x25
+	kConditionMarioAppealLess, //0x26
+	kConditionMarioAppealMore, //0x27
+	kConditionPartnersAppealLess, //0x28
+	kConditionPartnersAppealMore, //0x29
+	kConditionPartyAppealLess, //0x2A
+	kConditionPartyAppealMore, //0x2B
+	kConditionMarioSpendLessFp, //0x2C
+	kConditionMarioSpendMoreFp, //0x2D
+	kConditionPartnersSpendLessFp, //0x2E
+	kConditionPartnersSpendMoreFp, //0x2F
+	kConditionPartySpendLessFp_0x30, //0x30
+	kConditionPartySpendMoreFp_0x31, //0x31
+	kConditionMarioUseMovesLess, //0x32
+	kConditionMarioUseMovesMore, //0x33
+	kConditionPartnerUseMovesLess, //0x34
+	kConditionPartnerUseMovesMore, //0x35
+	kConditionPartySpendLessFp_0x36, //0x36
+	kConditionPartySpendMoreFp_0x37, //0x37
+	kConditionPartyUseMovesLess, //0x38
+	kConditionPartyUseMovesMore, //0x39
+	kConditionWinInMoreTurns, //0x3A
+	kConditionWinInFewerTurns, //0x3B
+	kConditionWaitTurnsBeforeMarioActions, //0x3C
+	kConditionWaitTurnsBeforePartnerActions, //0x3D
+	kConditionWaitTurnsBeforePartyActions, //0x3E
+	kConditionWaitTurnsBeforeMarioAttacks, //0x3F
+	kConditionWaitTurnsBeforePartnerAttacks, //0x40
+	kConditionWaitTurnsBeforePartyAttacks, //0x41
+	kConditionMarioOnlyJumpOrDefend, //0x42
+	kConditionMarioOnlyHammerOrDefend, //0x43
+} BattleActRecordConditionType;

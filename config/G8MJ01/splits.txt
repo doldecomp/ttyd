@@ -1,0 +1,3623 @@
+Sections:
+	.init       type:code align:4
+	.text       type:code align:32
+	.ctors      type:rodata align:32
+	.dtors      type:rodata align:32
+	.rodata     type:rodata align:32
+	.data       type:data align:32
+	.bss        type:bss align:8
+	.sdata      type:data align:32
+	.sbss       type:bss align:16
+	.sdata2     type:rodata align:16
+	.sbss2      type:bss align:8
+
+main.c:
+	.text       start:0x800055E0 end:0x80005634
+
+system.c:
+	.text       start:0x80005634 end:0x80007310
+	.rodata     start:0x802C0F20 end:0x802C1028
+	.data       start:0x80302C20 end:0x80302DC8
+	.bss        start:0x803C17E0 end:0x803C48E0
+	.sdata      start:0x8040F260 end:0x8040F268
+	.sbss       start:0x80418360 end:0x80418380
+	.sdata2     start:0x80419380 end:0x804193D8
+
+sequence/seq_game.c:
+	.text       start:0x80007310 end:0x800074F4
+	.sdata      start:0x8040F268 end:0x8040F298
+	.sbss       start:0x80418380 end:0x80418388
+	.sdata2     start:0x804193D8 end:0x804193E8
+
+sequence/seq_mapchange.c:
+	.text       start:0x800074F4 end:0x800087B0
+	.rodata     start:0x802C1028 end:0x802C11A0
+	.data       start:0x80302DC8 end:0x80302DE8
+	.bss        start:0x803C48E0 end:0x803C57F0
+	.sdata      start:0x8040F298 end:0x8040F2E0
+	.sbss       start:0x80418388 end:0x804183E8
+	.sdata2     start:0x804193E8 end:0x80419480
+	.sbss2      start:0x80422F60 end:0x80422F68
+
+sequence/seq_title.c:
+	.text       start:0x800087B0 end:0x80009C08
+	.rodata     start:0x802C11A0 end:0x802C12C0
+	.data       start:0x80302DE8 end:0x80302E40
+	.bss        start:0x803C57F0 end:0x803C5828
+	.sdata      start:0x8040F2E0 end:0x8040F2E8
+	.sdata2     start:0x80419480 end:0x80419510
+	.sbss2      start:0x80422F68 end:0x80422F70
+
+sequence/seqdef.c:
+	.data       start:0x80302E40 end:0x80302EA0
+
+driver/bgdrv.c:
+	.text       start:0x80009C08 end:0x8000A748
+	.rodata     start:0x802C12C0 end:0x802C12D0
+	.bss        start:0x803C5828 end:0x803C5868
+	.sdata2     start:0x80419510 end:0x80419548
+
+cam_road.c:
+	.text       start:0x8000A748 end:0x8000E1DC
+	.rodata     start:0x802C12D0 end:0x802C1368
+	.bss        start:0x803C5868 end:0x803C5A78
+	.sdata      start:0x8040F2E8 end:0x8040F2F0
+	.sdata2     start:0x80419548 end:0x804195D0
+
+driver/camdrv.c:
+	.text       start:0x8000E1DC end:0x800106B8
+	.rodata     start:0x802C1368 end:0x802C13F8
+	.bss        start:0x803C5A78 end:0x803C5AB0
+	.sdata      start:0x8040F2F0 end:0x8040F318
+	.sbss       start:0x804183E8 end:0x804183F0
+	.sdata2     start:0x804195D0 end:0x80419680
+	.sbss2      start:0x80422F70 end:0x80422F78
+
+driver/dispdrv.c:
+	.text       start:0x800106B8 end:0x80010B28
+	.data       start:0x80302EA0 end:0x80302EE0
+	.sdata      start:0x8040F318 end:0x8040F360
+	.sbss       start:0x804183F0 end:0x80418400
+	.sdata2     start:0x80419680 end:0x80419698
+
+driver/fadedrv.c:
+	.text       start:0x80010B28 end:0x80013A34
+	.rodata     start:0x802C13F8 end:0x802C1590
+	.data       start:0x80302EE0 end:0x803032E0
+	.sdata      start:0x8040F360 end:0x8040F380
+	.sbss       start:0x80418400 end:0x80418408
+	.sdata2     start:0x80419698 end:0x80419758
+	.sbss2      start:0x80422F78 end:0x80422F80
+
+driver/hitdrv.c:
+	.text       start:0x80013A34 end:0x80018BD4
+	.rodata     start:0x802C1590 end:0x802C1598
+	.sbss       start:0x80418408 end:0x80418410
+	.sdata2     start:0x80419758 end:0x80419778
+
+driver/icondrv.c:
+	.text       start:0x80018BD4 end:0x8001B2D4
+	.rodata     start:0x802C1598 end:0x802C15F0
+	.sdata      start:0x8040F380 end:0x8040F3D0
+	.sbss       start:0x80418410 end:0x80418430
+	.sdata2     start:0x80419778 end:0x804197D0
+
+driver/lightdrv.c:
+	.text       start:0x8001B2D4 end:0x8001BEA8
+	.rodata     start:0x802C15F0 end:0x802C16D8
+	.bss        start:0x803C5AB0 end:0x803C5C30
+	.sbss       start:0x80418430 end:0x80418440
+	.sdata2     start:0x804197D0 end:0x80419800
+
+driver/mapdrv.c:
+	.text       start:0x8001BEA8 end:0x8002AEB4
+	.rodata     start:0x802C16D8 end:0x802C1A90
+	.data       start:0x803032E0 end:0x803034A0
+	.bss        start:0x803C5C30 end:0x803C60B0
+	.sdata      start:0x8040F3D0 end:0x8040F400
+	.sbss       start:0x80418440 end:0x804184C0
+	.sdata2     start:0x80419800 end:0x804198E0
+	.sbss2      start:0x80422F80 end:0x80422F98
+
+driver/shadowdrv.c:
+	.text       start:0x8002AEB4 end:0x8002DBC0
+	.rodata     start:0x802C1A90 end:0x802C1BE8
+	.data       start:0x803034A0 end:0x80303BF0
+	.bss        start:0x803C60B0 end:0x803C63D8
+	.sdata      start:0x8040F400 end:0x8040F4B0
+	.sbss       start:0x804184C0 end:0x80418558
+	.sdata2     start:0x804198E0 end:0x80419930
+	.sbss2      start:0x80422F98 end:0x80422FA8
+
+driver/seqdrv.c:
+	.text       start:0x8002DBC0 end:0x8002DD1C
+	.sdata      start:0x8040F4B0 end:0x8040F4C0
+	.sbss       start:0x80418558 end:0x80418580
+
+sdk/DEMOInit.c:
+	.text       start:0x8002DD1C end:0x8002EA18
+	.rodata     start:0x802C1BE8 end:0x802C1D30
+	.bss        start:0x803C63D8 end:0x803C6818
+	.sdata      start:0x8040F4C0 end:0x8040F4C8
+	.sbss       start:0x80418580 end:0x804185B0
+	.sdata2     start:0x80419930 end:0x80419938
+	.sbss2      start:0x80422FA8 end:0x80422FB0
+
+sdk/DEMOPad.c:
+	.text       start:0x8002EA18 end:0x8002ED18
+	.bss        start:0x803C6818 end:0x803C6890
+	.sdata      start:0x8040F4C8 end:0x8040F4D8
+	.sbss       start:0x804185B0 end:0x804185E8
+
+memory.c:
+	.text       start:0x8002ED18 end:0x8002FE28
+	.bss        start:0x803C6890 end:0x803D48B0
+	.sdata      start:0x8040F4D8 end:0x8040F510
+	.sbss       start:0x804185E8 end:0x80418640
+
+manager/evtmgr_cmd.c:
+	.text       start:0x8002FE28 end:0x8003538C
+	.rodata     start:0x802C1D30 end:0x802C1EC0
+	.bss        start:0x803D48B0 end:0x803D49B0
+	.sdata2     start:0x80419938 end:0x80419950
+
+manager/evtmgr.c:
+	.text       start:0x8003538C end:0x800373E4
+	.bss        start:0x803D49B0 end:0x803D52F0
+	.sdata      start:0x8040F510 end:0x8040F518
+	.sbss       start:0x80418640 end:0x80418650
+	.sdata2     start:0x80419950 end:0x80419958
+
+texPalette.c:
+	.text       start:0x800373E4 end:0x800375F0
+	.rodata     start:0x802C1EC0 end:0x802C1F08
+
+event/evt_map.c:
+	.text       start:0x800375F0 end:0x8003893C
+	.rodata     start:0x802C1F08 end:0x802C1F28
+	.data       start:0x80303BF0 end:0x80303D60
+	.sdata2     start:0x80419958 end:0x80419980
+	.sbss2      start:0x80422FB0 end:0x80422FC0
+
+data/mapdata.c:
+	.text       start:0x8003893C end:0x80038D28
+	.rodata     start:0x802C1F28 end:0x802C2A98
+	.data       start:0x80303D60 end:0x80304340
+	.sdata      start:0x8040F518 end:0x804100E0
+	.sdata2     start:0x80419980 end:0x80419A28
+
+driver/animdrv.c:
+	.text       start:0x80038D28 end:0x8004289C
+	.rodata     start:0x802C2A98 end:0x802C2F78
+	.data       start:0x80304340 end:0x80305138
+	.bss        start:0x803D52F0 end:0x803D5CC8
+	.sdata      start:0x804100E0 end:0x80410118
+	.sbss       start:0x80418650 end:0x80418690
+	.sdata2     start:0x80419A28 end:0x80419AD8
+
+driver/npcdrv.c:
+	.text       start:0x8004289C end:0x8004C574
+	.rodata     start:0x802C2F78 end:0x802C31E8
+	.data       start:0x80305138 end:0x80305440
+	.sdata      start:0x80410118 end:0x80410158
+	.sbss       start:0x80418690 end:0x804186C8
+	.sdata2     start:0x80419AD8 end:0x80419CA8
+
+event/evt_npc.c:
+	.text       start:0x8004C574 end:0x80052AFC
+	.rodata     start:0x802C31E8 end:0x802C3610
+	.data       start:0x80305440 end:0x803054A0
+	.sdata      start:0x80410158 end:0x80410178
+	.sbss       start:0x804186C8 end:0x804186D0
+	.sdata2     start:0x80419CA8 end:0x80419D38
+	.sbss2      start:0x80422FC0 end:0x80422FC8
+
+event/evt_sub.c:
+	.text       start:0x80052AFC end:0x800553AC
+	.data       start:0x803054A0 end:0x803080D0
+	.sdata      start:0x80410178 end:0x804101F0
+	.sbss       start:0x804186D0 end:0x804186D8
+	.sdata2     start:0x80419D38 end:0x80419DB0
+
+mario/mario.c:
+	.text       start:0x800553AC end:0x8005D21C
+	.rodata     start:0x802C3610 end:0x802C39F0
+	.data       start:0x803080D0 end:0x80308130
+	.bss        start:0x803D5CC8 end:0x803D5D28
+	.sdata      start:0x804101F0 end:0x80410220
+	.sbss       start:0x804186D8 end:0x804186F0
+	.sdata2     start:0x80419DB0 end:0x8041A008
+
+driver/effdrv.c:
+	.text       start:0x8005D21C end:0x8005E128
+	.rodata     start:0x802C39F0 end:0x802C3CC8
+	.data       start:0x80308130 end:0x803083C0
+	.sdata      start:0x80410220 end:0x80410268
+	.sbss       start:0x804186F0 end:0x80418708
+	.sdata2     start:0x8041A008 end:0x8041A0C8
+
+driver/mobjdrv.c:
+	.text       start:0x8005E128 end:0x80060924
+	.rodata     start:0x802C3CC8 end:0x802C3DC8
+	.data       start:0x803083C0 end:0x80309CE8
+	.bss        start:0x803D5D28 end:0x803D5D80
+	.sdata      start:0x80410268 end:0x80410290
+	.sbss       start:0x80418708 end:0x80418710
+	.sdata2     start:0x8041A0C8 end:0x8041A118
+
+event/evt_mobj.c:
+	.text       start:0x80060924 end:0x8006B1E4
+	.rodata     start:0x802C3DC8 end:0x802C47D8
+	.data       start:0x80309CE8 end:0x8030A890
+	.sdata      start:0x80410290 end:0x80410308
+	.sbss       start:0x80418710 end:0x80418718
+	.sdata2     start:0x8041A118 end:0x8041A238
+
+event/evt_eff.c:
+	.text       start:0x8006B1E4 end:0x8006D188
+	.rodata     start:0x802C47D8 end:0x802C47E0
+	.data       start:0x8030A890 end:0x8030AB68
+	.sdata2     start:0x8041A238 end:0x8041A250
+
+event/evt_paper.c:
+	.text       start:0x8006D188 end:0x8006D24C
+
+driver/casedrv.c:
+	.text       start:0x8006D24C end:0x8006DBC8
+	.data       start:0x8030AB68 end:0x8030ABB8
+	.sdata      start:0x80410308 end:0x80410310
+	.sbss       start:0x80418718 end:0x80418720
+
+mario/mariost.c:
+	.text       start:0x8006DBC8 end:0x8006EC24
+	.rodata     start:0x802C47E0 end:0x802C47F8
+	.data       start:0x8030ABB8 end:0x8030ACE0
+	.bss        start:0x803D5D80 end:0x803D8470
+	.sdata      start:0x80410310 end:0x80410348
+	.sbss       start:0x80418720 end:0x80418730
+	.sdata2     start:0x8041A250 end:0x8041A270
+	.sbss2      start:0x80422FC8 end:0x80422FD0
+
+event/evt_case.c:
+	.text       start:0x8006EC24 end:0x8006EF88
+
+event/evt_img.c:
+	.text       start:0x8006EF88 end:0x8006FA18
+	.rodata     start:0x802C47F8 end:0x802C4808
+	.sdata2     start:0x8041A270 end:0x8041A278
+	.sbss2      start:0x80422FD0 end:0x80422FD8
+
+driver/imgdrv.c:
+	.text       start:0x8006FA18 end:0x80071998
+	.rodata     start:0x802C4808 end:0x802C4820
+	.data       start:0x8030ACE0 end:0x8030AD60
+	.sdata      start:0x80410348 end:0x80410350
+	.sbss       start:0x80418730 end:0x80418738
+	.sdata2     start:0x8041A278 end:0x8041A2B8
+
+driver/offscreendrv.c:
+	.text       start:0x80071998 end:0x800721F0
+	.sbss       start:0x80418738 end:0x80418748
+	.sdata2     start:0x8041A2B8 end:0x8041A2C0
+
+event/evt_offscreen.c:
+	.text       start:0x800721F0 end:0x8007248C
+
+sequence/seq_battle.c:
+	.text       start:0x8007248C end:0x80072DC0
+	.rodata     start:0x802C4820 end:0x802C48A0
+	.data       start:0x8030AD60 end:0x8030AD90
+	.sbss       start:0x80418748 end:0x80418750
+	.sdata2     start:0x8041A2C0 end:0x8041A2E0
+
+event/evt_hit.c:
+	.text       start:0x80072DC0 end:0x800734C4
+	.sbss       start:0x80418750 end:0x80418758
+	.sdata2     start:0x8041A2E0 end:0x8041A2E8
+
+manager/fontmgr.c:
+	.text       start:0x800734C4 end:0x80077120
+	.rodata     start:0x802C48A0 end:0x802C4920
+	.sdata      start:0x80410350 end:0x80410370
+	.sbss       start:0x80418758 end:0x804187A0
+	.sdata2     start:0x8041A2E8 end:0x8041A348
+	.sbss2      start:0x80422FD8 end:0x80422FE0
+
+sdk/arc.c:
+	.text       start:0x80077120 end:0x800777F8
+	.rodata     start:0x802C4920 end:0x802C4948
+	.sdata2     start:0x8041A348 end:0x8041A350
+
+driver/arcdrv.c:
+	.text       start:0x800777F8 end:0x80077A5C
+	.bss        start:0x803D8470 end:0x803D8510
+
+sequence/seq_gameover.c:
+	.text       start:0x80077A5C end:0x80077F88
+	.rodata     start:0x802C4948 end:0x802C4970
+	.data       start:0x8030AD90 end:0x8030B348
+	.sdata      start:0x80410370 end:0x80410378
+	.sbss       start:0x804187A0 end:0x804187A8
+	.sdata2     start:0x8041A350 end:0x8041A3C8
+
+event/evt_bero.c:
+	.text       start:0x80077F88 end:0x8007A244
+	.rodata     start:0x802C4970 end:0x802C4DC0
+	.data       start:0x8030B348 end:0x8030DA28
+	.bss        start:0x803D8510 end:0x803D85D0
+	.sdata      start:0x80410378 end:0x804103C8
+	.sbss       start:0x804187A8 end:0x804187F8
+	.sdata2     start:0x8041A3C8 end:0x8041A430
+
+driver/windowdrv.c:
+	.text       start:0x8007A244 end:0x8007F308
+	.rodata     start:0x802C4DC0 end:0x802C4DF0
+	.data       start:0x8030DA28 end:0x8030DA80
+	.sbss       start:0x804187F8 end:0x80418810
+	.sdata2     start:0x8041A430 end:0x8041A4B0
+
+driver/msgdrv.c:
+	.text       start:0x8007F308 end:0x80083A6C
+	.rodata     start:0x802C4DF0 end:0x802C5010
+	.data       start:0x8030DA80 end:0x8030DC38
+	.sdata      start:0x804103C8 end:0x804103F8
+	.sbss       start:0x80418810 end:0x80418840
+	.sdata2     start:0x8041A4B0 end:0x8041A6B0
+	.sbss2      start:0x80422FE0 end:0x80422FE8
+
+parse.c:
+	.text       start:0x80083A6C end:0x80083F9C
+	.bss        start:0x803D85D0 end:0x803D86A8
+	.sdata2     start:0x8041A6B0 end:0x8041A6B8
+
+database.c:
+	.text       start:0x80083F9C end:0x800847B8
+	.rodata     start:0x802C5010 end:0x802C56F8
+	.data       start:0x8030DC38 end:0x8030E590
+	.sbss       start:0x80418840 end:0x80418848
+	.sdata2     start:0x8041A6B8 end:0x8041A6D0
+
+driver/swdrv.c:
+	.text       start:0x800847B8 end:0x80084A6C
+
+sequence/seq_logo.c:
+	.text       start:0x80084A6C end:0x80086134
+	.rodata     start:0x802C56F8 end:0x802C5730
+	.data       start:0x8030E590 end:0x8030E5C0
+	.sdata      start:0x804103F8 end:0x80410400
+	.sbss       start:0x80418848 end:0x80418880
+	.sdata2     start:0x8041A6D0 end:0x8041A768
+
+motion/mot_walk.c:
+	.text       start:0x80086134 end:0x80086AE0
+	.sdata2     start:0x8041A768 end:0x8041A7A0
+
+mario/mario_hit.c:
+	.text       start:0x80086AE0 end:0x800901EC
+	.rodata     start:0x802C5730 end:0x802C59F0
+	.data       start:0x8030E5C0 end:0x8030E5E0
+	.sdata2     start:0x8041A7A0 end:0x8041A890
+
+mario/mario_motion.c:
+	.text       start:0x800901EC end:0x80093A48
+	.rodata     start:0x802C59F0 end:0x802C5A60
+	.data       start:0x8030E5E0 end:0x8030E860
+	.sdata      start:0x80410400 end:0x80410428
+	.sdata2     start:0x8041A890 end:0x8041A950
+
+mario/mario_sbr.c:
+	.text       start:0x80093A48 end:0x80095788
+	.rodata     start:0x802C5A60 end:0x802C5A80
+	.bss        start:0x803D86A8 end:0x803D8710
+	.sdata2     start:0x8041A950 end:0x8041A9A0
+
+motion/mot_hammer.c:
+	.text       start:0x80095788 end:0x80097278
+	.rodata     start:0x802C5A80 end:0x802C5B88
+	.data       start:0x8030E860 end:0x8030E8C8
+	.sdata      start:0x80410428 end:0x804104B0
+	.sdata2     start:0x8041A9A0 end:0x8041AAC0
+
+motion/mot_jabara.c:
+	.text       start:0x80097278 end:0x80099620
+	.rodata     start:0x802C5B88 end:0x802C5C40
+	.data       start:0x8030E8C8 end:0x8030E980
+	.sdata      start:0x804104B0 end:0x804104D0
+	.sdata2     start:0x8041AAC0 end:0x8041ABB8
+
+motion/mot_jump.c:
+	.text       start:0x80099620 end:0x8009AA30
+	.rodata     start:0x802C5C40 end:0x802C5C88
+	.data       start:0x8030E980 end:0x8030E9D8
+	.sdata      start:0x804104D0 end:0x80410518
+	.sdata2     start:0x8041ABB8 end:0x8041AC00
+
+motion/mot_plane.c:
+	.text       start:0x8009AA30 end:0x8009CE28
+	.rodata     start:0x802C5C88 end:0x802C5D40
+	.data       start:0x8030E9D8 end:0x8030EBD8
+	.sdata      start:0x80410518 end:0x80410528
+	.sdata2     start:0x8041AC00 end:0x8041ACB8
+
+motion/mot_roll.c:
+	.text       start:0x8009CE28 end:0x8009FD60
+	.rodata     start:0x802C5D40 end:0x802C5E00
+	.sdata      start:0x80410528 end:0x80410558
+	.sbss       start:0x80418880 end:0x80418890
+	.sdata2     start:0x8041ACB8 end:0x8041AD98
+
+motion/mot_ship.c:
+	.text       start:0x8009FD60 end:0x800A286C
+	.rodata     start:0x802C5E00 end:0x802C5E78
+	.data       start:0x8030EBD8 end:0x8030EDD0
+	.sdata      start:0x80410558 end:0x80410580
+	.sdata2     start:0x8041AD98 end:0x8041AE80
+
+motion/mot_slit.c:
+	.text       start:0x800A286C end:0x800A4E88
+	.rodata     start:0x802C5E78 end:0x802C5F28
+	.data       start:0x8030EDD0 end:0x8030EE58
+	.sdata2     start:0x8041AE80 end:0x8041AEF0
+
+motion/mot_stay.c:
+	.text       start:0x800A4E88 end:0x800A57F8
+	.rodata     start:0x802C5F28 end:0x802C5F38
+	.sdata2     start:0x8041AEF0 end:0x8041AF28
+
+event/evt_cam.c:
+	.text       start:0x800A57F8 end:0x800A79F4
+	.rodata     start:0x802C5F38 end:0x802C6028
+	.sdata2     start:0x8041AF28 end:0x8041AF48
+
+data/item_data.c:
+	.rodata     start:0x802C6028 end:0x802CABD8
+	.data       start:0x8030EE58 end:0x80312378
+	.sdata2     start:0x8041AF48 end:0x8041AF58
+
+event/evt_item.c:
+	.text       start:0x800A79F4 end:0x800A8864
+	.rodata     start:0x802CABD8 end:0x802CABE0
+	.sdata2     start:0x8041AF58 end:0x8041AF90
+
+driver/itemdrv.c:
+	.text       start:0x800A8864 end:0x800ACF78
+	.rodata     start:0x802CABE0 end:0x802CAE80
+	.data       start:0x80312378 end:0x803124B8
+	.bss        start:0x803D8710 end:0x803D8748
+	.sbss       start:0x80418890 end:0x80418898
+	.sdata2     start:0x8041AF90 end:0x8041B018
+
+manager/cardmgr.c:
+	.text       start:0x800ACF78 end:0x800B1694
+	.rodata     start:0x802CAE80 end:0x802CCCD0
+	.data       start:0x803124B8 end:0x803125F0
+	.sdata      start:0x80410580 end:0x80410588
+	.sbss       start:0x80418898 end:0x804188A0
+	.sdata2     start:0x8041B018 end:0x8041B020
+
+party/party_yoshi.c:
+	.text       start:0x800B1694 end:0x800B52B4
+	.rodata     start:0x802CCCD0 end:0x802CCD30
+	.data       start:0x803125F0 end:0x803126C0
+	.sdata      start:0x80410588 end:0x80410600
+	.sbss       start:0x804188A0 end:0x804188B0
+	.sdata2     start:0x8041B020 end:0x8041B0D8
+
+party.c:
+	.text       start:0x800B52B4 end:0x800BCE50
+	.rodata     start:0x802CCD30 end:0x802CCF48
+	.data       start:0x803126C0 end:0x80312830
+	.sdata      start:0x80410600 end:0x80410620
+	.sbss       start:0x804188B0 end:0x804188C0
+	.sdata2     start:0x8041B0D8 end:0x8041B1C0
+
+party/party_bomhei.c:
+	.text       start:0x800BCE50 end:0x800BFC8C
+	.rodata     start:0x802CCF48 end:0x802CD020
+	.data       start:0x80312830 end:0x80312998
+	.sdata      start:0x80410620 end:0x80410660
+	.sdata2     start:0x8041B1C0 end:0x8041B2C8
+
+party/party_data.c:
+	.rodata     start:0x802CD020 end:0x802CD320
+	.data       start:0x80312998 end:0x803134F0
+	.sdata2     start:0x8041B2C8 end:0x8041B3E8
+
+party/party_hit.c:
+	.text       start:0x800BFC8C end:0x800C1F94
+	.rodata     start:0x802CD320 end:0x802CD448
+	.sdata2     start:0x8041B3E8 end:0x8041B448
+
+party/party_kuribo.c:
+	.text       start:0x800C1F94 end:0x800C2BA8
+	.rodata     start:0x802CD448 end:0x802CDB20
+	.data       start:0x803134F0 end:0x80313598
+	.sbss       start:0x804188C0 end:0x804188C8
+	.sdata2     start:0x8041B448 end:0x8041B468
+
+party/party_move.c:
+	.text       start:0x800C2BA8 end:0x800CA630
+	.rodata     start:0x802CDB20 end:0x802CE138
+	.data       start:0x80313598 end:0x80313660
+	.bss        start:0x803D8748 end:0x803D9148
+	.sbss       start:0x804188C8 end:0x804188D8
+	.sdata2     start:0x8041B468 end:0x8041B510
+
+party/party_nokonoko.c:
+	.text       start:0x800CA630 end:0x800CDDAC
+	.rodata     start:0x802CE138 end:0x802CE168
+	.data       start:0x80313660 end:0x80313820
+	.sbss       start:0x804188D8 end:0x804188E0
+	.sdata2     start:0x8041B510 end:0x8041B5E8
+
+event/evt_msg.c:
+	.text       start:0x800CDDAC end:0x800CEC68
+	.rodata     start:0x802CE168 end:0x802CE170
+	.bss        start:0x803D9148 end:0x803D9208
+	.sdata      start:0x80410660 end:0x804106C0
+	.sdata2     start:0x8041B5E8 end:0x8041B648
+
+mario/mario_pouch.c:
+	.text       start:0x800CEC68 end:0x800D1C7C
+	.rodata     start:0x802CE170 end:0x802CE190
+	.data       start:0x80313820 end:0x80313860
+	.sbss       start:0x804188E0 end:0x804188E8
+	.sdata2     start:0x8041B648 end:0x8041B650
+
+driver/extdrv.c:
+	.text       start:0x800D1C7C end:0x800D3134
+	.rodata     start:0x802CE190 end:0x802CE198
+	.data       start:0x80313860 end:0x80313F68
+	.bss        start:0x803D9208 end:0x803D92E8
+	.sdata      start:0x804106C0 end:0x80410780
+	.sdata2     start:0x8041B650 end:0x8041B698
+
+event/evt_ext.c:
+	.text       start:0x800D3134 end:0x800D31EC
+
+pmario_sound.c:
+	.text       start:0x800D31EC end:0x800D878C
+	.rodata     start:0x802CE198 end:0x802E5710
+	.data       start:0x80313F68 end:0x8032C200
+	.bss        start:0x803D92E8 end:0x803D9CB8
+	.sdata      start:0x80410780 end:0x804107A8
+	.sbss       start:0x804188E8 end:0x80418900
+	.sdata2     start:0x8041B698 end:0x8041B6D8
+
+sound.c:
+	.text       start:0x800D878C end:0x800DE200
+	.rodata     start:0x802E5710 end:0x802E5730
+	.bss        start:0x803D9CB8 end:0x803DB7B0
+	.sdata      start:0x804107A8 end:0x804107C8
+	.sbss       start:0x80418900 end:0x80418928
+	.sdata2     start:0x8041B6D8 end:0x8041B750
+
+event/evt_mario.c:
+	.text       start:0x800DE200 end:0x800E3810
+	.rodata     start:0x802E5730 end:0x802E5950
+	.data       start:0x8032C200 end:0x8032C3A0
+	.sdata2     start:0x8041B750 end:0x8041B928
+
+event/evt_door.c:
+	.text       start:0x800E3810 end:0x800E4FC8
+	.rodata     start:0x802E5950 end:0x802E5C20
+	.data       start:0x8032C3A0 end:0x8032FB70
+	.sdata      start:0x804107C8 end:0x804107E0
+	.sbss       start:0x80418928 end:0x80418930
+	.sdata2     start:0x8041B928 end:0x8041B940
+
+data/npc_data.c:
+	.rodata     start:0x802E5C20 end:0x802E9668
+	.data       start:0x8032FB70 end:0x80336F18
+	.sdata      start:0x804107E0 end:0x80410800
+	.sdata2     start:0x8041B940 end:0x8041BB10
+
+event/evt_party.c:
+	.text       start:0x800E4FC8 end:0x800E73A8
+	.rodata     start:0x802E9668 end:0x802E9680
+	.sdata2     start:0x8041BB10 end:0x8041BB40
+
+event.c:
+	.text       start:0x800E73A8 end:0x800E9EE8
+	.rodata     start:0x802E9680 end:0x802ECD50
+	.data       start:0x80336F18 end:0x8033A598
+	.sdata2     start:0x8041BB40 end:0x8041BBE0
+
+event/evt_shop.c:
+	.text       start:0x800E9EE8 end:0x800EBB14
+	.rodata     start:0x802ECD50 end:0x802ECE50
+	.data       start:0x8033A598 end:0x8033BAB8
+	.sdata      start:0x80410800 end:0x80410838
+	.sbss       start:0x80418930 end:0x80418948
+	.sdata2     start:0x8041BBE0 end:0x8041BC68
+
+event/evt_pouch.c:
+	.text       start:0x800EBB14 end:0x800EC3A8
+
+event/evt_kinopio.c:
+	.text       start:0x800EC3A8 end:0x800ECD0C
+	.rodata     start:0x802ECE50 end:0x802ECF20
+	.data       start:0x8033BAB8 end:0x8033CA68
+	.sdata      start:0x80410838 end:0x80410840
+	.sbss       start:0x80418948 end:0x80418950
+	.sdata2     start:0x8041BC68 end:0x8041BC88
+
+npc_event.c:
+	.text       start:0x800ECD0C end:0x800EE814
+	.rodata     start:0x802ECF20 end:0x802ED668
+	.data       start:0x8033CA68 end:0x80349E28
+	.sdata      start:0x80410840 end:0x80410C18
+	.sbss       start:0x80418950 end:0x80418970
+	.sdata2     start:0x8041BC88 end:0x8041BD40
+
+cam_shift.c:
+	.text       start:0x800EE814 end:0x800EED20
+	.rodata     start:0x802ED668 end:0x802ED670
+	.bss        start:0x803DB7B0 end:0x803DB7E8
+	.sdata      start:0x80410C18 end:0x80410C20
+	.sdata2     start:0x8041BD40 end:0x8041BD68
+
+sequence/seq_load.c:
+	.text       start:0x800EED20 end:0x800F23D8
+	.rodata     start:0x802ED670 end:0x802EDA48
+	.data       start:0x80349E28 end:0x8034A0C0
+	.bss        start:0x803DB7E8 end:0x803DB838
+	.sdata      start:0x80410C20 end:0x80410CA0
+	.sdata2     start:0x8041BD68 end:0x8041BE88
+
+event/evt_bg.c:
+	.text       start:0x800F23D8 end:0x800F2568
+	.sbss2      start:0x80422FE8 end:0x80422FF0
+
+battle/battle.c:
+	.text       start:0x800F2568 end:0x800F4144
+	.data       start:0x8034A0C0 end:0x8034A578
+	.sdata      start:0x80410CA0 end:0x80410D00
+	.sbss       start:0x80418970 end:0x80418978
+	.sdata2     start:0x8041BE88 end:0x8041BE98
+
+battle/battle_evt_cmd.c:
+	.data       start:0x8034A578 end:0x8034A598
+
+battle/battle_ac.c:
+	.text       start:0x800F4144 end:0x800F5728
+	.rodata     start:0x802EDA48 end:0x802EDA80
+	.sdata2     start:0x8041BE98 end:0x8041BEC8
+
+battle/battle_damage.c:
+	.text       start:0x800F5728 end:0x800F9B80
+	.rodata     start:0x802EDA80 end:0x802EDDC8
+	.sdata2     start:0x8041BEC8 end:0x8041BF08
+
+battle/battle_detect.c:
+	.text       start:0x800F9B80 end:0x800FB2D8
+	.rodata     start:0x802EDDC8 end:0x802EDDD0
+	.sdata2     start:0x8041BF08 end:0x8041BF28
+
+battle/battle_disp.c:
+	.text       start:0x800FB2D8 end:0x800FED94
+	.rodata     start:0x802EDDD0 end:0x802EDE88
+	.sdata      start:0x80410D00 end:0x80410D20
+	.sbss       start:0x80418978 end:0x80418980
+	.sdata2     start:0x8041BF28 end:0x8041BF98
+
+battle/battle_event_cmd.c:
+	.text       start:0x800FED94 end:0x8010E7EC
+	.rodata     start:0x802EDE88 end:0x802EE1B8
+	.sdata      start:0x80410D20 end:0x80410D60
+	.sdata2     start:0x8041BF98 end:0x8041C010
+
+battle/battle_event_default.c:
+	.text       start:0x8010E7EC end:0x8010EC60
+	.rodata     start:0x802EE1B8 end:0x802EE358
+	.data       start:0x8034A598 end:0x8034CE90
+	.sdata      start:0x80410D60 end:0x80410DF8
+	.sdata2     start:0x8041C010 end:0x8041C020
+
+battle/battle_event_subset.c:
+	.text       start:0x8010EC60 end:0x8010F0D0
+	.rodata     start:0x802EE358 end:0x802EE470
+	.data       start:0x8034CE90 end:0x803511D0
+	.sdata      start:0x80410DF8 end:0x80410E28
+	.sdata2     start:0x8041C020 end:0x8041C028
+
+battle/battle_information.c:
+	.text       start:0x8010F0D0 end:0x8010F4A4
+	.rodata     start:0x802EE470 end:0x802EE4C0
+
+battle/battle_mario.c:
+	.text       start:0x8010F4A4 end:0x80110598
+	.rodata     start:0x802EE4C0 end:0x802EF068
+	.data       start:0x803511D0 end:0x80360CD8
+	.sdata      start:0x80410E28 end:0x80410F70
+	.sdata2     start:0x8041C028 end:0x8041C118
+
+battle/battle_menu_disp.c:
+	.text       start:0x80110598 end:0x80114B18
+	.rodata     start:0x802EF068 end:0x802EF250
+	.data       start:0x80360CD8 end:0x80360E90
+	.sdata      start:0x80410F70 end:0x80410F78
+	.sbss       start:0x80418980 end:0x80418988
+	.sdata2     start:0x8041C118 end:0x8041C268
+	.sbss2      start:0x80422FF0 end:0x80422FF8
+
+battle/battle_party.c:
+	.data       start:0x80360E90 end:0x80361350
+
+battle/battle_pad.c:
+	.text       start:0x80114B18 end:0x801150A8
+
+battle/battle_seq.c:
+	.text       start:0x801150A8 end:0x80119DF4
+	.rodata     start:0x802EF250 end:0x802EF640
+	.data       start:0x80361350 end:0x80361560
+	.sdata      start:0x80410F78 end:0x80410FB8
+	.sdata2     start:0x8041C268 end:0x8041C2C0
+
+battle/battle_seq_command.c:
+	.text       start:0x80119DF4 end:0x8011FED8
+	.rodata     start:0x802EF640 end:0x802EFAA8
+	.data       start:0x80361560 end:0x80361848
+	.sdata      start:0x80410FB8 end:0x80411030
+	.sdata2     start:0x8041C2C0 end:0x8041C380
+
+battle/battle_sub.c:
+	.text       start:0x8011FED8 end:0x80120848
+	.rodata     start:0x802EFAA8 end:0x802EFAB8
+	.data       start:0x80361848 end:0x80361880
+	.sdata2     start:0x8041C380 end:0x8041C3B8
+
+battle/battle_unit.c:
+	.text       start:0x80120848 end:0x801241FC
+	.rodata     start:0x802EFAB8 end:0x802EFAD8
+	.data       start:0x80361880 end:0x80361A48
+	.sdata2     start:0x8041C3B8 end:0x8041C3E8
+
+battle/battle_unit_event.c:
+	.text       start:0x801241FC end:0x8012452C
+
+battle/ac/ac_table.c:
+	.data       start:0x80361A48 end:0x80361BF0
+
+battle/ac/ac_stick_keep_left.c:
+	.text       start:0x8012452C end:0x801251CC
+	.rodata     start:0x802EFAD8 end:0x802EFBC8
+	.sdata      start:0x80411030 end:0x80411050
+	.sdata2     start:0x8041C3E8 end:0x8041C428
+
+battle/ac/ac_timing_a.c:
+	.text       start:0x801251CC end:0x80125700
+	.rodata     start:0x802EFBC8 end:0x802EFBE0
+	.data       start:0x80361BF0 end:0x80361DE8
+	.sdata      start:0x80411050 end:0x80411070
+	.sdata2     start:0x8041C428 end:0x8041C440
+
+event/evt_damage.c:
+	.text       start:0x80125700 end:0x80125B88
+	.rodata     start:0x802EFBE0 end:0x802EFC40
+	.data       start:0x80361DE8 end:0x80362040
+	.sdata2     start:0x8041C440 end:0x8041C450
+
+battle/battle_camera.c:
+	.text       start:0x80125B88 end:0x80128ACC
+	.rodata     start:0x802EFC40 end:0x802EFEB8
+	.data       start:0x80362040 end:0x80362098
+	.sdata2     start:0x8041C450 end:0x8041C4D8
+
+battle/battle_item_data.c:
+	.text       start:0x80128ACC end:0x80129848
+	.rodata     start:0x802EFEB8 end:0x802F0158
+	.data       start:0x80362098 end:0x8036A5B8
+	.sdata      start:0x80411070 end:0x80411188
+	.sdata2     start:0x8041C4D8 end:0x8041C540
+
+battle/battle_monosiri.c:
+	.text       start:0x80129848 end:0x80129A50
+	.rodata     start:0x802F0158 end:0x802F2FD0
+	.data       start:0x8036A5B8 end:0x8036BEE0
+	.sdata      start:0x80411188 end:0x804113B8
+	.sdata2     start:0x8041C540 end:0x8041C568
+
+mario/mario_balloon.c:
+	.text       start:0x80129A50 end:0x8012A09C
+	.rodata     start:0x802F2FD0 end:0x802F2FF8
+
+event/evt_nannpc.c:
+	.text       start:0x8012A09C end:0x8012C258
+	.rodata     start:0x802F2FF8 end:0x802F3048
+	.sdata      start:0x804113B8 end:0x80411400
+	.sbss       start:0x80418988 end:0x804189A0
+	.sdata2     start:0x8041C568 end:0x8041C5B0
+
+effect/eff_fukidashi.c:
+	.text       start:0x8012C258 end:0x8012E310
+	.rodata     start:0x802F3048 end:0x802F30F8
+	.data       start:0x8036BEE0 end:0x8036C288
+	.sdata      start:0x80411400 end:0x80411798
+	.sdata2     start:0x8041C5B0 end:0x8041C670
+	.sbss2      start:0x80422FF8 end:0x80423010
+
+effect/eff_kemuri.c:
+	.text       start:0x8012E310 end:0x8012FA00
+	.rodata     start:0x802F30F8 end:0x802F3130
+	.data       start:0x8036C288 end:0x8036C300
+	.sdata2     start:0x8041C670 end:0x8041C730
+	.sbss2      start:0x80423010 end:0x80423018
+
+effect/eff_butterfly.c:
+	.text       start:0x8012FA00 end:0x8012FA20
+
+effect/eff_confetti.c:
+	.text       start:0x8012FA20 end:0x8012FA44
+	.sdata2     start:0x8041C730 end:0x8041C738
+
+mario/mario_kemuri.c:
+	.text       start:0x8012FA44 end:0x8013063C
+	.rodata     start:0x802F3130 end:0x802F3140
+	.sdata      start:0x80411798 end:0x804117B0
+	.sbss       start:0x804189A0 end:0x804189B8
+	.sdata2     start:0x8041C738 end:0x8041C798
+
+event/evt_fade.c:
+	.text       start:0x8013063C end:0x80130C50
+	.rodata     start:0x802F3140 end:0x802F3148
+	.sdata2     start:0x8041C798 end:0x8041C7A8
+
+event/evt_light.c:
+	.text       start:0x80130C50 end:0x80130FD8
+	.rodata     start:0x802F3148 end:0x802F3160
+
+battle/ac/ac_repeatedly.c:
+	.text       start:0x80130FD8 end:0x80131D70
+	.rodata     start:0x802F3160 end:0x802F31A8
+	.data       start:0x8036C300 end:0x8036C348
+	.sdata      start:0x804117B0 end:0x804117E0
+	.sdata2     start:0x8041C7A8 end:0x8041C7E8
+
+battle/battle_stage.c:
+	.text       start:0x80131D70 end:0x80134348
+	.rodata     start:0x802F31A8 end:0x802F3230
+	.sdata      start:0x804117E0 end:0x80411840
+	.sbss       start:0x804189B8 end:0x804189C8
+	.sdata2     start:0x8041C7E8 end:0x8041C868
+	.sbss2      start:0x80423018 end:0x80423030
+
+event/evt_audience.c:
+	.text       start:0x80134348 end:0x8013536C
+	.rodata     start:0x802F3230 end:0x802F3238
+	.sdata2     start:0x8041C868 end:0x8041C878
+
+motion/mot_damage.c:
+	.text       start:0x8013536C end:0x80136278
+	.rodata     start:0x802F3238 end:0x802F32E0
+	.data       start:0x8036C348 end:0x8036C450
+	.sdata      start:0x80411840 end:0x80411898
+	.sdata2     start:0x8041C878 end:0x8041C8D8
+
+motion/mot_yoshi.c:
+	.text       start:0x80136278 end:0x801363C0
+	.rodata     start:0x802F32E0 end:0x802F32F8
+	.sdata2     start:0x8041C8D8 end:0x8041C8E0
+
+event/evt_batstage.c:
+	.text       start:0x801363C0 end:0x80136A98
+	.rodata     start:0x802F32F8 end:0x802F3430
+	.sbss2      start:0x80423030 end:0x80423038
+
+statuswindow.c:
+	.text       start:0x80136A98 end:0x801387C8
+	.rodata     start:0x802F3430 end:0x802F3448
+	.data       start:0x8036C450 end:0x8036C508
+	.sdata      start:0x80411898 end:0x80411900
+	.sbss       start:0x804189C8 end:0x804189D0
+	.sdata2     start:0x8041C8E0 end:0x8041C988
+
+battle/battle_database_common.c:
+	.data       start:0x8036C508 end:0x8036EA50
+	.sdata      start:0x80411900 end:0x80411B48
+
+event/evt_seq.c:
+	.text       start:0x801387C8 end:0x80138894
+
+effect/eff_damage_star.c:
+	.text       start:0x80138894 end:0x80139BBC
+	.rodata     start:0x802F3448 end:0x802F3478
+	.data       start:0x8036EA50 end:0x8036F628
+	.sdata      start:0x80411B48 end:0x80411BE8
+	.sdata2     start:0x8041C988 end:0x8041CA18
+	.sbss2      start:0x80423038 end:0x80423040
+
+effect/eff_hit.c:
+	.text       start:0x80139BBC end:0x80139BDC
+
+effect/eff_mario_balloon.c:
+	.text       start:0x80139BDC end:0x8013A960
+	.rodata     start:0x802F3478 end:0x802F3498
+	.sdata2     start:0x8041CA18 end:0x8041CA68
+
+effect/eff_small_star.c:
+	.text       start:0x8013A960 end:0x8013A9A0
+
+effect/eff_mugi.c:
+	.text       start:0x8013A9A0 end:0x8013B868
+	.rodata     start:0x802F3498 end:0x802F3508
+	.sdata2     start:0x8041CA68 end:0x8041CAC0
+
+mario/mario_party.c:
+	.text       start:0x8013B868 end:0x8013C210
+
+effect/eff_stardust.c:
+	.text       start:0x8013C210 end:0x8013C230
+
+effect/eff_recovery.c:
+	.text       start:0x8013C230 end:0x8013E124
+	.rodata     start:0x802F3508 end:0x802F3678
+	.data       start:0x8036F628 end:0x8036FDA8
+	.sdata      start:0x80411BE8 end:0x80411C60
+	.sdata2     start:0x8041CAC0 end:0x8041CB60
+	.sbss2      start:0x80423040 end:0x80423048
+
+effect/eff_miss_star.c:
+	.text       start:0x8013E124 end:0x8013E8F0
+	.rodata     start:0x802F3678 end:0x802F3698
+	.data       start:0x8036FDA8 end:0x8036FF10
+	.sdata2     start:0x8041CB60 end:0x8041CB90
+
+effect/eff_nice.c:
+	.text       start:0x8013E8F0 end:0x8013F8F4
+	.rodata     start:0x802F3698 end:0x802F3780
+	.data       start:0x8036FF10 end:0x8036FF38
+	.sdata      start:0x80411C60 end:0x80411CE0
+	.sdata2     start:0x8041CB90 end:0x8041CC08
+
+manager/dvdmgr.c:
+	.text       start:0x8013F8F4 end:0x8013FEE0
+	.bss        start:0x803DB838 end:0x803DFB50
+	.sbss       start:0x804189D0 end:0x804189E0
+
+unit/unit_mario.c:
+	.text       start:0x8013FEE0 end:0x801403D4
+	.rodata     start:0x802F3780 end:0x802F3A90
+	.data       start:0x8036FF38 end:0x80371394
+	.sdata      start:0x80411CE0 end:0x80411DB8
+	.sdata2     start:0x8041CC08 end:0x8041CCA8
+
+event/evt_twoddisp.c:
+	.text       start:0x801403D4 end:0x80140B7C
+	.sdata      start:0x80411DB8 end:0x80411DE0
+	.sbss       start:0x804189E0 end:0x804189E8
+	.sdata2     start:0x8041CCA8 end:0x8041CCC0
+	.sbss2      start:0x80423048 end:0x80423050
+
+effect/eff_breath_fire.c:
+	.text       start:0x80140B7C end:0x80140B9C
+
+battle/battle_attack_audience.c:
+	.text       start:0x80140B9C end:0x801412AC
+	.rodata     start:0x802F3A90 end:0x802F3AC8
+	.data       start:0x80371394 end:0x803714D0
+	.sdata2     start:0x8041CCC0 end:0x8041CCE8
+
+battle/battle_stage_object.c:
+	.text       start:0x801412AC end:0x8014519C
+	.rodata     start:0x802F3AC8 end:0x802F3D60
+	.data       start:0x803714D0 end:0x80374870
+	.sdata      start:0x80411DE0 end:0x80411F40
+	.sdata2     start:0x8041CCE8 end:0x8041CD80
+
+motion/mot_dokan.c:
+	.text       start:0x8014519C end:0x80145DC4
+	.rodata     start:0x802F3D60 end:0x802F3E40
+	.sdata2     start:0x8041CD80 end:0x8041CDC0
+
+party/party_motion.c:
+	.text       start:0x80145DC4 end:0x8014C488
+	.rodata     start:0x802F3E40 end:0x802F3FE8
+	.sbss       start:0x804189E8 end:0x804189F8
+	.sdata2     start:0x8041CDC0 end:0x8041CED8
+
+event/evt_snd.c:
+	.text       start:0x8014C488 end:0x8014CD30
+
+manager/arammgr.c:
+	.text       start:0x8014CD30 end:0x8014D338
+	.bss        start:0x803DFB50 end:0x803DFBB8
+	.sdata      start:0x80411F40 end:0x80411F48
+
+window/win_root.c:
+	.text       start:0x8014D338 end:0x8015FF04
+	.rodata     start:0x802F3FE8 end:0x802F45D0
+	.data       start:0x80374870 end:0x80374A30
+	.bss        start:0x803DFBB8 end:0x803DFBF8
+	.sdata      start:0x80411F48 end:0x80412060
+	.sdata2     start:0x8041CED8 end:0x8041D1F0
+
+window/win_party.c:
+	.text       start:0x8015FF04 end:0x80161FB8
+	.rodata     start:0x802F45D0 end:0x802F4A38
+	.data       start:0x80374A30 end:0x80374BB8
+	.sdata      start:0x80412060 end:0x804120D0
+	.sdata2     start:0x8041D1F0 end:0x8041D348
+
+window/win_badge.c:
+	.text       start:0x80161FB8 end:0x80163FBC
+	.rodata     start:0x802F4A38 end:0x802F4CE8
+	.sdata2     start:0x8041D348 end:0x8041D468
+
+window/win_item.c:
+	.text       start:0x80163FBC end:0x801678F8
+	.rodata     start:0x802F4CE8 end:0x802F5650
+	.data       start:0x80374BB8 end:0x80374D10
+	.sdata      start:0x804120D0 end:0x80412108
+	.sdata2     start:0x8041D468 end:0x8041D578
+
+window/win_mario.c:
+	.text       start:0x801678F8 end:0x8016BD80
+	.rodata     start:0x802F5650 end:0x802F5EB8
+	.data       start:0x80374D10 end:0x80374F38
+	.bss        start:0x803DFBF8 end:0x803DFDF8
+	.sdata      start:0x80412108 end:0x80412150
+	.sdata2     start:0x8041D578 end:0x8041D738
+
+window/win_log.c:
+	.text       start:0x8016BD80 end:0x80171FA8
+	.rodata     start:0x802F5EB8 end:0x802F64B8
+	.data       start:0x80374F38 end:0x80375478
+	.bss        start:0x803DFDF8 end:0x803DFE78
+	.sdata      start:0x80412150 end:0x80412180
+	.sdata2     start:0x8041D738 end:0x8041D958
+	.sbss2      start:0x80423050 end:0x80423058
+
+event/evt_win.c:
+	.text       start:0x80171FA8 end:0x80175BFC
+	.rodata     start:0x802F64B8 end:0x802F68C0
+	.data       start:0x80375478 end:0x80375608
+	.sdata      start:0x80412180 end:0x80412228
+	.sbss       start:0x804189F8 end:0x80418A10
+	.sdata2     start:0x8041D958 end:0x8041DC00
+
+window/win_main.c:
+	.text       start:0x80175BFC end:0x80178F54
+	.rodata     start:0x802F68C0 end:0x802F6B28
+	.data       start:0x80375608 end:0x80376360
+	.sbss       start:0x80418A10 end:0x80418A20
+	.sdata2     start:0x8041DC00 end:0x8041DCD0
+
+event/evt_cloud.c:
+	.text       start:0x80178F54 end:0x80179950
+	.rodata     start:0x802F6B28 end:0x802F6B98
+	.bss        start:0x803DFE78 end:0x803E0AF8
+	.sdata      start:0x80412228 end:0x80412238
+	.sbss       start:0x80418A20 end:0x80418A28
+	.sdata2     start:0x8041DCD0 end:0x8041DCF0
+
+unit/party/unit_party_clauda.c:
+	.text       start:0x80179950 end:0x8017A310
+	.rodata     start:0x802F6B98 end:0x802F6F38
+	.data       start:0x80376360 end:0x80379A40
+	.sdata      start:0x80412238 end:0x804122B0
+	.sdata2     start:0x8041DCF0 end:0x8041DD20
+
+unit/party/unit_party_yoshi.c:
+	.text       start:0x8017A310 end:0x8017B6E8
+	.rodata     start:0x802F6F38 end:0x802F7490
+	.data       start:0x80379A40 end:0x8037EC50
+	.sdata      start:0x804122B0 end:0x80412360
+	.sdata2     start:0x8041DD20 end:0x8041DDA0
+
+unit/party/unit_party_chuchurina.c:
+	.text       start:0x8017B6E8 end:0x8017C458
+	.rodata     start:0x802F7490 end:0x802F7940
+	.data       start:0x8037EC50 end:0x80384918
+	.sdata      start:0x80412360 end:0x804123B8
+	.sbss       start:0x80418A28 end:0x80418A30
+	.sdata2     start:0x8041DDA0 end:0x8041DDD8
+
+unit/party/unit_party_sanders.c:
+	.text       start:0x8017C458 end:0x8017CCA8
+	.rodata     start:0x802F7940 end:0x802F7C30
+	.data       start:0x80384918 end:0x803888A8
+	.sdata      start:0x804123B8 end:0x80412440
+	.sdata2     start:0x8041DDD8 end:0x8041DE78
+
+unit/party/unit_party_vivian.c:
+	.text       start:0x8017CCA8 end:0x8017DD38
+	.rodata     start:0x802F7C30 end:0x802F8068
+	.data       start:0x803888A8 end:0x8038BA08
+	.sdata      start:0x80412440 end:0x804124A0
+	.sdata2     start:0x8041DE78 end:0x8041DEC0
+
+himo.c:
+	.text       start:0x8017DD38 end:0x8017E740
+	.rodata     start:0x802F8068 end:0x802F80A8
+	.sdata      start:0x804124A0 end:0x804124E8
+	.sdata2     start:0x8041DEC0 end:0x8041DF00
+
+party/party_vivian.c:
+	.text       start:0x8017E740 end:0x80180C68
+	.rodata     start:0x802F80A8 end:0x802F8120
+	.data       start:0x8038BA08 end:0x8038BA58
+	.sbss       start:0x80418A30 end:0x80418A38
+	.sdata2     start:0x8041DF00 end:0x8041DF70
+
+party/party_cloud.c:
+	.text       start:0x80180C68 end:0x8018255C
+	.rodata     start:0x802F8120 end:0x802F8158
+	.data       start:0x8038BA58 end:0x8038BAB0
+	.sbss       start:0x80418A38 end:0x80418A48
+	.sdata2     start:0x8041DF70 end:0x8041DFF8
+
+party/party_chuchu.c:
+	.text       start:0x8018255C end:0x80183040
+	.rodata     start:0x802F8158 end:0x802F83F8
+	.data       start:0x8038BAB0 end:0x8038BEF8
+	.sdata2     start:0x8041DFF8 end:0x8041E020
+
+unit/party/unit_party_nokotarou.c:
+	.text       start:0x80183040 end:0x80183670
+	.rodata     start:0x802F83F8 end:0x802F8808
+	.data       start:0x8038BEF8 end:0x80390BB0
+	.sdata      start:0x804124E8 end:0x80412590
+	.sdata2     start:0x8041E020 end:0x8041E040
+
+unit/party/unit_party_christine.c:
+	.text       start:0x80183670 end:0x80183D24
+	.rodata     start:0x802F8808 end:0x802F8BC0
+	.data       start:0x80390BB0 end:0x80394710
+	.sdata      start:0x80412590 end:0x804125D8
+	.sdata2     start:0x8041E040 end:0x8041E060
+
+battle/battle_weapon_power.c:
+	.text       start:0x80183D24 end:0x80184034
+
+manager/filemgr.c:
+	.text       start:0x80184034 end:0x80185AA4
+	.rodata     start:0x802F8BC0 end:0x802F8BF8
+	.data       start:0x80394710 end:0x80394768
+	.bss        start:0x803E0AF8 end:0x803E0EF8
+	.sdata      start:0x804125D8 end:0x804125E0
+	.sbss       start:0x80418A48 end:0x80418A60
+
+motion/mot_hip.c:
+	.text       start:0x80185AA4 end:0x80186434
+	.rodata     start:0x802F8BF8 end:0x802F8C10
+	.sdata      start:0x804125E0 end:0x80412620
+	.sdata2     start:0x8041E060 end:0x8041E0B8
+
+effect/eff_fire.c:
+	.text       start:0x80186434 end:0x801890AC
+	.rodata     start:0x802F8C10 end:0x802F8C78
+	.data       start:0x80394768 end:0x803948A8
+	.sdata      start:0x80412620 end:0x80412640
+	.sdata2     start:0x8041E0B8 end:0x8041E170
+	.sbss2      start:0x80423058 end:0x80423068
+
+battle/battle_actrecord.c:
+	.text       start:0x801890AC end:0x80189C48
+	.data       start:0x803948A8 end:0x803949B8
+
+battle/battle_audience_kinopio.c:
+	.text       start:0x80189C48 end:0x8018CFA4
+	.rodata     start:0x802F8C78 end:0x802F8E08
+	.data       start:0x803949B8 end:0x80394C70
+	.sbss       start:0x80418A60 end:0x80418A70
+	.sdata2     start:0x8041E170 end:0x8041E268
+
+battle/battle_acrobat.c:
+	.text       start:0x8018CFA4 end:0x8018D284
+	.rodata     start:0x802F8E08 end:0x802F8E20
+	.sdata2     start:0x8041E268 end:0x8041E270
+
+effect/eff_spark.c:
+	.text       start:0x8018D284 end:0x8018DB2C
+	.rodata     start:0x802F8E20 end:0x802F8E38
+	.data       start:0x80394C70 end:0x80394CD0
+	.sdata      start:0x80412640 end:0x804126A0
+	.sdata2     start:0x8041E270 end:0x8041E2B0
+
+effect/eff_updown.c:
+	.text       start:0x8018DB2C end:0x8018E448
+	.rodata     start:0x802F8E38 end:0x802F8E60
+	.sdata      start:0x804126A0 end:0x804126D8
+	.sdata2     start:0x8041E2B0 end:0x8041E2E8
+
+effect/eff_charge.c:
+	.text       start:0x8018E448 end:0x8018EF2C
+	.rodata     start:0x802F8E60 end:0x802F8E80
+	.sdata2     start:0x8041E2E8 end:0x8041E328
+	.sbss2      start:0x80423068 end:0x80423070
+
+effect/eff_toge_flush.c:
+	.text       start:0x8018EF2C end:0x8018F85C
+	.rodata     start:0x802F8E80 end:0x802F8EA8
+	.sdata      start:0x804126D8 end:0x804126F0
+	.sdata2     start:0x8041E328 end:0x8041E390
+	.sbss2      start:0x80423070 end:0x80423078
+
+battle/battle_status_effect.c:
+	.text       start:0x8018F85C end:0x801909E0
+	.rodata     start:0x802F8EA8 end:0x802F91C0
+	.data       start:0x80394CD0 end:0x80394E60
+	.sdata      start:0x804126F0 end:0x80412710
+	.sdata2     start:0x8041E390 end:0x8041E3E0
+
+effect/eff_ice.c:
+	.text       start:0x801909E0 end:0x80191190
+	.rodata     start:0x802F91C0 end:0x802F91D8
+	.data       start:0x80394E60 end:0x803978C0
+	.sdata      start:0x80412710 end:0x80412998
+	.sdata2     start:0x8041E3E0 end:0x8041E420
+
+effect/eff_torch.c:
+	.text       start:0x80191190 end:0x801917D8
+	.rodata     start:0x802F91D8 end:0x802F91F0
+	.data       start:0x803978C0 end:0x803980B0
+	.sdata2     start:0x8041E420 end:0x8041E450
+
+effect/eff_bomb.c:
+	.text       start:0x801917D8 end:0x80192148
+	.rodata     start:0x802F91F0 end:0x802F9210
+	.data       start:0x803980B0 end:0x80398188
+	.sdata2     start:0x8041E450 end:0x8041E490
+
+unit/unit_bomzou.c:
+	.rodata     start:0x802F9210 end:0x802F92B8
+	.data       start:0x80398188 end:0x80398CF0
+	.sdata      start:0x80412998 end:0x80412A98
+	.sdata2     start:0x8041E490 end:0x8041E4A8
+
+battle/ac/ac_shot.c:
+	.text       start:0x80192148 end:0x8019326C
+	.rodata     start:0x802F92B8 end:0x802F9328
+	.sdata2     start:0x8041E4A8 end:0x8041E508
+	.sbss2      start:0x80423078 end:0x80423080
+
+effect/eff_ripple.c:
+	.text       start:0x8019326C end:0x80193338
+	.rodata     start:0x802F9328 end:0x802F9338
+	.sdata2     start:0x8041E508 end:0x8041E510
+
+event/evt_env.c:
+	.text       start:0x80193338 end:0x80193418
+
+driver/envdrv.c:
+	.text       start:0x80193418 end:0x801983C4
+	.rodata     start:0x802F9338 end:0x802F93E0
+	.data       start:0x80398CF0 end:0x80398D20
+	.bss        start:0x803E0EF8 end:0x803E10E0
+	.sbss       start:0x80418A70 end:0x80418A90
+	.sdata2     start:0x8041E510 end:0x8041E5D0
+
+unit/unit_koura.c:
+	.rodata     start:0x802F93E0 end:0x802F94E0
+	.data       start:0x80398D20 end:0x80399C80
+	.sdata      start:0x80412A98 end:0x80412B80
+	.sdata2     start:0x8041E5D0 end:0x8041E5D8
+
+battle/ac/ac_lst_rc_keep.c:
+	.text       start:0x801983C4 end:0x80198DA8
+	.rodata     start:0x802F94E0 end:0x802F9578
+	.sdata      start:0x80412B80 end:0x80412BB0
+	.sdata2     start:0x8041E5D8 end:0x8041E608
+
+battle/battle_audience.c:
+	.text       start:0x80198DA8 end:0x801A2724
+	.rodata     start:0x802F9578 end:0x802F9E20
+	.data       start:0x80399C80 end:0x80399F60
+	.sdata      start:0x80412BB0 end:0x80412C40
+	.sdata2     start:0x8041E608 end:0x8041E720
+	.sbss2      start:0x80423080 end:0x80423088
+
+mario/mario_cam.c:
+	.text       start:0x801A2724 end:0x801A3638
+	.rodata     start:0x802F9E20 end:0x802F9E58
+	.sdata2     start:0x8041E720 end:0x8041E780
+
+unit/unit_object_tree.c:
+	.text       start:0x801A3638 end:0x801A37D4
+	.rodata     start:0x802F9E58 end:0x802F9ED0
+	.data       start:0x80399F60 end:0x8039A198
+	.sdata      start:0x80412C40 end:0x80412CB0
+	.sdata2     start:0x8041E780 end:0x8041E798
+
+unit/unit_object_switch.c:
+	.text       start:0x801A37D4 end:0x801A38BC
+	.rodata     start:0x802F9ED0 end:0x802F9F58
+	.data       start:0x8039A198 end:0x8039A3F0
+	.sdata      start:0x80412CB0 end:0x80412D20
+	.sdata2     start:0x8041E798 end:0x8041E7A8
+
+battle/battle_icon.c:
+	.text       start:0x801A38BC end:0x801A42DC
+	.rodata     start:0x802F9F58 end:0x802F9F70
+	.sdata2     start:0x8041E7A8 end:0x8041E7B8
+
+event/evt_telop.c:
+	.text       start:0x801A42DC end:0x801A4CF0
+	.rodata     start:0x802F9F70 end:0x802FA0E8
+	.data       start:0x8039A3F0 end:0x8039A438
+	.sdata      start:0x80412D20 end:0x80412D28
+	.sbss       start:0x80418A90 end:0x80418AA0
+	.sdata2     start:0x8041E7B8 end:0x8041E7F0
+
+battle/ac/ac_repeatedly_lv.c:
+	.text       start:0x801A4CF0 end:0x801A5C2C
+	.rodata     start:0x802FA0E8 end:0x802FA148
+	.data       start:0x8039A438 end:0x8039A478
+	.sdata2     start:0x8041E7F0 end:0x8041E840
+
+battle/battle_message.c:
+	.text       start:0x801A5C2C end:0x801A5F14
+	.rodata     start:0x802FA148 end:0x802FA150
+	.sdata2     start:0x8041E840 end:0x8041E858
+
+effect/n64/eff_whirlwind_n64.c:
+	.text       start:0x801A5F14 end:0x801A6B30
+	.rodata     start:0x802FA150 end:0x802FA178
+	.data       start:0x8039A478 end:0x8039A608
+	.sdata      start:0x80412D28 end:0x80412D38
+	.sdata2     start:0x8041E858 end:0x8041E8A8
+	.sbss2      start:0x80423088 end:0x80423090
+
+effect/n64/eff_akari_charge_n64.c:
+	.text       start:0x801A6B30 end:0x801A77E0
+	.rodata     start:0x802FA178 end:0x802FA1B8
+	.data       start:0x8039A608 end:0x8039A640
+	.sdata2     start:0x8041E8A8 end:0x8041E8D0
+	.sbss2      start:0x80423090 end:0x80423098
+
+effect/n64/eff_akari_pose_n64.c:
+	.text       start:0x801A77E0 end:0x801A8048
+	.rodata     start:0x802FA1B8 end:0x802FA1E0
+	.data       start:0x8039A640 end:0x8039A738
+	.sdata      start:0x80412D38 end:0x80412D80
+	.sdata2     start:0x8041E8D0 end:0x8041E900
+	.sbss2      start:0x80423098 end:0x804230A0
+
+effect/n64/eff_akari_sflush_n64.c:
+	.text       start:0x801A8048 end:0x801A8790
+	.rodata     start:0x802FA1E0 end:0x802FA208
+	.data       start:0x8039A738 end:0x8039A790
+	.sdata2     start:0x8041E900 end:0x8041E928
+	.sbss2      start:0x804230A0 end:0x804230A8
+
+effect/n64/eff_balloon_heiho_n64.c:
+	.text       start:0x801A8790 end:0x801A8BF8
+	.rodata     start:0x802FA208 end:0x802FA228
+	.data       start:0x8039A790 end:0x8039A800
+	.sdata2     start:0x8041E928 end:0x8041E940
+
+effect/n64/eff_balloon_n64.c:
+	.text       start:0x801A8BF8 end:0x801A9768
+	.rodata     start:0x802FA228 end:0x802FA250
+	.data       start:0x8039A800 end:0x8039A938
+	.sdata2     start:0x8041E940 end:0x8041E980
+
+effect/n64/eff_blow_n64.c:
+	.text       start:0x801A9768 end:0x801AA41C
+	.rodata     start:0x802FA250 end:0x802FA290
+	.data       start:0x8039A938 end:0x8039A970
+	.sdata2     start:0x8041E980 end:0x8041E9D0
+
+effect/n64/eff_bomb_n64.c:
+	.text       start:0x801AA41C end:0x801AAC6C
+	.rodata     start:0x802FA290 end:0x802FA2B0
+	.data       start:0x8039A970 end:0x8039A9A8
+	.sdata2     start:0x8041E9D0 end:0x8041EA20
+
+effect/n64/eff_bomhei_n64.c:
+	.text       start:0x801AAC6C end:0x801AB350
+	.rodata     start:0x802FA2B0 end:0x802FA2D8
+	.data       start:0x8039A9A8 end:0x8039B1C0
+	.sdata2     start:0x8041EA20 end:0x8041EA58
+
+effect/n64/eff_booboo_n64.c:
+	.text       start:0x801AB350 end:0x801AC974
+	.rodata     start:0x802FA2D8 end:0x802FA2F0
+	.data       start:0x8039B1C0 end:0x8039B1E8
+	.sdata      start:0x80412D80 end:0x80413828
+	.sdata2     start:0x8041EA58 end:0x8041EA80
+	.sbss2      start:0x804230A8 end:0x804230B0
+
+effect/n64/eff_breath_fire_n64.c:
+	.text       start:0x801AC974 end:0x801AD4D8
+	.rodata     start:0x802FA2F0 end:0x802FA328
+	.data       start:0x8039B1E8 end:0x8039B278
+	.sdata2     start:0x8041EA80 end:0x8041EAB8
+	.sbss2      start:0x804230B0 end:0x804230B8
+
+effect/n64/eff_broken_barrier_n64.c:
+	.text       start:0x801AD4D8 end:0x801AE44C
+	.rodata     start:0x802FA328 end:0x802FA378
+	.data       start:0x8039B278 end:0x8039B4A8
+	.sdata2     start:0x8041EAB8 end:0x8041EB18
+	.sbss2      start:0x804230B8 end:0x804230C0
+
+effect/n64/eff_bush_n64.c:
+	.text       start:0x801AE44C end:0x801AEDCC
+	.rodata     start:0x802FA378 end:0x802FA398
+	.data       start:0x8039B4A8 end:0x8039B518
+	.sdata2     start:0x8041EB18 end:0x8041EB68
+
+effect/n64/eff_butterfly_n64.c:
+	.text       start:0x801AEDCC end:0x801AF5A4
+	.rodata     start:0x802FA398 end:0x802FA3D8
+	.data       start:0x8039B518 end:0x8039BEF0
+	.sdata      start:0x80413828 end:0x80413848
+	.sdata2     start:0x8041EB68 end:0x8041EB98
+
+effect/n64/eff_cloud_n64.c:
+	.text       start:0x801AF5A4 end:0x801B05DC
+	.rodata     start:0x802FA3D8 end:0x802FA418
+	.sdata2     start:0x8041EB98 end:0x8041EBD0
+	.sbss2      start:0x804230C0 end:0x804230C8
+
+effect/n64/eff_coin_n64.c:
+	.text       start:0x801B05DC end:0x801B0B8C
+	.rodata     start:0x802FA418 end:0x802FA438
+	.data       start:0x8039BEF0 end:0x8039BF78
+	.sdata2     start:0x8041EBD0 end:0x8041EBF0
+
+effect/n64/eff_confetti_n64.c:
+	.text       start:0x801B0B8C end:0x801B19C4
+	.rodata     start:0x802FA438 end:0x802FA460
+	.data       start:0x8039BF78 end:0x8039C0B0
+	.sdata      start:0x80413848 end:0x80413878
+	.sdata2     start:0x8041EBF0 end:0x8041EC50
+	.sbss2      start:0x804230C8 end:0x804230D0
+
+effect/n64/eff_cool_leaf_n64.c:
+	.text       start:0x801B19C4 end:0x801B29CC
+	.rodata     start:0x802FA460 end:0x802FA488
+	.data       start:0x8039C0B0 end:0x8039C190
+	.sdata2     start:0x8041EC50 end:0x8041ECC8
+
+effect/n64/eff_crystal_n64.c:
+	.text       start:0x801B29CC end:0x801B35E0
+	.rodata     start:0x802FA488 end:0x802FA4B0
+	.data       start:0x8039C190 end:0x8039C248
+	.sdata2     start:0x8041ECC8 end:0x8041ECF0
+	.sbss2      start:0x804230D0 end:0x804230D8
+
+effect/n64/eff_dogabon_attack_n64.c:
+	.text       start:0x801B35E0 end:0x801B4348
+	.rodata     start:0x802FA4B0 end:0x802FA4E8
+	.data       start:0x8039C248 end:0x8039C320
+	.sdata      start:0x80413878 end:0x804138C8
+	.sdata2     start:0x8041ECF0 end:0x8041ED30
+	.sbss2      start:0x804230D8 end:0x804230E0
+
+effect/n64/eff_expbom_n64.c:
+	.text       start:0x801B4348 end:0x801B4D78
+	.rodata     start:0x802FA4E8 end:0x802FA510
+	.data       start:0x8039C320 end:0x8039C340
+	.sdata      start:0x804138C8 end:0x80413968
+	.sdata2     start:0x8041ED30 end:0x8041ED60
+	.sbss2      start:0x804230E0 end:0x804230E8
+
+effect/n64/eff_explosion_n64.c:
+	.text       start:0x801B4D78 end:0x801B57CC
+	.rodata     start:0x802FA510 end:0x802FA538
+	.data       start:0x8039C340 end:0x8039C378
+	.sdata2     start:0x8041ED60 end:0x8041EDB0
+	.sbss2      start:0x804230E8 end:0x804230F8
+
+effect/n64/eff_fall_leaf_n64.c:
+	.text       start:0x801B57CC end:0x801B63F8
+	.rodata     start:0x802FA538 end:0x802FA560
+	.data       start:0x8039C378 end:0x8039C3E8
+	.sdata2     start:0x8041EDB0 end:0x8041EE10
+
+effect/n64/eff_fire_dust_n64.c:
+	.text       start:0x801B63F8 end:0x801B6FF0
+	.rodata     start:0x802FA560 end:0x802FA588
+	.data       start:0x8039C3E8 end:0x8039C618
+	.sdata2     start:0x8041EE10 end:0x8041EE60
+	.sbss2      start:0x804230F8 end:0x80423100
+
+effect/n64/eff_fire_ring_n64.c:
+	.text       start:0x801B6FF0 end:0x801B799C
+	.rodata     start:0x802FA588 end:0x802FA5B0
+	.data       start:0x8039C618 end:0x8039C960
+	.sdata2     start:0x8041EE60 end:0x8041EE98
+
+effect/n64/eff_fire_spark_n64.c:
+	.text       start:0x801B799C end:0x801B85D8
+	.rodata     start:0x802FA5B0 end:0x802FA5D8
+	.data       start:0x8039C960 end:0x8039CAF8
+	.sdata2     start:0x8041EE98 end:0x8041EEC8
+	.sbss2      start:0x80423100 end:0x80423108
+
+effect/n64/eff_fireflower_n64.c:
+	.text       start:0x801B85D8 end:0x801B9310
+	.rodata     start:0x802FA5D8 end:0x802FA600
+	.data       start:0x8039CAF8 end:0x8039CB18
+	.sdata      start:0x80413968 end:0x80413978
+	.sdata2     start:0x8041EEC8 end:0x8041EF28
+
+effect/n64/eff_fireworks_n64.c:
+	.text       start:0x801B9310 end:0x801BA024
+	.rodata     start:0x802FA600 end:0x802FA660
+	.data       start:0x8039CB18 end:0x8039CF38
+	.sdata      start:0x80413978 end:0x80413990
+	.sbss       start:0x80418AA0 end:0x80418AA8
+	.sdata2     start:0x8041EF28 end:0x8041EF68
+	.sbss2      start:0x80423108 end:0x80423110
+
+effect/n64/eff_flame_n64.c:
+	.text       start:0x801BA024 end:0x801BC570
+	.rodata     start:0x802FA660 end:0x802FA688
+	.sdata2     start:0x8041EF68 end:0x8041EFC8
+	.sbss2      start:0x80423110 end:0x80423118
+
+effect/n64/eff_flower_n64.c:
+	.text       start:0x801BC570 end:0x801BCE40
+	.rodata     start:0x802FA688 end:0x802FA6A8
+	.sbss       start:0x80418AA8 end:0x80418AB0
+	.sdata2     start:0x8041EFC8 end:0x8041F000
+
+effect/n64/eff_freeze_n64.c:
+	.text       start:0x801BCE40 end:0x801BD79C
+	.rodata     start:0x802FA6A8 end:0x802FA6D0
+	.data       start:0x8039CF38 end:0x8039D018
+	.sdata2     start:0x8041F000 end:0x8041F038
+	.sbss2      start:0x80423118 end:0x80423120
+
+effect/n64/eff_gareki_n64.c:
+	.text       start:0x801BD79C end:0x801BE2C8
+	.rodata     start:0x802FA6D0 end:0x802FA6F8
+	.data       start:0x8039D018 end:0x8039D3C8
+	.sdata      start:0x80413990 end:0x804139B0
+	.sdata2     start:0x8041F038 end:0x8041F080
+
+effect/n64/eff_glass_n64.c:
+	.text       start:0x801BE2C8 end:0x801BEE98
+	.rodata     start:0x802FA6F8 end:0x802FA720
+	.data       start:0x8039D3C8 end:0x8039D448
+	.sdata2     start:0x8041F080 end:0x8041F0A8
+	.sbss2      start:0x80423120 end:0x80423130
+
+effect/n64/eff_guruguru_n64.c:
+	.text       start:0x801BEE98 end:0x801BF608
+	.rodata     start:0x802FA720 end:0x802FA748
+	.data       start:0x8039D448 end:0x8039D480
+	.sdata2     start:0x8041F0A8 end:0x8041F0C8
+
+effect/n64/eff_hagetaka_flush_n64.c:
+	.text       start:0x801BF608 end:0x801BFAEC
+	.rodata     start:0x802FA748 end:0x802FA778
+	.data       start:0x8039D480 end:0x8039D4B8
+	.sdata      start:0x804139B0 end:0x804139C8
+	.sdata2     start:0x8041F0C8 end:0x8041F0E0
+	.sbss2      start:0x80423130 end:0x80423138
+
+effect/n64/eff_hit_n64.c:
+	.text       start:0x801BFAEC end:0x801C0548
+	.rodata     start:0x802FA778 end:0x802FA7A8
+	.data       start:0x8039D4B8 end:0x8039D6B8
+	.sdata      start:0x804139C8 end:0x80413A00
+	.sdata2     start:0x8041F0E0 end:0x8041F108
+	.sbss2      start:0x80423138 end:0x80423140
+
+effect/n64/eff_hokori_n64.c:
+	.text       start:0x801C0548 end:0x801C0DB8
+	.rodata     start:0x802FA7A8 end:0x802FA7D0
+	.sdata2     start:0x8041F108 end:0x8041F138
+	.sbss2      start:0x80423140 end:0x80423148
+
+effect/n64/eff_holography_n64.c:
+	.text       start:0x801C0DB8 end:0x801C1610
+	.rodata     start:0x802FA7D0 end:0x802FA7F8
+	.data       start:0x8039D6B8 end:0x803A1910
+	.sdata      start:0x80413A00 end:0x80413A10
+	.sdata2     start:0x8041F138 end:0x8041F158
+	.sbss2      start:0x80423148 end:0x80423150
+
+effect/n64/eff_horao_spell_n64.c:
+	.text       start:0x801C1610 end:0x801C2108
+	.rodata     start:0x802FA7F8 end:0x802FA820
+	.data       start:0x803A1910 end:0x803A1AD0
+	.sdata      start:0x80413A10 end:0x80413A50
+	.sdata2     start:0x8041F158 end:0x8041F198
+	.sbss2      start:0x80423150 end:0x80423160
+
+effect/n64/eff_ice_n64.c:
+	.text       start:0x801C2108 end:0x801C2990
+	.rodata     start:0x802FA820 end:0x802FA840
+	.data       start:0x803A1AD0 end:0x803A1B40
+	.sdata2     start:0x8041F198 end:0x8041F1D8
+
+effect/n64/eff_kameki_tornade_n64.c:
+	.text       start:0x801C2990 end:0x801C3A08
+	.rodata     start:0x802FA840 end:0x802FA888
+	.sdata2     start:0x8041F1D8 end:0x8041F230
+	.sbss2      start:0x80423160 end:0x80423168
+
+effect/n64/eff_kemuri1_n64.c:
+	.text       start:0x801C3A08 end:0x801C48F8
+	.rodata     start:0x802FA888 end:0x802FA8B0
+	.sdata2     start:0x8041F230 end:0x8041F2B0
+	.sbss2      start:0x80423168 end:0x80423170
+
+effect/n64/eff_kemuri2_n64.c:
+	.text       start:0x801C48F8 end:0x801C5228
+	.rodata     start:0x802FA8B0 end:0x802FA8D8
+	.sdata      start:0x80413A50 end:0x80413A80
+	.sdata2     start:0x8041F2B0 end:0x8041F2E8
+
+effect/n64/eff_kemuri3_n64.c:
+	.text       start:0x801C5228 end:0x801C59F0
+	.rodata     start:0x802FA8D8 end:0x802FA8F8
+	.sdata2     start:0x8041F2E8 end:0x8041F328
+
+effect/n64/eff_kemuri4_n64.c:
+	.text       start:0x801C59F0 end:0x801C614C
+	.rodata     start:0x802FA8F8 end:0x802FA918
+	.data       start:0x803A1B40 end:0x803A1D80
+	.sdata2     start:0x8041F328 end:0x8041F358
+
+effect/n64/eff_kemuri5_n64.c:
+	.text       start:0x801C614C end:0x801C68EC
+	.rodata     start:0x802FA918 end:0x802FA938
+	.data       start:0x803A1D80 end:0x803A1DB8
+	.sdata2     start:0x8041F358 end:0x8041F3A8
+
+effect/n64/eff_kemuri6_n64.c:
+	.text       start:0x801C68EC end:0x801C6FE0
+	.rodata     start:0x802FA938 end:0x802FA958
+	.data       start:0x803A1DB8 end:0x803A1DF0
+	.sdata2     start:0x8041F3A8 end:0x8041F3E8
+
+effect/n64/eff_kemuri7_n64.c:
+	.text       start:0x801C6FE0 end:0x801C7540
+	.rodata     start:0x802FA958 end:0x802FA970
+	.data       start:0x803A1DF0 end:0x803A1E28
+	.sdata2     start:0x8041F3E8 end:0x8041F420
+
+effect/n64/eff_kemuri8_n64.c:
+	.text       start:0x801C7540 end:0x801C80C4
+	.rodata     start:0x802FA970 end:0x802FA998
+	.sdata2     start:0x8041F420 end:0x8041F478
+	.sbss2      start:0x80423170 end:0x80423178
+
+effect/n64/eff_kemuri9_n64.c:
+	.text       start:0x801C80C4 end:0x801C8A1C
+	.rodata     start:0x802FA998 end:0x802FA9C0
+	.sdata2     start:0x8041F478 end:0x8041F4B0
+
+effect/n64/eff_kemuri10_n64.c:
+	.text       start:0x801C8A1C end:0x801C98C8
+	.rodata     start:0x802FA9C0 end:0x802FAA00
+	.data       start:0x803A1E28 end:0x803A2020
+	.sdata2     start:0x8041F4B0 end:0x8041F4E8
+	.sbss2      start:0x80423178 end:0x80423180
+
+effect/n64/eff_kemuri11_n64.c:
+	.text       start:0x801C98C8 end:0x801CA9A0
+	.rodata     start:0x802FAA00 end:0x802FAA28
+	.data       start:0x803A2020 end:0x803A2158
+	.sdata2     start:0x8041F4E8 end:0x8041F548
+	.sbss2      start:0x80423180 end:0x80423190
+
+effect/n64/eff_kemuri12_n64.c:
+	.text       start:0x801CA9A0 end:0x801CB1F8
+	.rodata     start:0x802FAA28 end:0x802FAA50
+	.data       start:0x803A2158 end:0x803A2238
+	.sdata2     start:0x8041F548 end:0x8041F568
+	.sbss2      start:0x80423190 end:0x80423198
+
+effect/n64/eff_kumokumo_chip_n64.c:
+	.text       start:0x801CB1F8 end:0x801CB93C
+	.rodata     start:0x802FAA50 end:0x802FAA90
+	.data       start:0x803A2238 end:0x803A24E0
+	.sdata2     start:0x8041F568 end:0x8041F578
+	.sbss2      start:0x80423198 end:0x804231A0
+
+effect/n64/eff_kumokumo_n64.c:
+	.text       start:0x801CB93C end:0x801CD31C
+	.rodata     start:0x802FAA90 end:0x802FAAC8
+	.data       start:0x803A24E0 end:0x803A2A00
+	.sdata      start:0x80413A80 end:0x80413B50
+	.sdata2     start:0x8041F578 end:0x8041F5D0
+	.sbss2      start:0x804231A0 end:0x804231A8
+
+effect/n64/eff_lensflare_n64.c:
+	.text       start:0x801CD31C end:0x801CE128
+	.rodata     start:0x802FAAC8 end:0x802FAAF0
+	.data       start:0x803A2A00 end:0x803A2B18
+	.sdata2     start:0x8041F5D0 end:0x8041F650
+
+effect/n64/eff_magic1_n64.c:
+	.text       start:0x801CE128 end:0x801CEF54
+	.rodata     start:0x802FAAF0 end:0x802FAB18
+	.sdata      start:0x80413B50 end:0x80413B60
+	.sdata2     start:0x8041F650 end:0x8041F6B0
+	.sbss2      start:0x804231A8 end:0x804231B0
+
+effect/n64/eff_magic2_n64.c:
+	.text       start:0x801CEF54 end:0x801D00B4
+	.rodata     start:0x802FAB18 end:0x802FAB48
+	.data       start:0x803A2B18 end:0x803A2DF0
+	.sdata      start:0x80413B60 end:0x80413B80
+	.sdata2     start:0x8041F6B0 end:0x8041F700
+	.sbss2      start:0x804231B0 end:0x804231B8
+
+effect/n64/eff_magic3_n64.c:
+	.text       start:0x801D00B4 end:0x801D0B18
+	.rodata     start:0x802FAB48 end:0x802FAB90
+	.data       start:0x803A2DF0 end:0x803A2E28
+	.sdata2     start:0x8041F700 end:0x8041F750
+
+effect/n64/eff_magic_horao_n64.c:
+	.text       start:0x801D0B18 end:0x801D1634
+	.rodata     start:0x802FAB90 end:0x802FABB8
+	.data       start:0x803A2E28 end:0x803A2E60
+	.sdata2     start:0x8041F750 end:0x8041F790
+	.sbss2      start:0x804231B8 end:0x804231C0
+
+effect/n64/eff_n64.c:
+	.text       start:0x801D1634 end:0x801D1A18
+	.rodata     start:0x802FABB8 end:0x802FB200
+	.data       start:0x803A2E60 end:0x803A33A0
+	.sdata      start:0x80413B80 end:0x80413BA8
+	.sbss       start:0x80418AB0 end:0x80418AB8
+
+effect/n64/eff_onpu_n64.c:
+	.text       start:0x801D1A18 end:0x801D2230
+	.rodata     start:0x802FB200 end:0x802FB220
+	.data       start:0x803A33A0 end:0x803A3830
+	.sdata      start:0x80413BA8 end:0x80413BD0
+	.sdata2     start:0x8041F790 end:0x8041F7C0
+	.sbss2      start:0x804231C0 end:0x804231C8
+
+effect/n64/eff_opuku_jetw_n64.c:
+	.text       start:0x801D2230 end:0x801D29C0
+	.rodata     start:0x802FB220 end:0x802FB248
+	.sdata      start:0x80413BD0 end:0x80413BF0
+	.sdata2     start:0x8041F7C0 end:0x8041F7D8
+	.sbss2      start:0x804231C8 end:0x804231D8
+
+effect/n64/eff_opuku_jetwrain_n64.c:
+	.text       start:0x801D29C0 end:0x801D36C0
+	.rodata     start:0x802FB248 end:0x802FB298
+	.data       start:0x803A3830 end:0x803A3910
+	.sdata2     start:0x8041F7D8 end:0x8041F818
+	.sbss2      start:0x804231D8 end:0x804231E0
+
+effect/n64/eff_opuku_wcurtain_n64.c:
+	.text       start:0x801D36C0 end:0x801D3EBC
+	.rodata     start:0x802FB298 end:0x802FB2C0
+	.sdata2     start:0x8041F818 end:0x8041F840
+	.sbss2      start:0x804231E0 end:0x804231E8
+
+effect/n64/eff_opuku_wgun_n64.c:
+	.text       start:0x801D3EBC end:0x801D4D68
+	.rodata     start:0x802FB2C0 end:0x802FB2E8
+	.sdata      start:0x80413BF0 end:0x80413C00
+	.sdata2     start:0x8041F840 end:0x8041F888
+	.sbss2      start:0x804231E8 end:0x804231F0
+
+effect/n64/eff_opuku_wprotect_n64.c:
+	.text       start:0x801D4D68 end:0x801D5D4C
+	.rodata     start:0x802FB2E8 end:0x802FB318
+	.data       start:0x803A3910 end:0x803A3B28
+	.sdata2     start:0x8041F888 end:0x8041F8E8
+	.sbss2      start:0x804231F0 end:0x804231F8
+
+effect/n64/eff_packn_bfire_n64.c:
+	.text       start:0x801D5D4C end:0x801D6BD8
+	.rodata     start:0x802FB318 end:0x802FB340
+	.data       start:0x803A3B28 end:0x803A3B60
+	.sdata2     start:0x8041F8E8 end:0x8041F948
+	.sbss2      start:0x804231F8 end:0x80423200
+
+effect/n64/eff_peach_dust_n64.c:
+	.text       start:0x801D6BD8 end:0x801D7560
+	.rodata     start:0x802FB340 end:0x802FB370
+	.data       start:0x803A3B60 end:0x803A4040
+	.sdata      start:0x80413C00 end:0x80413C40
+	.sdata2     start:0x8041F948 end:0x8041F980
+
+effect/n64/eff_pikkyolo_n64.c:
+	.text       start:0x801D7560 end:0x801D7DBC
+	.rodata     start:0x802FB370 end:0x802FB398
+	.data       start:0x803A4040 end:0x803A4120
+	.sdata2     start:0x8041F980 end:0x8041F9A0
+	.sbss2      start:0x80423200 end:0x80423208
+
+effect/n64/eff_pokopi_pcharge_n64.c:
+	.text       start:0x801D7DBC end:0x801D8E94
+	.rodata     start:0x802FB398 end:0x802FB3D0
+	.data       start:0x803A4120 end:0x803A4548
+	.sdata      start:0x80413C40 end:0x80413C60
+	.sdata2     start:0x8041F9A0 end:0x8041F9E8
+	.sbss2      start:0x80423208 end:0x80423218
+
+effect/n64/eff_pokopi_pipo_n64.c:
+	.text       start:0x801D8E94 end:0x801D95E8
+	.rodata     start:0x802FB3D0 end:0x802FB400
+	.data       start:0x803A4548 end:0x803A4580
+	.sdata      start:0x80413C60 end:0x80413C70
+	.sdata2     start:0x8041F9E8 end:0x8041FA20
+	.sbss2      start:0x80423218 end:0x80423220
+
+effect/n64/eff_pokopi_thunder_n64.c:
+	.text       start:0x801D95E8 end:0x801DA424
+	.rodata     start:0x802FB400 end:0x802FB450
+	.data       start:0x803A4580 end:0x803A47D0
+	.sdata      start:0x80413C70 end:0x80413C78
+	.sdata2     start:0x8041FA20 end:0x8041FA60
+	.sbss2      start:0x80423220 end:0x80423228
+
+effect/n64/eff_pturn_n64.c:
+	.text       start:0x801DA424 end:0x801DB1F8
+	.rodata     start:0x802FB450 end:0x802FB478
+	.data       start:0x803A47D0 end:0x803A48B0
+	.sdata      start:0x80413C78 end:0x80413CA0
+	.sdata2     start:0x8041FA60 end:0x8041FA90
+	.sbss2      start:0x80423228 end:0x80423230
+
+effect/n64/eff_radiation_n64.c:
+	.text       start:0x801DB1F8 end:0x801DC144
+	.rodata     start:0x802FB478 end:0x802FB4A0
+	.data       start:0x803A48B0 end:0x803A4A28
+	.sdata      start:0x80413CA0 end:0x80413CD0
+	.sdata2     start:0x8041FA90 end:0x8041FAD8
+
+effect/n64/eff_rappa_n64.c:
+	.text       start:0x801DC144 end:0x801DC8F8
+	.rodata     start:0x802FB4A0 end:0x802FB4C8
+	.data       start:0x803A4A28 end:0x803A4CA0
+	.sdata      start:0x80413CD0 end:0x80413CF8
+	.sdata2     start:0x8041FAD8 end:0x8041FB08
+	.sbss2      start:0x80423230 end:0x80423238
+
+effect/n64/eff_recover_heart_n64.c:
+	.text       start:0x801DC8F8 end:0x801DD49C
+	.rodata     start:0x802FB4C8 end:0x802FB4F0
+	.sdata      start:0x80413CF8 end:0x80413D30
+	.sdata2     start:0x8041FB08 end:0x8041FB38
+	.sbss2      start:0x80423238 end:0x80423240
+
+effect/n64/eff_release_n64.c:
+	.text       start:0x801DD49C end:0x801DE594
+	.rodata     start:0x802FB4F0 end:0x802FB520
+	.data       start:0x803A4CA0 end:0x803A5068
+	.sdata2     start:0x8041FB38 end:0x8041FB98
+	.sbss2      start:0x80423240 end:0x80423248
+
+effect/n64/eff_ripple_n64.c:
+	.text       start:0x801DE594 end:0x801DECA0
+	.rodata     start:0x802FB520 end:0x802FB548
+	.data       start:0x803A5068 end:0x803A5120
+	.sdata2     start:0x8041FB98 end:0x8041FBC8
+	.sbss2      start:0x80423248 end:0x80423250
+
+effect/n64/eff_rothammer_fail_n64.c:
+	.text       start:0x801DECA0 end:0x801DF450
+	.rodata     start:0x802FB548 end:0x802FB578
+	.data       start:0x803A5120 end:0x803A5158
+	.sdata2     start:0x8041FBC8 end:0x8041FC00
+	.sbss2      start:0x80423250 end:0x80423258
+
+effect/n64/eff_rothammer_success_n64.c:
+	.text       start:0x801DF450 end:0x801DFA40
+	.rodata     start:0x802FB578 end:0x802FB5A0
+	.data       start:0x803A5158 end:0x803A5190
+	.sdata2     start:0x8041FC00 end:0x8041FC30
+
+effect/n64/eff_rubble_n64.c:
+	.text       start:0x801DFA40 end:0x801E0270
+	.rodata     start:0x802FB5A0 end:0x802FB5C8
+	.data       start:0x803A5190 end:0x803A54C0
+	.sdata2     start:0x8041FC30 end:0x8041FC50
+
+effect/n64/eff_shock_n64.c:
+	.text       start:0x801E0270 end:0x801E0FF8
+	.rodata     start:0x802FB5C8 end:0x802FB5F0
+	.data       start:0x803A54C0 end:0x803A5A00
+	.sdata2     start:0x8041FC50 end:0x8041FC80
+	.sbss2      start:0x80423258 end:0x80423260
+
+effect/n64/eff_small_star_n64.c:
+	.text       start:0x801E0FF8 end:0x801E1E84
+	.rodata     start:0x802FB5F0 end:0x802FB650
+	.data       start:0x803A5A00 end:0x803A5A38
+	.sdata      start:0x80413D30 end:0x80413D58
+	.sbss       start:0x80418AB8 end:0x80418AC0
+	.sdata2     start:0x8041FC80 end:0x8041FCD8
+	.sbss2      start:0x80423260 end:0x80423268
+
+effect/n64/eff_snow_n64.c:
+	.text       start:0x801E1E84 end:0x801E2444
+	.rodata     start:0x802FB650 end:0x802FB668
+	.sbss       start:0x80418AC0 end:0x80418AC8
+	.sdata2     start:0x8041FCD8 end:0x8041FD10
+
+effect/n64/eff_snowfall_n64.c:
+	.text       start:0x801E2444 end:0x801E2F90
+	.rodata     start:0x802FB668 end:0x802FB688
+	.data       start:0x803A5A38 end:0x803A5BF8
+	.sdata2     start:0x8041FD10 end:0x8041FD40
+	.sbss2      start:0x80423268 end:0x80423270
+
+effect/n64/eff_snowman_n64.c:
+	.text       start:0x801E2F90 end:0x801E3778
+	.rodata     start:0x802FB688 end:0x802FB6B8
+	.data       start:0x803A5BF8 end:0x803A5DE0
+	.sdata      start:0x80413D58 end:0x80413D88
+	.sdata2     start:0x8041FD40 end:0x8041FD78
+
+effect/n64/eff_sstar_n64.c:
+	.text       start:0x801E3778 end:0x801E4930
+	.rodata     start:0x802FB6B8 end:0x802FB6F0
+	.sdata2     start:0x8041FD78 end:0x8041FE28
+
+effect/n64/eff_stamp_n64.c:
+	.text       start:0x801E4930 end:0x801E513C
+	.rodata     start:0x802FB6F0 end:0x802FB718
+	.data       start:0x803A5DE0 end:0x803A5E18
+	.sbss2      start:0x80423270 end:0x80423278
+
+effect/n64/eff_star_power_n64.c:
+	.text       start:0x801E513C end:0x801E61C8
+	.rodata     start:0x802FB718 end:0x802FB740
+	.data       start:0x803A5E18 end:0x803A6048
+	.sdata2     start:0x8041FE28 end:0x8041FE88
+	.sbss2      start:0x80423278 end:0x80423288
+
+effect/n64/eff_stardust2_n64.c:
+	.text       start:0x801E61C8 end:0x801E7120
+	.rodata     start:0x802FB740 end:0x802FB770
+	.data       start:0x803A6048 end:0x803A6228
+	.sdata      start:0x80413D88 end:0x80413DD0
+	.sdata2     start:0x8041FE88 end:0x8041FEF0
+
+effect/n64/eff_stardust_n64.c:
+	.text       start:0x801E7120 end:0x801E800C
+	.rodata     start:0x802FB770 end:0x802FB7A0
+	.data       start:0x803A6228 end:0x803A6408
+	.sdata      start:0x80413DD0 end:0x80413E08
+	.sdata2     start:0x8041FEF0 end:0x8041FF50
+
+effect/n64/eff_stone_smoke_n64.c:
+	.text       start:0x801E800C end:0x801E8514
+	.rodata     start:0x802FB7A0 end:0x802FB7C8
+	.data       start:0x803A6408 end:0x803A6440
+	.sdata      start:0x80413E08 end:0x80413E18
+	.sdata2     start:0x8041FF50 end:0x8041FF60
+	.sbss2      start:0x80423288 end:0x80423290
+
+effect/n64/eff_sunlight_n64.c:
+	.text       start:0x801E8514 end:0x801E8FC4
+	.rodata     start:0x802FB7C8 end:0x802FB810
+	.data       start:0x803A6440 end:0x803A65C8
+	.sdata2     start:0x8041FF60 end:0x8041FFA8
+	.sbss2      start:0x80423290 end:0x80423298
+
+effect/n64/eff_sweat_n64.c:
+	.text       start:0x801E8FC4 end:0x801E9818
+	.rodata     start:0x802FB810 end:0x802FB840
+	.sdata2     start:0x8041FFA8 end:0x8041FFE0
+
+effect/n64/eff_thruhammer_n64.c:
+	.text       start:0x801E9818 end:0x801EA308
+	.rodata     start:0x802FB840 end:0x802FB868
+	.data       start:0x803A65C8 end:0x803A66E0
+	.sdata2     start:0x8041FFE0 end:0x80420028
+	.sbss2      start:0x80423298 end:0x804232A8
+
+effect/n64/eff_thunder_n64.c:
+	.text       start:0x801EA308 end:0x801EC444
+	.rodata     start:0x802FB868 end:0x802FB890
+	.data       start:0x803A66E0 end:0x803A8510
+	.sdata2     start:0x80420028 end:0x80420080
+
+effect/n64/eff_thunderflare_n64.c:
+	.text       start:0x801EC444 end:0x801ECDB4
+	.rodata     start:0x802FB890 end:0x802FB8B8
+	.data       start:0x803A8510 end:0x803A8580
+	.sdata2     start:0x80420080 end:0x804200B0
+	.sbss2      start:0x804232A8 end:0x804232B0
+
+effect/n64/eff_timestamp_n64.c:
+	.text       start:0x801ECDB4 end:0x801ED7E0
+	.rodata     start:0x802FB8B8 end:0x802FB8E8
+	.data       start:0x803A8580 end:0x803A88C0
+	.sdata      start:0x80413E18 end:0x80413E58
+	.sdata2     start:0x804200B0 end:0x804200D8
+	.sbss2      start:0x804232B0 end:0x804232B8
+
+effect/n64/eff_vapor_n64.c:
+	.text       start:0x801ED7E0 end:0x801EE27C
+	.rodata     start:0x802FB8E8 end:0x802FB918
+	.sdata2     start:0x804200D8 end:0x80420110
+	.sbss2      start:0x804232B8 end:0x804232C0
+
+effect/n64/eff_wangflush_n64.c:
+	.text       start:0x801EE27C end:0x801EE940
+	.rodata     start:0x802FB918 end:0x802FB940
+	.data       start:0x803A88C0 end:0x803A8900
+	.sdata      start:0x80413E58 end:0x80413E70
+	.sdata2     start:0x80420110 end:0x80420150
+	.sbss2      start:0x804232C0 end:0x804232C8
+
+effect/n64/eff_water_damage_n64.c:
+	.text       start:0x801EE940 end:0x801EFE78
+	.rodata     start:0x802FB940 end:0x802FB968
+	.data       start:0x803A8900 end:0x803A8C08
+	.sdata2     start:0x80420150 end:0x804201B0
+
+effect/n64/eff_snow_dust_n64.c:
+	.text       start:0x801EFE78 end:0x801F1968
+	.rodata     start:0x802FB968 end:0x802FB998
+	.sdata      start:0x80413E70 end:0x80413ED0
+	.sdata2     start:0x804201B0 end:0x80420200
+	.sbss2      start:0x804232C8 end:0x804232D8
+
+sequence/seq_demo.c:
+	.text       start:0x801F1968 end:0x801F35FC
+	.rodata     start:0x802FB998 end:0x802FB9A8
+	.data       start:0x803A8C08 end:0x803A8D08
+	.bss        start:0x803E10E0 end:0x803E1770
+	.sbss       start:0x80418AC8 end:0x80418B18
+	.sdata2     start:0x80420200 end:0x80420220
+
+event/evt_movefloor.c:
+	.text       start:0x801F35FC end:0x801F499C
+	.rodata     start:0x802FB9A8 end:0x802FBA00
+	.data       start:0x803A8D08 end:0x803AA0F0
+	.sdata2     start:0x80420220 end:0x80420248
+
+battle/battle_enemy_item.c:
+	.text       start:0x801F499C end:0x801F536C
+	.data       start:0x803AA0F0 end:0x803AA198
+
+event/evt_badgeshop.c:
+	.text       start:0x801F536C end:0x801F6A34
+	.data       start:0x803AA198 end:0x803AA220
+	.bss        start:0x803E1770 end:0x803E1898
+	.sdata      start:0x80413ED0 end:0x80413FD8
+	.sbss       start:0x80418B18 end:0x80418B20
+
+event/evt_johoya.c:
+	.text       start:0x801F6A34 end:0x801F7768
+	.rodata     start:0x802FBA00 end:0x802FC8F8
+	.data       start:0x803AA220 end:0x803AA980
+	.sdata2     start:0x80420248 end:0x80420250
+
+peach.c:
+	.text       start:0x801F7768 end:0x801F881C
+	.rodata     start:0x802FC8F8 end:0x802FC920
+	.sdata2     start:0x80420250 end:0x804203B8
+
+koopa.c:
+	.text       start:0x801F881C end:0x801FADB4
+	.rodata     start:0x802FC920 end:0x802FCA18
+	.data       start:0x803AA980 end:0x803AAA90
+	.sdata      start:0x80413FD8 end:0x80413FF8
+	.sbss       start:0x80418B20 end:0x80418B28
+	.sdata2     start:0x804203B8 end:0x80420460
+
+event/evt_uranaisi.c:
+	.text       start:0x801FADB4 end:0x801FBBC0
+	.rodata     start:0x802FCA18 end:0x802FD498
+	.data       start:0x803AAA90 end:0x803AAF48
+	.sdata      start:0x80413FF8 end:0x80414008
+	.sdata2     start:0x80420460 end:0x80420468
+
+effect/eff_batfukidashi.c:
+	.text       start:0x801FBBC0 end:0x801FC2C0
+	.rodata     start:0x802FD498 end:0x802FD4C0
+	.data       start:0x803AAF48 end:0x803AAF88
+	.sdata2     start:0x80420468 end:0x80420498
+
+unit/unit_system.c:
+	.rodata     start:0x802FD4C0 end:0x802FD528
+	.data       start:0x803AAF88 end:0x803AB0F0
+	.sdata      start:0x80414008 end:0x80414050
+
+countdown.c:
+	.text       start:0x801FC2C0 end:0x801FCB10
+	.rodata     start:0x802FD528 end:0x802FD560
+	.sbss       start:0x80418B28 end:0x80418B30
+	.sdata2     start:0x80420498 end:0x804204D0
+
+battle/ac/ac_stick_rotate.c:
+	.text       start:0x801FCB10 end:0x801FD918
+	.rodata     start:0x802FD560 end:0x802FD5D0
+	.data       start:0x803AB0F0 end:0x803AB610
+	.sdata2     start:0x804204D0 end:0x804204E8
+
+battle/ac/ac_button_down.c:
+	.text       start:0x801FD918 end:0x801FE2B8
+	.rodata     start:0x802FD5D0 end:0x802FD630
+	.sdata      start:0x80414050 end:0x80414070
+	.sdata2     start:0x804204E8 end:0x80420508
+
+battle/ac/ac_timing_wide.c:
+	.text       start:0x801FE2B8 end:0x801FEE20
+	.rodata     start:0x802FD630 end:0x802FD6C0
+	.sdata2     start:0x80420508 end:0x80420520
+
+battle/battle_break_slot.c:
+	.text       start:0x801FEE20 end:0x80200DC0
+	.rodata     start:0x802FD6C0 end:0x802FD9A8
+	.data       start:0x803AB610 end:0x803AB8F0
+	.sdata      start:0x80414070 end:0x80414148
+	.sbss       start:0x80418B30 end:0x80418B38
+	.sdata2     start:0x80420520 end:0x80420598
+
+nameent.c:
+	.text       start:0x80200DC0 end:0x80204F48
+	.rodata     start:0x802FD9A8 end:0x802FDB78
+	.data       start:0x803AB8F0 end:0x803ABEC4
+	.bss        start:0x803E1898 end:0x803E1900
+	.sdata      start:0x80414148 end:0x80414160
+	.sdata2     start:0x80420598 end:0x80420958
+
+event/evt_window.c:
+	.text       start:0x80204F48 end:0x802059A0
+	.rodata     start:0x802FDB78 end:0x802FDBA0
+	.sdata      start:0x80414160 end:0x804141B0
+	.sbss       start:0x80418B38 end:0x80418B40
+	.sdata2     start:0x80420958 end:0x80420978
+
+battle/ac/ac_pendulum_crane_timing.c:
+	.text       start:0x802059A0 end:0x802063F0
+	.rodata     start:0x802FDBA0 end:0x802FDBE0
+	.sdata      start:0x804141B0 end:0x804141D0
+	.sdata2     start:0x80420978 end:0x804209C8
+
+effect/eff_starpoint.c:
+	.text       start:0x802063F0 end:0x8020697C
+	.rodata     start:0x802FDBE0 end:0x802FDC00
+	.sdata2     start:0x804209C8 end:0x80420A00
+
+effect/eff_puniballoon.c:
+	.text       start:0x8020697C end:0x802073A0
+	.rodata     start:0x802FDC00 end:0x802FDC28
+	.sdata2     start:0x80420A00 end:0x80420A28
+
+effect/eff_peach_fukidashi.c:
+	.text       start:0x802073A0 end:0x80207BE0
+	.rodata     start:0x802FDC28 end:0x802FDC68
+	.sdata2     start:0x80420A28 end:0x80420A70
+
+battle/ac/ac_air_gauge.c:
+	.text       start:0x80207BE0 end:0x8020846C
+	.rodata     start:0x802FDC68 end:0x802FDC88
+	.data       start:0x803ABEC4 end:0x803ABEE0
+	.sdata2     start:0x80420A70 end:0x80420AB0
+
+effect/eff_kemutest.c:
+	.text       start:0x8020846C end:0x8020A1D4
+	.rodata     start:0x802FDC88 end:0x802FDD38
+	.data       start:0x803ABEE0 end:0x803AC2E0
+	.sdata      start:0x804141D0 end:0x80414220
+	.sdata2     start:0x80420AB0 end:0x80420B30
+	.sbss2      start:0x804232D8 end:0x804232E0
+
+battle/ac/ac_crane_timing.c:
+	.text       start:0x8020A1D4 end:0x8020A620
+	.rodata     start:0x802FDD38 end:0x802FDD50
+	.sdata2     start:0x80420B30 end:0x80420B48
+
+effect/eff_starstone.c:
+	.text       start:0x8020A620 end:0x8020C9A4
+	.rodata     start:0x802FDD50 end:0x802FDDA8
+	.data       start:0x803AC2E0 end:0x803ACB50
+	.sdata      start:0x80414220 end:0x804159B8
+	.sdata2     start:0x80420B48 end:0x80420B98
+	.sbss2      start:0x804232E0 end:0x804232F0
+
+effect/eff_itemget.c:
+	.text       start:0x8020C9A4 end:0x8020DCA4
+	.rodata     start:0x802FDDA8 end:0x802FDDF0
+	.sdata      start:0x804159B8 end:0x80415A00
+	.sdata2     start:0x80420B98 end:0x80420C00
+	.sbss2      start:0x804232F0 end:0x80423300
+
+battle/battle_seq_end.c:
+	.text       start:0x8020DCA4 end:0x80211A94
+	.rodata     start:0x802FDDF0 end:0x802FE1D8
+	.data       start:0x803ACB50 end:0x803ADA18
+	.sdata      start:0x80415A00 end:0x80415A58
+	.sdata2     start:0x80420C00 end:0x80420D80
+
+battle/battle_ac_help.c:
+	.text       start:0x80211A94 end:0x80211CD0
+	.rodata     start:0x802FE1D8 end:0x802FE200
+
+kpa_act.c:
+	.text       start:0x80211CD0 end:0x80212778
+	.rodata     start:0x802FE200 end:0x802FE218
+	.sdata      start:0x80415A58 end:0x80415A80
+	.sbss       start:0x80418B40 end:0x80418B48
+	.sdata2     start:0x80420D80 end:0x80420DA0
+
+koopa_motion.c:
+	.text       start:0x80212778 end:0x802149AC
+	.rodata     start:0x802FE218 end:0x802FE320
+	.data       start:0x803ADA18 end:0x803ADA78
+	.sdata      start:0x80415A80 end:0x80415B28
+	.sdata2     start:0x80420DA0 end:0x80420E70
+
+koopa_hit.c:
+	.text       start:0x802149AC end:0x80215FF0
+	.rodata     start:0x802FE320 end:0x802FE390
+	.data       start:0x803ADA78 end:0x803ADC60
+	.sdata      start:0x80415B28 end:0x80415B88
+	.sdata2     start:0x80420E70 end:0x80420EC8
+
+effect/eff_pointget.c:
+	.text       start:0x80215FF0 end:0x80216964
+	.rodata     start:0x802FE390 end:0x802FE3C0
+	.sdata      start:0x80415B88 end:0x80415BA8
+	.sdata2     start:0x80420EC8 end:0x80420F10
+
+effect/eff_stageclear.c:
+	.text       start:0x80216964 end:0x8021775C
+	.rodata     start:0x802FE3C0 end:0x802FE418
+	.data       start:0x803ADC60 end:0x803AE000
+	.sdata      start:0x80415BA8 end:0x80415C40
+	.sdata2     start:0x80420F10 end:0x80420F48
+
+effect/eff_fall.c:
+	.text       start:0x8021775C end:0x8021AA24
+	.rodata     start:0x802FE418 end:0x802FE5A0
+	.data       start:0x803AE000 end:0x803AE098
+	.sdata      start:0x80415C40 end:0x80415D20
+	.sdata2     start:0x80420F48 end:0x80421080
+
+effect/eff_levelup.c:
+	.text       start:0x8021AA24 end:0x8021B378
+	.rodata     start:0x802FE5A0 end:0x802FE610
+	.data       start:0x803AE098 end:0x803AE0F8
+	.sdata      start:0x80415D20 end:0x80415D88
+	.sdata2     start:0x80421080 end:0x804210A8
+
+effect/eff_break.c:
+	.text       start:0x8021B378 end:0x8021BAC8
+	.rodata     start:0x802FE610 end:0x802FE628
+	.data       start:0x803AE0F8 end:0x803AE1A0
+	.sdata      start:0x80415D88 end:0x80415DC0
+	.sdata2     start:0x804210A8 end:0x804210D8
+
+effect/eff_mobj_broken.c:
+	.text       start:0x8021BAC8 end:0x8021CAD4
+	.rodata     start:0x802FE628 end:0x802FE670
+	.sdata2     start:0x804210D8 end:0x80421150
+
+effect/eff_mahojin.c:
+	.text       start:0x8021CAD4 end:0x8021D56C
+	.rodata     start:0x802FE670 end:0x802FE6B8
+	.data       start:0x803AE1A0 end:0x803AE620
+	.sbss       start:0x80418B48 end:0x80418B50
+	.sdata2     start:0x80421150 end:0x80421230
+
+effect/eff_nozle.c:
+	.text       start:0x8021D56C end:0x8021E628
+	.rodata     start:0x802FE6B8 end:0x802FE6D8
+	.data       start:0x803AE620 end:0x803AFEA0
+	.sdata      start:0x80415DC0 end:0x80416080
+	.sdata2     start:0x80421230 end:0x80421270
+	.sbss2      start:0x80423300 end:0x80423308
+
+effect/eff_mizutama.c:
+	.text       start:0x8021E628 end:0x8021EDF4
+	.rodata     start:0x802FE6D8 end:0x802FE6F8
+	.data       start:0x803AFEA0 end:0x803AFEC0
+	.sdata2     start:0x80421270 end:0x804212B0
+
+effect/eff_minigame.c:
+	.text       start:0x8021EDF4 end:0x8022010C
+	.rodata     start:0x802FE6F8 end:0x802FE728
+	.data       start:0x803AFEC0 end:0x803AFFA0
+	.sdata      start:0x80416080 end:0x80416100
+	.sdata2     start:0x804212B0 end:0x80421308
+	.sbss2      start:0x80423308 end:0x80423310
+
+effect/eff_splash.c:
+	.text       start:0x8022010C end:0x8022173C
+	.rodata     start:0x802FE728 end:0x802FE750
+	.data       start:0x803AFFA0 end:0x803B0138
+	.sdata      start:0x80416100 end:0x80416200
+	.sdata2     start:0x80421308 end:0x804213C8
+
+effect/eff_treasure_map.c:
+	.text       start:0x8022173C end:0x80221BB0
+	.rodata     start:0x802FE750 end:0x802FE780
+	.sdata2     start:0x804213C8 end:0x804213F0
+
+effect/eff_kiss.c:
+	.text       start:0x80221BB0 end:0x80223104
+	.rodata     start:0x802FE780 end:0x802FE7A0
+	.data       start:0x803B0138 end:0x803B0380
+	.sdata      start:0x80416200 end:0x80416260
+	.sdata2     start:0x804213F0 end:0x80421468
+	.sbss2      start:0x80423310 end:0x80423320
+
+effect/eff_funemizu.c:
+	.text       start:0x80223104 end:0x80224348
+	.rodata     start:0x802FE7A0 end:0x802FE8C8
+	.data       start:0x803B0380 end:0x803B0748
+	.sdata      start:0x80416260 end:0x804163C0
+	.sdata2     start:0x80421468 end:0x804214B0
+
+event/evt_yuugijou.c:
+	.text       start:0x80224348 end:0x80224EEC
+	.rodata     start:0x802FE8C8 end:0x802FE908
+	.data       start:0x803B0748 end:0x803B0880
+	.bss        start:0x803E1900 end:0x803E1A38
+	.sbss       start:0x80418B50 end:0x80418B60
+	.sdata2     start:0x804214B0 end:0x804214E0
+
+effect/eff_mist.c:
+	.text       start:0x80224EEC end:0x802259C0
+	.rodata     start:0x802FE908 end:0x802FE920
+	.data       start:0x803B0880 end:0x803B08A0
+	.sdata2     start:0x804214E0 end:0x80421548
+	.sbss2      start:0x80423320 end:0x80423328
+
+effect/eff_teresa.c:
+	.text       start:0x802259C0 end:0x8022606C
+	.rodata     start:0x802FE920 end:0x802FE958
+	.sdata2     start:0x80421548 end:0x80421588
+	.sbss2      start:0x80423328 end:0x80423330
+
+battle/ac/ac_power_gauge.c:
+	.text       start:0x8022606C end:0x80226F78
+	.rodata     start:0x802FE958 end:0x802FEA38
+	.sdata2     start:0x80421588 end:0x804215D0
+
+battle/ac/ac_power_gauge_lv.c:
+	.text       start:0x80226F78 end:0x80227748
+	.rodata     start:0x802FEA38 end:0x802FEA98
+	.sdata2     start:0x804215D0 end:0x80421600
+
+battle/sac/sac_bakugame.c:
+	.text       start:0x80227748 end:0x8022A790
+	.rodata     start:0x802FEA98 end:0x802FEDC8
+	.data       start:0x803B08A0 end:0x803B1090
+	.sdata2     start:0x80421600 end:0x804216D0
+
+battle/ac/ac_signal_timing.c:
+	.text       start:0x8022A790 end:0x8022BB68
+	.rodata     start:0x802FEDC8 end:0x802FEEC0
+	.sdata      start:0x804163C0 end:0x80416418
+	.sdata2     start:0x804216D0 end:0x80421718
+
+battle/battle_audience_kind_data.c:
+	.data       start:0x803B1090 end:0x803B1AC8
+	.sdata      start:0x80416418 end:0x80417900
+
+data/mail_data.c:
+	.text       start:0x8022BB68 end:0x8022BBCC
+	.rodata     start:0x802FEEC0 end:0x802FF570
+	.data       start:0x803B1AC8 end:0x803B1E38
+
+battle/sac/sac_scissor.c:
+	.text       start:0x8022BBCC end:0x8022E590
+	.rodata     start:0x802FF570 end:0x802FF668
+	.data       start:0x803B1E38 end:0x803B24C0
+	.sdata2     start:0x80421718 end:0x804217B8
+
+battle/sac/sac_zubastar.c:
+	.text       start:0x8022E590 end:0x802309B8
+	.rodata     start:0x802FF668 end:0x802FF860
+	.data       start:0x803B24C0 end:0x803B29C0
+	.sdata      start:0x80417900 end:0x80417920
+	.sdata2     start:0x804217B8 end:0x80421870
+
+battle/ac/ac_gauge_timing.c:
+	.text       start:0x802309B8 end:0x80231BF8
+	.rodata     start:0x802FF860 end:0x802FF940
+	.sdata2     start:0x80421870 end:0x804218D8
+
+event/evt_urouro.c:
+	.text       start:0x80231BF8 end:0x80232320
+	.rodata     start:0x802FF940 end:0x802FF950
+	.sdata2     start:0x804218D8 end:0x804218F8
+
+battle/ac/ac_shot_target.c:
+	.text       start:0x80232320 end:0x80232E1C
+	.rodata     start:0x802FF950 end:0x802FF9E8
+	.data       start:0x803B29C0 end:0x803B29E0
+	.sdata2     start:0x804218F8 end:0x80421948
+
+effect/eff_sheep.c:
+	.text       start:0x80232E1C end:0x802336C4
+	.rodata     start:0x802FF9E8 end:0x802FFA50
+	.sdata2     start:0x80421948 end:0x80421980
+
+effect/eff_batten.c:
+	.text       start:0x802336C4 end:0x802340B8
+	.rodata     start:0x802FFA50 end:0x802FFA98
+	.sdata2     start:0x80421980 end:0x804219B8
+
+manager/winmgr.c:
+	.text       start:0x802340B8 end:0x80239C34
+	.rodata     start:0x802FFA98 end:0x802FFFE0
+	.data       start:0x803B29E0 end:0x803B2EE0
+	.sdata      start:0x80417920 end:0x804179A0
+	.sbss       start:0x80418B60 end:0x80418B78
+	.sdata2     start:0x804219B8 end:0x80421AD8
+	.sbss2      start:0x80423330 end:0x80423338
+
+battle/ac/ac_gauge_timing2.c:
+	.text       start:0x80239C34 end:0x8023AA24
+	.rodata     start:0x802FFFE0 end:0x803000A8
+	.sdata2     start:0x80421AD8 end:0x80421B48
+
+effect/eff_naniga.c:
+	.text       start:0x8023AA24 end:0x8023BAC0
+	.rodata     start:0x803000A8 end:0x80300138
+	.data       start:0x803B2EE0 end:0x803B3220
+	.sdata2     start:0x80421B48 end:0x80421B98
+
+effect/eff_sandars.c:
+	.text       start:0x8023BAC0 end:0x8023C588
+	.rodata     start:0x80300138 end:0x80300170
+	.sdata      start:0x804179A0 end:0x804179B0
+	.sdata2     start:0x80421B98 end:0x80421BE0
+
+effect/eff_rankup.c:
+	.text       start:0x8023C588 end:0x8023C958
+	.rodata     start:0x80300170 end:0x80300198
+	.sdata2     start:0x80421BE0 end:0x80421C00
+
+effect/eff_irekaeru.c:
+	.text       start:0x8023C958 end:0x8023CD48
+	.rodata     start:0x80300198 end:0x803001C0
+	.sdata2     start:0x80421C00 end:0x80421C20
+
+battle/ac/ac_power_gauge_lv2.c:
+	.text       start:0x8023CD48 end:0x8023D758
+	.rodata     start:0x803001C0 end:0x80300208
+	.sdata      start:0x804179B0 end:0x80417A00
+	.sdata2     start:0x80421C20 end:0x80421C50
+
+effect/eff_scanning.c:
+	.text       start:0x8023D758 end:0x8023DAC4
+	.rodata     start:0x80300208 end:0x80300230
+	.sdata2     start:0x80421C50 end:0x80421C68
+
+effect/eff_toiki.c:
+	.text       start:0x8023DAC4 end:0x8023E260
+	.rodata     start:0x80300230 end:0x80300248
+	.data       start:0x803B3220 end:0x803B3338
+	.sdata      start:0x80417A00 end:0x80417BC0
+	.sdata2     start:0x80421C68 end:0x80421CA8
+	.sbss2      start:0x80423338 end:0x80423340
+
+effect/eff_mist2.c:
+	.text       start:0x8023E260 end:0x8023ED74
+	.rodata     start:0x80300248 end:0x80300260
+	.sdata2     start:0x80421CA8 end:0x80421CE0
+	.sbss2      start:0x80423340 end:0x80423348
+
+effect/eff_particle.c:
+	.text       start:0x8023ED74 end:0x8023FB90
+	.rodata     start:0x80300260 end:0x803002B0
+	.data       start:0x803B3338 end:0x803B33B8
+	.sdata      start:0x80417BC0 end:0x80417BC8
+	.sbss       start:0x80418B78 end:0x80418B80
+	.sdata2     start:0x80421CE0 end:0x80421D20
+
+battle/sac/sac_genki.c:
+	.text       start:0x8023FB90 end:0x80242B84
+	.rodata     start:0x803002B0 end:0x803004A0
+	.data       start:0x803B33B8 end:0x803B3C60
+	.sdata      start:0x80417BC8 end:0x80417C00
+	.sdata2     start:0x80421D20 end:0x80421E30
+
+battle/sac/sac_common.c:
+	.text       start:0x80242B84 end:0x80242FF8
+	.rodata     start:0x803004A0 end:0x803004F8
+	.data       start:0x803B3C60 end:0x803B4030
+	.sdata      start:0x80417C00 end:0x80417C20
+	.sbss       start:0x80418B80 end:0x80418B98
+	.sdata2     start:0x80421E30 end:0x80421E40
+
+battle/sac/sac_deka.c:
+	.text       start:0x80242FF8 end:0x80245DF8
+	.rodata     start:0x803004F8 end:0x803006C0
+	.data       start:0x803B4030 end:0x803B4980
+	.sdata      start:0x80417C20 end:0x80417C40
+	.sdata2     start:0x80421E40 end:0x80421F00
+
+effect/eff_ibuki.c:
+	.text       start:0x80245DF8 end:0x80246DCC
+	.rodata     start:0x803006C0 end:0x803006D8
+	.data       start:0x803B4980 end:0x803B4A80
+	.sdata      start:0x80417C40 end:0x80417C88
+	.sdata2     start:0x80421F00 end:0x80421F50
+
+battle/sac/sac_muki.c:
+	.text       start:0x80246DCC end:0x80249184
+	.rodata     start:0x803006D8 end:0x80300880
+	.data       start:0x803B4A80 end:0x803B4FC8
+	.sdata      start:0x80417C88 end:0x80417CA8
+	.sdata2     start:0x80421F50 end:0x80422058
+
+battle/ac/ac_monosiri_target.c:
+	.text       start:0x80249184 end:0x80249920
+	.rodata     start:0x80300880 end:0x80300930
+	.sdata      start:0x80417CA8 end:0x80417CC8
+	.sdata2     start:0x80422058 end:0x80422098
+
+battle/sac/sac_suki.c:
+	.text       start:0x80249920 end:0x8024AFF8
+	.rodata     start:0x80300930 end:0x80300BF0
+	.data       start:0x803B4FC8 end:0x803B5E40
+	.sdata      start:0x80417CC8 end:0x80417CE8
+	.sdata2     start:0x80422098 end:0x80422138
+
+romfont.c:
+	.text       start:0x8024AFF8 end:0x8024B958
+	.rodata     start:0x80300BF0 end:0x80300FD8
+	.sdata      start:0x80417CE8 end:0x80417D40
+	.sbss       start:0x80418B98 end:0x80418BA8
+	.sdata2     start:0x80422138 end:0x80422140
+
+sequence/seq_e3.c:
+	.text       start:0x8024B958 end:0x8024D218
+	.rodata     start:0x80300FD8 end:0x803011E8
+	.bss        start:0x803E1A38 end:0x803E1AA0
+	.sdata      start:0x80417D40 end:0x80417D68
+	.sdata2     start:0x80422140 end:0x804221E8
+	.sbss2      start:0x80423348 end:0x80423350
+
+battle/battle_status_icon.c:
+	.text       start:0x8024D218 end:0x8024DF80
+	.rodata     start:0x803011E8 end:0x80301300
+	.data       start:0x803B5E40 end:0x803B5FB0
+	.sdata2     start:0x804221E8 end:0x80422240
+
+event/evt_lottery.c:
+	.text       start:0x8024DF80 end:0x8024EE58
+	.sbss       start:0x80418BA8 end:0x80418BB0
+
+effect/eff_mahorn.c:
+	.text       start:0x8024EE58 end:0x8024F5C0
+	.rodata     start:0x80301300 end:0x80301320
+	.sdata      start:0x80417D68 end:0x80417D98
+	.sdata2     start:0x80422240 end:0x80422270
+
+effect/eff_spirit.c:
+	.text       start:0x8024F5C0 end:0x8024FF5C
+	.rodata     start:0x80301320 end:0x80301340
+	.sdata2     start:0x80422270 end:0x804222C0
+	.sbss2      start:0x80423350 end:0x80423358
+
+effect/eff_indirect.c:
+	.text       start:0x8024FF5C end:0x80250664
+	.rodata     start:0x80301340 end:0x80301358
+	.sdata2     start:0x804222C0 end:0x804222F8
+
+effect/eff_syuryou.c:
+	.text       start:0x80250664 end:0x80250AC8
+	.rodata     start:0x80301358 end:0x80301390
+	.sdata2     start:0x804222F8 end:0x80422318
+
+effect/eff_uranoko.c:
+	.text       start:0x80250AC8 end:0x80250EAC
+	.rodata     start:0x80301390 end:0x803013B8
+	.sdata2     start:0x80422318 end:0x80422338
+
+effect/eff_hibashira.c:
+	.text       start:0x80250EAC end:0x802515F8
+	.rodata     start:0x803013B8 end:0x803013F8
+	.sdata2     start:0x80422338 end:0x80422358
+
+event/evt_lecture.c:
+	.text       start:0x802515F8 end:0x802519D4
+	.sdata      start:0x80417D98 end:0x80417DB8
+	.sbss       start:0x80418BB0 end:0x80418C20
+
+effect/eff_number.c:
+	.text       start:0x802519D4 end:0x802521A8
+	.rodata     start:0x803013F8 end:0x80301400
+	.sdata2     start:0x80422358 end:0x804223A0
+
+effect/eff_laser.c:
+	.text       start:0x802521A8 end:0x80252644
+	.rodata     start:0x80301400 end:0x80301420
+	.sdata2     start:0x804223A0 end:0x804223D8
+
+effect/eff_machinegun.c:
+	.text       start:0x80252644 end:0x80252B38
+	.rodata     start:0x80301420 end:0x80301438
+	.sdata2     start:0x804223D8 end:0x80422408
+
+effect/eff_las_mon.c:
+	.text       start:0x80252B38 end:0x80252EE4
+	.rodata     start:0x80301438 end:0x80301460
+	.sdata2     start:0x80422408 end:0x80422420
+
+effect/eff_sleep.c:
+	.text       start:0x80252EE4 end:0x80253738
+	.rodata     start:0x80301460 end:0x80301480
+	.sdata2     start:0x80422420 end:0x80422460
+
+effect/eff_energy.c:
+	.text       start:0x80253738 end:0x80253D44
+	.rodata     start:0x80301480 end:0x80301498
+	.sdata      start:0x80417DB8 end:0x80417DE0
+	.sdata2     start:0x80422460 end:0x80422480
+	.sbss2      start:0x80423358 end:0x80423360
+
+effect/eff_nokotarou.c:
+	.text       start:0x80253D44 end:0x802542F8
+	.rodata     start:0x80301498 end:0x803014C8
+	.sdata2     start:0x80422480 end:0x804224A8
+
+effect/eff_queen.c:
+	.text       start:0x802542F8 end:0x80254738
+	.rodata     start:0x803014C8 end:0x803014F8
+	.sdata2     start:0x804224A8 end:0x804224D0
+
+effect/eff_queen2.c:
+	.text       start:0x80254738 end:0x80254CF4
+	.rodata     start:0x803014F8 end:0x80301518
+	.sdata2     start:0x804224D0 end:0x804224E8
+	.sbss2      start:0x80423360 end:0x80423360
+
+effect/eff_gonbaba_breath.c:
+	.text       start:0x80254CF4 end:0x8025613C
+	.rodata     start:0x80301518 end:0x80301540
+	.sdata      start:0x80417DE0 end:0x80417EA0
+	.sdata2     start:0x804224E8 end:0x80422568
+
+gxsub.c:
+	.sdata      start:0x80417EA0 end:0x80417EC0
+
+event/evt_memcard.c:
+	.text       start:0x8025613C end:0x80256544
+	.rodata     start:0x80301540 end:0x80301920
+	.data       start:0x803B5FB0 end:0x803B72F8
+
+effect/eff_majinai.c:
+	.text       start:0x80256544 end:0x80256AF8
+	.rodata     start:0x80301920 end:0x80301948
+	.sdata2     start:0x80422568 end:0x80422598
+
+effect/eff_mahorn2.c:
+	.text       start:0x80256AF8 end:0x802577C0
+	.rodata     start:0x80301948 end:0x803019B0
+	.sdata2     start:0x80422598 end:0x804225E0
+
+effect/eff_ultra_hammer.c:
+	.text       start:0x802577C0 end:0x80257EF4
+	.rodata     start:0x803019B0 end:0x803019E0
+	.data       start:0x803B72F8 end:0x803B7360
+	.sdata      start:0x80417EC0 end:0x80418198
+	.sdata2     start:0x804225E0 end:0x80422600
+
+unk_0x8025de70.c:
+	.rodata     start:0x803019E0 end:0x80301B78
+	.sdata2     start:0x80422600 end:0x80422620
+
+error_handler.c:
+	.text       start:0x80257EF4 end:0x8025854C
+
+TRK_MINNOW_DOLPHIN.a/mainloop.c:
+	.text       start:0x8025854C end:0x80258644
+
+TRK_MINNOW_DOLPHIN.a/nubevent.c:
+	.text       start:0x80258644 end:0x8025886C
+	.bss        start:0x803E1AA0 end:0x803E1AC8
+
+TRK_MINNOW_DOLPHIN.a/nubinit.c:
+	.text       start:0x8025886C end:0x80258A04
+	.rodata     start:0x80301B78 end:0x80301BA8
+	.bss        start:0x803E1AC8 end:0x803E1AD0
+
+TRK_MINNOW_DOLPHIN.a/msg.c:
+	.text       start:0x80258A04 end:0x80258A48
+	.rodata     start:0x80301BA8 end:0x80301BD0
+
+TRK_MINNOW_DOLPHIN.a/msgbuf.c:
+	.text       start:0x80258A48 end:0x80259284
+	.rodata     start:0x80301BD0 end:0x80301BF0
+	.bss        start:0x803E1AD0 end:0x803E3480
+
+TRK_MINNOW_DOLPHIN.a/serpoll.c:
+	.text       start:0x80259284 end:0x8025953C
+	.rodata     start:0x80301BF0 end:0x80301D80
+	.bss        start:0x803E3480 end:0x803E3498
+	.sbss       start:0x80418C20 end:0x80418C28
+
+TRK_MINNOW_DOLPHIN.a/usr_put.c:
+	.text       start:0x8025953C end:0x802595C8
+
+TRK_MINNOW_DOLPHIN.a/dispatch.c:
+	.text       start:0x802595C8 end:0x80259740
+	.rodata     start:0x80301D80 end:0x80301DC0
+	.data       start:0x803B7360 end:0x803B73D0
+
+TRK_MINNOW_DOLPHIN.a/msghndlr.c:
+	.text       start:0x80259740 end:0x8025A7B0
+	.rodata     start:0x80301DC0 end:0x80301FA8
+	.data       start:0x803B73D0 end:0x803B7408
+	.bss        start:0x803E3498 end:0x803E34A0
+
+TRK_MINNOW_DOLPHIN.a/support.c:
+	.text       start:0x8025A7B0 end:0x8025AEC4
+	.rodata     start:0x80301FA8 end:0x80302050
+
+TRK_MINNOW_DOLPHIN.a/mutex_TRK.c:
+	.text       start:0x8025AEC4 end:0x8025AEDC
+
+TRK_MINNOW_DOLPHIN.a/notify.c:
+	.text       start:0x8025AEDC end:0x8025AF74
+
+TRK_MINNOW_DOLPHIN.a/flush_cache.c:
+	.text       start:0x8025AF74 end:0x8025AFAC
+
+TRK_MINNOW_DOLPHIN.a/mem_TRK.c:
+	.init       start:0x80003100 end:0x80003154
+	.text       start:0x8025AFAC end:0x8025B064
+
+TRK_MINNOW_DOLPHIN.a/targimpl.c:
+	.text       start:0x8025B064 end:0x8025CBF0
+	.rodata     start:0x80302050 end:0x803020E8
+	.data       start:0x803B7408 end:0x803B7438
+	.bss        start:0x803E34A0 end:0x803E3A20
+
+TRK_MINNOW_DOLPHIN.a/targsupp.s:
+	.text       start:0x8025CBF0 end:0x8025CC10
+
+TRK_MINNOW_DOLPHIN.a/mpc_7xx_603e.c:
+	.text       start:0x8025CC10 end:0x8025CF80
+
+TRK_MINNOW_DOLPHIN.a/__exception.s:
+	.init       start:0x80003154 end:0x80005088
+
+TRK_MINNOW_DOLPHIN.a/dolphin_trk.c:
+	.init       start:0x80005088 end:0x800050B4
+	.text       start:0x8025CF80 end:0x8025D5BC
+	.data       start:0x803B7438 end:0x803B7478
+	.bss        start:0x803E3A20 end:0x803E3A28
+
+TRK_MINNOW_DOLPHIN.a/main_TRK.c:
+	.text       start:0x8025D5BC end:0x8025D614
+	.rodata     start:0x803020E8 end:0x803020F8
+	.bss        start:0x803E3A28 end:0x803E3A30
+
+TRK_MINNOW_DOLPHIN.a/dolphin_trk_glue.c:
+	.text       start:0x8025D614 end:0x8025DB6C
+	.rodata     start:0x803020F8 end:0x80302200
+	.data       start:0x803B7478 end:0x803B74A0
+	.bss        start:0x803E3A30 end:0x803E3A38
+
+TRK_MINNOW_DOLPHIN.a/targcont.c:
+	.text       start:0x8025DB6C end:0x8025DBA0
+
+TRK_MINNOW_DOLPHIN.a/target_options.c:
+	.text       start:0x8025DBA0 end:0x8025DBBC
+	.bss        start:0x803E3A38 end:0x803E3A40
+
+TRK_MINNOW_DOLPHIN.a/mslsupp.c:
+	.text       start:0x8025DBBC end:0x8025DDB8
+
+TRK_MINNOW_DOLPHIN.a/UDP_Stubs.c:
+	.text       start:0x8025DDB8 end:0x8025DE00
+
+TRK_MINNOW_DOLPHIN_DDH.a/main.c:
+	.text       start:0x8025DE00 end:0x8025E144
+	.rodata     start:0x80302200 end:0x803022E0
+	.bss        start:0x803E3A40 end:0x803E4260
+	.sbss       start:0x80418C28 end:0x80418C30
+
+TRK_MINNOW_DOLPHIN.a/CircleBuffer.c:
+	.text       start:0x8025E144 end:0x8025E3AC
+
+TRK_MINNOW_DOLPHIN_GDEV.a/main.c:
+	.text       start:0x8025E3AC end:0x8025E6F8
+	.rodata     start:0x803022E0 end:0x803023C0
+	.bss        start:0x803E4260 end:0x803E4780
+	.sbss       start:0x80418C30 end:0x80418C38
+
+TRK_MINNOW_DOLPHIN.a/MWTrace.c:
+	.text       start:0x8025E6F8 end:0x8025E748
+
+TRK_MINNOW_DOLPHIN.a/MWCriticalSection_gc.cpp:
+	.text       start:0x8025E748 end:0x8025E7A0
+
+Runtime.PPCEABI.H.a/__va_arg.c:
+	.text       start:0x8025E7A0 end:0x8025E868
+
+Runtime.PPCEABI.H.a/global_destructor_chain.c:
+	.text       start:0x8025E868 end:0x8025E8B0
+	.dtors      start:0x802C0F00 end:0x802C0F04
+	.sbss       start:0x80418C38 end:0x80418C40
+
+Runtime.PPCEABI.H.a/runtime.c:
+	.text       start:0x8025E8B0 end:0x8025F0E0
+	.rodata     start:0x803023C0 end:0x803023D8
+
+Runtime.PPCEABI.H.a/__mem.c:
+	.init       start:0x800050B4 end:0x800051EC
+
+Runtime.PPCEABI.H.a/GCN_mem_alloc.c:
+	.text       start:0x8025F0E0 end:0x8025F198
+	.rodata     start:0x803023D8 end:0x80302450
+
+MSL_C.PPCEABI.bare.H.a/abort_exit.c:
+	.text       start:0x8025F198 end:0x8025F288
+	.bss        start:0x803E4780 end:0x803E4880
+	.sbss       start:0x80418C40 end:0x80418C50
+
+MSL_C.PPCEABI.bare.H.a/alloc.c:
+	.text       start:0x8025F288 end:0x8025F73C
+	.rodata     start:0x80302450 end:0x80302468
+	.bss        start:0x803E4880 end:0x803E48B8
+	.sbss       start:0x80418C50 end:0x80418C58
+
+MSL_C.PPCEABI.bare.H.a/errno.c:
+	.sbss       start:0x80418C58 end:0x80418C60
+
+MSL_C.PPCEABI.bare.H.a/ansi_files.c:
+	.text       start:0x8025F73C end:0x8025F854
+	.data       start:0x803B74A0 end:0x803B75E0
+	.bss        start:0x803E48B8 end:0x803E4BB8
+
+MSL_C.PPCEABI.bare.H.a/ansi_fp.c:
+	.text       start:0x8025F854 end:0x80262E30
+	.rodata     start:0x80302468 end:0x80302548
+	.data       start:0x803B75E0 end:0x803B7748
+	.sdata2     start:0x80422620 end:0x80422650
+
+MSL_C.PPCEABI.bare.H.a/buffer_io.c:
+	.text       start:0x80262E30 end:0x80262F28
+
+MSL_C.PPCEABI.bare.H.a/critical_regions.gamecube.c:
+	.text       start:0x80262F28 end:0x80262F34
+
+MSL_C.PPCEABI.bare.H.a/ctype.c:
+	.text       start:0x80262F34 end:0x80262F58
+	.data       start:0x803B7748 end:0x803B7A48
+
+MSL_C.PPCEABI.bare.H.a/locale.c:
+	.rodata     start:0x80302548 end:0x80302550
+	.data       start:0x803B7A48 end:0x803B7A80
+
+MSL_C.PPCEABI.bare.H.a/direct_io.c:
+	.text       start:0x80262F58 end:0x802632E0
+
+MSL_C.PPCEABI.bare.H.a/file_io.c:
+	.text       start:0x802632E0 end:0x802635D4
+
+MSL_C.PPCEABI.bare.H.a/FILE_POS.C:
+	.text       start:0x802635D4 end:0x80263994
+
+MSL_C.PPCEABI.bare.H.a/mbstring.c:
+	.text       start:0x80263994 end:0x80263CB8
+	.sdata2     start:0x80422650 end:0x80422658
+
+MSL_C.PPCEABI.bare.H.a/mem.c:
+	.text       start:0x80263CB8 end:0x80263E28
+
+MSL_C.PPCEABI.bare.H.a/mem_funcs.c:
+	.text       start:0x80263E28 end:0x802640F8
+
+MSL_C.PPCEABI.bare.H.a/misc_io.c:
+	.text       start:0x802640F8 end:0x80264108
+
+MSL_C.PPCEABI.bare.H.a/printf.c:
+	.text       start:0x80264108 end:0x80266208
+	.rodata     start:0x80302550 end:0x80302578
+	.data       start:0x803B7A80 end:0x803B7CB0
+	.sdata      start:0x80418198 end:0x804181A0
+	.sdata2     start:0x80422658 end:0x80422660
+
+MSL_C.PPCEABI.bare.H.a/qsort.c:
+	.text       start:0x80266208 end:0x80266374
+
+MSL_C.PPCEABI.bare.H.a/rand.c:
+	.text       start:0x80266374 end:0x80266394
+	.sdata      start:0x804181A0 end:0x804181A8
+
+MSL_C.PPCEABI.bare.H.a/float.c:
+	.sdata      start:0x804181A8 end:0x804181D0
+
+MSL_C.PPCEABI.bare.H.a/scanf.c:
+	.text       start:0x80266394 end:0x802673DC
+	.rodata     start:0x80302578 end:0x803025A0
+	.data       start:0x803B7CB0 end:0x803B7D80
+
+MSL_C.PPCEABI.bare.H.a/string.c:
+	.text       start:0x802673DC end:0x802676B8
+
+MSL_C.PPCEABI.bare.H.a/strtold.c:
+	.text       start:0x802676B8 end:0x802686C4
+	.rodata     start:0x803025A0 end:0x803025D8
+	.sdata2     start:0x80422660 end:0x80422678
+
+MSL_C.PPCEABI.bare.H.a/strtoul.c:
+	.text       start:0x802686C4 end:0x80268E48
+	.data       start:0x803B7D80 end:0x803B7E08
+
+MSL_C.PPCEABI.bare.H.a/wchar_io.c:
+	.text       start:0x80268E48 end:0x80268ED0
+
+MSL_C.PPCEABI.bare.H.a/uart_console_io_gcn.c:
+	.text       start:0x80268ED0 end:0x80268FA0
+	.sbss       start:0x80418C60 end:0x80418C68
+
+MSL_C.PPCEABI.bare.H.a/e_acos.c:
+	.text       start:0x80268FA0 end:0x802691DC
+	.sdata2     start:0x80422678 end:0x80422700
+
+MSL_C.PPCEABI.bare.H.a/e_asin.c:
+	.text       start:0x802691DC end:0x80269414
+	.sdata2     start:0x80422700 end:0x80422788
+
+MSL_C.PPCEABI.bare.H.a/e_atan2.c:
+	.text       start:0x80269414 end:0x802696A4
+	.sdata2     start:0x80422788 end:0x804227E0
+
+MSL_C.PPCEABI.bare.H.a/e_fmod.c:
+	.text       start:0x802696A4 end:0x802699E0
+	.rodata     start:0x803025D8 end:0x803025E8
+
+MSL_C.PPCEABI.bare.H.a/e_hypot.c:
+	.text       start:0x802699E0 end:0x80269C08
+	.sdata2     start:0x804227E0 end:0x804227F0
+
+MSL_C.PPCEABI.bare.H.a/e_log.c:
+	.text       start:0x80269C08 end:0x80269E84
+	.sbss       start:0x80418C68 end:0x80418C70
+	.sdata2     start:0x804227F0 end:0x80422870
+
+MSL_C.PPCEABI.bare.H.a/e_pow.c:
+	.text       start:0x80269E84 end:0x8026A6B4
+	.rodata     start:0x803025E8 end:0x80302618
+	.sdata2     start:0x80422870 end:0x80422980
+
+MSL_C.PPCEABI.bare.H.a/e_rem_pio2.c:
+	.text       start:0x8026A6B4 end:0x8026AA54
+	.rodata     start:0x80302618 end:0x803027A0
+	.sdata2     start:0x80422980 end:0x804229D8
+
+MSL_C.PPCEABI.bare.H.a/k_cos.c:
+	.text       start:0x8026AA54 end:0x8026AB48
+	.sdata2     start:0x804229D8 end:0x80422A20
+
+MSL_C.PPCEABI.bare.H.a/k_rem_pio2.c:
+	.text       start:0x8026AB48 end:0x8026B99C
+	.rodata     start:0x803027A0 end:0x803027F0
+	.sdata2     start:0x80422A20 end:0x80422A60
+
+MSL_C.PPCEABI.bare.H.a/k_sin.c:
+	.text       start:0x8026B99C end:0x8026BA3C
+	.sdata2     start:0x80422A60 end:0x80422A98
+
+MSL_C.PPCEABI.bare.H.a/k_tan.c:
+	.text       start:0x8026BA3C end:0x8026BC50
+	.rodata     start:0x803027F0 end:0x80302858
+	.sdata2     start:0x80422A98 end:0x80422AD0
+
+MSL_C.PPCEABI.bare.H.a/s_atan.c:
+	.text       start:0x8026BC50 end:0x8026BE68
+	.rodata     start:0x80302858 end:0x803028F0
+	.sdata2     start:0x80422AD0 end:0x80422AF8
+
+MSL_C.PPCEABI.bare.H.a/s_copysign.c:
+	.text       start:0x8026BE68 end:0x8026BE90
+
+MSL_C.PPCEABI.bare.H.a/s_cos.c:
+	.text       start:0x8026BE90 end:0x8026BF64
+	.sdata2     start:0x80422AF8 end:0x80422B00
+
+MSL_C.PPCEABI.bare.H.a/s_floor.c:
+	.text       start:0x8026BF64 end:0x8026C0AC
+	.sdata2     start:0x80422B00 end:0x80422B10
+
+MSL_C.PPCEABI.bare.H.a/s_frexp.c:
+	.text       start:0x8026C0AC end:0x8026C138
+	.sdata2     start:0x80422B10 end:0x80422B18
+
+MSL_C.PPCEABI.bare.H.a/s_ldexp.c:
+	.text       start:0x8026C138 end:0x8026C2FC
+	.sdata2     start:0x80422B18 end:0x80422B40
+
+MSL_C.PPCEABI.bare.H.a/s_modf.c:
+	.text       start:0x8026C2FC end:0x8026C3F8
+
+MSL_C.PPCEABI.bare.H.a/s_sin.c:
+	.text       start:0x8026C3F8 end:0x8026C4D0
+	.sdata2     start:0x80422B40 end:0x80422B48
+
+MSL_C.PPCEABI.bare.H.a/s_tan.c:
+	.text       start:0x8026C4D0 end:0x8026C548
+	.sdata2     start:0x80422B48 end:0x80422B50
+
+MSL_C.PPCEABI.bare.H.a/w_acos.c:
+	.text       start:0x8026C548 end:0x8026C568
+
+MSL_C.PPCEABI.bare.H.a/w_asin.c:
+	.text       start:0x8026C568 end:0x8026C588
+
+MSL_C.PPCEABI.bare.H.a/w_atan2.c:
+	.text       start:0x8026C588 end:0x8026C5A8
+
+MSL_C.PPCEABI.bare.H.a/w_fmod.c:
+	.text       start:0x8026C5A8 end:0x8026C5C8
+
+MSL_C.PPCEABI.bare.H.a/w_hypot.c:
+	.text       start:0x8026C5C8 end:0x8026C5E8
+
+MSL_C.PPCEABI.bare.H.a/w_log.c:
+	.text       start:0x8026C5E8 end:0x8026C608
+
+MSL_C.PPCEABI.bare.H.a/w_pow.c:
+	.text       start:0x8026C608 end:0x8026C628
+
+MSL_C.PPCEABI.bare.H.a/e_sqrt.c:
+	.text       start:0x8026C628 end:0x8026C84C
+	.sdata2     start:0x80422B50 end:0x80422B58
+
+MSL_C.PPCEABI.bare.H.a/math_ppc.c:
+	.text       start:0x8026C84C end:0x8026C8B8
+
+MSL_C.PPCEABI.bare.H.a/w_sqrt.c:
+	.text       start:0x8026C8B8 end:0x8026C8D8
+
+musyx/runtime/seq.c:
+	.text       start:0x8026C8D8 end:0x80270900
+	.data       start:0x803B7E08 end:0x803B7E58
+	.bss        start:0x803E4BB8 end:0x803F24F8
+	.sbss       start:0x80418C70 end:0x80418C90
+	.sdata2     start:0x80422B58 end:0x80422B78
+
+musyx/runtime/synth.c:
+	.text       start:0x80270900 end:0x80273D54
+	.bss        start:0x803F24F8 end:0x803F3AE0
+	.sbss       start:0x80418C90 end:0x80418CD8
+	.sdata2     start:0x80422B78 end:0x80422BB8
+
+musyx/runtime/seq_api.c:
+	.text       start:0x80273D54 end:0x80273FBC
+
+musyx/runtime/snd_synthapi.c:
+	.text       start:0x80273FBC end:0x8027452C
+	.sdata2     start:0x80422BB8 end:0x80422BD0
+
+musyx/runtime/stream.c:
+	.text       start:0x8027452C end:0x80277808
+	.bss        start:0x803F3AE0 end:0x803F54E0
+	.sbss       start:0x80418CD8 end:0x80418CE8
+	.sdata2     start:0x80422BD0 end:0x80422BE8
+
+musyx/runtime/synthdata.c:
+	.text       start:0x80277808 end:0x802794F4
+	.bss        start:0x803F54E0 end:0x803FFD18
+	.sbss       start:0x80418CE8 end:0x80418D38
+
+musyx/runtime/synthmacros.c:
+	.text       start:0x802794F4 end:0x8027E3DC
+	.data       start:0x803B7E58 end:0x803B82A0
+	.bss        start:0x803FFD18 end:0x803FFD38
+	.sbss       start:0x80418D38 end:0x80418D58
+	.sdata2     start:0x80422BE8 end:0x80422C10
+
+musyx/runtime/synthvoice.c:
+	.text       start:0x8027E3DC end:0x80280264
+	.bss        start:0x803FFD38 end:0x80400CF8
+	.sbss       start:0x80418D58 end:0x80418D70
+
+musyx/runtime/synth_ac.c:
+	.text       start:0x80280264 end:0x80280384
+	.data       start:0x803B82A0 end:0x803B86A0
+	.sdata2     start:0x80422C10 end:0x80422C28
+
+musyx/runtime/synth_dbtab.c:
+	.data       start:0x803B86A0 end:0x803B8E40
+
+musyx/runtime/synth_adsr.c:
+	.text       start:0x80280384 end:0x80280B44
+	.sdata2     start:0x80422C28 end:0x80422C50
+
+musyx/runtime/synth_vsamples.c:
+	.text       start:0x80280B44 end:0x802814DC
+	.bss        start:0x80400CF8 end:0x80401848
+
+musyx/runtime/s_data.c:
+	.text       start:0x802814DC end:0x802820EC
+	.bss        start:0x80401848 end:0x80401E60
+	.sbss       start:0x80418D70 end:0x80418D80
+
+musyx/runtime/hw_dspctrl.c:
+	.text       start:0x802820EC end:0x8028567C
+	.rodata     start:0x803028F0 end:0x80302928
+	.data       start:0x803B8E40 end:0x803BA898
+	.bss        start:0x80401E60 end:0x80402540
+	.sbss       start:0x80418D80 end:0x80418DC0
+
+musyx/runtime/hw_volconv.c:
+	.text       start:0x8028567C end:0x80285D6C
+	.data       start:0x803BA898 end:0x803BAAC0
+	.sdata2     start:0x80422C50 end:0x80422C88
+
+musyx/runtime/snd3d.c:
+	.text       start:0x80285D6C end:0x80287AB4
+	.bss        start:0x80402540 end:0x80403740
+	.sbss       start:0x80418DC0 end:0x80418DE0
+	.sdata2     start:0x80422C88 end:0x80422CD8
+
+musyx/runtime/snd_init.c:
+	.text       start:0x80287AB4 end:0x80287BF4
+
+musyx/runtime/snd_math.c:
+	.text       start:0x80287BF4 end:0x80287FB4
+	.sdata2     start:0x80422CD8 end:0x80422CF8
+
+musyx/runtime/snd_midictrl.c:
+	.text       start:0x80287FB4 end:0x8028A2C4
+	.rodata     start:0x80302928 end:0x80302A44
+	.data       start:0x803BAAC0 end:0x803BAB50
+	.bss        start:0x80403740 end:0x8040A540
+	.sbss       start:0x80418DE0 end:0x80418DE8
+
+musyx/runtime/snd_service.c:
+	.text       start:0x8028A2C4 end:0x8028A598
+	.rodata     start:0x80302A44 end:0x80302A68
+	.data       start:0x803BAB50 end:0x803BB360
+	.sdata      start:0x804181D0 end:0x804181D8
+	.sdata2     start:0x80422CF8 end:0x80422D00
+
+musyx/runtime/HARDWARE.C:
+	.text       start:0x8028A598 end:0x8028B624
+	.rodata     start:0x80302A68 end:0x80302B68
+	.bss        start:0x8040A540 end:0x8040A550
+	.sdata      start:0x804181D8 end:0x804181E8
+	.sbss       start:0x80418DE8 end:0x80418DF0
+	.sdata2     start:0x80422D00 end:0x80422D28
+
+musyx/runtime/dsp_import.c:
+	.data       start:0x803BB360 end:0x803BD220
+	.sdata      start:0x804181E8 end:0x804181F0
+
+musyx/runtime/hw_aramdma.c:
+	.text       start:0x8028B624 end:0x8028C3A8
+	.bss        start:0x8040A550 end:0x8040AE60
+	.sbss       start:0x80418DF0 end:0x80418E10
+
+musyx/runtime/hw_dolphin.c:
+	.text       start:0x8028C3A8 end:0x8028C870
+	.bss        start:0x8040AE60 end:0x8040CEC0
+	.sbss       start:0x80418E10 end:0x80418E40
+
+musyx/runtime/hw_memory.c:
+	.text       start:0x8028C870 end:0x8028C8FC
+
+musyx/runtime/CheapReverb/creverb_fx.c:
+	.text       start:0x8028C8FC end:0x8028C938
+
+musyx/runtime/CheapReverb/creverb.c:
+	.text       start:0x8028C938 end:0x8028CD60
+	.data       start:0x803BD220 end:0x803BD230
+	.sdata2     start:0x80422D28 end:0x80422D58
+
+musyx/runtime/StdReverb/reverb_fx.c:
+	.text       start:0x8028CD60 end:0x8028CDFC
+
+musyx/runtime/StdReverb/reverb.c:
+	.text       start:0x8028CDFC end:0x8028DA78
+	.data       start:0x803BD230 end:0x803BD250
+	.sdata2     start:0x80422D58 end:0x80422DA0
+
+musyx/runtime/Delay/delay_fx.c:
+	.text       start:0x8028DA78 end:0x8028DCBC
+
+musyx/runtime/Chorus/chorus_fx.c:
+	.text       start:0x8028DCBC end:0x8028E4FC
+	.data       start:0x803BD250 end:0x803BDA50
+	.sdata2     start:0x80422DA0 end:0x80422DA8
+
+amcstubs.a/AmcExi2Stubs.c:
+	.text       start:0x8028E4FC end:0x8028E52C
+
+odenotstub.a/odenotstub.c:
+	.text       start:0x8028E52C end:0x8028E534
+
+OdemuExi2.a/DebuggerDriver.c:
+	.text       start:0x8028E534 end:0x8028EFB4
+	.sdata      start:0x804181F0 end:0x804181F8
+	.sbss       start:0x80418E40 end:0x80418E58
+
+base.a/PPCArch.c:
+	.text       start:0x8028EFB4 end:0x8028F0D4
+
+db.a/db.c:
+	.text       start:0x8028F0D4 end:0x8028F1C0
+	.data       start:0x803BDA50 end:0x803BDA68
+	.sbss       start:0x80418E58 end:0x80418E60
+
+os.a/OS.c:
+	.text       start:0x8028F1C0 end:0x8028FC8C
+	.data       start:0x803BDA68 end:0x803BDC60
+	.bss        start:0x8040CEC0 end:0x8040CF30
+	.sdata      start:0x804181F8 end:0x80418208
+	.sbss       start:0x80418E60 end:0x80418E98
+
+os.a/OSAlarm.c:
+	.text       start:0x8028FC8C end:0x802903E8
+	.data       start:0x803BDC60 end:0x803BDC70
+	.sbss       start:0x80418E98 end:0x80418EA0
+
+os.a/OSAlloc.c:
+	.text       start:0x802903E8 end:0x8029071C
+	.sdata      start:0x80418208 end:0x80418210
+	.sbss       start:0x80418EA0 end:0x80418EB0
+
+os.a/OSArena.c:
+	.text       start:0x8029071C end:0x80290768
+	.sdata      start:0x80418210 end:0x80418218
+	.sbss       start:0x80418EB0 end:0x80418EB8
+
+os.a/OSAudioSystem.c:
+	.text       start:0x80290768 end:0x802909FC
+	.data       start:0x803BDC70 end:0x803BDCF0
+
+os.a/OSCache.c:
+	.text       start:0x802909FC end:0x80291074
+	.data       start:0x803BDCF0 end:0x803BDF20
+
+os.a/OSContext.c:
+	.text       start:0x80291074 end:0x80291A10
+	.data       start:0x803BDF20 end:0x803BE0F8
+
+os.a/OSError.c:
+	.text       start:0x80291A10 end:0x802920BC
+	.data       start:0x803BE0F8 end:0x803BE418
+	.bss        start:0x8040CF30 end:0x8040CF80
+	.sdata      start:0x80418218 end:0x80418220
+
+os.a/OSExec.c:
+	.text       start:0x802920BC end:0x80292A1C
+	.data       start:0x803BE418 end:0x803BE428
+	.sdata      start:0x80418220 end:0x80418228
+	.sbss       start:0x80418EB8 end:0x80418EC0
+
+os.a/OSFont.c:
+	.text       start:0x80292A1C end:0x80293CD0
+	.data       start:0x803BE428 end:0x803BEF38
+	.sdata      start:0x80418228 end:0x80418230
+	.sbss       start:0x80418EC0 end:0x80418ED0
+	.sdata2     start:0x80422DA8 end:0x80422DB0
+
+os.a/OSInterrupt.c:
+	.text       start:0x80293CD0 end:0x8029453C
+	.data       start:0x803BEF38 end:0x803BEF68
+	.sbss       start:0x80418ED0 end:0x80418EE8
+
+os.a/OSLink.c:
+	.text       start:0x8029453C end:0x80294F28
+	.data       start:0x803BEF68 end:0x803BEFB8
+
+os.a/OSMemory.c:
+	.text       start:0x80294F28 end:0x80295200
+	.data       start:0x803BEFB8 end:0x803BEFC8
+
+os.a/OSMutex.c:
+	.text       start:0x80295200 end:0x80295270
+
+os.a/OSReboot.c:
+	.text       start:0x80295270 end:0x802952F4
+	.sbss       start:0x80418EE8 end:0x80418EF0
+
+os.a/OSReset.c:
+	.text       start:0x802952F4 end:0x80295778
+	.data       start:0x803BEFC8 end:0x803BF018
+	.sbss       start:0x80418EF0 end:0x80418F00
+
+os.a/OSResetSW.c:
+	.text       start:0x80295778 end:0x80295B04
+	.sbss       start:0x80418F00 end:0x80418F20
+
+os.a/OSThread.c:
+	.text       start:0x8029683C end:0x80297A48
+	.bss        start:0x8040CFD8 end:0x8040D9D0
+	.sdata      start:0x80418230 end:0x80418238
+	.sbss       start:0x80418F20 end:0x80418F30
+
+os.a/__start.c:
+	.init       start:0x800051EC end:0x800054EC
+	.sbss       start:0x80418F30 end:0x80418F38
+
+os.a/OSTime.c:
+	.text       start:0x80297A48 end:0x80297E6C
+	.data       start:0x803BF018 end:0x803BF078
+
+os.a/__ppc_eabi_init.cpp:
+	.init       start:0x800054EC end:0x80005544
+	.text       start:0x80297E6C end:0x80297F00
+
+mtx.a/mtx.c:
+	.text       start:0x80297F00 end:0x802988A0
+	.sdata      start:0x80418238 end:0x80418240
+	.sdata2     start:0x80422DB0 end:0x80422DD0
+
+mtx.a/mtxvec.c:
+	.text       start:0x802988A0 end:0x80298948
+
+mtx.a/mtx44.c:
+	.text       start:0x80298948 end:0x80298D04
+	.sdata2     start:0x80422DD0 end:0x80422DE8
+
+mtx.a/mtx44vec.c:
+	.text       start:0x80298D04 end:0x80298D7C
+
+mtx.a/vec.c:
+	.text       start:0x80298D7C end:0x80299104
+	.sdata2     start:0x80422DE8 end:0x80422DF8
+
+dvd.a/dvdlow.c:
+	.text       start:0x80299104 end:0x80299F80
+	.bss        start:0x8040D9D0 end:0x8040DAA0
+	.sdata      start:0x80418240 end:0x80418248
+	.sbss       start:0x80418F38 end:0x80418F80
+
+dvd.a/dvdfs.c:
+	.text       start:0x80299F80 end:0x8029A6F8
+	.data       start:0x803BF078 end:0x803BF1A8
+	.sdata      start:0x80418248 end:0x80418250
+	.sbss       start:0x80418F80 end:0x80418FA0
+
+dvd.a/dvd.c:
+	.text       start:0x8029A6F8 end:0x8029D004
+	.data       start:0x803BF1A8 end:0x803BF330
+	.bss        start:0x8040DAA0 end:0x8040DB38
+	.sdata      start:0x80418250 end:0x80418268
+	.sbss       start:0x80418FA0 end:0x80418FF0
+
+dvd.a/dvdqueue.c:
+	.text       start:0x8029D004 end:0x8029D1FC
+	.bss        start:0x8040DB38 end:0x8040DB58
+
+dvd.a/dvderror.c:
+	.text       start:0x8029D1FC end:0x8029D394
+	.data       start:0x803BF330 end:0x803BF378
+
+dvd.a/dvdidutils.c:
+	.text       start:0x8029D394 end:0x8029D48C
+
+dvd.a/dvdFatal.c:
+	.text       start:0x8029D48C end:0x8029D4BC
+	.sbss       start:0x80418FF0 end:0x80418FF8
+
+dvd.a/fstload.c:
+	.text       start:0x8029D4BC end:0x8029D6FC
+	.data       start:0x803BF378 end:0x803BF3E8
+	.bss        start:0x8040DB58 end:0x8040DBC8
+	.sdata      start:0x80418268 end:0x80418278
+	.sbss       start:0x80418FF8 end:0x80419008
+
+vi.a/vi.c:
+	.text       start:0x8029D6FC end:0x8029F53C
+	.data       start:0x803BF3E8 end:0x803BF7E0
+	.bss        start:0x8040DBC8 end:0x8040DD10
+	.sdata      start:0x80418278 end:0x80418288
+	.sbss       start:0x80419008 end:0x80419070
+
+demo.a/DEMOFont.c:
+	.data       start:0x803BF7E0 end:0x803C03E0
+
+demo.a/DEMOPuts.c:
+	.text       start:0x8029F53C end:0x8029FB6C
+	.bss        start:0x8040DD10 end:0x8040DD30
+	.sbss       start:0x80419070 end:0x80419078
+	.sdata2     start:0x80422DF8 end:0x80422E20
+
+demo.a/DEMOStats.c:
+	.text       start:0x8029FB6C end:0x802A08C4
+	.data       start:0x803C03E0 end:0x803C0538
+	.sdata      start:0x80418288 end:0x80418290
+	.sbss       start:0x80419078 end:0x804190E0
+	.sdata2     start:0x80422E20 end:0x80422E30
+
+pad.a/Padclamp.c:
+	.text       start:0x802A08C4 end:0x802A0B08
+	.rodata     start:0x80302B68 end:0x80302B78
+
+pad.a/Pad.c:
+	.text       start:0x802A0B08 end:0x802A2450
+	.data       start:0x803C0538 end:0x803C0590
+	.bss        start:0x8040DD30 end:0x8040DD80
+	.sdata      start:0x80418290 end:0x804182B0
+	.sbss       start:0x804190E0 end:0x80419110
+
+ai.a/ai.c:
+	.text       start:0x802A2450 end:0x802A2D58
+	.data       start:0x803C0590 end:0x803C05D8
+	.sdata      start:0x804182B0 end:0x804182B8
+	.sbss       start:0x80419110 end:0x80419150
+
+ar.a/ar.c:
+	.text       start:0x802A2D58 end:0x802A48A8
+	.data       start:0x803C05D8 end:0x803C0620
+	.sdata      start:0x804182B8 end:0x804182C0
+	.sbss       start:0x80419150 end:0x80419170
+
+ar.a/arq.c:
+	.text       start:0x802A48A8 end:0x802A4C4C
+	.data       start:0x803C0620 end:0x803C0668
+	.sdata      start:0x804182C0 end:0x804182C8
+	.sbss       start:0x80419170 end:0x80419198
+
+dsp.a/dsp.c:
+	.text       start:0x802A4C4C end:0x802A4DCC
+	.data       start:0x803C0668 end:0x803C06E8
+	.sdata      start:0x804182C8 end:0x804182D0
+	.sbss       start:0x80419198 end:0x804191A0
+
+dsp.a/dsp_debug.c:
+	.text       start:0x802A4DCC end:0x802A4E1C
+
+dsp.a/dsp_task.c:
+	.text       start:0x802A4E1C end:0x802A56A0
+	.data       start:0x803C06E8 end:0x803C0828
+	.sbss       start:0x804191A0 end:0x804191B8
+
+card.a/CARDBios.c:
+	.text       start:0x802A56A0 end:0x802A6BF8
+	.data       start:0x803C0828 end:0x803C0880
+	.bss        start:0x8040DD80 end:0x8040DFC0
+	.sdata      start:0x804182D0 end:0x804182D8
+	.sbss       start:0x804191B8 end:0x804191C0
+
+card.a/CARDUnlock.c:
+	.text       start:0x802A6BF8 end:0x802A7E58
+	.data       start:0x803C0880 end:0x803C09E0
+	.sdata      start:0x804182D8 end:0x804182E0
+
+card.a/CARDRdwr.c:
+	.text       start:0x802A7E58 end:0x802A80E8
+
+card.a/CARDBlock.c:
+	.text       start:0x802A80E8 end:0x802A84EC
+
+card.a/CARDDir.c:
+	.text       start:0x802A84EC end:0x802A8750
+
+card.a/CARDCheck.c:
+	.text       start:0x802A8750 end:0x802A968C
+
+card.a/CARDMount.c:
+	.text       start:0x802A968C end:0x802AA180
+	.data       start:0x803C09E0 end:0x803C0A20
+
+card.a/CARDFormat.c:
+	.text       start:0x802AA180 end:0x802AA964
+
+card.a/CARDOpen.c:
+	.text       start:0x802AA964 end:0x802AAF50
+
+card.a/CARDCreate.c:
+	.text       start:0x802AAF50 end:0x802AB2A0
+
+card.a/CARDRead.c:
+	.text       start:0x802AB2A0 end:0x802AB758
+
+card.a/CARDWrite.c:
+	.text       start:0x802AB758 end:0x802ABA8C
+
+card.a/CARDDelete.c:
+	.text       start:0x802ABA8C end:0x802ABC88
+
+card.a/CARDStat.c:
+	.text       start:0x802ABC88 end:0x802AC108
+
+card.a/CARDNet.c:
+	.text       start:0x802AC108 end:0x802AC1CC
+	.sdata      start:0x804182E0 end:0x804182E8
+
+gx.a/GXInit.c:
+	.text       start:0x802AC1CC end:0x802AD558
+	.data       start:0x803C0A20 end:0x803C0C60
+	.bss        start:0x8040DFC0 end:0x8040E5F0
+	.sdata      start:0x804182E8 end:0x804182F0
+	.sbss       start:0x804191C0 end:0x804191E8
+	.sdata2     start:0x80422E30 end:0x80422E58
+
+gx.a/GXFifo.c:
+	.text       start:0x802AD558 end:0x802ADE04
+	.sbss       start:0x804191E8 end:0x80419208
+
+gx.a/GXAttr.c:
+	.text       start:0x802ADE04 end:0x802AF2BC
+	.data       start:0x803C0C60 end:0x803C0ED8
+	.sdata      start:0x804182F0 end:0x80418300
+
+gx.a/GXMisc.c:
+	.text       start:0x802AF2BC end:0x802AFBE8
+	.sbss       start:0x80419208 end:0x80419220
+
+gx.a/GXGeometry.c:
+	.text       start:0x802AFBE8 end:0x802AFF24
+
+gx.a/GXFrameBuf.c:
+	.text       start:0x802AFF24 end:0x802B0C38
+	.data       start:0x803C0ED8 end:0x803C0FC8
+	.sdata2     start:0x80422E58 end:0x80422E68
+
+gx.a/GXLight.c:
+	.text       start:0x802B0C38 end:0x802B1224
+	.data       start:0x803C0FC8 end:0x803C0FE8
+	.sdata2     start:0x80422E68 end:0x80422E98
+
+gx.a/GXTexture.c:
+	.text       start:0x802B1224 end:0x802B2594
+	.data       start:0x803C0FE8 end:0x803C1300
+	.sdata      start:0x80418300 end:0x80418340
+	.sdata2     start:0x80422E98 end:0x80422EC0
+
+gx.a/GXBump.c:
+	.text       start:0x802B2594 end:0x802B2AD0
+	.sdata2     start:0x80422EC0 end:0x80422EC8
+
+gx.a/GXTev.c:
+	.text       start:0x802B2AD0 end:0x802B31F0
+	.data       start:0x803C1300 end:0x803C1378
+
+gx.a/GXPixel.c:
+	.text       start:0x802B31F0 end:0x802B3828
+	.data       start:0x803C1378 end:0x803C1398
+	.sdata2     start:0x80422EC8 end:0x80422F00
+
+gx.a/GXDraw.c:
+	.text       start:0x802B3828 end:0x802B400C
+	.bss        start:0x8040E5F0 end:0x8040E878
+	.sdata2     start:0x80422F00 end:0x80422F28
+
+gx.a/GXDisplayList.c:
+	.text       start:0x802B400C end:0x802B420C
+	.bss        start:0x8040E878 end:0x8040EE50
+	.sbss       start:0x80419220 end:0x80419228
+
+gx.a/GXTransform.c:
+	.text       start:0x802B420C end:0x802B49EC
+	.sdata2     start:0x80422F28 end:0x80422F40
+
+gx.a/GXPerf.c:
+	.text       start:0x802B49EC end:0x802B5A20
+	.data       start:0x803C1398 end:0x803C14E0
+
+exi.a/EXIBios.c:
+	.text       start:0x802B5A20 end:0x802B7514
+	.data       start:0x803C14E0 end:0x803C15F0
+	.bss        start:0x8040EE50 end:0x8040EF10
+	.sdata      start:0x80418340 end:0x80418348
+	.sbss       start:0x80419228 end:0x80419230
+
+exi.a/EXIUart.c:
+	.text       start:0x802B7514 end:0x802B7ACC
+	.sbss       start:0x80419230 end:0x80419240
+
+si.a/SIBios.c:
+	.text       start:0x802B7ACC end:0x802B932C
+	.data       start:0x803C15F0 end:0x803C1708
+	.bss        start:0x8040EF10 end:0x8040F120
+	.sdata      start:0x80418348 end:0x80418350
+	.sbss       start:0x80419240 end:0x80419250
+
+si.a/SISamplingRate.c:
+	.text       start:0x802B932C end:0x802B9434
+	.data       start:0x803C1708 end:0x803C17A0
+	.sbss       start:0x80419250 end:0x80419260
+
+thp.a/THPDec.c:
+	.text       start:0x802B9434 end:0x802C099C
+	.rodata     start:0x80302B78 end:0x80302C08
+	.data       start:0x803C17A0 end:0x803C17DC
+	.bss        start:0x8040F120 end:0x8040F250
+	.sdata      start:0x80418350 end:0x80418354
+	.sbss       start:0x80419260 end:0x80419378
+	.sdata2     start:0x80422F40 end:0x80422F5C
+
+thp.a/THPAudio.c:
+	.text       start:0x802C099C end:0x802C0ECC
