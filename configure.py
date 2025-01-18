@@ -13,7 +13,6 @@
 ###
 
 import argparse
-import os
 import sys
 from pathlib import Path
 from typing import Any, Dict, List
@@ -207,7 +206,6 @@ cflags_base = [
     "-i libs/dolsdk2004/include",
     "-i libs/dolsdk2004/include/libc",
     "-i libs/musyx/include",
-    f"-i {os.getenv("SDK_BASE_PATH")}/include",  # TODO: remove once we have DEMO decompiled in dolsdk2004
     f"-i build/{config.version}/include",
     f"-DBUILD_VERSION={version_num}",
     f"-DVERSION_{config.version}",

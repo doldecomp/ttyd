@@ -1,5 +1,8 @@
-#ifndef _DOLPHIN_DEMOPUTS_H_
-#define _DOLPHIN_DEMOPUTS_H_
+#ifndef _DEMOPUTS_H_
+#define _DEMOPUTS_H_
+
+#include <dolphin/types.h>
+#include <dolphin/gx.h>
 
 typedef enum
 {
@@ -28,4 +31,4 @@ int DEMORFPrintf(s16 x, s16 y, s16 z, char * fmt, ...);
 char * DEMODumpROMFont(char * string);
 int DEMOGetRFTextWidth(char * string);
 
-#endif
+#endif // _DEMOPUTS_H_

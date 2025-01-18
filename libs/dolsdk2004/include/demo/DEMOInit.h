@@ -1,5 +1,5 @@
-#ifndef _DOLPHIN_DEMOINIT_H_
-#define _DOLPHIN_DEMOINIT_H_
+#ifndef _DEMOINIT_H_
+#define _DEMOINIT_H_
 
 #include <dolphin/gx.h>
 
@@ -18,4 +18,4 @@ u32 DEMOGetCurrentBuffer(void);
 void DEMOEnableBypassWorkaround(unsigned long timeoutFrames);
 void DEMOReInit(struct _GXRenderModeObj * mode);
 
-#endif // _DOLPHIN_DEMOINIT_H_
+#endif // _DEMOINIT_H_

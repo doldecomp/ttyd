@@ -1,5 +1,5 @@
-#ifndef _DOLPHIN_DEMOSTATS_H_
-#define _DOLPHIN_DEMOSTATS_H_
+#ifndef _DEMOSTATS_H_
+#define _DEMOSTATS_H_
 
 typedef enum DEMO_STAT_TYPE {
     DEMO_STAT_GP0 = 0,
@@ -35,4 +35,4 @@ void DEMOSetStats(DemoStatData * stat, unsigned long nstats, DEMO_STAT_DISP disp
 void DEMOUpdateStats(unsigned char inc);
 void DEMOPrintStats(void);
 
-#endif // _DOLPHIN_DEMOSTATS_H_
+#endif // _DEMOSTATS_H_

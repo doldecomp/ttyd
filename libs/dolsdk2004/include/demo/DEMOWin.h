@@ -1,5 +1,8 @@
-#ifndef _DOLPHIN_DEMOWIN_H_
-#define _DOLPHIN_DEMOWIN_H_
+#ifndef _DEMOWIN_H_
+#define _DEMOWIN_H_
+
+#include <dolphin/types.h>
+#include <dolphin/gx.h>
 
 enum DEMOWinItem {
     DEMOWIN_ITEM_CAP,
@@ -71,4 +74,4 @@ void DEMOWinListSetCursor(struct STRUCT_LISTBOX * list, int x);
 long DEMOWinListScrollList(struct STRUCT_LISTBOX * list, unsigned long dir);
 long DEMOWinListMoveCursor(struct STRUCT_LISTBOX * list, unsigned long dir);
 
-#endif // _DOLPHIN_DEMOWIN_H_
+#endif // _DEMOWIN_H_
