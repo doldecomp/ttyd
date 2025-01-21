@@ -1,5 +1,6 @@
 #include "evt/evt_lottery.h"
 #include "evt/evt_cmd.h"
+#include "mario/mariost.h"
 #include <dolphin/os.h>
 
 extern GlobalWork* gp;

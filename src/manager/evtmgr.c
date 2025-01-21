@@ -8,7 +8,9 @@
 
 #include "mgr/evtmgr.h"
 #include "evt/evt_msg.h"
+#include "mario/mariost.h"
 #include "memory.h"
+#include "mgr/evtmgr_cmd.h"
 #include <string.h>
 
 extern GlobalWork* gp;
@@ -25,8 +27,8 @@ s32 priTblNum;
 BOOL runMainF;
 
 //.sdata
-f32 evtSpd = 1.0f;
 s32 evtID = 1;
+f32 evtSpd = 1.0f;
 
 //local definitions
 void make_pri_table(void);
@@ -36,6 +38,7 @@ EventWork* evtGetWork(void) {
 	return gp->inBattle ? &work[1] : &work[0];
 }
 
+#pragma dont_inline on
 void make_pri_table(void) {
 	EventWork* wp = evtGetWork();
 	EventEntry* entry = wp->entries;
@@ -70,6 +73,7 @@ void make_pri_table(void) {
 		}
 	}
 }
+#pragma dont_inline reset
 
 #pragma warn_no_side_effect off
 inline void make_jump_table(EventEntry* entry) {
@@ -555,8 +559,8 @@ void evtSetType(EventEntry* entry, u32 type) {
 	entry->type = (u8)type;
 }
 
-void evtStop(EventEntry* entry, u32 type) { //TODO: make sure evtGetWork() inlines correctly
-	EventWork* wp = evtGetWork();
+void evtStop(EventEntry* entry, u32 type) {
+	EventWork* wp = gp->inBattle ? &work[1] : &work[0];
 	EventEntry* brother;
 	int i;
 
@@ -576,8 +580,8 @@ void evtStop(EventEntry* entry, u32 type) { //TODO: make sure evtGetWork() inlin
 	}
 }
 
-void evtStart(EventEntry* entry, u32 type) { //TODO: make sure evtGetWork() inlines correctly
-	EventWork* wp = evtGetWork();
+void evtStart(EventEntry* entry, u32 type) {
+	EventWork* wp = gp->inBattle ? &work[1] : &work[0];
 	EventEntry* brother;
 	int i;
 

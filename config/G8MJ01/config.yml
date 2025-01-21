@@ -6,6 +6,15 @@ symbols: config/G8MJ01/symbols.txt
 splits: config/G8MJ01/splits.txt
 mw_comment_version: 10
 
+extract:
+# manager/cardmgr.c
+- symbol: _mariost_icon_tex
+  header: assets/_mariost_icon_tex.inc
+- symbol: _mariost_icon_tlut
+  header: assets/_mariost_icon_tlut.inc
+- symbol: _mariost_banner_tex
+  header: assets/_mariost_banner_tex.inc
+
 modules:
 - object: files/rel/aaa.rel
   hash: 66d0e5d1d2e2901c5efd282ed4da5af6938f9461

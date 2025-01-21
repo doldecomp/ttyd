@@ -2,6 +2,7 @@
 
 #include <dolphin/types.h>
 #include "evt/evt_cmd.h"
+#include "sdk/texPalette.h"
 
 typedef struct WindowWork {
 	s16 flags; //0x0

@@ -6,15 +6,13 @@
 * Last Update: 9/20/2022, should be completely finished
 */
 #include "mgr/evtmgr_cmd.h"
+#include "memory.h"
 #include "mgr/evtmgr.h"
 #include "driver/swdrv.h"
 #include <dolphin/os.h>
 #include <string.h>
 
 extern int sprintf(char* str, const char* fmt, ...);
-
-//.bss
-static char str[0x100];
 
 //local prototypes
 static inline f32 check_float(s32 val);
@@ -1780,6 +1778,7 @@ s32 evt_debug_msg_clear(EventEntry* entry) { // 114
 }
 
 s32 evt_debug_put_reg(EventEntry* entry) { // 115
+    static char str[0x100];
     s32* args;
     EventWork* wp;
     s32 reg;
@@ -2794,12 +2793,12 @@ s32* evtSearchEndSwitch(EventEntry* entry) {
 
 s32* evtSearchCase(EventEntry* entry) {
     s32* cmd;
-    s32 depth;
     s32 opcode;
     s32* ret;
+    s32 depth;
 
-    cmd = entry->nextCommand;
     depth = 1;
+    cmd = entry->nextCommand;
 
     while (1) {
         opcode = *cmd & 0xFFFF;
