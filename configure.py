@@ -681,8 +681,8 @@ config.libs = [
         "cflags": cflags_static,
         "progress_category": "game",
         "objects": [
-            Object(NonMatching, "manager/evtmgr_cmd.c"),
-            Object(NonMatching, "manager/evtmgr.c"),
+            Object(Matching, "manager/evtmgr_cmd.c"),
+            Object(Matching, "manager/evtmgr.c"),
             Object(NonMatching, "manager/fontmgr.c"),
             Object(NonMatching, "manager/cardmgr.c"),
             Object(NonMatching, "manager/dvdmgr.c"),
