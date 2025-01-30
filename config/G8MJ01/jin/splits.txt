@@ -5,3 +5,122 @@ Sections:
 	.rodata     type:rodata align:8
 	.data       type:data align:8
 	.bss        type:bss align:8
+
+jin.c:
+	.text       start:0x00000000 end:0x00000258
+	.rodata     start:0x00000000 end:0x00000068
+	.data       start:0x00000000 end:0x00000060
+	.bss        start:0x00000000 end:0x00000008
+
+jin_00.c:
+	.text       start:0x00000258 end:0x00003E6C
+	.rodata     start:0x00000068 end:0x000005A8
+	.data       start:0x00000060 end:0x000039D8
+	.bss        start:0x00000008 end:0x00000030
+
+jin_01.c:
+	.rodata     start:0x000005A8 end:0x00000668
+	.data       start:0x000039D8 end:0x00003FF8
+
+jin_02.c:
+	.rodata     start:0x00000668 end:0x000006F0
+	.data       start:0x00003FF8 end:0x00004578
+
+jin_03.c:
+	.rodata     start:0x000006F0 end:0x00000810
+	.data       start:0x00004578 end:0x00004A88
+
+jin_04.c:
+	.text       start:0x00003E6C end:0x00003EE4
+	.rodata     start:0x00000810 end:0x00000D00
+	.data       start:0x00004A88 end:0x00007948
+
+jin_05.c:
+	.rodata     start:0x00000D00 end:0x00000D78
+	.data       start:0x00007948 end:0x00007C60
+
+jin_06.c:
+	.rodata     start:0x00000D78 end:0x00000E08
+	.data       start:0x00007C60 end:0x00008190
+
+jin_07.c:
+	.text       start:0x00003EE4 end:0x00004B40
+	.rodata     start:0x00000E08 end:0x000010A0
+	.data       start:0x00008190 end:0x00009190
+	.bss        start:0x00000030 end:0x00000040
+
+jin_08.c:
+	.rodata     start:0x000010A0 end:0x00001220
+	.data       start:0x00009190 end:0x00009EB0
+
+jin_09.c:
+	.rodata     start:0x00001220 end:0x000012A8
+	.data       start:0x00009EB0 end:0x0000A328
+
+jin_10.c:
+	.text       start:0x00004B40 end:0x00004CB4
+	.rodata     start:0x000012A8 end:0x00001338
+	.data       start:0x0000A328 end:0x0000AC20
+
+jin_11.c:
+	.rodata     start:0x00001338 end:0x000013A8
+	.data       start:0x0000AC20 end:0x0000AEA0
+
+event/evt_kagemario.c:
+	.text       start:0x00004CB4 end:0x000050C0
+	.rodata     start:0x000013A8 end:0x000013B0
+	.data       start:0x0000AEA0 end:0x0000AFA8
+
+unit/unit_gullible_christine.c:
+	.text       start:0x000050C0 end:0x000051D8
+	.rodata     start:0x000013B0 end:0x00001528
+	.data       start:0x0000AFA8 end:0x0000C0C8
+
+unit/unit_gullible_clauda.c:
+	.rodata     start:0x00001528 end:0x00001690
+	.data       start:0x0000C0C8 end:0x0000CD40
+
+unit/unit_gullible_nokotarou.c:
+	.rodata     start:0x00001690 end:0x00001860
+	.data       start:0x0000CD40 end:0x0000E628
+
+unit/unit_gullible_yoshi.c:
+	.rodata     start:0x00001860 end:0x000019F0
+	.data       start:0x0000E628 end:0x0000F7C8
+
+data/battle/battle_database_jin.c:
+	.rodata     start:0x000019F0 end:0x00001D60
+	.data       start:0x0000F7C8 end:0x00011D38
+
+unit/unit_faker_mario.c:
+	.text       start:0x000051D8 end:0x0000570C
+	.rodata     start:0x00001D60 end:0x000020F0
+	.data       start:0x00011D38 end:0x00014CC8
+
+unit/unit_atmic_teresa.c:
+	.text       start:0x0000570C end:0x00006C50
+	.rodata     start:0x000020F0 end:0x000024B0
+	.data       start:0x00014CC8 end:0x00016B88
+	.bss        start:0x00000040 end:0x00000048
+
+unit/unit_boss_rampell.c:
+	.text       start:0x00006C50 end:0x00006DC8
+	.rodata     start:0x000024B0 end:0x000028F8
+	.data       start:0x00016B88 end:0x00019FA0
+
+unit/unit_met.c:
+	.rodata     start:0x000028F8 end:0x00002B48
+	.data       start:0x00019FA0 end:0x0001BE70
+
+unit/unit_togemet.c:
+	.rodata     start:0x00002B48 end:0x00002D80
+	.data       start:0x0001BE70 end:0x0001DDF0
+
+unit/unit_basabasa.c:
+	.rodata     start:0x00002D80 end:0x00002EC0
+	.data       start:0x0001DDF0 end:0x0001EED8
+
+unit/unit_teresa.c:
+	.text       start:0x00006DC8 end:0x00007020
+	.rodata     start:0x00002EC0 end:0x00002FE1
+	.data       start:0x0001EED8 end:0x00020758

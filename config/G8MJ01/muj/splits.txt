@@ -5,3 +5,158 @@ Sections:
 	.rodata     type:rodata align:8
 	.data       type:data align:8
 	.bss        type:bss align:8
+
+muj.c:
+	.text       start:0x00000000 end:0x00000B3C
+	.rodata     start:0x00000000 end:0x000001B0
+	.data       start:0x00000000 end:0x00000838
+
+muj_00.c:
+	.text       start:0x00000B3C end:0x000029A0
+	.rodata     start:0x000001B0 end:0x00000DC8
+	.data       start:0x00000838 end:0x0000A5D0
+	.bss        start:0x00000000 end:0x00000010
+
+muj_01.c:
+	.text       start:0x000029A0 end:0x00002F40
+	.rodata     start:0x00000DC8 end:0x00001C88
+	.data       start:0x0000A5D0 end:0x0000FB38
+	.bss        start:0x00000010 end:0x00000018
+
+muj_02.c:
+	.text       start:0x00002F40 end:0x00003040
+	.rodata     start:0x00001C88 end:0x000021C8
+	.data       start:0x0000FB38 end:0x00011168
+
+muj_03.c:
+	.rodata     start:0x000021C8 end:0x000024A8
+	.data       start:0x00011168 end:0x00011A68
+
+muj_04.c:
+	.text       start:0x00003040 end:0x000030F0
+	.rodata     start:0x000024A8 end:0x00002A20
+	.data       start:0x00011A68 end:0x00013118
+
+muj_05.c:
+	.text       start:0x000030F0 end:0x00003258
+	.rodata     start:0x00002A20 end:0x00003318
+	.data       start:0x00013118 end:0x00016890
+	.bss        start:0x00000018 end:0x00000020
+
+muj_10.c:
+	.text       start:0x00003258 end:0x000034A0
+	.rodata     start:0x00003318 end:0x00003688
+	.data       start:0x00016890 end:0x00018748
+
+muj_11.c:
+	.rodata     start:0x00003688 end:0x00003720
+	.data       start:0x00018748 end:0x00018A30
+
+muj_12.c:
+	.text       start:0x000034A0 end:0x000038FC
+	.rodata     start:0x00003720 end:0x00003B00
+	.data       start:0x00018A30 end:0x0001AD58
+
+muj_20.c:
+	.text       start:0x000038FC end:0x00005BD0
+	.rodata     start:0x00003B00 end:0x000043A0
+	.data       start:0x0001AD58 end:0x0001FDA0
+	.bss        start:0x00000020 end:0x00000038
+
+data/battle/battle_database_muj.c:
+	.text       start:0x00005BD0 end:0x00005D68
+	.rodata     start:0x000043A0 end:0x00004730
+	.data       start:0x0001FDA0 end:0x00021EB8
+
+unit/unit_boss_cortez.c:
+	.text       start:0x00005D68 end:0x00006524
+	.rodata     start:0x00004730 end:0x00004DC0
+	.data       start:0x00021EB8 end:0x00028080
+	.bss        start:0x00000038 end:0x00000068
+
+unit/unit_boss_honeduka.c:
+	.rodata     start:0x00004DC0 end:0x00004E48
+	.data       start:0x00028080 end:0x00028308
+
+unit/unit_boss_cortez_sword.c:
+	.rodata     start:0x00004E48 end:0x00004F90
+	.data       start:0x00028308 end:0x0002A228
+
+unit/unit_boss_cortez_claw.c:
+	.rodata     start:0x00004F90 end:0x00005038
+	.data       start:0x0002A228 end:0x0002AC28
+
+unit/unit_boss_cortez_rapier.c:
+	.rodata     start:0x00005038 end:0x000050F8
+	.data       start:0x0002AC28 end:0x0002B9C8
+
+unit/unit_boss_cortez_saber.c:
+	.rodata     start:0x000050F8 end:0x000051B0
+	.data       start:0x0002B9C8 end:0x0002C578
+
+unit/unit_kuriboo.c:
+	.text       start:0x00006524 end:0x0000663C
+	.rodata     start:0x000051B0 end:0x00005308
+	.data       start:0x0002C578 end:0x0002D110
+
+unit/unit_boss_kanbu3.c:
+	.text       start:0x0000663C end:0x0000674C
+	.rodata     start:0x00005308 end:0x00005510
+	.data       start:0x0002D110 end:0x0002F3B0
+
+unit/unit_boss_gundan_zako_group1.c:
+	.text       start:0x0000674C end:0x000089C0
+	.rodata     start:0x00005510 end:0x00005788
+	.data       start:0x0002F3B0 end:0x000302A8
+	.bss        start:0x00000068 end:0x00000070
+
+unit/unit_boss_gundan_zako_group2.c:
+	.text       start:0x000089C0 end:0x00009DE8
+	.rodata     start:0x00005788 end:0x000059D8
+	.data       start:0x000302A8 end:0x000314D0
+
+unit/unit_boss_gundan_zako_group3.c:
+	.text       start:0x00009DE8 end:0x0000B3B4
+	.rodata     start:0x000059D8 end:0x00005BE8
+	.data       start:0x000314D0 end:0x000323E8
+
+unit/unit_gundan_zako_magician.c:
+	.text       start:0x0000B3B4 end:0x0000B46C
+	.rodata     start:0x00005BE8 end:0x00005E20
+	.data       start:0x000323E8 end:0x00034798
+
+unit/unit_flower_chorobon.c:
+	.rodata     start:0x00005E20 end:0x00006010
+	.data       start:0x00034798 end:0x000364B8
+
+unit/unit_green_chorobon.c:
+	.text       start:0x0000B46C end:0x0000B580
+	.rodata     start:0x00006010 end:0x00006228
+	.data       start:0x000364B8 end:0x00038070
+
+unit/unit_poison_pakkun.c:
+	.text       start:0x0000B580 end:0x0000B99C
+	.rodata     start:0x00006228 end:0x00006448
+	.data       start:0x00038070 end:0x00039948
+
+unit/unit_hermos.c:
+	.text       start:0x0000B99C end:0x0000BE6C
+	.rodata     start:0x00006448 end:0x00006630
+	.data       start:0x00039948 end:0x0003B4F0
+	.bss        start:0x00000070 end:0x000000C8
+
+unit/unit_pakkun_flower.c:
+	.text       start:0x0000BE6C end:0x0000C0FC
+	.rodata     start:0x00006630 end:0x000067F0
+	.data       start:0x0003B4F0 end:0x0003C6B0
+
+event/evt_lect_muj.c:
+	.text       start:0x0000C0FC end:0x0000D690
+	.rodata     start:0x000067F0 end:0x000069E0
+	.data       start:0x0003C6B0 end:0x0003D0B8
+	.bss        start:0x000000C8 end:0x00000168
+
+muj_21.c:
+	.text       start:0x0000D690 end:0x0000D8C0
+	.rodata     start:0x000069E0 end:0x00006B44
+	.data       start:0x0003D0B8 end:0x0003D8E0

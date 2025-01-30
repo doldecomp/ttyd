@@ -4,3 +4,11 @@ Sections:
 	.dtors      type:rodata align:4
 	.rodata     type:rodata align:8
 	.data       type:data align:8
+
+qiz_00.c:
+	.data       start:0x00000000 end:0x00000068
+
+qiz.c:
+	.text       start:0x00000000 end:0x000000B0
+	.rodata     start:0x00000000 end:0x00000007
+	.data       start:0x00000068 end:0x000000B8

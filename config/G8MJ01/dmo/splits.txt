@@ -5,3 +5,14 @@ Sections:
 	.rodata     type:rodata align:8
 	.data       type:data align:8
 	.bss        type:bss align:8
+
+dmo_00.c:
+	.text       start:0x00000000 end:0x00001CA0
+	.rodata     start:0x00000000 end:0x000004C8
+	.data       start:0x00000000 end:0x00001E68
+	.bss        start:0x00000000 end:0x00000230
+
+dmo.c:
+	.text       start:0x00001CA0 end:0x00001D54
+	.rodata     start:0x000004C8 end:0x000004CF
+	.data       start:0x00001E68 end:0x00001EB8

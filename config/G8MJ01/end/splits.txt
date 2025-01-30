@@ -5,3 +5,12 @@ Sections:
 	.rodata     type:rodata align:8
 	.data       type:data align:8
 	.bss        type:bss align:8
+
+end.c:
+	.data       start:0x00000000 end:0x00000060
+
+end_unknown.c:
+	.text       start:0x00000000 end:0x00002530
+	.rodata     start:0x00000000 end:0x00000BB7
+	.data       start:0x00000060 end:0x00002088
+	.bss        start:0x00000000 end:0x00000048

@@ -5,3 +5,81 @@ Sections:
 	.rodata     type:rodata align:8
 	.data       type:data align:8
 	.bss        type:bss align:8
+
+rsh.c:
+	.text       start:0x00000000 end:0x000010BC
+	.rodata     start:0x00000000 end:0x00000B78
+	.data       start:0x00000000 end:0x000027E8
+
+rsh_00.c:
+	.text       start:0x000010BC end:0x000022C0
+	.rodata     start:0x00000B78 end:0x00001128
+	.data       start:0x000027E8 end:0x000044F8
+	.bss        start:0x00000000 end:0x00000008
+
+rsh_01.c:
+	.rodata     start:0x00001128 end:0x000016D0
+	.data       start:0x000044F8 end:0x000064F0
+
+rsh_02.c:
+	.text       start:0x000022C0 end:0x000024F4
+	.rodata     start:0x000016D0 end:0x000022F8
+	.data       start:0x000064F0 end:0x0000BA68
+
+rsh_03.c:
+	.text       start:0x000024F4 end:0x00002944
+	.rodata     start:0x000022F8 end:0x00003040
+	.data       start:0x0000BA68 end:0x0000F928
+	.bss        start:0x00000008 end:0x00000048
+
+rsh_04.c:
+	.text       start:0x00002944 end:0x000029B8
+	.rodata     start:0x00003040 end:0x00003BB8
+	.data       start:0x0000F928 end:0x00013608
+
+rsh_05.c:
+	.text       start:0x000029B8 end:0x000082EC
+	.rodata     start:0x00003BB8 end:0x000041D0
+	.data       start:0x00013608 end:0x00015048
+	.bss        start:0x00000048 end:0x00000050
+
+rsh_06.c:
+	.text       start:0x000082EC end:0x0000DD28
+	.rodata     start:0x000041D0 end:0x00004B28
+	.data       start:0x00015048 end:0x000184F8
+	.bss        start:0x00000050 end:0x00000058
+
+data/battle/battle_database_rsh.c:
+	.text       start:0x0000DD28 end:0x0000DE1C
+	.rodata     start:0x00004B28 end:0x00004BF0
+	.data       start:0x000184F8 end:0x00018980
+
+unit/unit_boss_moamoa.c:
+	.text       start:0x0000DE1C end:0x0000F9D0
+	.rodata     start:0x00004BF0 end:0x00004F88
+	.data       start:0x00018980 end:0x0001A560
+	.bss        start:0x00000058 end:0x0000005C
+
+rsh_08.c:
+	.rodata     start:0x00004F88 end:0x00005008
+	.data       start:0x0001A560 end:0x0001A838
+
+rsh_07.c:
+	.rodata     start:0x00005008 end:0x000051B0
+	.data       start:0x0001A838 end:0x0001AE28
+
+unit/unit_boss_moamoa_tentacle_a.c:
+	.rodata     start:0x000051B0 end:0x000053E0
+	.data       start:0x0001AE28 end:0x0001BBA8
+
+unit/unit_boss_moamoa_tentacle_b.c:
+	.rodata     start:0x000053E0 end:0x000055F0
+	.data       start:0x0001BBA8 end:0x0001C920
+
+unit/unit_boss_moamoa_tentacle_c.c:
+	.rodata     start:0x000055F0 end:0x000057E0
+	.data       start:0x0001C920 end:0x0001D678
+
+unit/unit_boss_moamoa_mouth.c:
+	.rodata     start:0x000057E0 end:0x00005939
+	.data       start:0x0001D678 end:0x0001E16C

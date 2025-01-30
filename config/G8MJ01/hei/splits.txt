@@ -5,3 +5,139 @@ Sections:
 	.rodata     type:rodata align:8
 	.data       type:data align:8
 	.bss        type:bss align:8
+
+hei.c:
+	.text       start:0x00000000 end:0x000001E4
+	.rodata     start:0x00000000 end:0x00000080
+	.data       start:0x00000000 end:0x00000060
+
+hei_00.c:
+	.text       start:0x000001E4 end:0x00000DB4
+	.rodata     start:0x00000080 end:0x00000578
+	.data       start:0x00000060 end:0x00002E88
+
+hei_01.c:
+	.text       start:0x00000DB4 end:0x00000E38
+	.rodata     start:0x00000578 end:0x00000C08
+	.data       start:0x00002E88 end:0x00005408
+
+hei_02.c:
+	.rodata     start:0x00000C08 end:0x00000EB0
+	.data       start:0x00005408 end:0x00005970
+
+hei_03.c:
+	.rodata     start:0x00000EB0 end:0x00000FE0
+	.data       start:0x00005970 end:0x000063B0
+
+hei_04.c:
+	.rodata     start:0x00000FE0 end:0x000011A8
+	.data       start:0x000063B0 end:0x00006768
+
+hei_05.c:
+	.rodata     start:0x000011A8 end:0x000012C0
+	.data       start:0x00006768 end:0x00007120
+
+hei_06.c:
+	.rodata     start:0x000012C0 end:0x00001488
+	.data       start:0x00007120 end:0x00007488
+
+hei_07.c:
+	.text       start:0x00000E38 end:0x00001174
+	.rodata     start:0x00001488 end:0x00001A40
+	.data       start:0x00007488 end:0x000094A0
+
+hei_08.c:
+	.text       start:0x00001174 end:0x000011E4
+	.rodata     start:0x00001A40 end:0x00001AE8
+	.data       start:0x000094A0 end:0x00009928
+
+hei_09.c:
+	.text       start:0x000011E4 end:0x00001204
+	.rodata     start:0x00001AE8 end:0x00001B38
+	.data       start:0x00009928 end:0x00009AE0
+
+hei_10.c:
+	.text       start:0x00001204 end:0x000028E4
+	.rodata     start:0x00001B38 end:0x00001D78
+	.data       start:0x00009AE0 end:0x0000A468
+	.bss        start:0x00000000 end:0x00000008
+
+hei_11.c:
+	.rodata     start:0x00001D78 end:0x00001DC8
+	.data       start:0x0000A468 end:0x0000A620
+
+hei_12.c:
+	.text       start:0x000028E4 end:0x00002954
+	.rodata     start:0x00001DC8 end:0x00001E68
+	.data       start:0x0000A620 end:0x0000AA90
+
+hei_13.c:
+	.rodata     start:0x00001E68 end:0x00001F28
+	.data       start:0x0000AA90 end:0x0000AEE0
+
+hei_bt00.c:
+	.data       start:0x0000AEE0 end:0x0000AF38
+
+data/battle/battle_database_hei.c:
+	.rodata     start:0x00001F28 end:0x00002448
+	.data       start:0x0000AF38 end:0x0000E950
+
+unit/unit_chorobon.c:
+	.rodata     start:0x00002448 end:0x00002608
+	.data       start:0x0000E950 end:0x0000FF88
+
+unit/unit_chorobon_gundan.c:
+	.text       start:0x00002954 end:0x00004278
+	.rodata     start:0x00002608 end:0x000028A8
+	.data       start:0x0000FF88 end:0x00010998
+	.bss        start:0x00000008 end:0x00000010
+
+unit/unit_gold_chorobon.c:
+	.text       start:0x00004278 end:0x0000430C
+	.rodata     start:0x000028A8 end:0x00002A20
+	.data       start:0x00010998 end:0x00011CA0
+
+unit/unit_kuriboo.c:
+	.text       start:0x0000430C end:0x00004424
+	.rodata     start:0x00002A20 end:0x00002B78
+	.data       start:0x00011CA0 end:0x00012838
+
+unit/unit_nokonoko.c:
+	.rodata     start:0x00002B78 end:0x00002D20
+	.data       start:0x00012838 end:0x00013C80
+
+unit/unit_patakuri.c:
+	.text       start:0x00004424 end:0x0000453C
+	.rodata     start:0x00002D20 end:0x00002F58
+	.data       start:0x00013C80 end:0x00015338
+
+unit/unit_patapata.c:
+	.rodata     start:0x00002F58 end:0x000031F0
+	.data       start:0x00015338 end:0x00017618
+
+unit/unit_togekuri.c:
+	.text       start:0x0000453C end:0x00004854
+	.rodata     start:0x000031F0 end:0x000033B0
+	.data       start:0x00017618 end:0x000186B8
+
+unit/unit_sinemon.c:
+	.rodata     start:0x000033B0 end:0x00003558
+	.data       start:0x000186B8 end:0x00019740
+
+unit/unit_sinnosuke.c:
+	.rodata     start:0x00003558 end:0x000036F0
+	.data       start:0x00019740 end:0x0001A738
+
+unit/unit_togedaruma.c:
+	.rodata     start:0x000036F0 end:0x000038E8
+	.data       start:0x0001A738 end:0x0001B970
+
+unit/unit_monochrome_sinemon.c:
+	.rodata     start:0x000038E8 end:0x00003A98
+	.data       start:0x0001B970 end:0x0001C9F8
+
+event/evt_lect_hei.c:
+	.text       start:0x00004854 end:0x00005DE8
+	.rodata     start:0x00003A98 end:0x00003D20
+	.data       start:0x0001C9F8 end:0x0001D6E8
+	.bss        start:0x00000010 end:0x000000B0

@@ -4,3 +4,40 @@ Sections:
 	.dtors      type:rodata align:4
 	.rodata     type:rodata align:8
 	.data       type:data align:8
+
+pik.c:
+	.text       start:0x00000000 end:0x0000011C
+	.rodata     start:0x00000000 end:0x00000030
+	.data       start:0x00000000 end:0x00000060
+
+pik_00.c:
+	.text       start:0x0000011C end:0x00000488
+	.rodata     start:0x00000030 end:0x00000C10
+	.data       start:0x00000060 end:0x000047F8
+
+pik_01.c:
+	.text       start:0x00000488 end:0x000008BC
+	.rodata     start:0x00000C10 end:0x00001680
+	.data       start:0x000047F8 end:0x00008320
+
+pik_02.c:
+	.text       start:0x000008BC end:0x000010D4
+	.rodata     start:0x00001680 end:0x00001DB8
+	.data       start:0x00008320 end:0x0000AE88
+
+pik_03.c:
+	.rodata     start:0x00001DB8 end:0x00001E28
+	.data       start:0x0000AE88 end:0x0000B310
+
+pik_04.c:
+	.rodata     start:0x00001E28 end:0x00002530
+	.data       start:0x0000B310 end:0x0000DA28
+
+battle_database_pik.c:
+	.rodata     start:0x00002530 end:0x00002628
+	.data       start:0x0000DA28 end:0x0000E5D0
+
+unit/unit_purple_teresa.c:
+	.text       start:0x000010D4 end:0x0000132C
+	.rodata     start:0x00002628 end:0x00002751
+	.data       start:0x0000E5D0 end:0x0000FE50

@@ -5,3 +5,74 @@ Sections:
 	.rodata     type:rodata align:8
 	.data       type:data align:8
 	.bss        type:bss align:8
+
+eki.c:
+	.text       start:0x00000000 end:0x00000144
+	.rodata     start:0x00000000 end:0x00000040
+	.data       start:0x00000000 end:0x00000060
+
+eki_00.c:
+	.text       start:0x00000144 end:0x000057F0
+	.rodata     start:0x00000040 end:0x00000668
+	.data       start:0x00000060 end:0x00002508
+	.bss        start:0x00000000 end:0x00000008
+
+eki_01.c:
+	.rodata     start:0x00000668 end:0x000007C0
+	.data       start:0x00002508 end:0x00002DF0
+
+eki_02.c:
+	.text       start:0x000057F0 end:0x000059D0
+	.rodata     start:0x000007C0 end:0x00000838
+	.data       start:0x00002DF0 end:0x00003008
+
+eki_03.c:
+	.text       start:0x000059D0 end:0x00005DF0
+	.rodata     start:0x00000838 end:0x00000A50
+	.data       start:0x00003008 end:0x00003CC0
+	.bss        start:0x00000008 end:0x00000010
+
+eki_04.c:
+	.rodata     start:0x00000A50 end:0x00000AD0
+	.data       start:0x00003CC0 end:0x00003FE0
+
+eki_05.c:
+	.rodata     start:0x00000AD0 end:0x00000BB8
+	.data       start:0x00003FE0 end:0x00004570
+
+eki_06.c:
+	.text       start:0x00005DF0 end:0x000073A0
+	.rodata     start:0x00000BB8 end:0x00000DB8
+	.data       start:0x00004570 end:0x00004EF0
+	.bss        start:0x00000010 end:0x00000018
+
+data/battle/battle_database_eki.c:
+	.rodata     start:0x00000DB8 end:0x00001070
+	.data       start:0x00004EF0 end:0x00006968
+
+unit/unit_kuriboo.c:
+	.text       start:0x000073A0 end:0x000074B8
+	.rodata     start:0x00001070 end:0x000011C8
+	.data       start:0x00006968 end:0x00007500
+
+unit/unit_sambo.c:
+	.rodata     start:0x000011C8 end:0x00001510
+	.data       start:0x00007500 end:0x0000BC18
+
+unit/unit_sambo_mummy.c:
+	.rodata     start:0x00001510 end:0x00001860
+	.data       start:0x0000BC18 end:0x00010330
+
+unit/unit_patatogemet.c:
+	.rodata     start:0x00001860 end:0x00001B68
+	.data       start:0x00010330 end:0x00012E20
+
+unit/unit_kurokumorn.c:
+	.rodata     start:0x00001B68 end:0x00001D18
+	.data       start:0x00012E20 end:0x000145E0
+
+event/evt_lect_eki.c:
+	.text       start:0x000074B8 end:0x000086F8
+	.rodata     start:0x00001D18 end:0x00001EEC
+	.data       start:0x000145E0 end:0x000154E8
+	.bss        start:0x00000018 end:0x000000B0

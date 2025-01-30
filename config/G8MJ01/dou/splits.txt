@@ -5,3 +5,117 @@ Sections:
 	.rodata     type:rodata align:8
 	.data       type:data align:8
 	.bss        type:bss align:8
+
+dou.c:
+	.text       start:0x00000000 end:0x0000023C
+	.rodata     start:0x00000000 end:0x00000088
+	.data       start:0x00000000 end:0x00000278
+
+dou_00.c:
+	.text       start:0x0000023C end:0x0000025C
+	.rodata     start:0x00000088 end:0x00000108
+	.data       start:0x00000278 end:0x000005E0
+
+dou_01.c:
+	.rodata     start:0x00000108 end:0x000001B8
+	.data       start:0x000005E0 end:0x000008D0
+
+dou_02.c:
+	.rodata     start:0x000001B8 end:0x00000348
+	.data       start:0x000008D0 end:0x00001260
+
+dou_03.c:
+	.rodata     start:0x00000348 end:0x000005F0
+	.data       start:0x00001260 end:0x000021F0
+
+dou_04.c:
+	.text       start:0x0000025C end:0x0000055C
+	.rodata     start:0x000005F0 end:0x00000900
+	.data       start:0x000021F0 end:0x00003EE8
+
+dou_05.c:
+	.text       start:0x0000055C end:0x000006E4
+	.rodata     start:0x00000900 end:0x00000AE8
+	.data       start:0x00003EE8 end:0x00004800
+	.bss        start:0x00000000 end:0x00000008
+
+dou_06.c:
+	.rodata     start:0x00000AE8 end:0x00000B70
+	.data       start:0x00004800 end:0x000049A8
+
+dou_07.c:
+	.text       start:0x000006E4 end:0x000007C8
+	.rodata     start:0x00000B70 end:0x00000E20
+	.data       start:0x000049A8 end:0x00005880
+
+dou_08.c:
+	.rodata     start:0x00000E20 end:0x00000F38
+	.data       start:0x00005880 end:0x00005D50
+
+dou_09.c:
+	.rodata     start:0x00000F38 end:0x000010F0
+	.data       start:0x00005D50 end:0x00006C68
+
+dou_10.c:
+	.text       start:0x000007C8 end:0x00001088
+	.rodata     start:0x000010F0 end:0x000013F8
+	.data       start:0x00006C68 end:0x00007FD0
+
+dou_11.c:
+	.text       start:0x00001088 end:0x000017F8
+	.rodata     start:0x000013F8 end:0x00001B18
+	.data       start:0x00007FD0 end:0x0000E878
+
+data/battle/battle_database_dou.c:
+	.text       start:0x000017F8 end:0x00001990
+	.rodata     start:0x00001B18 end:0x00001EE8
+	.data       start:0x0000E878 end:0x00011098
+
+unit/unit_kuriboo.c:
+	.text       start:0x00001990 end:0x00001AA8
+	.rodata     start:0x00001EE8 end:0x00002040
+	.data       start:0x00011098 end:0x00011C30
+
+unit/unit_bubble.c:
+	.text       start:0x00001AA8 end:0x00001F78
+	.rodata     start:0x00002040 end:0x00002230
+	.data       start:0x00011C30 end:0x000136C8
+	.bss        start:0x00000008 end:0x00000060
+
+unit/unit_killer.c:
+	.rodata     start:0x00002230 end:0x00002378
+	.data       start:0x000136C8 end:0x00014150
+
+unit/unit_killer_cannon.c:
+	.text       start:0x00001F78 end:0x000020E8
+	.rodata     start:0x00002378 end:0x00002520
+	.data       start:0x00014150 end:0x000159B8
+
+unit/unit_heavy_bom.c:
+	.text       start:0x000020E8 end:0x00002248
+	.rodata     start:0x00002520 end:0x00002788
+	.data       start:0x000159B8 end:0x000170C8
+
+unit/unit_hermos.c:
+	.text       start:0x00002248 end:0x00002718
+	.rodata     start:0x00002788 end:0x00002970
+	.data       start:0x000170C8 end:0x00018C70
+	.bss        start:0x00000060 end:0x000000B8
+
+dou_13.c:
+	.rodata     start:0x00002970 end:0x00002A00
+	.data       start:0x00018C70 end:0x00018E28
+
+dou_12.c:
+	.rodata     start:0x00002A00 end:0x00002AB0
+	.data       start:0x00018E28 end:0x000190B0
+
+unit/unit_patamet.c:
+	.rodata     start:0x00002AB0 end:0x00002DC0
+	.data       start:0x000190B0 end:0x0001B9E8
+
+event/evt_lect_dou.c:
+	.text       start:0x00002718 end:0x00003BA0
+	.rodata     start:0x00002DC0 end:0x00002F70
+	.data       start:0x0001B9E8 end:0x0001C914
+	.bss        start:0x000000B8 end:0x00000160

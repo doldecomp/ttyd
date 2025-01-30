@@ -5,3 +5,72 @@ Sections:
 	.rodata     type:rodata align:8
 	.data       type:data align:8
 	.bss        type:bss align:8
+
+moo_00.c:
+	.text       start:0x00000000 end:0x000001D8
+	.rodata     start:0x00000000 end:0x00000220
+	.data       start:0x00000000 end:0x00000F08
+
+moo_01.c:
+	.rodata     start:0x00000220 end:0x000002E8
+	.data       start:0x00000F08 end:0x00001368
+
+moo_02.c:
+	.rodata     start:0x000002E8 end:0x00000400
+	.data       start:0x00001368 end:0x00001B40
+
+moo_03.c:
+	.text       start:0x000001D8 end:0x0000035C
+	.rodata     start:0x00000400 end:0x00000510
+	.data       start:0x00001B40 end:0x00002018
+
+moo_04.c:
+	.text       start:0x0000035C end:0x000004AC
+	.rodata     start:0x00000510 end:0x00000650
+	.data       start:0x00002018 end:0x00002C40
+
+moo.c:
+	.text       start:0x000004AC end:0x00000604
+	.rodata     start:0x00000650 end:0x00000698
+	.data       start:0x00002C40 end:0x00002C90
+
+data/battle/battle_database_moo.c:
+	.text       start:0x00000604 end:0x000006D0
+	.rodata     start:0x00000698 end:0x00000848
+	.data       start:0x00002C90 end:0x000045B8
+
+unit/unit_kuriboo.c:
+	.text       start:0x000006D0 end:0x000007E8
+	.rodata     start:0x00000848 end:0x000009A0
+	.data       start:0x000045B8 end:0x00005150
+
+moo_05.c:
+	.rodata     start:0x000009A0 end:0x00000A48
+	.data       start:0x00005150 end:0x000054D0
+
+moo_06.c:
+	.rodata     start:0x00000A48 end:0x00000B10
+	.data       start:0x000054D0 end:0x00005930
+
+moo_07.c:
+	.rodata     start:0x00000B10 end:0x00000BC0
+	.data       start:0x00005930 end:0x00005CD8
+
+unit/unit_sinemon.c:
+	.rodata     start:0x00000BC0 end:0x00000D68
+	.data       start:0x00005CD8 end:0x00006D60
+
+unit/unit_barriern_z_satellite.c:
+	.text       start:0x000007E8 end:0x00000938
+	.rodata     start:0x00000D68 end:0x00000E98
+	.data       start:0x00006D60 end:0x000072A0
+
+unit/unit_barriern_z.c:
+	.text       start:0x00000938 end:0x00003020
+	.rodata     start:0x00000E98 end:0x000011E8
+	.data       start:0x000072A0 end:0x0000A3C0
+	.bss        start:0x00000000 end:0x00000014
+
+unit/unit_hyper_sinemon.c:
+	.rodata     start:0x000011E8 end:0x000013AF
+	.data       start:0x0000A3C0 end:0x0000B73C
