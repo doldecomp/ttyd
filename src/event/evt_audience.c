@@ -4,7 +4,7 @@
 #include <math.h>
 
 //s32* mask
-USERFUNC_DEF(evt_audience_base_flag_on) {
+USER_FUNC(evt_audience_base_flag_on) {
 	BattleAudience* audience;
 	s32 mask;
 
@@ -15,7 +15,7 @@ USERFUNC_DEF(evt_audience_base_flag_on) {
 }
 
 //s32* memberId, s32* flags, s32 retIndex
-USERFUNC_DEF(evt_audience_flag_check) {
+USER_FUNC(evt_audience_flag_check) {
 	s32* args = event->args;
 	s32 id, flags;
 
@@ -31,7 +31,7 @@ USERFUNC_DEF(evt_audience_flag_check) {
 }
 
 //s32* memberId, s32* flags
-USERFUNC_DEF(evt_audience_flag_on) {
+USER_FUNC(evt_audience_flag_on) {
 	s32* args = event->args;
 	s32 id, flags;
 
@@ -42,7 +42,7 @@ USERFUNC_DEF(evt_audience_flag_on) {
 }
 
 //s32* memberId, s32* flags
-USERFUNC_DEF(evt_audience_flag_off) {
+USER_FUNC(evt_audience_flag_off) {
 	s32* args = event->args;
 	s32 id, flags;
 
@@ -53,7 +53,7 @@ USERFUNC_DEF(evt_audience_flag_off) {
 }
 
 //s32* memberId, f32* x, f32* y, f32* z
-USERFUNC_DEF(evt_audience_set_position) {
+USER_FUNC(evt_audience_set_position) {
 	s32* args = event->args;
 	f32 x, y, z;
 	s32 id;
@@ -67,7 +67,7 @@ USERFUNC_DEF(evt_audience_set_position) {
 }
 
 //s32* memberId, s32 retX, s32 retY, s32 retZ
-USERFUNC_DEF(evt_audience_get_position) {
+USER_FUNC(evt_audience_get_position) {
 	BattleAudienceMember* member;
 	s32* args = event->args;
 	s32 id;
@@ -81,7 +81,7 @@ USERFUNC_DEF(evt_audience_get_position) {
 }
 
 //s32* memberId, f32* x, f32* y, f32* z
-USERFUNC_DEF(evt_audience_set_rotate) {
+USER_FUNC(evt_audience_set_rotate) {
 	s32* args = event->args;
 	f32 x, y, z;
 	s32 id;
@@ -95,7 +95,7 @@ USERFUNC_DEF(evt_audience_set_rotate) {
 }
 
 //s32* memberId, f32* x, f32* y, f32* z
-USERFUNC_DEF(evt_audience_set_rotate_offset) {
+USER_FUNC(evt_audience_set_rotate_offset) {
 	s32* args = event->args;
 	f32 x, y, z;
 	s32 id;
@@ -109,7 +109,7 @@ USERFUNC_DEF(evt_audience_set_rotate_offset) {
 }
 
 //s32* memberId, f32* targetX, f32* targetY, f32* targetZ, s32* interpMode, s32* numFrames
-USERFUNC_DEF(evt_audience_move_position_frame) {
+USER_FUNC(evt_audience_move_position_frame) {
 	s32* args = event->args;
 	f32 targetX, targetY, targetZ;
 	BattleAudienceMember* member;
@@ -172,7 +172,7 @@ USERFUNC_DEF(evt_audience_move_position_frame) {
 }
 
 //s32* memberId, f32* targetX, f32* targetY, f32* targetZ, f32* interpSpeed
-USERFUNC_DEF(evt_audience_move_position_speed) {
+USER_FUNC(evt_audience_move_position_speed) {
 	s32* args = event->args;
 	BattleAudienceMember* member;
 	f32 targetX, targetY, targetZ;
@@ -253,7 +253,7 @@ USERFUNC_DEF(evt_audience_move_position_speed) {
 }
 
 //s32* memberId, f32* targetX, f32* targetY, f32* targetZ, s32* numFrames, f32* deltaY
-USERFUNC_DEF(evt_audience_jump_position_firstsp) {
+USER_FUNC(evt_audience_jump_position_firstsp) {
 	s32* args = event->args;
 	BattleAudienceMember* member;
 	f32 targetX, targetY, targetZ;
@@ -300,7 +300,7 @@ USERFUNC_DEF(evt_audience_jump_position_firstsp) {
 }
 
 //s32* memberId, f32* targetX, f32* targetY, f32* targetZ, s32* numFrames, f32* gravity
-USERFUNC_DEF(evt_audience_jump_position_gravity) {
+USER_FUNC(evt_audience_jump_position_gravity) {
 	s32* args = event->args;
 	BattleAudienceMember* member;
 	f32 targetX, targetY, targetZ;
@@ -348,7 +348,7 @@ USERFUNC_DEF(evt_audience_jump_position_gravity) {
 }
 
 //s32* memberId, s32* animId, BOOL* force
-USERFUNC_DEF(evt_audience_set_animpose) {
+USER_FUNC(evt_audience_set_animpose) {
 	s32* args = event->args;
 	s32 id, animId;
 	BOOL force;
@@ -360,7 +360,7 @@ USERFUNC_DEF(evt_audience_set_animpose) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_audience_entry) {
+USER_FUNC(evt_audience_entry) {
 	s32* args = event->args;
 	AudienceMemberType type;
 	s32 id; 
@@ -374,17 +374,17 @@ USERFUNC_DEF(evt_audience_entry) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_audience_delete) {
+USER_FUNC(evt_audience_delete) {
 	s32 id = evtGetValue(event, *event->args);
 	BattleAudience_Delete(id);
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_audience_ap_recovery) {
+USER_FUNC(evt_audience_ap_recovery) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_audience_reflesh_natural_all) {
+USER_FUNC(evt_audience_reflesh_natural_all) {
 	s32* args = event->args;
 	BattleAudienceMember* member;
 	s32 chance, i;
@@ -401,7 +401,7 @@ USERFUNC_DEF(evt_audience_reflesh_natural_all) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_audience_abnormal_natural_all) {
+USER_FUNC(evt_audience_abnormal_natural_all) {
 	s32* args = event->args;
 	BattleAudienceMember* member;
 	s32 chance, i;
@@ -421,50 +421,3 @@ USERFUNC_DEF(evt_audience_abnormal_natural_all) {
 	}
 	return EVT_RETURN_DONE;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,4 +1,5 @@
-#include "mgr/filemgr.h"
+#include "manager/filemgr.h"
+#include "dolphin/os.h"
 #include "driver/arcdrv.h"
 #include "memory.h"
 #include "sdk/texPalette.h"
@@ -47,44 +48,44 @@ void fileInit(void) {
 }
 
 void fileGarbageDataAdrClear(FileEntry* entry) {
-	TPLHeader* tpl;
-	TPLImageHeader* img;
-	TPLPaletteHeader* pal;
+	TEXPalette* tpl;
+	TEXHeader* img;
+	CLUTHeader* pal;
 	int i;
 	void* data = *entry->data;
 	switch (entry->field_0x1) {
 		case 4: //TPL file
 			tpl = data;
-			if (tpl->version != 0x0020AF30) {
+			if (tpl->versionNumber != 0x0020AF30) {
 				OSPanic("filemgr.c", 147, "invalid version number for texture palette");
 			}
-			if (tpl->imageTableOffset >= (u32)tpl) {
-				for (i = 0; i < tpl->imageCount; i++) {
-					img = tpl->imageTable[i].image;
+			if ((u32)tpl->descriptorArray >= (u32)tpl) {
+				for (i = 0; i < tpl->numDescriptors; i++) {
+					img = tpl->descriptorArray[i].textureHeader;
 					if (img) {
 						if (img->unpacked) {
 							img->unpacked = FALSE;
-							img->dataOffset -= (u32)tpl;
+							img->data -= (u32)tpl;
 						}
-						tpl->imageTable[i].imageOffset -= (u32)tpl;
+						tpl->descriptorArray[i].textureHeader = (void*)((u32)tpl->descriptorArray[i].textureHeader - (u32)tpl);
 					}
-					pal = tpl->imageTable[i].palette;
+					pal = tpl->descriptorArray[i].CLUTHeader;
 					if (pal) {
 						if (pal->unpacked) {
 							pal->unpacked = FALSE;
-							pal->dataOffset -= (u32)tpl;
+							pal->data -= (u32)tpl;
 						}
-						tpl->imageTable[i].paletteOffset -= (u32)tpl;
+						tpl->descriptorArray[i].CLUTHeader = (void*)((u32)tpl->descriptorArray[i].CLUTHeader - (u32)tpl);
 					}
 				}
-				tpl->imageTableOffset -= (u32)tpl;
+				tpl->descriptorArray = (void*)((u32)tpl->descriptorArray - (u32)tpl);
 			}
 			break;
 
 		default: break;
 	}
 	//case 0, binary/default, rel
-	//case 4, TPLHeader*, state 1
+	//case 4, TEXPalette*, state 1
 	//case 5, AnimationPoseData*, state 1
 }
 
@@ -240,7 +241,7 @@ void dvdReadDoneCallBack(s32 error, DVDFileInfo* info) {
 
 }
 
-s32 fileAsyncf(u8 type, void (*callback)(FileEntry*), const char* format, ...) {
+s32 fileAsyncf(u8 type, FileCallback callback, const char* format, ...) {
 	va_list va;
 
 	va_start(va, format);

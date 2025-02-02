@@ -1,7 +1,7 @@
 #pragma once
 
 #include "driver/seqdrv.h"
-#include "mgr/filemgr.h"
+#include "manager/filemgr.h"
 #include <dolphin/os.h>
 
 typedef struct LogoWork {

@@ -6,7 +6,7 @@
  */
 #include "event.h"
 #include "driver/swdrv.h"
-#include "mgr/evtmgr_cmd.h"
+#include "manager/evtmgr_cmd.h"
 #include "mario/mario_party.h"
 #include "mario/mario_pouch.h"
 #include "mario/mariost.h"

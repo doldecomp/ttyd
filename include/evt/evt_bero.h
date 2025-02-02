@@ -30,8 +30,8 @@ typedef struct BeroEntry {
 
 EVT_DEF(evt_bero_info_run);
 
-USERFUNC_DEF(evt_bero_set_reset_position);
-USERFUNC_DEF(evt_bero_set_reset_position_current);
+USER_FUNC(evt_bero_set_reset_position);
+USER_FUNC(evt_bero_set_reset_position_current);
 s32 bero_get_BeroEXEC(void);
 s32 bero_get_BeroNUM(void);
 f32 bero_get_BeroSX(void);
@@ -43,26 +43,18 @@ f32 bero_get_BeroEZ(void);
 BeroEntry** bero_get_ptr(void);
 void bero_clear_Offset(void);
 s32 bero_id_filter(s32 id);
-USERFUNC_DEF(evt_bero_mapchange);
-USERFUNC_DEF(evt_bero_get_entername);
-USERFUNC_DEF(evt_bero_exec_onoff);
-USERFUNC_DEF(evt_bero_exec_get);
-USERFUNC_DEF(evt_bero_exec_wait);
-USERFUNC_DEF(evt_bero_get_start_position);
-USERFUNC_DEF(evt_bero_get_end_position);
-USERFUNC_DEF(evt_bero_get_info_anime);
-USERFUNC_DEF(evt_bero_get_info_length);
-USERFUNC_DEF(evt_bero_get_info_kinddir);
-USERFUNC_DEF(evt_bero_get_info_nextarea);
-USERFUNC_DEF(evt_bero_set_now_number);
-USERFUNC_DEF(evt_bero_get_now_number);
-USERFUNC_DEF(evt_bero_get_info);
-USERFUNC_DEF(evt_bero_get_into_info);
-
-
-
-
-
-
-
-
+USER_FUNC(evt_bero_mapchange);
+USER_FUNC(evt_bero_get_entername);
+USER_FUNC(evt_bero_exec_onoff);
+USER_FUNC(evt_bero_exec_get);
+USER_FUNC(evt_bero_exec_wait);
+USER_FUNC(evt_bero_get_start_position);
+USER_FUNC(evt_bero_get_end_position);
+USER_FUNC(evt_bero_get_info_anime);
+USER_FUNC(evt_bero_get_info_length);
+USER_FUNC(evt_bero_get_info_kinddir);
+USER_FUNC(evt_bero_get_info_nextarea);
+USER_FUNC(evt_bero_set_now_number);
+USER_FUNC(evt_bero_get_now_number);
+USER_FUNC(evt_bero_get_info);
+USER_FUNC(evt_bero_get_into_info);

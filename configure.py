@@ -199,6 +199,7 @@ cflags_base = [
     '-pragma "warn_notinlined off"',
     '-pragma "warn_padding off"',
     # helpful linking stuff
+    "-once",
     "-maxerrors 1",
     "-nosyspath",
     # includes and defines
@@ -246,6 +247,9 @@ cflags_static = [
 # REL flags
 cflags_rel = [
     *cflags_base,
+    "-O4,s",
+    "-use_lmw_stmw on",
+    "-rostr",
     "-sdata 0",
     "-sdata2 0",
 ]
@@ -268,8 +272,9 @@ def DolphinLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
 def Rel(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
+        "src_dir": f"rels/{lib_name}/src",
         "mw_version": "GC/2.6",
-        "cflags": cflags_rel,
+        "cflags": [*cflags_rel, f"-i rels/{lib_name}/include"],
         "progress_category": "game",
         "objects": objects,
     }
@@ -853,7 +858,6 @@ config.libs = [
             Object(NonMatching, "sound.c"),
             Object(NonMatching, "statuswindow.c"),
             Object(NonMatching, "system.c"),
-            Object(NonMatching, "texPalette.c"),
             Object(NonMatching, "unk_0x8025de70.c"),
         ],
     },
@@ -917,6 +921,12 @@ config.libs = [
             Object(NonMatching, "musyx/runtime/Chorus/chorus_fx.c"),
         ],
     },
+    Rel(
+        "mri",
+        [
+            Object(NonMatching, "mri_puni.c"),
+        ],
+    ),
 ]
 
 # Optional extra categories for progress tracking

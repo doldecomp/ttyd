@@ -34,12 +34,12 @@ void winReInit(void);
 BOOL winCheck(void);
 void winOpenEnable(void);
 void winOpenDisable(void);
-USERFUNC_DEF(itemUseFunc);
+USER_FUNC(itemUseFunc);
 
 
 
 void winMain(void);
 
 
-void winTexInit(TPLHeader* texture);
+void winTexInit(TEXPalette* texture);
 void winTexSet(u32 textureId, Vec translate, Vec scale, GXColor color);

@@ -33,13 +33,13 @@
 
 #include "mario/mario.h"
 
-#include "mgr/arammgr.h"
-#include "mgr/cardmgr.h"
-#include "mgr/dvdmgr.h"
-#include "mgr/evtmgr.h"
-#include "mgr/filemgr.h"
-#include "mgr/fontmgr.h"
-#include "mgr/winmgr.h"
+#include "manager/arammgr.h"
+#include "manager/cardmgr.h"
+#include "manager/dvdmgr.h"
+#include "manager/evtmgr.h"
+#include "manager/filemgr.h"
+#include "manager/fontmgr.h"
+#include "manager/winmgr.h"
 
 #include "sdk/DEMOInit.h"
 

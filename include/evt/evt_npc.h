@@ -3,7 +3,7 @@
 #include <dolphin/types.h>
 #include "driver/npcdrv.h"
 #include "evt/evt_cmd.h"
-#include "mgr/evtmgr.h"
+#include "manager/evtmgr.h"
 
 typedef struct NpcSetupInfo {
 	const char* name; //0x0
@@ -27,26 +27,26 @@ typedef struct NpcSetupInfo {
 	s32 battleInfoId; //0x58, TODO: rename?
 } NpcSetupInfo;
 
-USERFUNC_DEF(evt_npc_entry);
-USERFUNC_DEF(evt_npc_slave_entry);
-USERFUNC_DEF(evt_npc_delete);
-USERFUNC_DEF(evt_npc_check_delete);
-USERFUNC_DEF(evt_npc_get_ReactionOfLivingBody);
-USERFUNC_DEF(evt_npc_setup);
-USERFUNC_DEF(evt_npc_set_position);
-USERFUNC_DEF(evt_npc_set_width);
-USERFUNC_DEF(evt_npc_set_height);
-USERFUNC_DEF(evt_npc_get_height);
-USERFUNC_DEF(evt_npc_set_scale);
-USERFUNC_DEF(evt_npc_get_scale);
-USERFUNC_DEF(evt_npc_get_position);
-USERFUNC_DEF(evt_npc_get_home_position);
-USERFUNC_DEF(evt_npc_set_home_position);
-USERFUNC_DEF(evt_npc_get_rotate);
-USERFUNC_DEF(evt_npc_set_rotate);
-USERFUNC_DEF(evt_npc_add_rotate);
-USERFUNC_DEF(evt_npc_set_rotate_offset);
-USERFUNC_DEF(evt_npc_move_position);
+USER_FUNC(evt_npc_entry);
+USER_FUNC(evt_npc_slave_entry);
+USER_FUNC(evt_npc_delete);
+USER_FUNC(evt_npc_check_delete);
+USER_FUNC(evt_npc_get_ReactionOfLivingBody);
+USER_FUNC(evt_npc_setup);
+USER_FUNC(evt_npc_set_position);
+USER_FUNC(evt_npc_set_width);
+USER_FUNC(evt_npc_set_height);
+USER_FUNC(evt_npc_get_height);
+USER_FUNC(evt_npc_set_scale);
+USER_FUNC(evt_npc_get_scale);
+USER_FUNC(evt_npc_get_position);
+USER_FUNC(evt_npc_get_home_position);
+USER_FUNC(evt_npc_set_home_position);
+USER_FUNC(evt_npc_get_rotate);
+USER_FUNC(evt_npc_set_rotate);
+USER_FUNC(evt_npc_add_rotate);
+USER_FUNC(evt_npc_set_rotate_offset);
+USER_FUNC(evt_npc_move_position);
 
 
 
@@ -58,8 +58,8 @@ NpcEntry* evtNpcNameToPtr_NoAssert(EventEntry* evt, const char* name);
 
 
 
-USERFUNC_DEF(evt_npc_flag_onoff);
+USER_FUNC(evt_npc_flag_onoff);
 
 
 
-USERFUNC_DEF(evt_npc_change_fbat_mode);
+USER_FUNC(evt_npc_change_fbat_mode);

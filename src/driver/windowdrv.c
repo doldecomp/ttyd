@@ -1,16 +1,18 @@
 /* TODO: macro "7" for numWindows or smth, tpl index macro/enum for easy waku editing */
 #include "driver/windowdrv.h"
+#include "dolphin/os.h"
 #include "driver/arcdrv.h"
 #include "driver/camdrv.h"
 #include "memory.h"
 #include "system.h"
 #include "sdk/texPalette.h"
+#include <math.h>
 #include <string.h>
 
 extern int sprintf(char* str, const char* format, ...);
 
 //.sbss
-static TPLHeader* tpldata; //new in retail
+static TEXPalette* tpldata; //new in retail
 static BOOL tpl_loaded; //new in retail
 f32 scrl;
 GXTexObj* wakuTexObj;
@@ -46,9 +48,9 @@ static void _callback(s32 error, DVDFileInfo* info) {
 
 	UnpackTexPalette(tpldata);
 	DVDMgrClose(info->cb.userData);
-	wakuTexObj = __memAlloc(HEAP_DEFAULT, sizeof(GXTexObj) * tpldata->imageCount);
+	wakuTexObj = __memAlloc(HEAP_DEFAULT, sizeof(GXTexObj) * tpldata->numDescriptors);
 
-	for (i = 0; i < tpldata->imageCount; i++) {
+	for (i = 0; i < tpldata->numDescriptors; i++) {
 		TEXGetGXTexObjFromPalette(tpldata, &wakuTexObj[i], i);
 	}
 	tpl_loaded = TRUE;
@@ -65,9 +67,9 @@ void windowTexSetup(void) {
 	tpldata = arcOpen("font/msgWindow.tpl", NULL, NULL);
 	if (tpldata) {
 		UnpackTexPalette(tpldata);
-		wakuTexObj = __memAlloc(HEAP_DEFAULT, sizeof(GXTexObj) * tpldata->imageCount);
+		wakuTexObj = __memAlloc(HEAP_DEFAULT, sizeof(GXTexObj) * tpldata->numDescriptors);
 
-		for (i = 0; i < tpldata->imageCount; i++) {
+		for (i = 0; i < tpldata->numDescriptors; i++) {
 			TEXGetGXTexObjFromPalette(tpldata, &wakuTexObj[i], i);
 		}
 	}
@@ -194,8 +196,8 @@ void windowDispGX_Kanban(s32 type, u8 alpha, f32 x, f32 y, f32 height, f32 width
 			//left side of the frame
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(wood_mtx1, __fabsf(72.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[29]),
-				__fabsf(176.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[29]), 1.0f);
+			MTXScale(wood_mtx1, fabsf(72.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[29]),
+				fabsf(176.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[29]), 1.0f);
 			GXLoadTexMtxImm(wood_mtx1, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[29], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -215,8 +217,8 @@ void windowDispGX_Kanban(s32 type, u8 alpha, f32 x, f32 y, f32 height, f32 width
 			//top side of the frame
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(wood_mtx2, __fabsf(416.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[31]),
-				__fabsf(136.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[31]), 1.0f);
+			MTXScale(wood_mtx2, fabsf(416.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[31]),
+				fabsf(136.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[31]), 1.0f);
 			GXLoadTexMtxImm(wood_mtx2, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[31], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -236,8 +238,8 @@ void windowDispGX_Kanban(s32 type, u8 alpha, f32 x, f32 y, f32 height, f32 width
 			//right side of the frame
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(wood_mtx3, __fabsf(72.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[30]),
-				__fabsf(176.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[30]), 1.0f);
+			MTXScale(wood_mtx3, fabsf(72.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[30]),
+				fabsf(176.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[30]), 1.0f);
 			GXLoadTexMtxImm(wood_mtx3, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[30], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -257,8 +259,8 @@ void windowDispGX_Kanban(s32 type, u8 alpha, f32 x, f32 y, f32 height, f32 width
 			//bottom side of the frame
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(wood_mtx4, __fabsf(416.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[32]),
-				__fabsf(40.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[32]), 1.0f);
+			MTXScale(wood_mtx4, fabsf(416.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[32]),
+				fabsf(40.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[32]), 1.0f);
 			GXLoadTexMtxImm(wood_mtx4, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[32], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -280,8 +282,8 @@ void windowDispGX_Kanban(s32 type, u8 alpha, f32 x, f32 y, f32 height, f32 width
 			//left side of the frame
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(lines_mtx1, __fabsf(72.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[25]),
-				__fabsf(176.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[25]), 1.0f);
+			MTXScale(lines_mtx1, fabsf(72.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[25]),
+				fabsf(176.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[25]), 1.0f);
 			GXLoadTexMtxImm(lines_mtx1, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[25], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -301,8 +303,8 @@ void windowDispGX_Kanban(s32 type, u8 alpha, f32 x, f32 y, f32 height, f32 width
 			//top side of the frame
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(lines_mtx2, __fabsf(416.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[27]),
-				__fabsf(136.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[27]), 1.0f);
+			MTXScale(lines_mtx2, fabsf(416.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[27]),
+				fabsf(136.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[27]), 1.0f);
 			GXLoadTexMtxImm(lines_mtx2, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[27], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -322,8 +324,8 @@ void windowDispGX_Kanban(s32 type, u8 alpha, f32 x, f32 y, f32 height, f32 width
 			//right side of the frame
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(lines_mtx3, __fabsf(72.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[26]),
-				__fabsf(176.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[26]), 1.0f);
+			MTXScale(lines_mtx3, fabsf(72.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[26]),
+				fabsf(176.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[26]), 1.0f);
 			GXLoadTexMtxImm(lines_mtx3, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[26], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -343,8 +345,8 @@ void windowDispGX_Kanban(s32 type, u8 alpha, f32 x, f32 y, f32 height, f32 width
 			//bottom side of the frame
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(lines_mtx4, __fabsf(416.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[28]),
-				__fabsf(40.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[28]), 1.0f);
+			MTXScale(lines_mtx4, fabsf(416.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[28]),
+				fabsf(40.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[28]), 1.0f);
 			GXLoadTexMtxImm(lines_mtx4, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[28], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -365,8 +367,8 @@ void windowDispGX_Kanban(s32 type, u8 alpha, f32 x, f32 y, f32 height, f32 width
 		case WINDOW_TYPE_DIARY: //image 6
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(letter_mtx, __fabsf(560.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[6]),
-				__fabsf(176.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[6]), 1.0f);
+			MTXScale(letter_mtx, fabsf(560.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[6]),
+				fabsf(176.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[6]), 1.0f);
 			GXLoadTexMtxImm(letter_mtx, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[6], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -477,13 +479,13 @@ void windowDispGX_System(s32 type, u8 alpha, f32 x, f32 y, f32 height, f32 width
 	GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
 	MTXTrans(trans, scroll + (0.0f / (f32)GXGetTexObjWidth(&wakuTexObj[5])),
 		(-0.0f / (f32)GXGetTexObjHeight(&wakuTexObj[5])) - scroll, 0.0f);
-	MTXScale(scale, __fabsf(height - 32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[5]),
-		__fabsf(width - 32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[5]), 1.0f);
+	MTXScale(scale, fabsf(height - 32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[5]),
+		fabsf(width - 32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[5]), 1.0f);
 	MTXConcat(trans, scale, trans);
 	GXLoadTexMtxImm(trans, 0x1E, GX_MTX2x4);
 	GXSetTexCoordGen(GX_TEXCOORD1, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX1);
-	MTXScale(scale, __fabsf(height - 32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[42]),
-		__fabsf(width - 32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[42]), 1.0f);
+	MTXScale(scale, fabsf(height - 32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[42]),
+		fabsf(width - 32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[42]), 1.0f);
 	GXLoadTexMtxImm(scale, 0x21, GX_MTX2x4);
 	GXBegin(GX_QUADS, GX_VTXFMT0, 4);
 
@@ -512,13 +514,13 @@ void windowDispGX_System(s32 type, u8 alpha, f32 x, f32 y, f32 height, f32 width
 	GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
 	MTXTrans(trans2, scroll + (0.0f / (f32)GXGetTexObjWidth(&wakuTexObj[5])),
 		((width - 32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[5])) - scroll, 0.0f);
-	MTXScale(scale2, __fabsf(height - 32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[5]),
-		__fabsf(32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[5]), 1.0f);
+	MTXScale(scale2, fabsf(height - 32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[5]),
+		fabsf(32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[5]), 1.0f);
 	MTXConcat(trans2, scale2, trans2);
 	GXLoadTexMtxImm(trans2, 0x1E, GX_MTX2x4);
 	GXSetTexCoordGen(GX_TEXCOORD1, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX1);
-	MTXScale(scale2, __fabsf(height - 32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[43]),
-		__fabsf(32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[43]), 1.0f);
+	MTXScale(scale2, fabsf(height - 32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[43]),
+		fabsf(32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[43]), 1.0f);
 	GXLoadTexMtxImm(scale2, 0x21, GX_MTX2x4);
 	GXBegin(GX_QUADS, GX_VTXFMT0, 4);
 
@@ -547,13 +549,13 @@ void windowDispGX_System(s32 type, u8 alpha, f32 x, f32 y, f32 height, f32 width
 	GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
 	MTXTrans(trans3, scroll + ((height - 32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[5])),
 		(-0.0f / (f32)GXGetTexObjHeight(&wakuTexObj[5])) - scroll, 0.0f);
-	MTXScale(scale3, __fabsf(32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[5]),
-		__fabsf(width - 32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[5]), 1.0f);
+	MTXScale(scale3, fabsf(32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[5]),
+		fabsf(width - 32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[5]), 1.0f);
 	MTXConcat(trans3, scale3, trans3);
 	GXLoadTexMtxImm(trans3, 0x1E, GX_MTX2x4);
 	GXSetTexCoordGen(GX_TEXCOORD1, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX1);
-	MTXScale(scale3, __fabsf(32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[44]),
-		__fabsf(width - 32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[44]), 1.0f);
+	MTXScale(scale3, fabsf(32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[44]),
+		fabsf(width - 32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[44]), 1.0f);
 	GXLoadTexMtxImm(scale3, 0x21, GX_MTX2x4);
 	GXBegin(GX_QUADS, GX_VTXFMT0, 4);
 
@@ -582,13 +584,13 @@ void windowDispGX_System(s32 type, u8 alpha, f32 x, f32 y, f32 height, f32 width
 	GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
 	MTXTrans(trans4, scroll + ((height - 32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[5])),
 		((width - 32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[5])) - scroll, 0.0f);
-	MTXScale(scale4, __fabsf(32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[5]),
-		__fabsf(width - 32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[5]), 1.0f);
+	MTXScale(scale4, fabsf(32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[5]),
+		fabsf(width - 32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[5]), 1.0f);
 	MTXConcat(trans4, scale4, trans4);
 	GXLoadTexMtxImm(trans4, 0x1E, GX_MTX2x4);
 	GXSetTexCoordGen(GX_TEXCOORD1, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX1);
-	MTXScale(scale4, __fabsf(32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[45]),
-		__fabsf(32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[45]), 1.0f);
+	MTXScale(scale4, fabsf(32.0f) / (f32)GXGetTexObjWidth(&wakuTexObj[45]),
+		fabsf(32.0f) / (f32)GXGetTexObjHeight(&wakuTexObj[45]), 1.0f);
 	GXLoadTexMtxImm(scale4, 0x21, GX_MTX2x4);
 	GXBegin(GX_QUADS, GX_VTXFMT0, 4);
 
@@ -631,8 +633,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//left side
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(norm_mtx1, __fabsf(72.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 13 : 9]),
-				__fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 13 : 9]), 1.0f);
+			MTXScale(norm_mtx1, fabsf(72.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 13 : 9]),
+				fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 13 : 9]), 1.0f);
 			GXLoadTexMtxImm(norm_mtx1, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[dark ? 13 : 9], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -652,8 +654,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//top side
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(norm_mtx2, __fabsf(416.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 15 : 11]),
-				__fabsf(136.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 15 : 11]), 1.0f);
+			MTXScale(norm_mtx2, fabsf(416.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 15 : 11]),
+				fabsf(136.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 15 : 11]), 1.0f);
 			GXLoadTexMtxImm(norm_mtx2, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[dark ? 15 : 11], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -673,8 +675,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//right side
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(norm_mtx3, __fabsf(72.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 14 : 10]),
-				__fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 14 : 10]), 1.0f);
+			MTXScale(norm_mtx3, fabsf(72.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 14 : 10]),
+				fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 14 : 10]), 1.0f);
 			GXLoadTexMtxImm(norm_mtx3, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[dark ? 14 : 10], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -694,8 +696,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//bottom side
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(norm_mtx4, __fabsf(416.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 16 : 12]),
-				__fabsf(40.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 16 : 12]), 1.0f);
+			MTXScale(norm_mtx4, fabsf(416.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 16 : 12]),
+				fabsf(40.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 16 : 12]), 1.0f);
 			GXLoadTexMtxImm(norm_mtx4, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[dark ? 16 : 12], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -738,8 +740,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//left side
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(boss_mtx1, __fabsf(72.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 21 : 17]),
-				__fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 21 : 17]), 1.0f);
+			MTXScale(boss_mtx1, fabsf(72.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 21 : 17]),
+				fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 21 : 17]), 1.0f);
 			GXLoadTexMtxImm(boss_mtx1, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[dark ? 21 : 17], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -759,8 +761,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//top side
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(boss_mtx2, __fabsf(416.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 23 : 19]),
-				__fabsf(136.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 23 : 19]), 1.0f);
+			MTXScale(boss_mtx2, fabsf(416.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 23 : 19]),
+				fabsf(136.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 23 : 19]), 1.0f);
 			GXLoadTexMtxImm(boss_mtx2, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[dark ? 23 : 19], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -780,8 +782,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//right side
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(boss_mtx3, __fabsf(72.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 22 : 18]),
-				__fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 22 : 18]), 1.0f);
+			MTXScale(boss_mtx3, fabsf(72.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 22 : 18]),
+				fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 22 : 18]), 1.0f);
 			GXLoadTexMtxImm(boss_mtx3, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[dark ? 22 : 18], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -801,8 +803,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//bottom side
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(boss_mtx4, __fabsf(416.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 24 : 20]),
-				__fabsf(40.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 24 : 20]), 1.0f);
+			MTXScale(boss_mtx4, fabsf(416.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 24 : 20]),
+				fabsf(40.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 24 : 20]), 1.0f);
 			GXLoadTexMtxImm(boss_mtx4, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[dark ? 24 : 20], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -824,8 +826,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//left(?) part
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(tec_mtx1, __fabsf(536.0f) / GXGetTexObjWidth(&wakuTexObj[41]),
-				__fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[41]), 1.0f);
+			MTXScale(tec_mtx1, fabsf(536.0f) / GXGetTexObjWidth(&wakuTexObj[41]),
+				fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[41]), 1.0f);
 			GXLoadTexMtxImm(tec_mtx1, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[41], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -845,8 +847,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//right(?) part
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(tec_mtx2, __fabsf(-24.0f) / GXGetTexObjWidth(&wakuTexObj[41]),
-				__fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[41]), 1.0f);
+			MTXScale(tec_mtx2, fabsf(-24.0f) / GXGetTexObjWidth(&wakuTexObj[41]),
+				fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[41]), 1.0f);
 			GXLoadTexMtxImm(tec_mtx2, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[41], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -868,8 +870,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//left side
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(majo_mtx1, __fabsf(72.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 37 : 33]),
-				__fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 37 : 33]), 1.0f);
+			MTXScale(majo_mtx1, fabsf(72.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 37 : 33]),
+				fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 37 : 33]), 1.0f);
 			GXLoadTexMtxImm(majo_mtx1, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[dark ? 37 : 33], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -889,8 +891,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//top side
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(majo_mtx2, __fabsf(416.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 39 : 35]),
-				__fabsf(136.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 39 : 35]), 1.0f);
+			MTXScale(majo_mtx2, fabsf(416.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 39 : 35]),
+				fabsf(136.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 39 : 35]), 1.0f);
 			GXLoadTexMtxImm(majo_mtx2, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[dark ? 39 : 35], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -910,8 +912,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//right side
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(majo_mtx3, __fabsf(72.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 38 : 34]),
-				__fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 38 : 34]), 1.0f);
+			MTXScale(majo_mtx3, fabsf(72.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 38 : 34]),
+				fabsf(176.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 38 : 34]), 1.0f);
 			GXLoadTexMtxImm(majo_mtx3, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[dark ? 38 : 34], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);
@@ -931,8 +933,8 @@ void _windowDispGX_Message(s32 type, s32 a2, u8 alpha, BOOL dark, f32 x, f32 y, 
 			//bottom side
 			GXSetNumTexGens(1);
 			GXSetTexCoordGen(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX0);
-			MTXScale(majo_mtx4, __fabsf(416.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 40 : 36]),
-				__fabsf(40.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 40 : 36]), 1.0f);
+			MTXScale(majo_mtx4, fabsf(416.0f) / GXGetTexObjWidth(&wakuTexObj[dark ? 40 : 36]),
+				fabsf(40.0f) / GXGetTexObjHeight(&wakuTexObj[dark ? 40 : 36]), 1.0f);
 			GXLoadTexMtxImm(majo_mtx4, 0x1E, GX_MTX2x4);
 			GXLoadTexObj(&wakuTexObj[dark ? 40 : 36], GX_TEXMAP0);
 			GXBegin(GX_QUADS, GX_VTXFMT0, 4);

@@ -1,14 +1,14 @@
 #include "evt/evt_snd.h"
 #include "pmario_sound.h"
 
-USERFUNC_DEF(evt_snd_bgmon) {
+USER_FUNC(evt_snd_bgmon) {
     //psndBGMOn((u32)evt->args[0], (const char*)evt->args[1]);
     return EVT_RETURN_DONE;
 }
 
 
 
-USERFUNC_DEF(evt_snd_sfxon_3d) {
+USER_FUNC(evt_snd_sfxon_3d) {
     s32* args = event->args;
     Vec position;
     const char* name;

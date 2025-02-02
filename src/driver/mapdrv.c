@@ -1,6 +1,6 @@
 #include "driver/mapdrv.h"
 #include "driver/arcdrv.h"
-#include "mgr/dvdmgr.h"
+#include "manager/dvdmgr.h"
 #include "mario/mariost.h"
 #include "memory.h"
 #include "system.h"
@@ -35,7 +35,7 @@ s32 fog_type[5] = {2, 4, 5, 6, 7};
 //local prototypes
 void mapGetJointsSub(MapJoint* joint, s32* numJoints);
 void mapGetBoundingBox(Vec min, Vec max);
-void mapBuildTexture(MapObject* obj, TPLHeader* texture, void* table);
+void mapBuildTexture(MapObject* obj, TEXPalette* texture, void* table);
 MapObject* _mapEnt(MapJoint* joint, MapObject* parent, Mtx mtx, s32 index);
 MapObject* mapEntrySub(MapJoint* joint, MapObject* parent, Mtx mtx, BOOL isRoot, s32 index);
 MapObject* mapEntry(MapJoint* joint, Mtx mtx, s32 index);
@@ -161,7 +161,7 @@ void mapInit(void) {
 	mapClipOffFlag = FALSE;
 }
 
-void mapBuildTexture(MapObject* obj, TPLHeader* texture, void* table) {
+void mapBuildTexture(MapObject* obj, TEXPalette* texture, void* table) {
 	int i;
 	MapJointPart* part;
 

@@ -30,7 +30,7 @@ typedef struct {
     u8 unk3F[0x40 - 0x3F]; //0x3F
 } InformantWork;
 
-USERFUNC_DEF(johoya_data_alloc);
-USERFUNC_DEF(johoya_data_free);
+USER_FUNC(johoya_data_alloc);
+USER_FUNC(johoya_data_free);
 void johoya_init(void);
 s32 search_evt_no(const char* label);

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <dolphin/dvd.h>
-#include "mgr/filemgr.h"
+#include "manager/filemgr.h"
 #include "sdk/texPalette.h"
 
 typedef void (*EffectCallback)(struct EffectEntry* effect);
@@ -27,7 +27,7 @@ typedef struct EffectSet {
 typedef struct EffectWork {
 	s32 count; //0x0
 	EffectEntry* entries; //0x4
-	TPLHeader* texture; //0x8
+	TEXPalette* texture; //0x8
 	BOOL texLoaded; //0xC
 	FileEntry* handle; //0x10
 	s32 language; //0x14

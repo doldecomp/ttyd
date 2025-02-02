@@ -1,7 +1,7 @@
 #include "seq/seq_mapchange.h"
 #include "driver/fadedrv.h"
 #include "evt/evt_badgeshop.h"
-#include "mgr/filemgr.h"
+#include "manager/filemgr.h"
 #include "mario/mariost.h"
 #include "pmario_sound.h"
 #include "system.h"

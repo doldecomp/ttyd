@@ -1,6 +1,7 @@
 #include "evt/evt_npc.h"
 #include "driver/animdrv.h"
 #include "mario/mariost.h"
+#include "manager/evtmgr_cmd.h"
 #include <string.h>
 
 extern GlobalWork* gp;
@@ -8,12 +9,12 @@ extern int sprintf(char* str, const char* format, ...);
 
 //scripts
 EVT_BEGIN(npc_init_evt)
-USER_FUNC(evt_npc_flag_onoff, 1, STRING("me"), 0x600)
+CALL(evt_npc_flag_onoff, 1, STRING("me"), 0x600)
 RETURN()
 EVT_END()
 
 //const char* npcDesc, const char* npcName
-USERFUNC_DEF(evt_npc_entry) {
+USER_FUNC(evt_npc_entry) {
 	s32* args = event->args;
 	const char *desc, *name;
 
@@ -27,7 +28,7 @@ USERFUNC_DEF(evt_npc_entry) {
 }
 
 //const char* lookupName, s32 slaveId, const char* animName, s32 evtIndex, void* deadEvt
-USERFUNC_DEF(evt_npc_slave_entry) {
+USER_FUNC(evt_npc_slave_entry) {
 	s32* args = event->args;
 	const char *name, *animName;
 	NpcEntry *npc, *slave;
@@ -58,7 +59,7 @@ USERFUNC_DEF(evt_npc_slave_entry) {
 }
 
 //const char* lookupName
-USERFUNC_DEF(evt_npc_delete) {
+USER_FUNC(evt_npc_delete) {
 	const char* name;
 	NpcEntry* npc;
 
@@ -69,7 +70,7 @@ USERFUNC_DEF(evt_npc_delete) {
 }
 
 //const char* lookupName
-USERFUNC_DEF(evt_npc_check_delete) {
+USER_FUNC(evt_npc_check_delete) {
 	const char* name;
 	NpcEntry* npc;
 
@@ -82,7 +83,7 @@ USERFUNC_DEF(evt_npc_check_delete) {
 }
 
 //BOOL inBattle, s32 evtIndex
-USERFUNC_DEF(evt_npc_get_ReactionOfLivingBody) {
+USER_FUNC(evt_npc_get_ReactionOfLivingBody) {
 	s32* args = event->args;
 	s32 index, value;
 	BOOL inBattle;
@@ -95,7 +96,7 @@ USERFUNC_DEF(evt_npc_get_ReactionOfLivingBody) {
 }
 
 //NpcSetupInfo* setuplist
-USERFUNC_DEF(evt_npc_setup) {
+USER_FUNC(evt_npc_setup) {
 	NpcSetupInfo *setuplist, *setup;
 	EventEntry* newEvt;
 	NpcTribeInfo* tribe;
@@ -182,7 +183,7 @@ USERFUNC_DEF(evt_npc_setup) {
 
 //TODO: double check _savefpr_29/_restfpr_29 were generated
 //const char* lookupName, f32 x, f32 y, f32 z
-USERFUNC_DEF(evt_npc_set_position) {
+USER_FUNC(evt_npc_set_position) {
 	s32* args = event->args;
 	const char* name;
 	NpcEntry* npc;
@@ -201,7 +202,7 @@ USERFUNC_DEF(evt_npc_set_position) {
 }
 
 //const char* lookupName, f32 width
-USERFUNC_DEF(evt_npc_set_width) {
+USER_FUNC(evt_npc_set_width) {
 	s32* args = event->args;
 	const char* name;
 	f32 width;
@@ -213,7 +214,7 @@ USERFUNC_DEF(evt_npc_set_width) {
 }
 
 //const char* lookupName, f32 width
-USERFUNC_DEF(evt_npc_set_height) {
+USER_FUNC(evt_npc_set_height) {
 	s32* args = event->args;
 	const char* name;
 	f32 height;
@@ -225,7 +226,7 @@ USERFUNC_DEF(evt_npc_set_height) {
 }
 
 //const char* lookupName, s32 evtStoreIndex
-USERFUNC_DEF(evt_npc_get_height) {
+USER_FUNC(evt_npc_get_height) {
 	s32* args = event->args;
 	const char* name;
 	NpcEntry* npc;
@@ -239,7 +240,7 @@ USERFUNC_DEF(evt_npc_get_height) {
 }
 
 //const char* lookupName, f32 x, f32 y, f32 z
-USERFUNC_DEF(evt_npc_set_scale) {
+USER_FUNC(evt_npc_set_scale) {
 	s32* args = event->args;
 	const char* name;
 	NpcEntry* npc;
@@ -255,7 +256,7 @@ USERFUNC_DEF(evt_npc_set_scale) {
 }
 
 //const char* lookupName, s32 xStoreIndex, s32 yStoreIndex, s32 zStoreIndex
-USERFUNC_DEF(evt_npc_get_scale) {
+USER_FUNC(evt_npc_get_scale) {
 	s32* args = event->args;
 	const char* name;
 	NpcEntry* npc;
@@ -273,7 +274,7 @@ USERFUNC_DEF(evt_npc_get_scale) {
 }
 
 //const char* lookupName, s32 xStoreIndex, s32 yStoreIndex, s32 zStoreIndex
-USERFUNC_DEF(evt_npc_get_position) {
+USER_FUNC(evt_npc_get_position) {
 	s32* args = event->args;
 	const char* name;
 	NpcEntry* npc;
@@ -291,7 +292,7 @@ USERFUNC_DEF(evt_npc_get_position) {
 }
 
 //const char* lookupName, s32 xStoreIndex, s32 yStoreIndex, s32 zStoreIndex
-USERFUNC_DEF(evt_npc_get_home_position) {
+USER_FUNC(evt_npc_get_home_position) {
 	s32* args = event->args;
 	const char* name;
 	NpcEntry* npc;
@@ -310,7 +311,7 @@ USERFUNC_DEF(evt_npc_get_home_position) {
 
 //devs forgot to change s32 to f32 when copypasting, fix in rewrite
 //const char* lookupName, f32 x, f32 y, f32 z
-USERFUNC_DEF(evt_npc_set_home_position) {
+USER_FUNC(evt_npc_set_home_position) {
 	s32* args = event->args;
 	const char* name;
 	NpcEntry* npc;
@@ -326,7 +327,7 @@ USERFUNC_DEF(evt_npc_set_home_position) {
 }
 
 //const char* lookupName, s32 xStoreIndex, s32 yStoreIndex, s32 zStoreIndex
-USERFUNC_DEF(evt_npc_get_rotate) {
+USER_FUNC(evt_npc_get_rotate) {
 	s32* args = event->args;
 	const char* name;
 	NpcEntry* npc;
@@ -345,7 +346,7 @@ USERFUNC_DEF(evt_npc_get_rotate) {
 
 //devs forgot to use evtGetFloat when copypasting, fix in rewrite
 //const char* lookupName, f32 x, f32 y, f32 z
-USERFUNC_DEF(evt_npc_set_rotate) {
+USER_FUNC(evt_npc_set_rotate) {
 	s32* args = event->args;
 	const char* name;
 	NpcEntry* npc;
@@ -362,7 +363,7 @@ USERFUNC_DEF(evt_npc_set_rotate) {
 
 //devs forgot to use evtGetFloat when copypasting, fix in rewrite
 //const char* lookupName, f32 x, f32 y, f32 z
-USERFUNC_DEF(evt_npc_add_rotate) {
+USER_FUNC(evt_npc_add_rotate) {
 	s32* args = event->args;
 	const char* name;
 	NpcEntry* npc;
@@ -381,7 +382,7 @@ USERFUNC_DEF(evt_npc_add_rotate) {
 
 //devs forgot to use evtGetFloat when copypasting, fix in rewrite
 //const char* lookupName, f32 x, f32 y, f32 z
-USERFUNC_DEF(evt_npc_set_rotate_offset) {
+USER_FUNC(evt_npc_set_rotate_offset) {
 	s32* args = event->args;
 	const char* name;
 	NpcEntry* npc;
@@ -396,7 +397,7 @@ USERFUNC_DEF(evt_npc_set_rotate_offset) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_npc_move_position) {
+USER_FUNC(evt_npc_move_position) {
 	s32* args = event->args;
 	const char* name;
 
@@ -406,7 +407,7 @@ USERFUNC_DEF(evt_npc_move_position) {
 	return EVT_RETURN_DONE; //TODO: finish
 }
 
-USERFUNC_DEF(evt_npc_jump_position) {
+USER_FUNC(evt_npc_jump_position) {
 
 }
 
@@ -494,7 +495,7 @@ NpcEntry* evtNpcNameToPtr_NoAssert(EventEntry* evt, const char* name) {
 }
 
 //s32 type (off/on), const char* npcName, s32 mask
-USERFUNC_DEF(evt_npc_flag_onoff) {
+USER_FUNC(evt_npc_flag_onoff) {
 	s32* args = event->args;
 	s32 type, mask;
 	const char* name;
@@ -518,7 +519,7 @@ USERFUNC_DEF(evt_npc_flag_onoff) {
 
 
 
-USERFUNC_DEF(evt_npc_change_fbat_mode) {
+USER_FUNC(evt_npc_change_fbat_mode) {
 	s16 mode = evtGetValue(event, *event->args);
 	fbatChangeMode(mode);
 	return EVT_RETURN_DONE;

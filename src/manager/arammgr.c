@@ -1,4 +1,4 @@
-#include "mgr/arammgr.h"
+#include "manager/arammgr.h"
 
 //.bss
 static ARAMWork work;

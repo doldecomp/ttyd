@@ -6,11 +6,11 @@
 * Last Update: 7/10/2022, completed evtmgr
 */
 
-#include "mgr/evtmgr.h"
+#include "manager/evtmgr.h"
 #include "evt/evt_msg.h"
 #include "mario/mariost.h"
 #include "memory.h"
-#include "mgr/evtmgr_cmd.h"
+#include "manager/evtmgr_cmd.h"
 #include <string.h>
 
 extern GlobalWork* gp;

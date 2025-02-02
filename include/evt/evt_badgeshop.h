@@ -30,17 +30,16 @@ void badgeShop_bargainGeneration(void);
 s32 badgeShop_set(u8* table, s16 id, s16 val);
 s32 badgeShop_get(u8* table, s16 id);
 s32 badgeShop_add(u8* table, s32 id, s32 val);
-USERFUNC_DEF(badgeShop_getBargainTable);
-USERFUNC_DEF(evt_badgeShop_throw_inc);
-USERFUNC_DEF(evt_badgeShop_throw_dec);
-USERFUNC_DEF(evt_badgeShop_special_dec);
-USERFUNC_DEF(evt_badgeShop_starmaniac_dec);
-USERFUNC_DEF(evt_badgeShop_bottakuru_dec);
-USERFUNC_DEF(evt_badgeShop_throw_get_kind_cnt);
-USERFUNC_DEF(evt_badgeShop_starmaniac_get_kind_cnt);
-USERFUNC_DEF(evt_badgeShop_bottakuru_get_kind_cnt);
-USERFUNC_DEF(evt_badgeShop_get_special_zaiko); //TODO: unknown name
-USERFUNC_DEF(evt_badgeShop_bteresa_get_kind_cnt);
+USER_FUNC(badgeShop_getBargainTable);
+USER_FUNC(evt_badgeShop_throw_inc);
+USER_FUNC(evt_badgeShop_throw_dec);
+USER_FUNC(evt_badgeShop_special_dec);
+USER_FUNC(evt_badgeShop_starmaniac_dec);
+USER_FUNC(evt_badgeShop_bottakuru_dec);
+USER_FUNC(evt_badgeShop_throw_get_kind_cnt);
+USER_FUNC(evt_badgeShop_starmaniac_get_kind_cnt);
+USER_FUNC(evt_badgeShop_bottakuru_get_kind_cnt);
+USER_FUNC(evt_badgeShop_get_special_zaiko); //TODO: unknown name
+USER_FUNC(evt_badgeShop_bteresa_get_kind_cnt);
 s32 badgeShop_ThrowCheck(s32 itemId);
 s32 badgeShop_SpecialCheck(void);
-

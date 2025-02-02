@@ -7,7 +7,8 @@
 #include "mario/mario.h"
 #include "mario/mario_sbr.h"
 #include "mario/mariost.h"
-#include "mgr/evtmgr.h"
+#include "manager/evtmgr.h"
+#include "manager/evtmgr_cmd.h"
 #include <string.h>
 
 extern GlobalWork* gp;
@@ -27,21 +28,21 @@ Vec BeroPT, BeroAT;
 BOOL BeroMarioGO;
 
 EVT_BEGIN(evt_bero_mario_enter)
-USER_FUNC(evt_seq_wait, SEQ_GAME)
-USER_FUNC(evt_npc_change_fbat_mode, 7)
+CALL(evt_seq_wait, SEQ_GAME)
+CALL(evt_npc_change_fbat_mode, 7)
 
 
 
 EVT_END()
 
 EVT_BEGIN(evt_bero_info_run)
-USER_FUNC(evt_bero_get_into_info)
+CALL(evt_bero_get_into_info)
 
 
 EVT_END()
 
 //new in retail, f32* x, f32* y, f32* z
-USERFUNC_DEF(evt_bero_set_reset_position) {
+USER_FUNC(evt_bero_set_reset_position) {
 	s32* args = event->args;
 	s32 x, y, z;
 
@@ -53,7 +54,7 @@ USERFUNC_DEF(evt_bero_set_reset_position) {
 }
 
 //new in retail, no args
-USERFUNC_DEF(evt_bero_set_reset_position_current) {
+USER_FUNC(evt_bero_set_reset_position_current) {
 	MarioWork* wp = marioGetPtr();
 	marioSetBottomlessResetPosition(wp->position.x, wp->position.y, wp->position.z);
 	return EVT_RETURN_DONE;
@@ -127,7 +128,7 @@ s32 bero_id_filter(s32 id) { //1:1, cursed function, do not touch
 }
 
 //const char** mapName, const char** beroName
-USERFUNC_DEF(evt_bero_mapchange) {
+USER_FUNC(evt_bero_mapchange) {
 	s32* args = event->args;
 	const char *map, *bero;
 
@@ -140,13 +141,13 @@ USERFUNC_DEF(evt_bero_mapchange) {
 }
 
 //s32 retIndex
-USERFUNC_DEF(evt_bero_get_entername) {
+USER_FUNC(evt_bero_get_entername) {
 	evtSetValue(event, *event->args, (s32)&gp->beroEnterName);
 	return EVT_RETURN_DONE;
 }
 
 //BOOL* on/off, s32* mask
-USERFUNC_DEF(evt_bero_exec_onoff) {
+USER_FUNC(evt_bero_exec_onoff) {
 	s32* args = event->args;
 	BOOL onoff;
 	s32 mask, value;
@@ -162,18 +163,18 @@ USERFUNC_DEF(evt_bero_exec_onoff) {
 }
 
 //s32 retIndex
-USERFUNC_DEF(evt_bero_exec_get) {
+USER_FUNC(evt_bero_exec_get) {
 	evtSetValue(event, *event->args, BeroEXEC);
 	return EVT_RETURN_DONE;
 }
 
 //s32* mask, TODO: add states, change EvtStatus to s32 and do #defines
-USERFUNC_DEF(evt_bero_exec_wait) {
+USER_FUNC(evt_bero_exec_wait) {
 	return evtGetValue(event, *event->args) & BeroEXEC ? EVT_RETURN_DONE : 0;
 }
 
 //f32 retX, f32 retY, f32 retZ
-USERFUNC_DEF(evt_bero_get_start_position) {
+USER_FUNC(evt_bero_get_start_position) {
 	s32* args = event->args;
 
 	evtSetFloat(event, args[0], BeroSX);
@@ -183,7 +184,7 @@ USERFUNC_DEF(evt_bero_get_start_position) {
 }
 
 //f32 retX, f32 retY, f32 retZ
-USERFUNC_DEF(evt_bero_get_end_position) {
+USER_FUNC(evt_bero_get_end_position) {
 	s32* args = event->args;
 
 	evtSetFloat(event, args[0], BeroEX);
@@ -193,7 +194,7 @@ USERFUNC_DEF(evt_bero_get_end_position) {
 }
 
 //s32* id, s32 retIndex1, s32 retIndex2, s32 retIndex3, s32 retIndex4
-USERFUNC_DEF(evt_bero_get_info_anime) {
+USER_FUNC(evt_bero_get_info_anime) {
 	s32* args = event->args;
 	BeroEntry* bero;
 
@@ -205,7 +206,7 @@ USERFUNC_DEF(evt_bero_get_info_anime) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_bero_get_info_length) {
+USER_FUNC(evt_bero_get_info_length) {
 	s32* args = event->args;
 	BeroEntry* bero;
 	s32 v5;
@@ -238,7 +239,7 @@ USERFUNC_DEF(evt_bero_get_info_length) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_bero_get_info_kinddir) {
+USER_FUNC(evt_bero_get_info_kinddir) {
 	s32* args = event->args;
 	BeroEntry* bero;
 
@@ -249,7 +250,7 @@ USERFUNC_DEF(evt_bero_get_info_kinddir) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_bero_get_info_nextarea) {
+USER_FUNC(evt_bero_get_info_nextarea) {
 	s32* args = event->args;
 	BeroEntry* bero;
 
@@ -259,17 +260,17 @@ USERFUNC_DEF(evt_bero_get_info_nextarea) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_bero_set_now_number) {
+USER_FUNC(evt_bero_set_now_number) {
 	BeroNOWNUM = evtGetValue(event, *event->args);
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_bero_get_now_number) {
+USER_FUNC(evt_bero_get_now_number) {
 	evtSetValue(event, *event->args, BeroNOWNUM);
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_bero_get_info) {
+USER_FUNC(evt_bero_get_info) {
 	BeroEntry** table = BeroINFOARR;
 	BeroEntry* entry;
 	HitEntry* hit;
@@ -307,6 +308,6 @@ USERFUNC_DEF(evt_bero_get_info) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_bero_get_into_info) {
+USER_FUNC(evt_bero_get_into_info) {
 
 }

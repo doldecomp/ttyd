@@ -2,7 +2,7 @@
 #include "data/item_data.h"
 #include "driver/seqdrv.h"
 #include "evt/evt_cmd.h"
-#include "mgr/evtmgr.h"
+#include "manager/evtmgr.h"
 #include "mario/mario.h"
 #include "memory.h"
 #include "party.h"
@@ -16,7 +16,7 @@ extern int sprintf(char* str, const char* format, ...);
 
 //.sbss
 static WindowWork* wp;
-TPLHeader* winTexTpl;
+TEXPalette* winTexTpl;
 static s32 cnt;
 
 //local prototypes
@@ -111,7 +111,7 @@ void winDispKoopa(CameraId cameraId, void* param) {
 
 }
 
-USERFUNC_DEF(itemUseFunc) {
+USER_FUNC(itemUseFunc) {
 	PartyEntry* party;
 	MarioWork* mario;
 	ItemData* item;
@@ -127,7 +127,7 @@ USERFUNC_DEF(itemUseFunc) {
 
 
 
-void winTexInit(TPLHeader* texture) {
+void winTexInit(TEXPalette* texture) {
 	winTexTpl = texture;
 	GXSetCullMode(GX_CULL_NONE);
 	GXSetFog(GX_FOG_NONE, 0.0f, 0.0f, 0.0f, 0.0f, (GXColor){0xFF, 0xFF, 0xFF, 0xFF});

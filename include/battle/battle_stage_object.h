@@ -44,7 +44,7 @@ void BattleStageObjectMain(void);
 
 
 
-USERFUNC_DEF(_set_mobj_shake_init);
+USER_FUNC(_set_mobj_shake_init);
 
 
 void BattleStageObjectInit(void);

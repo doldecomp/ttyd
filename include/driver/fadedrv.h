@@ -65,7 +65,7 @@ typedef struct FadeWork {
 	FadeEntry entries[5]; //0x8
 	s32 field_0x350; //0x350
 	f32 field_0x354; //0x354, softness? fadeTecSoftOn
-	TPLHeader* texture; //0x358
+	TEXPalette* texture; //0x358
 	BOOL loaded; //0x35C
 } FadeWork;
 
@@ -86,5 +86,5 @@ void fadeSetOffscreenCallback(OffscreenCallback callback, void* param);
 void fadeMain(void);
 BOOL fadeIsFinish(void);
 void fadeReset(s32 id);
-TPLHeader* fadeGetTpl(void);
+TEXPalette* fadeGetTpl(void);
 void fadeSetNarrowFast(void);

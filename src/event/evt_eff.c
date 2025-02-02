@@ -5,7 +5,7 @@
 #include "evt/evt_cmd.h"
 #include <string.h>
 
-USERFUNC_DEF(evt_eff) {
+USER_FUNC(evt_eff) {
 	s32* args = event->args;
 	EffectEntry* entry = NULL;
 	const char* effName;
@@ -75,7 +75,7 @@ USERFUNC_DEF(evt_eff) {
 
 
 
-USERFUNC_DEF(evt_eff64) {
+USER_FUNC(evt_eff64) {
 	s32* args = event->args;
 	const char* effName;
 	const char* effSet;

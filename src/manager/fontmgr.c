@@ -1,5 +1,5 @@
-#include "mgr/fontmgr.h"
-#include "mgr/dvdmgr.h"
+#include "manager/fontmgr.h"
+#include "manager/dvdmgr.h"
 #include "memory.h"
 #include "system.h"
 

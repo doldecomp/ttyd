@@ -5,7 +5,7 @@
 *
 * Last Update: 1/19/2023, first finished, can prolly use a cleanup pass
 */
-#include "mgr/cardmgr.h"
+#include "manager/cardmgr.h"
 #include "mario/mario.h"
 #include "mario/mario_party.h"
 #include "memory.h"

@@ -1,6 +1,6 @@
 #include "eff/eff_n64.h"
 #include "driver/arcdrv.h"
-#include "mgr/dvdmgr.h"
+#include "manager/dvdmgr.h"
 #include "memory.h"
 #include "system.h"
 #include <string.h>
@@ -181,7 +181,7 @@ void effTexSetupN64(void) {
 
 	wp->effTexture = NULL;
 	wp->effTextureLoaded = FALSE;
-	wp->effTexture = (TPLHeader*)arcOpen("effect_n64.tpl", 0, 0);
+	wp->effTexture = (TEXPalette*)arcOpen("effect_n64.tpl", 0, 0);
 	if (wp->effTexture) {
 		UnpackTexPalette(wp->effTexture);
 		wp->effTextureLoaded = TRUE;
@@ -190,7 +190,7 @@ void effTexSetupN64(void) {
 		sprintf(path, "%s/e/jp/effect_n64.tpl", getMarioStDvdRoot());
 		entry = DVDMgrOpen(path, 2, 0);
 		length = OSRoundUp32B(DVDMgrGetLength(entry));
-		wp->effTexture = (TPLHeader*)__memAlloc(HEAP_DEFAULT, length);
+		wp->effTexture = (TEXPalette*)__memAlloc(HEAP_DEFAULT, length);
 		entry->info.cb.userData = entry;
 		DVDMgrReadAsync(entry, wp->effTexture, length, 0, _callback_tpl);
 	}

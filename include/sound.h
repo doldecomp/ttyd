@@ -6,7 +6,7 @@
  */
 
 #include "dolphin/types.h"
-#include "mgr/dvdmgr.h"
+#include "manager/dvdmgr.h"
 #include <dolphin/ai.h>
 #include <dolphin/ar.h>
 //#include <dolphin/arq.h>

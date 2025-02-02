@@ -1,6 +1,6 @@
 #pragma once
 
-#include "mgr/filemgr.h"
+#include "manager/filemgr.h"
 #include <dolphin/gx.h>
 #include <dolphin/mtx.h>
 #include <dolphin/os.h>

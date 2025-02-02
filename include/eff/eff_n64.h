@@ -4,7 +4,7 @@
 #include "texPalette.h"
 
 typedef struct eff_n64_work {
-	TPLHeader* effTexture; //0x0
+	TEXPalette* effTexture; //0x0
 	BOOL effTextureLoaded; //0x4
 } eff_n64_work;
 

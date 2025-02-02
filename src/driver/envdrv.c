@@ -2,7 +2,7 @@
 #include "driver/arcdrv.h"
 #include "driver/dispdrv.h"
 #include "mario/mariost.h"
-#include "mgr/dvdmgr.h"
+#include "manager/dvdmgr.h"
 #include "system.h"
 #include "texPalette.h"
 #include <dolphin/dvd.h>
@@ -69,7 +69,7 @@ s32 u1;
 s32 a;
 s32 frame_cnt;
 s32 tpl_ok;
-TPLHeader* env_tpl;
+TEXPalette* env_tpl;
 
 //local prototypes
 void _callback(s32 result, DVDFileInfo* fileInfo);
@@ -105,7 +105,7 @@ void envReInit(void) {
 
 void envTexSetup(void) { //1:1
     DVDEntry* entry;
-    TPLHeader* tpl;
+    TEXPalette* tpl;
     char path[128];
     u32 size;
 

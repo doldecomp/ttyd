@@ -6,7 +6,7 @@
  * 
  * Last Update: 12/18/2021 more clean-up, latest changes, update types
  */
-#include "mgr/dvdmgr.h"
+#include "manager/dvdmgr.h"
 #include "memory.h"
 #include "system.h"
 #include <dolphin/os.h>

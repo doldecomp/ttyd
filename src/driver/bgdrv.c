@@ -2,7 +2,7 @@
 #include "driver/arcdrv.h"
 #include "driver/camdrv.h"
 #include "driver/dispdrv.h"
-#include "mgr/dvdmgr.h"
+#include "manager/dvdmgr.h"
 #include "mario/mariost.h"
 #include "memory.h"
 #include "system.h"
@@ -36,7 +36,7 @@ void bgReInit(void) {
 
 void bgEntry(const char* filename) {
 	BackgroundWork* bgwork;
-	TPLHeader* tpl;
+	TEXPalette* tpl;
 	DVDEntry* dvd;
 	GXColor color;
 	u32 size;
@@ -57,7 +57,7 @@ void bgEntry(const char* filename) {
 				DVDMgrClose(dvd);
 			}
 		}
-		tpl = (TPLHeader*)bgwork->data;
+		tpl = (TEXPalette*)bgwork->data;
 		if (tpl) {
 			UnpackTexPalette(tpl);
 			color = (GXColor){0xFF, 0xFF, 0xFF, 0xFF};
@@ -80,7 +80,7 @@ void bgEntry(const char* filename) {
 
 void bgReEntry(const char* filename) {
 	BackgroundWork* bgwork;
-	TPLHeader* tpl;
+	TEXPalette* tpl;
 	DVDEntry* dvd;
 	GXColor color;
 	u32 size;
@@ -102,7 +102,7 @@ void bgReEntry(const char* filename) {
 				DVDMgrClose(dvd);
 			}
 		}
-		tpl = (TPLHeader*)bgwork->data;
+		tpl = (TEXPalette*)bgwork->data;
 		if (tpl) {
 			UnpackTexPalette(tpl);
 			color = (GXColor){ 0xFF, 0xFF, 0xFF, 0xFF };

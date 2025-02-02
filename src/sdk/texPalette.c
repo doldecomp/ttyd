@@ -1,68 +1,59 @@
-/* "texPalette" - Texture Palette Library (TPL)
- * Status: Complete, not 1:1 (need to remove entry in UnpackTexPalette? and
- * add inlining for TEXGet in first line of TEXGetGXTexObjFromPalette and
- * add perfect line numbering for OSHalt, technically)
- *
- * Function: used for parsing TPL files
- */
-#include "sdk/texPalette.h"
+#include <charPipeline/texPalette.h>
+#include <dolphin/gx/GXTexture.h>
+#include <dolphin/os.h>
+#include <macros.h>
 
-void TEXGetGXTexObjFromPalette(TPLHeader* header, GXTexObj* obj, u32 id) {
-	TPLImageHeader* image = TEXGet(header, id)->image;
+#define PALETTE_VERSION 0x0020AF30
 
-	GXInitTexObj(
-		obj,
-		image->data,
-		image->width,
-		image->height,
-		image->format,
-		image->wrapS,
-		image->wrapT,
-		(GXBool)(image->minLOD != image->maxLOD)
-	);
+void UnpackTexPalette(TEXPalettePtr pal) {
+    u16 i;
 
-	GXInitTexObjLOD(
-		obj,
-		image->minFilter,
-		image->magFilter,
-		image->minLOD,
-		image->maxLOD,
-		image->LODBias,
-		GX_DISABLE,
-		image->edgeLODEnable,
-		GX_ANISO_1
-	);
+    if (pal->versionNumber != PALETTE_VERSION) {
+        OSPanic(__FILE__, 0x24, "invalid version number for texture palette");
+    }
+
+    if ((u32)pal->descriptorArray <= 0x80000000) {
+        pal->descriptorArray = (TEXDescriptorPtr)((Ptr)pal->descriptorArray + (u32)pal);
+        for (i = 0; i < pal->numDescriptors; i++) {
+            if (pal->descriptorArray[i].textureHeader) {
+                pal->descriptorArray[i].textureHeader =
+                    (TEXHeaderPtr)((Ptr)pal + (u32)pal->descriptorArray[i].textureHeader);
+                if (!pal->descriptorArray[i].textureHeader->unpacked) {
+                    pal->descriptorArray[i].textureHeader->data =
+                        (Ptr)pal + (u32)pal->descriptorArray[i].textureHeader->data;
+                    pal->descriptorArray[i].textureHeader->unpacked = TRUE;
+                }
+            }
+            if (pal->descriptorArray[i].CLUTHeader) {
+                pal->descriptorArray[i].CLUTHeader =
+                    (CLUTHeaderPtr)((u8*)pal + (u32)pal->descriptorArray[i].CLUTHeader);
+                if (!pal->descriptorArray[i].CLUTHeader->unpacked) {
+                    pal->descriptorArray[i].CLUTHeader->data = (Ptr)pal + (u32)pal->descriptorArray[i].CLUTHeader->data;
+                    pal->descriptorArray[i].CLUTHeader->unpacked = TRUE;
+                }
+            }
+        }
+    }
 }
 
-TPLImageEntry* TEXGet(TPLHeader* header, u32 id) {
-	return &header->imageTable[id];
+TEXDescriptorPtr TEXGet(TEXPalettePtr pal, u32 id) {
+    ASSERTMSGLINE(0x90, id < pal->numDescriptors, "GetTexture():  Texture Not Found ");
+    return &pal->descriptorArray[id];
 }
 
-void UnpackTexPalette(TPLHeader* header) {
-	TPLImageEntry* entry;
-	u16 i; //not int
+void TEXGetGXTexObjFromPalette(TEXPalettePtr pal, GXTexObj* to, u32 id) {
+    TEXDescriptorPtr tdp;
+    GXBool mipMap;
 
-	if (header->version != 0x0020AF30) {
-		OSHalt("invalid version number for texture palette");
-	}
-	if (header->imageTableOffset <= 0x80000000) { //max file size
-		header->imageTableOffset += (u32)header; //absolute position
-		for (i = 0; i < header->imageCount; i++) {
-			entry = &header->imageTable[i];
-			if (entry->image != NULL) {
-				entry->imageOffset += (u32)header; //absolute position
-				if (!entry->image->unpacked) {
-					entry->image->dataOffset += (u32)header;
-					entry->image->unpacked = TRUE;
-				}
-			}
-			if (entry->palette != NULL) {
-				entry->paletteOffset += (u32)header; //absolute position
-				if (!entry->palette->unpacked) {
-					entry->palette->dataOffset += (u32)header;
-					entry->palette->unpacked = TRUE;
-				}
-			}
-		}
-	}
+    tdp = TEXGet(pal, id);
+    if (tdp->textureHeader->minLOD == tdp->textureHeader->maxLOD) {
+        mipMap = GX_FALSE;
+    } else {
+        mipMap = GX_TRUE;
+    }
+    GXInitTexObj(to, tdp->textureHeader->data, tdp->textureHeader->width, tdp->textureHeader->height,
+                 tdp->textureHeader->format, tdp->textureHeader->wrapS, tdp->textureHeader->wrapT, mipMap);
+    GXInitTexObjLOD(to, tdp->textureHeader->minFilter, tdp->textureHeader->magFilter, tdp->textureHeader->minLOD,
+                    tdp->textureHeader->maxLOD, tdp->textureHeader->LODBias, GX_DISABLE,
+                    tdp->textureHeader->edgeLODEnable, GX_ANISO_1);
 }

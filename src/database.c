@@ -1,6 +1,6 @@
 #include "database.h"
 #include "driver/arcdrv.h"
-#include "mgr/evtmgr.h"
+#include "manager/evtmgr.h"
 #include "memory.h"
 #include "system.h"
 #include <string.h>

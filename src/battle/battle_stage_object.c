@@ -42,7 +42,7 @@ void BattleStageObjectInit(void) {
 
 
 
-USERFUNC_DEF(_set_mobj_shake_init) {
+USER_FUNC(_set_mobj_shake_init) {
 	BattleStageObject* obj;
 	int i, layer;
 	u8 position;

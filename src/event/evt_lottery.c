@@ -9,13 +9,13 @@ extern GlobalWork* gp;
 BOOL dbg_lotteryinfo;
 
 //local prototypes
-USERFUNC_DEF(evt_lottery);
+USER_FUNC(evt_lottery);
 
 lottery_info* lotteryGetPtr(void) {
 	return &gp->mLotteryInfo;
 }
 
-USERFUNC_DEF(evt_lottery) {
+USER_FUNC(evt_lottery) {
 	lottery_info* LotteryInfo;
 
 	s32* args = event->args;

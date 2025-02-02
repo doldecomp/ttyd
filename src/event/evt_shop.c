@@ -9,7 +9,7 @@ extern GlobalWork* gp;
 char mapname[16];
 static evt_shop_work* _wp;
 
-USERFUNC_DEF(evt_shop_setup) {
+USER_FUNC(evt_shop_setup) {
 	evt_shop_work* work_ptr;
 	s32 r25, r27, r28, r30;
 	int i;

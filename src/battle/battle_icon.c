@@ -97,7 +97,7 @@ void BtlIcon_Delete(BattleWorkIcon* icon) {
 }
 
 //s32 iconId, f32 x, f32 y, f32 z, s32 evtIndex
-USERFUNC_DEF(btlevtcmd_BtlIconEntry) {
+USER_FUNC(btlevtcmd_BtlIconEntry) {
 	s32* args = event->args;
 	BattleWorkIcon* icon;
 	s32 iconId, index;
@@ -114,7 +114,7 @@ USERFUNC_DEF(btlevtcmd_BtlIconEntry) {
 }
 
 //s32 itemId (index for itemDataTable) , f32 x, f32 y, f32 z, s32 evtIndex
-USERFUNC_DEF(btlevtcmd_BtlIconEntryItemId) {
+USER_FUNC(btlevtcmd_BtlIconEntryItemId) {
 	s32* args = event->args;
 	BattleWorkIcon* icon;
 	s32 itemId, index;
@@ -131,7 +131,7 @@ USERFUNC_DEF(btlevtcmd_BtlIconEntryItemId) {
 }
 
 //s32 index for BtlIconGetPtr
-USERFUNC_DEF(btlevtcmd_BtlIconDelete) {
+USER_FUNC(btlevtcmd_BtlIconDelete) {
 	BattleWorkIcon* icon;
 	s32 value;
 
@@ -142,7 +142,7 @@ USERFUNC_DEF(btlevtcmd_BtlIconDelete) {
 }
 
 //s32 index for BtlIconGetPtr, f32 x, f32 y, f32 z
-USERFUNC_DEF(btlevtcmd_BtlIconSetPosition) {
+USER_FUNC(btlevtcmd_BtlIconSetPosition) {
 	s32* args = event->args;
 	BattleWorkIcon* icon;
 	f32 x, y, z;
@@ -158,7 +158,7 @@ USERFUNC_DEF(btlevtcmd_BtlIconSetPosition) {
 }
 
 //s32 index for BtlIconGetPtr, f32 fallAccel
-USERFUNC_DEF(btlevtcmd_BtlIconSetFallAccel) {
+USER_FUNC(btlevtcmd_BtlIconSetFallAccel) {
 	s32* args = event->args;
 	s32 index = evtGetValue(event, args[0]);
 	BattleWorkIcon* icon = BtlIconGetPtr(index);
@@ -166,6 +166,6 @@ USERFUNC_DEF(btlevtcmd_BtlIconSetFallAccel) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(btlevtcmd_BtlIconJumpPosition) {
+USER_FUNC(btlevtcmd_BtlIconJumpPosition) {
 	//TODO: revisit when more of BattleWorkIcon is filled out
 }

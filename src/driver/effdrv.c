@@ -1,7 +1,7 @@
 #include "driver/effdrv.h"
 #include "driver/arcdrv.h"
 #include "eff/eff_n64.h"
-#include "mgr/dvdmgr.h"
+#include "manager/dvdmgr.h"
 #include "mario/mariost.h"
 #include "memory.h"
 #include "system.h"

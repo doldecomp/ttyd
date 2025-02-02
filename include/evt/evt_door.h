@@ -3,6 +3,6 @@
 #include "evt/evt_cmd.h"
 #include <dolphin/types.h>
 
-USERFUNC_DEF(snd_door_in);
-USERFUNC_DEF(snd_door_out);
-USERFUNC_DEF(door_entry);
+USER_FUNC(snd_door_in);
+USER_FUNC(snd_door_out);
+USER_FUNC(door_entry);

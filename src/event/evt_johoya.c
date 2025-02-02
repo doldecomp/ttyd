@@ -61,7 +61,7 @@ const char* evtNoLabel[] = {
 //local prototypes
 s32 johoya_data_make(const char* prefix, s32 type);
 
-USERFUNC_DEF(johoya_data_alloc) {
+USER_FUNC(johoya_data_alloc) {
     InformantWork* wp = &_jdt;
     
     wp->prefix = (const char*)evtGetValue(event, *event->args);
@@ -73,7 +73,7 @@ USERFUNC_DEF(johoya_data_alloc) {
     return 2;
 }
 
-USERFUNC_DEF(johoya_data_free) {
+USER_FUNC(johoya_data_free) {
     InformantWork* wp = &_jdt;
     
     if (wp->info == NULL) {

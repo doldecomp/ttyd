@@ -1,6 +1,6 @@
 #pragma once
 
-#include "mgr/filemgr.h"
+#include "manager/filemgr.h"
 #include <dolphin/types.h>
 
 typedef struct NameEntryWork {

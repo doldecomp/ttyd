@@ -3,7 +3,7 @@
 #include "driver/arcdrv.h"
 #include "driver/camdrv.h"
 #include "driver/imgdrv.h"
-#include "mgr/dvdmgr.h"
+#include "manager/dvdmgr.h"
 #include "memory.h"
 #include "system.h"
 #include <dolphin/dvd.h>
@@ -234,7 +234,7 @@ void fadeReset(s32 id) { //TODO: better param name?
 	entry->field_0x90 = 1.0f;
 }
 
-TPLHeader* fadeGetTpl(void) {
+TEXPalette* fadeGetTpl(void) {
 	return wp->texture;
 }
 

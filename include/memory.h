@@ -1,7 +1,7 @@
 #pragma once
 
 #include <dolphin/gx.h>
-#include "mgr/filemgr.h"
+#include "manager/filemgr.h"
 
 typedef enum HEAP_TYPE {
 	HEAP_DEFAULT = 0,

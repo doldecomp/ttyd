@@ -1,4 +1,4 @@
-#include "mgr/winmgr.h"
+#include "manager/winmgr.h"
 #include "driver/dispdrv.h"
 #include "mario/mario_pouch.h"
 #include "memory.h"

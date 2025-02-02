@@ -1,6 +1,6 @@
 #include "sound.h"
 #include <dolphin/os.h>
-#include "mgr/dvdmgr.h"
+#include "manager/dvdmgr.h"
 #include "memory.h"
 #include "musyx/musyx.h"
 #include "system.h"

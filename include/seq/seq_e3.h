@@ -2,7 +2,7 @@
 
 #include <dolphin/os.h>
 #include "driver/seqdrv.h"
-#include "mgr/filemgr.h"
+#include "manager/filemgr.h"
 
 typedef struct seq_e3_work {
 	FileEntry* handle; //0x00

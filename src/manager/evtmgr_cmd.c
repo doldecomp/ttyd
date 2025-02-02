@@ -5,9 +5,10 @@
 *
 * Last Update: 9/20/2022, should be completely finished
 */
-#include "mgr/evtmgr_cmd.h"
+#include "manager/evtmgr_cmd.h"
+#include "evt/evt_cmd.h"
 #include "memory.h"
-#include "mgr/evtmgr.h"
+#include "manager/evtmgr.h"
 #include "driver/swdrv.h"
 #include <dolphin/os.h>
 #include <string.h>

@@ -3,8 +3,8 @@
 #include <dolphin/types.h>
 #include <dolphin/mtx.h>
 #include "battle/battle_audience_kind_data.h"
-#include "mgr/evtmgr.h"
-#include "mgr/filemgr.h"
+#include "manager/evtmgr.h"
+#include "manager/filemgr.h"
 #include "mario/mario_pouch.h"
 
 #pragma enumsalwaysint off
@@ -170,8 +170,3 @@ BOOL BattleAudience_GetSysCtrl(s32 index);
 BOOL BattleAudience_GetWaiting(s32 index);
 s32 BattleAudience_HaitiRandForFallObject(void);
 s32 BattleAudience_GetAudienceNum(void);
-
-
-
-
-

@@ -5,7 +5,7 @@
  * Function: part of the backend for various shops
  */
 #include "evt/evt_badgeshop.h"
-#include "mgr/evtmgr.h"
+#include "manager/evtmgr.h"
 #include "mario/mario_pouch.h"
 #include "system.h"
 #include <string.h>
@@ -471,12 +471,12 @@ s32 badgeShop_add(u8* table, s32 id, s32 value) { // 1:1, can blow up in your fa
     return data;
 }
 
-USERFUNC_DEF(badgeShop_getBargainTable) {
+USER_FUNC(badgeShop_getBargainTable) {
 	evtSetValue(event, *event->args, (s32)&bdsw->field_0xF8);
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_badgeShop_throw_inc) {
+USER_FUNC(evt_badgeShop_throw_inc) {
 	s32 value;
 
 	value = (s16)evtGetValue(event, *event->args);
@@ -485,7 +485,7 @@ USERFUNC_DEF(evt_badgeShop_throw_inc) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_badgeShop_throw_dec) {
+USER_FUNC(evt_badgeShop_throw_dec) {
 	s32 value;
 
 	value = (s16)evtGetValue(event, *event->args);
@@ -494,7 +494,7 @@ USERFUNC_DEF(evt_badgeShop_throw_dec) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_badgeShop_special_dec) {
+USER_FUNC(evt_badgeShop_special_dec) {
 	s32 value;
 
 	value = evtGetValue(event, *event->args);
@@ -502,7 +502,7 @@ USERFUNC_DEF(evt_badgeShop_special_dec) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_badgeShop_starmaniac_dec) {
+USER_FUNC(evt_badgeShop_starmaniac_dec) {
 	s32 value;
 
 	value = (s16)evtGetValue(event, *event->args);
@@ -510,7 +510,7 @@ USERFUNC_DEF(evt_badgeShop_starmaniac_dec) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_badgeShop_bottakuru_dec) {
+USER_FUNC(evt_badgeShop_bottakuru_dec) {
 	s32 value;
 	int i;
 
@@ -524,7 +524,7 @@ USERFUNC_DEF(evt_badgeShop_bottakuru_dec) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_badgeShop_throw_get_kind_cnt) {
+USER_FUNC(evt_badgeShop_throw_get_kind_cnt) {
 	s32 badge, count;
 	int i;
 
@@ -538,7 +538,7 @@ USERFUNC_DEF(evt_badgeShop_throw_get_kind_cnt) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_badgeShop_starmaniac_get_kind_cnt) {
+USER_FUNC(evt_badgeShop_starmaniac_get_kind_cnt) {
 	s32 badge, count;
 	int i;
 
@@ -552,7 +552,7 @@ USERFUNC_DEF(evt_badgeShop_starmaniac_get_kind_cnt) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_badgeShop_bottakuru_get_kind_cnt) {
+USER_FUNC(evt_badgeShop_bottakuru_get_kind_cnt) {
 	s32 count;
 	int i;
 
@@ -565,7 +565,7 @@ USERFUNC_DEF(evt_badgeShop_bottakuru_get_kind_cnt) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_badgeShop_get_special_zaiko) {
+USER_FUNC(evt_badgeShop_get_special_zaiko) {
 	s32 badge, count;
 	int i;
 
@@ -579,7 +579,7 @@ USERFUNC_DEF(evt_badgeShop_get_special_zaiko) {
 	return EVT_RETURN_DONE;
 }
 
-USERFUNC_DEF(evt_badgeShop_bteresa_get_kind_cnt) {
+USER_FUNC(evt_badgeShop_bteresa_get_kind_cnt) {
 	s32 badge, count;
 	int i;
 

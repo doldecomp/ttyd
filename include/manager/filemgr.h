@@ -1,6 +1,6 @@
 #pragma once
 
-#include "mgr/dvdmgr.h"
+#include "manager/dvdmgr.h"
 #include <dolphin/types.h>
 
 typedef void (*FileCallback)(struct FileEntry* file);
@@ -34,5 +34,5 @@ void _fileGarbage(BOOL a1);
 FileEntry* fileAllocf(u8 type, const char* format, ...);
 FileEntry* fileAlloc(const char* filename, u8 type);
 void fileFree(FileEntry* handle);
-s32 fileAsyncf(u8 type, void (*callback)(FileEntry*), const char* format, ...);
+s32 fileAsyncf(u8 type, FileCallback callback, const char* format, ...);
 void fileSetCurrentArchiveType(s32 type);

@@ -169,7 +169,7 @@ manager/evtmgr.c:
 	.sbss       start:0x80418640 end:0x80418650
 	.sdata2     start:0x80419950 end:0x80419958
 
-texPalette.c:
+sdk/texPalette.c:
 	.text       start:0x800373E4 end:0x800375F0
 	.rodata     start:0x802C1EC0 end:0x802C1F08
 
