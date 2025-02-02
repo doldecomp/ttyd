@@ -1,6 +1,8 @@
 #ifndef _MATH_H_
 #define _MATH_H_
 
+#define M_PI 3.14159265358979323846f
+
 #define NAN       (0.0f / 0.0f)
 #define HUGE_VALF (1.0f / 0.0f)
 #define INFINITY  (1.0f / 0.0f)

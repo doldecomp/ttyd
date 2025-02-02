@@ -8,7 +8,7 @@ extern "C" {
 #endif
 
 typedef u16 OSError;
-typedef void (*OSErrorHandler)(OSError error, OSContext *context, ...);
+typedef void (*OSErrorHandler)(OSError error, OSContext* context, ...);
 
 #define OS_ERROR_SYSTEM_RESET        0
 #define OS_ERROR_MACHINE_CHECK       1
@@ -28,7 +28,7 @@ typedef void (*OSErrorHandler)(OSError error, OSContext *context, ...);
 #define OS_ERROR_MAX                (OS_ERROR_THERMAL_INTERRUPT + 1)
 
 OSErrorHandler OSSetErrorHandler(OSError error, OSErrorHandler handler);
-extern unsigned long __OSFpscrEnableBits;
+extern u32 __OSFpscrEnableBits;
 extern OSErrorHandler __OSErrorTable[17];
 
 #ifdef __cplusplus

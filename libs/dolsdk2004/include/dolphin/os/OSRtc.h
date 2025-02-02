@@ -1,6 +1,8 @@
 #ifndef _DOLPHIN_OSRTC_H_
 #define _DOLPHIN_OSRTC_H_
 
+#include <dolphin/types.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -18,15 +20,6 @@ extern "C" {
 
 #define OS_EURGB60_OFF 0
 #define OS_EURGB60_ON  1
-
-struct SramControl {
-    u8 sram[64];
-    u32 offset;
-    int enabled;
-    int locked;
-    int sync;
-    void (* callback)();
-};
 
 typedef struct OSSram {
     u16 checkSum;
@@ -51,17 +44,28 @@ typedef struct OSSramEx {
     u8 _padding1[2];
 } OSSramEx;
 
-u32 OSGetSoundMode();
+#define SRAM_SIZE (sizeof(OSSram) + sizeof(OSSramEx))
+
+typedef struct SramControl {
+    u8 sram[SRAM_SIZE];  // dummy for OSSram + OSSramEx
+    u32 offset;
+    BOOL enabled;
+    BOOL locked;
+    int sync;
+    void (*callback)();
+} SramControl;
+
+u32 OSGetSoundMode(void);
 void OSSetSoundMode(u32 mode);
-u32 OSGetVideoMode();
+u32 OSGetVideoMode(void);
 void OSSetVideoMode(u32 mode);
-u8 OSGetLanguage();
+u8 OSGetLanguage(void);
 void OSSetLanguage(u8 language);
-u16 OSGetGbsMode();
+u16 OSGetGbsMode(void);
 void OSSetGbsMode(u16 mode);
-u32 OSGetProgressiveMode();
+u32 OSGetProgressiveMode(void);
 void OSSetProgressiveMode(u32 on);
-u32 OSGetEuRgb60Mode();
+u32 OSGetEuRgb60Mode(void);
 void OSSetEuRgb60Mode(u32 on);
 u16 OSGetWirelessID(s32 chan);
 void OSSetWirelessID(s32 chan, u16 id);

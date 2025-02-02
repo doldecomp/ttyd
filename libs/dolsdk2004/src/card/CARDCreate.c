@@ -1,15 +1,15 @@
-#include <dolphin.h>
 #include <dolphin/card.h>
 
 #include "__card.h"
 
-static void CreateCallbackFat(long chan, long result);
+// prototypes
+static void CreateCallbackFat(s32 chan, s32 result);
 
-static void CreateCallbackFat(long chan, long result) {
-    struct CARDControl * card;
-    struct CARDDir * dir;
-    struct CARDDir * ent;
-    void (* callback)(long, long);
+static void CreateCallbackFat(s32 chan, s32 result) {
+    CARDControl* card;
+    CARDDir* dir;
+    CARDDir* ent;
+    CARDCallback callback;
 
     card = &__CARDBlock[chan];
     callback = card->apiCallback;
@@ -23,8 +23,8 @@ static void CreateCallbackFat(long chan, long result) {
         ent->permission = 4;
         ent->copyTimes = 0;
 
-        ASSERTLINE(0x6F, CARDIsValidBlockNo(card, card->startBlock));
-        ent->startBlock = (u16) card->startBlock;
+        ASSERTLINE(111, CARDIsValidBlockNo(card, card->startBlock));
+        ent->startBlock = (u16)card->startBlock;
         ent->bannerFormat = 0;
         ent->iconAddr = -1;
         ent->iconFormat = 0;
@@ -48,8 +48,7 @@ after:;
     }
 }
 
-s32 CARDCreateAsync(s32 chan, const char* fileName, u32 size, CARDFileInfo* fileInfo,
-                                        CARDCallback callback) {
+s32 CARDCreateAsync(s32 chan, const char* fileName, u32 size, CARDFileInfo* fileInfo, CARDCallback callback) {
     CARDControl* card;
     CARDDir* dir;
     CARDDir* ent;
@@ -58,8 +57,8 @@ s32 CARDCreateAsync(s32 chan, const char* fileName, u32 size, CARDFileInfo* file
     u16* fat;
     s32 result;
 
-    ASSERTLINE(0xAF, 0 <= chan && chan < 2);
-    ASSERTLINE(0xB0, strlen(fileName) <= CARD_FILENAME_MAX);
+    ASSERTLINE(175, 0 <= chan && chan < 2);
+    ASSERTLINE(176, strlen(fileName) <= CARD_FILENAME_MAX);
 
     if (strlen(fileName) > (u32)CARD_FILENAME_MAX) {
         return CARD_RESULT_NAMETOOLONG;
@@ -70,7 +69,7 @@ s32 CARDCreateAsync(s32 chan, const char* fileName, u32 size, CARDFileInfo* file
         return result;
     }
 
-    ASSERTLINE(0xBC, 0 < size && (size % card->sectorSize) == 0);
+    ASSERTLINE(188, 0 < size && (size % card->sectorSize) == 0);
 
     if (size <= 0 || (size % card->sectorSize) != 0) {        
         return CARD_RESULT_FATAL_ERROR;
@@ -90,6 +89,7 @@ s32 CARDCreateAsync(s32 chan, const char* fileName, u32 size, CARDFileInfo* file
             return __CARDPutControlBlock(card, CARD_RESULT_EXIST);
         }
     }
+
     if (freeNo == (u16)-1) {
         return __CARDPutControlBlock(card, CARD_RESULT_NOENT);
     }
@@ -103,7 +103,7 @@ s32 CARDCreateAsync(s32 chan, const char* fileName, u32 size, CARDFileInfo* file
     card->freeNo = freeNo;
     ent = &dir[freeNo];
     ent->length = (u16)(size / card->sectorSize);
-    strncpy((char *)ent->fileName, fileName, CARD_FILENAME_MAX);
+    strncpy((char*)ent->fileName, fileName, CARD_FILENAME_MAX);
 
     card->fileInfo = fileInfo;
     fileInfo->chan = chan;
@@ -116,11 +116,11 @@ s32 CARDCreateAsync(s32 chan, const char* fileName, u32 size, CARDFileInfo* file
     return result;
 }
 
-s32 CARDCreate(long chan, const char* fileName, unsigned long size, struct CARDFileInfo * fileInfo) {
+s32 CARDCreate(s32 chan, const char* fileName, u32 size, CARDFileInfo* fileInfo) {
     s32 result = CARDCreateAsync(chan, fileName, size, fileInfo, __CARDSyncCallback);
-
     if (result < 0) {
         return result;
     }
+
     return __CARDSync(chan);
 }

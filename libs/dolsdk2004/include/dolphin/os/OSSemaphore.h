@@ -1,13 +1,15 @@
 #ifndef _DOLPHIN_OSSEMAPHORE_H_
 #define _DOLPHIN_OSSEMAPHORE_H_
 
+#include <dolphin/os/OSThread.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 typedef struct OSSemaphore {
-    s32 count; // offset 0x0, size 0x4
-    OSThreadQueue queue; // offset 0x4, size 0x8
+    s32 count;
+    OSThreadQueue queue;
 } OSSemaphore;
 
 void OSInitSemaphore(OSSemaphore* sem, s32 count);

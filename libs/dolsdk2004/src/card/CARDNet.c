@@ -1,4 +1,3 @@
-#include <dolphin.h>
 #include <dolphin/card.h>
 
 #include "os/__os.h"
@@ -25,7 +24,7 @@ s32 CARDGetSerialNo(s32 chan, u64* serialNo) {
     u64 code;
     int i;
 
-    ASSERTLINE(0x69, 0 <= chan && chan < 2);
+    ASSERTLINE(105, 0 <= chan && chan < 2);
 
     if (!(0 <= chan && chan < 2)) {
         return CARD_RESULT_FATAL_ERROR;
@@ -50,7 +49,7 @@ s32 CARDGetUniqueCode(s32 chan, u64* uniqueCode) {
     s32 result;
     OSSramEx* sram;
 
-    ASSERTLINE(0x92, 0 <= chan && chan < 2);
+    ASSERTLINE(146, 0 <= chan && chan < 2);
 
     if (!(0 <= chan && chan < 2)) {
         return CARD_RESULT_FATAL_ERROR;
@@ -117,7 +116,7 @@ s32 CARDSetAttributes(s32 chan, s32 fileNo, u8 attr) {
     return __CARDSync(chan);
 }
 
-static int __CARDEnablePerm(u8 perm, int enable) {
+static int __CARDEnablePerm(u8 perm, BOOL enable) {
     int prev;
     prev = __CARDPermMask & perm ? TRUE : FALSE;
 
@@ -130,10 +129,10 @@ static int __CARDEnablePerm(u8 perm, int enable) {
     return prev;
 }
 
-int __CARDEnableGlobal(int enable) {
+int __CARDEnableGlobal(BOOL enable) {
     return __CARDEnablePerm(0x20, enable);
 }
 
-int __CARDEnableCompany(int enable) {
+int __CARDEnableCompany(BOOL enable) {
     return __CARDEnablePerm(0x40, enable);
 }

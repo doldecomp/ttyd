@@ -4,51 +4,48 @@
 #include "__os.h"
 
 struct Timer {
-    void (* callback)();
-    unsigned long currval;
-    unsigned long startval;
-    unsigned long mode;
-    int stopped;
-    int initialized;
+    OSTimerCallback callback;
+    u32 currval;
+    u32 startval;
+    u32 mode;
+    BOOL stopped;
+    BOOL initialized;
 };
+static struct Timer Timer;
 
-static struct Timer Timer; // .bss
+// prototypes
+static void DecrementerExceptionHandler(__OSException exception, OSContext* context);
 
-void (* OSSetTimerCallback(void (* callback)()))();
-void OSInitTimer(unsigned long time, unsigned long mode);
-void OSStartTimer(void);
-void OSStopTimer(void);
-static void DecrementerExceptionHandler(unsigned char exception, struct OSContext * context);
-
-void (* OSSetTimerCallback(void (* callback)()))() {
-    void (* prevCallback)();
+OSTimerCallback OSSetTimerCallback(OSTimerCallback callback) {
+    OSTimerCallback prevCallback;
 
 #if DEBUG
-    if(Timer.initialized == 0) {
-        OSPanic("OSTimer.c", 0x87, "OSSetTimerCallback(): timer is not initialized.");
+    if(!Timer.initialized) {
+        OSPanic(__FILE__, 135, "OSSetTimerCallback(): timer is not initialized.");
     }
 #endif
 
-    Timer.stopped = 1;
+    Timer.stopped = TRUE;
     prevCallback = Timer.callback;
     Timer.callback = callback;
     return prevCallback;
 }
 
-void OSInitTimer(unsigned long time, unsigned long mode) {
+void OSInitTimer(u32 time, u32 mode) {
 #if DEBUG
     if (time >= 0x80000000) {
-        OSPanic("OSTimer.c", 0x9F, "OSInitTimer(): time param must be less than 0x80000000.");
+        OSPanic(__FILE__, 159, "OSInitTimer(): time param must be less than 0x80000000.");
     }
 #endif
 
-    Timer.stopped = 1;
+    Timer.stopped = TRUE;
     Timer.currval = time;
     Timer.startval = time;
     Timer.mode = mode;
-    if (Timer.initialized == 0) {
+
+    if (!Timer.initialized) {
         __OSSetExceptionHandler(8, &DecrementerExceptionHandler);
-        Timer.initialized = 1;
+        Timer.initialized = TRUE;
         Timer.callback = 0;
 #if DEBUG
         OSReport("Timer initialized\n");
@@ -57,31 +54,31 @@ void OSInitTimer(unsigned long time, unsigned long mode) {
 }
 
 void OSStartTimer(void) {
-    int enabled;
+    BOOL enabled;
 
 #if DEBUG
-    if (Timer.initialized == 0) {
-        OSPanic("OSTimer.c", 0xC0, "OSStartTimer(): timer is not initialized.");
+    if (!Timer.initialized) {
+        OSPanic(__FILE__, 192, "OSStartTimer(): timer is not initialized.");
     }
 #endif
     enabled = OSDisableInterrupts();
     PPCMtdec(Timer.currval);
-    Timer.stopped = 0;
+    Timer.stopped = FALSE;
     OSRestoreInterrupts(enabled);
 }
 
 void OSStopTimer(void) {
-    int enabled;
+    BOOL enabled;
 
 #if DEBUG
-    if (Timer.initialized == 0) {
-        OSPanic("OSTimer.c", 0xD8, "OSStopTimer(): timer is not initialized.");
+    if (!Timer.initialized) {
+        OSPanic(__FILE__, 216, "OSStopTimer(): timer is not initialized.");
     }
 #endif
 
     enabled = OSDisableInterrupts();
-    if (Timer.stopped == 0) {
-        Timer.stopped = 1;
+    if (!Timer.stopped) {
+        Timer.stopped = TRUE;
         Timer.currval = PPCMfdec();
         if (Timer.currval & 0x80000000) {
             Timer.currval = 0;
@@ -90,19 +87,20 @@ void OSStopTimer(void) {
     OSRestoreInterrupts(enabled);
 }
 
-static void DecrementerExceptionCallback(unsigned char exception, struct OSContext * context) {
-    struct OSContext exceptionContext;
+static void DecrementerExceptionCallback(__OSException exception, OSContext* context) {
+    OSContext exceptionContext;
 
     OSClearContext(&exceptionContext);
     OSSetCurrentContext(&exceptionContext);
-    if (Timer.stopped == 0) {
+
+    if (!Timer.stopped) {
         if (Timer.mode == 1) {
             PPCMtdec(Timer.startval);
         }
         if (Timer.mode == 2) {
-            Timer.stopped = 1;
+            Timer.stopped = TRUE;
         }
-        if (Timer.callback != 0) {
+        if (Timer.callback) {
             Timer.callback();
         }
     }
@@ -111,9 +109,9 @@ static void DecrementerExceptionCallback(unsigned char exception, struct OSConte
     OSLoadContext(context);
 }
 
-static asm void DecrementerExceptionHandler(unsigned char exception,
-                                            register struct OSContext* context) {
-    // clang-format off
+#ifdef __GEKKO__
+static asm void DecrementerExceptionHandler(__OSException exception,
+                                            register OSContext* context) {
     nofralloc
 
     stw r0, context->gpr[0]
@@ -138,5 +136,5 @@ static asm void DecrementerExceptionHandler(unsigned char exception,
 
     stwu r1, -0x8(r1)
     b DecrementerExceptionCallback
-    // clang-format on
 }
+#endif

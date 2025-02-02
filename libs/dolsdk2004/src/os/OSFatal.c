@@ -14,7 +14,7 @@ typedef struct OSFatalParam {
 static OSFatalParam FatalParam;
 static OSContext FatalContext;
 
-void OSFatal(GXColor fg, GXColor bg, const char* msg);
+// prototypes
 static void Halt();
 
 static void ScreenClear(void* xfb, u16 xfbW, u16 xfbH, GXColor yuv) {
@@ -218,12 +218,12 @@ static void Halt() {
     OSEnableInterrupts();
     fp = &FatalParam;
     len = strlen(fp->msg) + 1;
-    fp->msg = memmove(OSAllocFromArenaLo(len, 0x20), fp->msg, len);
+    fp->msg = memmove(OSAllocFromArenaLo(len, DOLPHIN_ALIGNMENT), fp->msg, len);
 
-    fontData = OSAllocFromArenaLo(0xA1004, 0x20);
+    fontData = OSAllocFromArenaLo(0xA1004, DOLPHIN_ALIGNMENT);
     OSLoadFont(fontData, OSGetArenaLo());
     
-    xfb = OSAllocFromArenaLo(0x96000, 0x20);
+    xfb = OSAllocFromArenaLo(0x96000, DOLPHIN_ALIGNMENT);
     ScreenClear(xfb, 640, 480, RGB2YUV(fp->bg));
     VISetNextFrameBuffer(xfb);
     ConfigureVideo(640, 480);

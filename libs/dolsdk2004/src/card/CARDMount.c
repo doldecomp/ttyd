@@ -1,22 +1,18 @@
-#include <dolphin.h>
 #include <dolphin/card.h>
 #include <dolphin/exi.h>
 
 #include "os/__os.h"
 #include "__card.h"
 
-typedef void (*EXICallback)(s32 chan, OSContext *context);
-
-static u32 SectorSizeTable[8] =
-{
+static u32 SectorSizeTable[8] = {
     8 * 1024, 16 * 1024, 32 * 1024, 64 * 1024, 128 * 1024, 256 * 1024, 0, 0,
 };
 
-static u32 LatencyTable[8] =
-{
+static u32 LatencyTable[8] = {
     4, 8, 16, 32, 64, 128, 256, 512,
 };
 
+// prototypes
 static s32 DoMount(s32 chan);
 static void DoUnmount(s32 chan, s32 result);
 
@@ -76,9 +72,9 @@ int CARDProbe(s32 chan) {
     }
 }
 
-s32 CARDProbeEx(s32 chan, s32 *memSize, s32 *sectorSize) {
+s32 CARDProbeEx(s32 chan, s32* memSize, s32* sectorSize) {
     u32 id;
-    CARDControl *card;
+    CARDControl* card;
     BOOL enabled;
     s32 result;
     int probe;
@@ -98,12 +94,10 @@ s32 CARDProbeEx(s32 chan, s32 *memSize, s32 *sectorSize) {
         result = CARD_RESULT_NOCARD;
     else if (probe == 0)
         result = CARD_RESULT_BUSY;
-    else if (card->attached)
-    {
+    else if (card->attached) {
         if (card->mountStep < 1)
             result = CARD_RESULT_BUSY;
-        else
-        {
+        else {
             if (memSize)
                 *memSize = card->size;
 
@@ -133,20 +127,19 @@ s32 CARDProbeEx(s32 chan, s32 *memSize, s32 *sectorSize) {
 }
 
 static s32 DoMount(s32 chan) {
-    CARDControl *card;
+    CARDControl* card;
     u32 id;
     u8 status;
     s32 result;
-    struct OSSramEx *sram;
+    OSSramEx* sram;
     int i;
     u8 checkSum;
     int step;
 
-    ASSERTLINE(0x18F, 0 <= chan && chan < 2);
+    ASSERTLINE(399, 0 <= chan && chan < 2);
 
     card = &__CARDBlock[chan];
-    if (card->mountStep == 0)
-    {
+    if (card->mountStep == 0) {
         if (EXIGetID(chan, 0, &id) == 0) {
             result = CARD_RESULT_NOCARD;
         } else if (IsCard(id)) {
@@ -160,13 +153,13 @@ static s32 DoMount(s32 chan) {
 
         card->cid = id;
         card->size = (u16)(id & 0xFC);
-        ASSERTLINE(0x1A8, card->size);
+        ASSERTLINE(424, card->size);
         
         card->sectorSize = SectorSizeTable[(id & 0x00003800) >> 11];
-        ASSERTLINE(0x1AA, card->sectorSize);
+        ASSERTLINE(426, card->sectorSize);
 
         card->cBlock = (u16)((card->size * 1024 * 1024 / 8) / card->sectorSize);
-        ASSERTLINE(0x1AC, 8 <= card->cBlock);
+        ASSERTLINE(428, 8 <= card->cBlock);
 
         card->latency = LatencyTable[(id & 0x00000700) >> 8];
 
@@ -188,22 +181,19 @@ static s32 DoMount(s32 chan) {
         if (result < 0)
             goto error;
 
-        if (!EXIProbe(chan))
-        {
+        if (!EXIProbe(chan)) {
             result = CARD_RESULT_NOCARD;
             goto error;
         }
 
-        if (!(status & 0x40))
-        {
+        if (!(status & 0x40)) {
             result = __CARDUnlock(chan, card->id);
             if (result < 0)
                 goto error;
 
             checkSum = 0;
             sram = __OSLockSramEx();
-            for (i = 0; i < 12; i++)
-            {
+            for (i = 0; i < 12; i++) {
                 sram->flashID[chan][i] = card->id[i];
                 checkSum += card->id[i];
             }
@@ -211,9 +201,7 @@ static s32 DoMount(s32 chan) {
             __OSUnlockSramEx(TRUE);
 
             return result;
-        }
-        else
-        {
+        } else {
             card->mountStep = 1;
 
             checkSum = 0;
@@ -222,16 +210,14 @@ static s32 DoMount(s32 chan) {
                 checkSum += sram->flashID[chan][i];
 
             __OSUnlockSramEx(FALSE);
-            if (sram->flashIDCheckSum[chan] != (u8)~checkSum)
-            {
+            if (sram->flashIDCheckSum[chan] != (u8)~checkSum) {
                 result = CARD_RESULT_IOERROR;
                 goto error;
             }
         }
     }
 
-    if (card->mountStep == 1)
-    {
+    if (card->mountStep == 1) {
         if (card->cid == 0x80000004) {
             u16 vendorID;
 
@@ -270,22 +256,19 @@ error:
 }
 
 void __CARDMountCallback(s32 chan, s32 result) {
-    CARDControl *card;
+    CARDControl* card;
     CARDCallback callback;
 
-    ASSERTLINE(0x23A, 0 <= chan && chan < 2);
+    ASSERTLINE(570, 0 <= chan && chan < 2);
 
     card = &__CARDBlock[chan];
-    switch (result)
-    {
+    switch (result) {
     case CARD_RESULT_READY:
-        if (++card->mountStep < CARD_MAX_MOUNT_STEP)
-        {
+        if (++card->mountStep < CARD_MAX_MOUNT_STEP) {
             result = DoMount(chan);
             if (0 <= result)
                 return;
-        }
-        else
+        } else
             result = __CARDVerify(card);
         break;
     case CARD_RESULT_UNLOCKED:
@@ -308,16 +291,16 @@ void __CARDMountCallback(s32 chan, s32 result) {
     callback = card->apiCallback;
     card->apiCallback = NULL;
     __CARDPutControlBlock(card, result);
-    ASSERTLINE(0x26C, callback);
+    ASSERTLINE(620, callback);
     callback(chan, result);
 }
 
-s32 CARDMountAsync(s32 chan, void *workArea, CARDCallback detachCallback, CARDCallback attachCallback) {
-    CARDControl *card;
+s32 CARDMountAsync(s32 chan, void* workArea, CARDCallback detachCallback, CARDCallback attachCallback) {
+    CARDControl* card;
     BOOL enabled;
 
-    ASSERTLINE(0x28C, workArea && ((u32) workArea % 32 == 0));
-    ASSERTLINE(0x28D, 0 <= chan && chan < 2);
+    ASSERTLINE(652, workArea && ((u32) workArea % 32 == 0));
+    ASSERTLINE(653, 0 <= chan && chan < 2);
 
     if (chan < 0 || 2 <= chan)
         return CARD_RESULT_FATAL_ERROR;
@@ -329,14 +312,12 @@ s32 CARDMountAsync(s32 chan, void *workArea, CARDCallback detachCallback, CARDCa
     card = &__CARDBlock[chan];
 
     enabled = OSDisableInterrupts();
-    if (card->result == CARD_RESULT_BUSY)
-    {
+    if (card->result == CARD_RESULT_BUSY) {
         OSRestoreInterrupts(enabled);
         return CARD_RESULT_BUSY;
     }
 
-    if (!card->attached && (EXIGetState(chan) & 0x08))
-    {
+    if (!card->attached && (EXIGetState(chan) & 0x08)) {
         OSRestoreInterrupts(enabled);
         return CARD_RESULT_WRONGDEVICE;
     }
@@ -347,8 +328,7 @@ s32 CARDMountAsync(s32 chan, void *workArea, CARDCallback detachCallback, CARDCa
     card->apiCallback = attachCallback ? attachCallback : __CARDDefaultApiCallback;
     card->exiCallback = 0;
 
-    if (!card->attached && !EXIAttach(chan, __CARDExtHandler))
-    {
+    if (!card->attached && !EXIAttach(chan, __CARDExtHandler)) {
         card->result = CARD_RESULT_NOCARD;
         OSRestoreInterrupts(enabled);
         return CARD_RESULT_NOCARD;
@@ -372,7 +352,7 @@ s32 CARDMountAsync(s32 chan, void *workArea, CARDCallback detachCallback, CARDCa
     return DoMount(chan);
 }
 
-s32 CARDMount(s32 chan, void *workArea, CARDCallback detachCallback) {
+s32 CARDMount(s32 chan, void* workArea, CARDCallback detachCallback) {
     s32 result = CARDMountAsync(chan, workArea, detachCallback, __CARDSyncCallback);
 
     if (result < 0)
@@ -381,15 +361,14 @@ s32 CARDMount(s32 chan, void *workArea, CARDCallback detachCallback) {
 }
 
 static void DoUnmount(s32 chan, s32 result) {
-    CARDControl *card;
+    CARDControl* card;
     BOOL enabled;
 
-    ASSERTLINE(0x2F6, 0 <= chan && chan < 2);
+    ASSERTLINE(758, 0 <= chan && chan < 2);
 
     card = &__CARDBlock[chan];
     enabled = OSDisableInterrupts();
-    if (card->attached)
-    {
+    if (card->attached) {
         EXISetExiCallback(chan, 0);
         EXIDetach(chan);
         OSCancelAlarm(&card->alarm);
@@ -401,10 +380,10 @@ static void DoUnmount(s32 chan, s32 result) {
 }
 
 s32 CARDUnmount(s32 chan) {
-    CARDControl *card;
+    CARDControl* card;
     s32 result;
 
-    ASSERTLINE(0x319, 0 <= chan && chan < 2);
+    ASSERTLINE(793, 0 <= chan && chan < 2);
 
     result = __CARDGetControlBlock(chan, &card);
     if (result < 0)

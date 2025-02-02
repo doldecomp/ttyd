@@ -2,7 +2,7 @@
 #include <dolphin/os.h>
 
 void OSInitSemaphore(OSSemaphore* sem, s32 count) {
-    int enabled = OSDisableInterrupts();
+    BOOL enabled = OSDisableInterrupts();
 
     OSInitThreadQueue(&sem->queue);
     sem->count = count;
@@ -10,12 +10,12 @@ void OSInitSemaphore(OSSemaphore* sem, s32 count) {
 }
 
 s32 OSWaitSemaphore(OSSemaphore* sem) {
-    int enabled;
+    BOOL enabled;
     s32 count;
 
     enabled = OSDisableInterrupts();
 
-    while ((count = sem->count) <= 0) {
+    while((sem->count = (count = sem->count)) <= 0) {
         OSSleepThread(&sem->queue);
     }
 
@@ -25,13 +25,13 @@ s32 OSWaitSemaphore(OSSemaphore* sem) {
 }
 
 s32 OSTryWaitSemaphore(OSSemaphore* sem) {
-    int enabled;
+    BOOL enabled;
     s32 count;
 
     enabled = OSDisableInterrupts();
     count = sem->count;
     if (sem->count > 0) {
-        sem->count--;
+        sem->count = sem->count - 1;
     }
 
     OSRestoreInterrupts(enabled);
@@ -39,7 +39,7 @@ s32 OSTryWaitSemaphore(OSSemaphore* sem) {
 }
 
 s32 OSSignalSemaphore(OSSemaphore* sem) {
-    int enabled;
+    BOOL enabled;
     s32 count;
 
     enabled = OSDisableInterrupts();

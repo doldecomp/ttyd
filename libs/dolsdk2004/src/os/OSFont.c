@@ -11,15 +11,9 @@ static int FixedPitch;
 static ParseStringCallback ParseString;
 static u16 FontEncode = 0xFFFF;
 
-static char * ParseStringS(u16 encode, const char * string, struct OSFontHeader * * pfont, int * pfontCode);
-static char * ParseStringW(u16 encode, const char * string, struct OSFontHeader * * pfont, int * pfontCode);
-
-char * OSUTF8to32(const char * utf8 /* r3 */, u32 * utf32 /* r4 */); // MOVE
-char * OSUTF32to8(u32 utf32 /* r3 */, char * utf8 /* r4 */);
-u16 * OSUTF16to32(const u16 * utf16 /* r3 */, u32 * utf32 /* r4 */);
-u16 * OSUTF32to16(u32 utf32 /* r31 */, u16 * utf16 /* r30 */);
-unsigned char OSUTF32toANSI(u32 utf32 /* r3 */);
-unsigned short OSUTF32toSJIS(u32 utf32 /* r3 */);
+// prototypes
+static char* ParseStringS(u16 encode, const char* string, OSFontHeader** pfont, int* pfontCode);
+static char* ParseStringW(u16 encode, const char* string, OSFontHeader** pfont, int* pfontCode);
 
 static u16 HankakuToCode[]
     = { 0x20C, 0x20D, 0x20E, 0x20F, 0x210, 0x211, 0x212, 0x213,
@@ -259,7 +253,7 @@ static int GetFontCode(u16 encode, u16 code) {
     return 0;
 }
 
-static void Decode(u8 * s, u8 * d) {
+static void Decode(u8* s, u8* d) {
     int i;
     int j;
     int k;
@@ -319,8 +313,7 @@ static void Decode(u8 * s, u8 * d) {
     } while (q < os);
 }
 
-static u32 GetFontSize(u8* buf)
-{
+static u32 GetFontSize(u8* buf) {
     if (buf[0] == 'Y' && buf[1] == 'a' && buf[2] == 'y') {
         return *(u32*)(buf + 0x4);
     }
@@ -332,11 +325,11 @@ u16 OSGetFontEncode(void) {
     if (FontEncode != 0xFFFF) {
         return FontEncode;
     }
+
     switch (*(int*)OSPhysicalToCached(0xCC)) {
     case VI_NTSC:
         FontEncode = (__VIRegs[VI_DTV_STAT] & 2) ? OS_FONT_ENCODE_SJIS : OS_FONT_ENCODE_ANSI;
         break;
-
     case VI_PAL:
     case VI_MPAL:
     case VI_DEBUG:
@@ -353,7 +346,7 @@ u16 OSGetFontEncode(void) {
 u16 OSSetFontEncode(u16 encode) {
     u16 prev;
 
-    ASSERTLINE(0x1CF, encode <= OS_FONT_ENCODE_MAX);
+    ASSERTLINE(463, encode <= OS_FONT_ENCODE_MAX);
 
     prev = OSGetFontEncode();
     if (encode <= OS_FONT_ENCODE_MAX) {
@@ -366,8 +359,7 @@ u16 OSSetFontEncode(u16 encode) {
     return prev;
 }
 
-static void ReadROM(void* buf, int length, int offset)
-{
+static void ReadROM(void* buf, int length, int offset) {
     int len;
     while (length > 0) {
         len = (length <= 0x100) ? length : 0x100;
@@ -382,8 +374,7 @@ static void ReadROM(void* buf, int length, int offset)
     }
 }
 
-static u32 ReadFont(void* img, u16 encode, void* fontData)
-{
+static u32 ReadFont(void* img, u16 encode, void* fontData) {
     u32 size;
 #ifndef DEBUG
     u32 padding[1];
@@ -439,8 +430,7 @@ static u32 ReadFont(void* img, u16 encode, void* fontData)
     return size;
 }
 
-u32 OSLoadFont(OSFontHeader* fontData, void* tmp)
-{
+u32 OSLoadFont(OSFontHeader* fontData, void* tmp) {
     u16 encode;
     u32 size;
 
@@ -505,7 +495,7 @@ static char* ParseStringS(u16 encode, const char* string, OSFontHeader** pfont, 
     return (char*)string;
 }
 
-static char* ParseStringW(u16 encode, const char * string, OSFontHeader** pfont, int* pfontCode) {
+static char* ParseStringW(u16 encode, const char* string, OSFontHeader** pfont, int* pfontCode) {
     OSFontHeader* font;
     u16 code = 0;
     u32 utf32 = 0;
@@ -584,7 +574,7 @@ char* OSGetFontTexel(const char* string, void* image, s32 pos, s32 stride, s32* 
     encode = OSGetFontEncode();
     string = ParseString(encode, (char*)string, &font, &fontCode);
     colorIndex = &font->c0;
-    ASSERTLINE(0x33C, font->sheetFormat == GX_TF_I4);
+    ASSERTLINE(828, font->sheetFormat == GX_TF_I4);
     
     sheet = fontCode / (font->sheetColumn * font->sheetRow);
     numChars = fontCode - (sheet * (font->sheetColumn * font->sheetRow)); 
@@ -652,7 +642,7 @@ int OSInitFont(OSFontHeader* fontData) {
     void* tmp;
     u8* img;
 
-    ASSERTLINE(0x397, (u32) fontData % 32 == 0);
+    ASSERTLINE(919, (u32) fontData % 32 == 0);
 
     encode = OSGetFontEncode();
     switch (encode) {
@@ -731,7 +721,7 @@ char* OSGetFontTexture(const char* string, void** image, s32* x, s32* y, s32* wi
     *x = column * font->cellWidth;
     *y = row * font->cellHeight;
 
-    ASSERTLINE(0x3F8, (u32) *image % 32 == 0);
+    ASSERTLINE(1016, (u32) *image % 32 == 0);
 
     if (width != 0) {
         *width = ((u8*)font + font->widthTable)[fontCode];

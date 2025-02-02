@@ -77,8 +77,8 @@
 #define R_PPC_EMB_BIT_FLD 115    //  uword32 Y       
 #define R_PPC_EMB_RELSDA 116     //  uhalf16 Y       
 
-OSModuleQueue __OSModuleInfoList : (OS_BASE_CACHED | 0x30C8);
-const void* __OSStringTable : (OS_BASE_CACHED | 0x30D0);
+OSModuleQueue __OSModuleInfoList AT_ADDRESS(OS_BASE_CACHED | 0x30C8);
+const void* __OSStringTable AT_ADDRESS(OS_BASE_CACHED | 0x30D0);
 
 #define ENQUEUE_INFO(queue, info, link) \
   do {                                  \
@@ -114,12 +114,12 @@ const void* __OSStringTable : (OS_BASE_CACHED | 0x30D0);
   } while (0)
 
 #pragma dont_inline on
-void OSNotifyLink() {}
+void OSNotifyLink(OSModuleInfo* module) {}
 
-void OSNotifyUnlink() {}
+void OSNotifyUnlink(OSModuleInfo* module) {}
 #pragma dont_inline reset
 
-void OSSetStringTable(const void * stringTable) {
+void OSSetStringTable(void* stringTable) {
     __OSStringTable = stringTable;
 }
 
@@ -153,6 +153,7 @@ Found:
         } else {
             offset = 0;
         }
+
         switch (rel->type) {
         case R_PPC_NONE:
             break;
@@ -230,13 +231,13 @@ static BOOL Link(OSModuleInfo* newModule, void* bss, BOOL fixed) {
     OSModuleInfo* moduleInfo;
     OSImportInfo* imp;
 
-    ASSERTLINE(0x11A, newModule->version <= OS_MODULE_VERSION);
+    ASSERTLINE(282, newModule->version <= OS_MODULE_VERSION);
 
     moduleHeader = (OSModuleHeader*)newModule;
     moduleHeader->bssSection = 0;
 
-    ASSERTLINE(0x122, newModule->version < 2 || moduleHeader->align == 0 || (u32) newModule % moduleHeader->align == 0);
-    ASSERTLINE(0x125, newModule->version < 2 || moduleHeader->bssAlign == 0 || (u32) bss % moduleHeader->bssAlign == 0);
+    ASSERTLINE(290, newModule->version < 2 || moduleHeader->align == 0 || (u32) newModule % moduleHeader->align == 0);
+    ASSERTLINE(293, newModule->version < 2 || moduleHeader->bssAlign == 0 || (u32) bss % moduleHeader->bssAlign == 0);
 
     if (OS_MODULE_VERSION < newModule->version ||
         2 <= newModule->version &&
@@ -259,7 +260,7 @@ static BOOL Link(OSModuleInfo* newModule, void* bss, BOOL fixed) {
         if (si->offset != 0) {
             si->offset += (u32)moduleHeader;
         } else if (si->size != 0) {
-            ASSERTLINE(0x146, moduleHeader->bssSection == 0);
+            ASSERTLINE(326, moduleHeader->bssSection == 0);
             moduleHeader->bssSection = (u8)i;
             si->offset = (u32)bss;
         }
@@ -321,7 +322,7 @@ BOOL OSLink(OSModuleInfo* newModule, void* bss) {
 }
 
 BOOL OSLinkFixed(OSModuleInfo* newModule, void* bss) {
-    ASSERTLINE(0x190, newModule->version <= OS_MODULE_VERSION && 3 <= newModule->version);
+    ASSERTLINE(400, newModule->version <= OS_MODULE_VERSION && 3 <= newModule->version);
 
     if (OS_MODULE_VERSION < newModule->version || newModule->version < 3) {
         return FALSE;
@@ -339,10 +340,10 @@ static BOOL Undo(OSModuleHeader* newModule, OSModuleHeader* module) {
     u32 offset;
     u32 x;
 
-    ASSERTLINE(0x1B2, newModule);
+    ASSERTLINE(434, newModule);
 
     idNew = newModule->info.id;
-    ASSERTLINE(0x1B4, idNew);
+    ASSERTLINE(436, idNew);
     
     for (imp = (OSImportInfo*)module->impOffset;
          imp < (OSImportInfo*)(module->impOffset + module->impSize); imp++)
@@ -431,7 +432,7 @@ BOOL OSUnlink(OSModuleInfo* oldModule) {
     OSSectionInfo* si;
     OSImportInfo* imp;
 
-    ASSERTLINE(0x222, oldModule->version <= OS_MODULE_VERSION);
+    ASSERTLINE(546, oldModule->version <= OS_MODULE_VERSION);
 
     moduleHeader = (OSModuleHeader*)oldModule;
 
@@ -471,7 +472,7 @@ BOOL OSUnlink(OSModuleInfo* oldModule) {
     for (i = 1; i < oldModule->numSections; i++) {
         si = &OSGetSectionInfo(oldModule)[i];
         if (i == moduleHeader->bssSection) {
-            ASSERTLINE(0x24D, si->size != 0);
+            ASSERTLINE(589, si->size != 0);
             moduleHeader->bssSection = 0;
             si->offset = 0;
         } else if (si->offset != 0) {
@@ -486,8 +487,8 @@ BOOL OSUnlink(OSModuleInfo* oldModule) {
 }
 
 void __OSModuleInit(void) {
-  __OSModuleInfoList.head = __OSModuleInfoList.tail = 0;
-  __OSStringTable = 0;
+    __OSModuleInfoList.head = __OSModuleInfoList.tail = 0;
+    __OSStringTable = 0;
 }
 
 OSModuleInfo* OSSearchModule(void* ptr, u32* section, u32* offset) {

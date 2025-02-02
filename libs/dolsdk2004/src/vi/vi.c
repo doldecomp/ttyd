@@ -3,7 +3,6 @@
 #include <dolphin/vi.h>
 #include <dolphin/si.h>
 #include <dolphin/hw_regs.h>
-#include <macros.h>
 
 #include "__gx.h"
 #include "__os.h"
@@ -72,14 +71,14 @@ typedef struct {
     u32 rbufAddr;
     u32 rtfbb;
     u32 rbfbb;
-    VITiming *timing;
+    VITiming* timing;
 } SomeVIStruct;
 
 static BOOL IsInitialized;
 static volatile u32 retraceCount;
 
 static volatile u32 flushFlag;
-static struct OSThreadQueue retraceQueue;
+static OSThreadQueue retraceQueue;
 static void (*PreCB)(u32);
 static void (*PostCB)(u32);
 static void (*PositionCallback)(s16, s16);
@@ -99,8 +98,7 @@ static u16 shdwRegs[59];
 
 #define MARK_CHANGED(index) (changed |= 1LL << (63 - (index)))
 
-static VITiming timing[10] =
-{
+static VITiming timing[10] = {
     { 6, 240, 24, 25, 3, 2, 12, 13, 12, 13, 520, 519, 520, 519, 525, 429, 64, 71, 105, 162, 373, 122, 412 },
     { 6, 240, 24, 24, 4, 4, 12, 12, 12, 12, 520, 520, 520, 520, 526, 429, 64, 71, 105, 162, 373, 122, 412 },
     { 5, 287, 35, 36, 1, 0, 13, 12, 11, 10, 619, 618, 617, 620, 625, 432, 64, 75, 106, 172, 380, 133, 420 },
@@ -112,6 +110,7 @@ static VITiming timing[10] =
     { 6, 241, 24, 25, 1, 0, 12, 13, 12, 13, 520, 519, 520, 519, 525, 429, 64, 71, 105, 159, 370, 122, 412 },
     { 12, 480, 48, 48, 6, 6, 24, 24, 24, 24, 1038, 1038, 1038, 1038, 1050, 429, 64, 71, 105, 180, 391, 122, 412 }
 };
+
 static u16 taps[25] = {
     0x01F0, 0x01DC,
     0x01AE, 0x0174,
@@ -132,15 +131,23 @@ static SomeVIStruct HorVer;
 static u32 FBSet;
 static VITiming* timingExtra;
 
+// prototypes
 static u32 getCurrentFieldEvenOdd(void);
+VITiming* __VISetExtraTiming(VITiming* t);
+void __VIEnableRawPositionInterrupt(s16 x, s16 y, void (*callback)(s16, s16));
+void (*__VIDisableRawPositionInterrupt())(s16, s16);
+void __VIDisplayPositionToXY(u32 hct, u32 vct, s16* x, s16* y);
+void __VISetLatchMode(u32 mode);
+int __VIGetLatch0Position(s16* px, s16* py);
+int __VIGetLatch1Position(s16* px, s16* py);
+int __VIGetLatchPosition(u32 port, s16* px, s16* py);
 
-static u32 getEncoderType(void)
-{
+
+static u32 getEncoderType(void) {
     return 1;
 }
 
-static s32 cntlzd(u64 bit)
-{
+static s32 cntlzd(u64 bit) {
     u32 hi;
     u32 lo;
     s32 value;
@@ -154,8 +161,7 @@ static s32 cntlzd(u64 bit)
     return __cntlzw(lo) + 32;
 }
 
-static int VISetRegs(void)
-{
+static int VISetRegs(void) {
     s32 regIndex;
 
     if (shdwChangeMode != 1 || getCurrentFieldEvenOdd() != 0) {
@@ -171,11 +177,11 @@ static int VISetRegs(void)
         CurrBufAddr = NextBufAddr;
         return 1;
     }
+
     return 0;
 }
 
-static void __VIRetraceHandler(__OSInterrupt unused, OSContext *context)
-{
+static void __VIRetraceHandler(__OSInterrupt unused, OSContext* context) {
     OSContext exceptionContext;
     u16 reg;
     u32 inter;
@@ -205,6 +211,7 @@ static void __VIRetraceHandler(__OSInterrupt unused, OSContext *context)
         inter |= 8;
     }
     reg = __VIRegs[0x1E];
+
     if ((inter & 4) || (inter & 8)) {
         OSClearContext(&exceptionContext);
         OSSetCurrentContext(&exceptionContext);
@@ -219,15 +226,19 @@ static void __VIRetraceHandler(__OSInterrupt unused, OSContext *context)
         OSSetCurrentContext(context);
         return;
     }
+
     if (inter == 0) {
-        ASSERTLINE(0x3BB, FALSE);
+        ASSERTLINE(955, FALSE);
     }
+
     retraceCount += 1;
     OSClearContext(&exceptionContext);
     OSSetCurrentContext(&exceptionContext);
+
     if (PreCB) {
         PreCB(retraceCount);
     }
+
     if (flushFlag != 0) {
 #if DEBUG
         dbgCount = 0;
@@ -246,17 +257,18 @@ static void __VIRetraceHandler(__OSInterrupt unused, OSContext *context)
         }
     }
 #endif
+
     if (PostCB) {
         OSClearContext(&exceptionContext);
         PostCB(retraceCount);
     }
+
     OSWakeupThread(&retraceQueue);
     OSClearContext(&exceptionContext);
     OSSetCurrentContext(context);
 }
 
-VIRetraceCallback VISetPreRetraceCallback(VIRetraceCallback cb)
-{
+VIRetraceCallback VISetPreRetraceCallback(VIRetraceCallback cb) {
     BOOL enabled;
     VIRetraceCallback oldcb;
 
@@ -267,8 +279,7 @@ VIRetraceCallback VISetPreRetraceCallback(VIRetraceCallback cb)
     return oldcb;
 }
 
-VIRetraceCallback VISetPostRetraceCallback(VIRetraceCallback cb)
-{
+VIRetraceCallback VISetPostRetraceCallback(VIRetraceCallback cb) {
     BOOL enabled;
     VIRetraceCallback oldcb;
 
@@ -287,8 +298,7 @@ VITiming* __VISetExtraTiming(VITiming* t) {
 }
 
 #pragma dont_inline on
-static VITiming *getTiming(VITVMode mode)
-{
+static VITiming* getTiming(VITVMode mode) {
     switch (mode) {
     case VI_TVMODE_NTSC_INT:        return &timing[0];
     case VI_TVMODE_NTSC_DS:         return &timing[1];
@@ -304,20 +314,18 @@ static VITiming *getTiming(VITVMode mode)
     case VI_TVMODE_DEBUG_PAL_DS:    return &timing[3];
     case 24:                        return &timing[8];
     case 26:                        return &timing[9];
-
     case 29:
     case 30:
     case 28:
         return timingExtra;
-
-    default: return NULL;
+    default:
+        return NULL;
     }
 }
 #pragma dont_inline reset
 
-void __VIInit(VITVMode mode)
-{
-    VITiming *tm;
+void __VIInit(VITVMode mode) {
+    VITiming* tm;
     u32 nonInter;
     u32 tv;
     u32 tvForReg;
@@ -330,9 +338,10 @@ void __VIInit(VITVMode mode)
     if (encoderType == 0) {
         __VIInitPhilips();
     }
+
     nonInter = mode & 3;
     tv = (u32)mode >> 2;
-    *(u32 *)OSPhysicalToCached(0xCC) = tv;
+    *(u32*)OSPhysicalToCached(0xCC) = tv;
     if (encoderType == 0) {
         tv = 3;
     }
@@ -340,8 +349,7 @@ void __VIInit(VITVMode mode)
     __VIRegs[1] = 2;
 
     // why?
-    for (a = 0; a < 1000; a++) {
-    }
+    for (a = 0; a < 1000; a++) {}
 
     __VIRegs[1] = 0;
     __VIRegs[3] = (u32)tm->hlw;
@@ -384,6 +392,7 @@ void __VIInit(VITVMode mode)
         __VIRegs[54] = 0;
         return;
     }
+
     __VIRegs[1] = (tvForReg << 8) | 5;
     __VIRegs[54] = 1;
 }
@@ -392,8 +401,7 @@ void __VIInit(VITVMode mode)
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define CLAMP(val, min, max) ((val) > (max) ? (max) : (val) < (min) ? (min) : (val))
 
-static void AdjustPosition(u16 acv)
-{
+static void AdjustPosition(u16 acv) {
     s32 coeff;
     s32 frac;
 
@@ -411,18 +419,16 @@ static void AdjustPosition(u16 acv)
                             - (MAX((s16)HorVer.DispPosY + (s16)HorVer.DispSizeY + displayOffsetV - (((s16)acv * 2) - frac), 0) / coeff);
 }
 
-static void ImportAdjustingValues(void)
-{
-    OSSram *sram = __OSLockSram();
+static void ImportAdjustingValues(void) {
+    OSSram* sram = __OSLockSram();
 
-    ASSERTLINE(0x52A, sram);
+    ASSERTLINE(1322, sram);
     displayOffsetH = sram->displayOffsetH;
     displayOffsetV = 0;
     __OSUnlockSram(0);
 }
 
-void VIInit(void)
-{
+void VIInit(void) {
     u16 dspCfg;
     u32 value;
     u32 tv;
@@ -439,6 +445,7 @@ void VIInit(void)
     if (!(__VIRegs[1] & 1)) {
         __VIInit(VI_TVMODE_NTSC_INT);
     }
+
     retraceCount = 0;
     changed = 0;
     shdwChanged = 0;
@@ -517,8 +524,7 @@ void VIInit(void)
     __OSUnmaskInterrupts(0x80);
 }
 
-void VIWaitForRetrace(void)
-{
+void VIWaitForRetrace(void) {
     BOOL enabled;
     u32 count;
 
@@ -530,8 +536,7 @@ void VIWaitForRetrace(void)
     OSRestoreInterrupts(enabled);
 }
 
-static void setInterruptRegs(VITiming *tm)
-{
+static void setInterruptRegs(VITiming* tm) {
 #if DEBUG
     u16 vct, hct;
 #else
@@ -553,11 +558,10 @@ static void setInterruptRegs(VITiming *tm)
     regs[24] = vct | 0x1000;
     MARK_CHANGED(24);
 
-    vct;
+    vct;  // fixes regalloc
 }
 
-static void setPicConfig(u16 fbSizeX, VIXFBMode xfbMode, u16 panPosX, u16 panSizeX, u8 *wordPerLine, u8 *std, u8 *wpl, u8 *xof)
-{
+static void setPicConfig(u16 fbSizeX, VIXFBMode xfbMode, u16 panPosX, u16 panSizeX, u8* wordPerLine, u8* std, u8* wpl, u8* xof) {
     *wordPerLine = (fbSizeX + 15) / 16;
     *std = (xfbMode == VI_XFBMODE_SF) ? *wordPerLine : (u8)(*wordPerLine * 2);
     *xof = panPosX % 16;
@@ -566,8 +570,7 @@ static void setPicConfig(u16 fbSizeX, VIXFBMode xfbMode, u16 panPosX, u16 panSiz
     changed |= 0x8000000;
 }
 
-static void setBBIntervalRegs(VITiming *tm)
-{
+static void setBBIntervalRegs(VITiming* tm) {
     u16 val;
 
     val = tm->bs1 | (tm->be1 << 5);
@@ -587,8 +590,7 @@ static void setBBIntervalRegs(VITiming *tm)
     changed |= (1LL << (63-12));
 }
 
-static void setScalingRegs(u16 panSizeX, u16 dispSizeX, BOOL threeD)
-{
+static void setScalingRegs(u16 panSizeX, u16 dispSizeX, BOOL threeD) {
     u32 scale;
 
     panSizeX = threeD ? (panSizeX << 1) : panSizeX;
@@ -604,8 +606,7 @@ static void setScalingRegs(u16 panSizeX, u16 dispSizeX, BOOL threeD)
     }
 }
 
-static void calcFbbs(u32 bufAddr, u16 panPosX, u16 panPosY, u8 wordPerLine, VIXFBMode xfbMode, u16 dispPosY, u32 *tfbb, u32 *bfbb)
-{
+static void calcFbbs(u32 bufAddr, u16 panPosX, u16 panPosY, u8 wordPerLine, VIXFBMode xfbMode, u16 dispPosY, u32* tfbb, u32* bfbb) {
     u32 bytesPerLine;
     u32 xoffInWords;
     u32 tmp;
@@ -623,19 +624,20 @@ static void calcFbbs(u32 bufAddr, u16 panPosX, u16 panPosY, u8 wordPerLine, VIXF
     *bfbb &= 0x3FFFFFFF;
 }
 
-static void setFbbRegs(SomeVIStruct *HorVer, u32 *tfbb, u32 *bfbb, u32 *rtfbb, u32 *rbfbb)
-{
+static void setFbbRegs(SomeVIStruct* HorVer, u32* tfbb, u32* bfbb, u32* rtfbb, u32* rbfbb) {
     u32 shifted;
 
     calcFbbs(HorVer->bufAddr, HorVer->PanPosX, HorVer->AdjustedPanPosY, HorVer->wordPerLine, HorVer->FBMode, HorVer->AdjustedDispPosY, tfbb, bfbb);
     if (HorVer->threeD) {
         calcFbbs(HorVer->rbufAddr, HorVer->PanPosX, HorVer->AdjustedPanPosY, HorVer->wordPerLine, HorVer->FBMode, HorVer->AdjustedDispPosY, rtfbb, rbfbb);
     }
+
     if (*tfbb < 0x01000000U && *bfbb < 0x01000000U && *rtfbb < 0x01000000U && *rbfbb < 0x01000000U) {
         shifted = 0;
     } else {
         shifted = 1;
     }
+
     if (shifted) {
         *tfbb >>= 5;
         *bfbb >>= 5;
@@ -651,6 +653,7 @@ static void setFbbRegs(SomeVIStruct *HorVer, u32 *tfbb, u32 *bfbb, u32 *rtfbb, u
     MARK_CHANGED(19);
     regs[18] = (*bfbb >> 16);
     MARK_CHANGED(18);
+
     if (HorVer->threeD) {
         regs[17] = (u16)*rtfbb & 0xFFFF;
         MARK_CHANGED(17);
@@ -663,8 +666,7 @@ static void setFbbRegs(SomeVIStruct *HorVer, u32 *tfbb, u32 *bfbb, u32 *rtfbb, u
     }
 }
 
-static void setHorizontalRegs(VITiming *tm, u16 dispPosX, u16 dispSizeX)
-{
+static void setHorizontalRegs(VITiming* tm, u16 dispPosX, u16 dispSizeX) {
     u32 hbe;
     u32 hbs;
     u32 hbeLo;
@@ -684,8 +686,7 @@ static void setHorizontalRegs(VITiming *tm, u16 dispPosX, u16 dispSizeX)
     MARK_CHANGED(4);
 }
 
-static void setVerticalRegs(u16 dispPosY, u16 dispSizeY, u8 equ, u16 acv, u16 prbOdd, u16 prbEven, u16 psbOdd, u16 psbEven, int black)
-{
+static void setVerticalRegs(u16 dispPosY, u16 dispSizeY, u8 equ, u16 acv, u16 prbOdd, u16 prbEven, u16 psbOdd, u16 psbEven, BOOL black) {
     u16 actualPrbOdd;
     u16 actualPrbEven;
     u16 actualPsbOdd;
@@ -751,12 +752,12 @@ static void PrintDebugPalCaution(void) {
     }
 }
 
-void VIConfigure(const GXRenderModeObj *rm)
-{
-    VITiming *tm;
+// NONMATCHING - SET_REG_FIELD issues
+void VIConfigure(const GXRenderModeObj* rm) {
+    VITiming* tm;
     u32 regDspCfg;
     u32 regClksel;
-    int enabled;
+    BOOL enabled;
     u32 newNonInter;
     u32 tvInBootrom;
     u32 tvInGame;
@@ -769,18 +770,18 @@ void VIConfigure(const GXRenderModeObj *rm)
         HorVer.nonInter = newNonInter;
     }
 
-    ASSERTMSGLINEV(0x786, (rm->viHeight & 1) == 0,
+    ASSERTMSGLINEV(1926, (rm->viHeight & 1) == 0,
         "VIConfigure(): Odd number(%d) is specified to viHeight\n",
         rm->viHeight);
 
     if (rm->xFBmode == VI_XFBMODE_DF || newNonInter == VI_TVMODE_NTSC_PROG || newNonInter == 3) {
-        ASSERTMSGLINEV(0x78D, rm->xfbHeight == rm->viHeight,
+        ASSERTMSGLINEV(1933, rm->xfbHeight == rm->viHeight,
             "VIConfigure(): xfbHeight(%d) is not equal to viHeight(%d) when DF XFB mode or progressive mode is specified\n",
             rm->xfbHeight, rm->viHeight);
     }
 
     if (rm->xFBmode == VI_XFBMODE_SF && newNonInter != VI_TVMODE_NTSC_PROG && newNonInter != 3) {
-        ASSERTMSGLINEV(0x795, rm->viHeight == rm->xfbHeight * 2,
+        ASSERTMSGLINEV(1941, rm->viHeight == rm->xfbHeight * 2,
             "VIConfigure(): xfbHeight(%d) is not as twice as viHeight(%d) when SF XFB mode is specified\n",
             rm->xfbHeight, rm->viHeight);
     }
@@ -839,12 +840,12 @@ void VIConfigure(const GXRenderModeObj *rm)
     HorVer.timing = tm;
 
     AdjustPosition(tm->acv);
-    ASSERTMSGLINEV(0x7E6, rm->viXOrigin <= tm->hlw + 40 - tm->hbe640,
+    ASSERTMSGLINEV(2022, rm->viXOrigin <= tm->hlw + 40 - tm->hbe640,
         "VIConfigure(): viXOrigin(%d) cannot be greater than %d in this TV mode\n",
         rm->viXOrigin, tm->hlw + 40 - tm->hbe640);
-    ASSERTMSGLINEV(0x7EB,  rm->viXOrigin + rm->viWidth >= 0x2A8 - tm->hbs640,
+    ASSERTMSGLINEV(2027,  rm->viXOrigin + rm->viWidth >= 680 - tm->hbs640,
         "VIConfigure(): viXOrigin + viWidth (%d) cannot be less than %d in this TV mode\n",
-        rm->viXOrigin + rm->viWidth, 0x2A8 - tm->hbs640);
+        rm->viXOrigin + rm->viWidth, 680 - tm->hbs640);
 
     if (encoderType == 0) {
         HorVer.tv = 3;
@@ -857,15 +858,15 @@ void VIConfigure(const GXRenderModeObj *rm)
         regDspCfg = (((u32)(regDspCfg)) & ~0x00000004) | (((u32)(1)) << 2);
         regClksel = (((u32)(regClksel)) & ~0x00000001) | (((u32)(1)) << 0);
     } else {
-        SET_REG_FIELD(0x804, regDspCfg, 1, 2, HorVer.nonInter & 1);
+        SET_REG_FIELD(2052, regDspCfg, 1, 2, HorVer.nonInter & 1);
         regDspCfg = (((u32)(regDspCfg)) & ~0x00000004) | (((u32)(HorVer.nonInter & 1)) << 2);
         regClksel = (((u32)(regClksel)) & ~0x00000001);
     }
 
-    SET_REG_FIELD(0x808, regDspCfg, 1, 0, HorVer.threeD << 3);
+    SET_REG_FIELD(2056, regDspCfg, 1, 0, HorVer.threeD << 3);
 
     if ((HorVer.tv == VI_PAL) || (HorVer.tv == VI_MPAL) || (HorVer.tv == 3)) {
-        SET_REG_FIELD(0x80C, regDspCfg, 2, 8, HorVer.tv);
+        SET_REG_FIELD(2060, regDspCfg, 2, 8, HorVer.tv);
         regDspCfg = (((u32)(regDspCfg)) & ~0x00000300) | (((u32)(HorVer.tv)) << 8);
     } else {
         regDspCfg = (((u32)(regDspCfg)) & ~0x00000300);
@@ -888,17 +889,16 @@ void VIConfigure(const GXRenderModeObj *rm)
     OSRestoreInterrupts(enabled);
 }
 
-void VIConfigurePan(u16 xOrg, u16 yOrg, u16 width, u16 height)
-{
+void VIConfigurePan(u16 xOrg, u16 yOrg, u16 width, u16 height) {
     BOOL enabled;
-    VITiming *tm;
+    VITiming* tm;
 
 #if DEBUG
-    ASSERTMSGLINEV(0x846, (xOrg & 1) == 0,
+    ASSERTMSGLINEV(2118, (xOrg & 1) == 0,
         "VIConfigurePan(): Odd number(%d) is specified to xOrg\n",
         xOrg);
     if (HorVer.FBMode == VI_XFBMODE_DF) {
-        ASSERTMSGLINEV(0x84B, (height & 1) == 0,
+        ASSERTMSGLINEV(2123, (height & 1) == 0,
             "VIConfigurePan(): Odd number(%d) is specified to height when DF XFB mode\n",
             height);
     }
@@ -923,8 +923,7 @@ void VIConfigurePan(u16 xOrg, u16 yOrg, u16 width, u16 height)
     OSRestoreInterrupts(enabled);
 }
 
-void VIFlush(void)
-{
+void VIFlush(void) {
     BOOL enabled;
     s32 regIndex;
 
@@ -944,11 +943,10 @@ void VIFlush(void)
     OSRestoreInterrupts(enabled);
 }
 
-void VISetNextFrameBuffer(void *fb)
-{
+void VISetNextFrameBuffer(void* fb) {
     BOOL enabled;
 
-    ASSERTMSGLINEV(0x8A8, ((u32)fb & 0x1F) == 0,
+    ASSERTMSGLINEV(2216, ((u32)fb & 0x1F) == 0,
         "VISetNextFrameBuffer(): Frame buffer address(0x%08x) is not 32byte aligned\n",
         fb);
     enabled = OSDisableInterrupts();
@@ -958,19 +956,18 @@ void VISetNextFrameBuffer(void *fb)
     OSRestoreInterrupts(enabled);
 }
 
-void* VIGetNextFrameBuffer() {
+void* VIGetNextFrameBuffer(void) {
     return *(void**)(&NextBufAddr);
 }
 
-void* VIGetCurrentFrameBuffer() {
+void* VIGetCurrentFrameBuffer(void) {
     return *(void**)(&CurrBufAddr);
 }
 
-void VISetNextRightFrameBuffer(void *fb)
-{
+void VISetNextRightFrameBuffer(void* fb) {
     BOOL enabled;
 
-    ASSERTMSGLINEV(0x8EC, ((u32)fb & 0x1F) == 0,
+    ASSERTMSGLINEV(2284, ((u32)fb & 0x1F) == 0,
         "VISetNextFrameBuffer(): Frame buffer address(0x%08x) is not 32byte aligned\n",
         fb);
     enabled = OSDisableInterrupts();
@@ -980,10 +977,9 @@ void VISetNextRightFrameBuffer(void *fb)
     OSRestoreInterrupts(enabled);
 }
 
-void VISetBlack(BOOL black)
-{
+void VISetBlack(BOOL black) {
     BOOL enabled;
-    VITiming *tm;
+    VITiming* tm;
 
     enabled = OSDisableInterrupts();
     HorVer.black = black;
@@ -992,8 +988,8 @@ void VISetBlack(BOOL black)
     OSRestoreInterrupts(enabled);
 }
 
-void VISet3D(BOOL threeD)
-{
+// NONMATCHING
+void VISet3D(BOOL threeD) {
     BOOL enabled;
     u32 reg;
 
@@ -1007,8 +1003,7 @@ void VISet3D(BOOL threeD)
     OSRestoreInterrupts(enabled);
 }
 
-u32 VIGetRetraceCount(void)
-{
+u32 VIGetRetraceCount(void) {
     return retraceCount;
 }
 
@@ -1026,21 +1021,18 @@ static void GetCurrentDisplayPosition(u32* hct, u32* vct) {
     *vct = vcount;
 }
 
-static u32 getCurrentHalfLine(void)
-{
+static u32 getCurrentHalfLine(void) {
     u32 hcount, vcount;
     GetCurrentDisplayPosition(&hcount, &vcount);
 
     return ((vcount - 1) << 1) + ((hcount - 1) / CurrTiming->hlw);
 }
 
-static u32 getCurrentFieldEvenOdd(void)
-{
+static u32 getCurrentFieldEvenOdd(void) {
     return (getCurrentHalfLine() < CurrTiming->nhlines) ? 1 : 0;
 }
 
-u32 VIGetNextField(void)
-{
+u32 VIGetNextField(void) {
     s32 nextField;
     BOOL enabled;
 #if !DEBUG
@@ -1053,10 +1045,9 @@ u32 VIGetNextField(void)
     return nextField ^ (HorVer.AdjustedDispPosY & 1);
 }
 
-u32 VIGetCurrentLine(void)
-{
+u32 VIGetCurrentLine(void) {
     u32 halfLine;
-    VITiming *tm;
+    VITiming* tm;
     BOOL enabled;
 
     tm = CurrTiming;
@@ -1069,10 +1060,9 @@ u32 VIGetCurrentLine(void)
     return halfLine >> 1U;
 }
 
-u32 VIGetTvFormat(void)
-{
+u32 VIGetTvFormat(void) {
     u32 format;
-    int enabled;
+    BOOL enabled;
 
     enabled = OSDisableInterrupts();
 
@@ -1092,14 +1082,15 @@ u32 VIGetTvFormat(void)
         format = CurrTvMode;
         break;
     default:
-        ASSERTLINE(0x9DF, FALSE);
+        ASSERTLINE(2527, FALSE);
     }
     
     OSRestoreInterrupts(enabled);
     return format;
 }
 
-u32 VIGetScanMode() {
+// NONMATCHING
+u32 VIGetScanMode(void) {
     u32 scanMode;
     BOOL enabled = OSDisableInterrupts();
 
@@ -1115,7 +1106,7 @@ u32 VIGetScanMode() {
     return scanMode;
 }
 
-u32 VIGetDTVStatus() {
+u32 VIGetDTVStatus(void) {
     u32 dtvStatus;
     BOOL enabled = OSDisableInterrupts();
 
@@ -1124,12 +1115,11 @@ u32 VIGetDTVStatus() {
     return dtvStatus & 1;
 }
 
-void __VISetAdjustingValues(s16 x, s16 y)
-{
+void __VISetAdjustingValues(s16 x, s16 y) {
     BOOL enabled;
-    VITiming *tm;
+    VITiming* tm;
 
-    ASSERTMSGLINE(0xA33, (y & 1) == 0, "__VISetAdjustValues(): y offset should be an even number");
+    ASSERTMSGLINE(2611, (y & 1) == 0, "__VISetAdjustValues(): y offset should be an even number");
     enabled = OSDisableInterrupts();
     displayOffsetH = x;
     displayOffsetV = y;
@@ -1143,8 +1133,7 @@ void __VISetAdjustingValues(s16 x, s16 y)
     OSRestoreInterrupts(enabled);
 }
 
-void __VIGetAdjustingValues(s16 *x, s16 *y)
-{
+void __VIGetAdjustingValues(s16* x, s16* y) {
     BOOL enabled;
 
     enabled = OSDisableInterrupts();
@@ -1153,8 +1142,9 @@ void __VIGetAdjustingValues(s16 *x, s16 *y)
     OSRestoreInterrupts(enabled);
 }
 
+// NONMATCHING
 void __VIEnableRawPositionInterrupt(s16 x, s16 y, void (*callback)(s16, s16)) {
-    int enabled;
+    BOOL enabled;
     u32 halfLine;
     u32 halfLineOff;
 
@@ -1171,7 +1161,7 @@ void __VIEnableRawPositionInterrupt(s16 x, s16 y, void (*callback)(s16, s16)) {
             __VIRegs[28] = (((halfLineOff / 2) + (y / 2)) + 1) | 0x1000;
         }
     } else if (HorVer.nonInter == 1) {
-        ASSERTLINE(0xA8E, (y & 1) == 0);
+        ASSERTLINE(2702, (y & 1) == 0);
         halfLine = CurrTiming->prbOdd + ((CurrTiming->equ * 3)) + y;
         __VIRegs[28] = ((halfLine / 2) + 1) | 0x1000;
         __VIRegs[30] = (((halfLine + CurrTiming->nhlines) / 2) + 1) | 0x1000;
@@ -1185,8 +1175,8 @@ void __VIEnableRawPositionInterrupt(s16 x, s16 y, void (*callback)(s16, s16)) {
     OSRestoreInterrupts(enabled);
 }
 
-void (* __VIDisableRawPositionInterrupt())(s16, s16) {
-    int enabled;
+void (*__VIDisableRawPositionInterrupt())(s16, s16) {
+    BOOL enabled;
     void (*old)(s16, s16);
 
     enabled = OSDisableInterrupts();
@@ -1264,6 +1254,7 @@ void __VIGetCurrentPosition(s16* x, s16* y) {
     __VIDisplayPositionToXY(hcount, vcount, x, y);
 }
 
+// NONMATCHING
 void __VISetLatchMode(u32 mode) {
     u32 reg;
 
@@ -1274,6 +1265,7 @@ void __VISetLatchMode(u32 mode) {
 }
 
 #pragma dont_inline on
+// NONMATCHING
 int __VIGetLatch0Position(s16* px, s16* py) {
     u32 hcount;
     u32 vcount;
@@ -1293,6 +1285,7 @@ int __VIGetLatch0Position(s16* px, s16* py) {
 #pragma dont_inline reset
 
 #pragma dont_inline on
+// NONMATCHING
 int __VIGetLatch1Position(s16* px, s16* py) {
     u32 hcount;
     u32 vcount;

@@ -1,13 +1,12 @@
-#include <dolphin.h>
 #include <dolphin/card.h>
 
 #include "__card.h"
 
-// functions
+// prototypes
 static void DeleteCallback(s32 chan, s32 result);
 
 static void DeleteCallback(s32 chan, s32 result) {
-    CARDControl *card;
+    CARDControl* card;
     CARDCallback callback;
 
     card = &__CARDBlock[chan];
@@ -29,16 +28,17 @@ error:
 }
 
 s32 CARDFastDeleteAsync(s32 chan, s32 fileNo, CARDCallback callback) {
-    CARDControl *card;
-    CARDDir *dir;
-    CARDDir *ent;
+    CARDControl* card;
+    CARDDir* dir;
+    CARDDir* ent;
     s32 result;
 
-    ASSERTLINE(0x85, 0 <= fileNo && fileNo < CARD_MAX_FILE);
-    ASSERTLINE(0x86, 0 <= chan && chan < 2);
+    ASSERTLINE(133, 0 <= fileNo && fileNo < CARD_MAX_FILE);
+    ASSERTLINE(134, 0 <= chan && chan < 2);
 
     if (fileNo < 0 || CARD_MAX_FILE <= fileNo)
         return CARD_RESULT_FATAL_ERROR;
+
     result = __CARDGetControlBlock(chan, &card);
     if (result < 0)
         return result;
@@ -48,8 +48,10 @@ s32 CARDFastDeleteAsync(s32 chan, s32 fileNo, CARDCallback callback) {
     result = __CARDIsWritable(card, ent);
     if (result < 0)
         return __CARDPutControlBlock(card, result);
+
     if (__CARDIsOpened(card, fileNo))
         return __CARDPutControlBlock(card, CARD_RESULT_BUSY);
+
     card->startBlock = ent->startBlock;
     memset(ent, 0xff, sizeof(CARDDir));
 
@@ -60,21 +62,21 @@ s32 CARDFastDeleteAsync(s32 chan, s32 fileNo, CARDCallback callback) {
     return result;
 }
 
-long CARDFastDelete(long chan, long fileNo) {
-    long result = CARDFastDeleteAsync(chan, fileNo, __CARDSyncCallback);
-
+s32 CARDFastDelete(s32 chan, s32 fileNo) {
+    s32 result = CARDFastDeleteAsync(chan, fileNo, __CARDSyncCallback);
     if (result < 0) {
         return result;
     }
+
     return __CARDSync(chan);
 }
 
-s32 CARDDeleteAsync(s32 chan, const char *fileName, CARDCallback callback) {
-    CARDControl *card;
+s32 CARDDeleteAsync(s32 chan, const char* fileName, CARDCallback callback) {
+    CARDControl* card;
     s32 fileNo;
     s32 result;
-    CARDDir *dir;
-    CARDDir *ent;
+    CARDDir* dir;
+    CARDDir* ent;
 
     result = __CARDGetControlBlock(chan, &card);
     if (result < 0)
@@ -97,10 +99,10 @@ s32 CARDDeleteAsync(s32 chan, const char *fileName, CARDCallback callback) {
     return result;
 }
 
-s32 CARDDelete(s32 chan, const char *fileName) {
+s32 CARDDelete(s32 chan, const char* fileName) {
     s32 result = CARDDeleteAsync(chan, fileName, __CARDSyncCallback);
-
     if (result < 0)
         return result;
+
     return __CARDSync(chan);
 }

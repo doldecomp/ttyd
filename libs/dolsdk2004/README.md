@@ -27,19 +27,19 @@ Currently this repository supports building the following libraries:
 | dsp          | :x: |
 | dtk          | :x: |
 | dvd          | :x: |
-| exi          | :x: |
+| exi          | :heavy_check_mark: |
 | fileCache    | :x: |
 | G2D          | :x: |
-| gd           | :x: |
-| gx           | :x: |
+| gd           | :heavy_check_mark: |
+| gx           | :warning: |
 | hio          | :heavy_check_mark: |
-| mcc          | :x: |
+| mcc          | :heavy_check_mark: |
 | mix          | :x: |
-| mtx          | :x: |
+| mtx          | :heavy_check_mark: |
 | odemustubs   | :heavy_check_mark: |
 | odenotstub   | :heavy_check_mark: |
-| os           | :warning: |
-| pad          | :x: |
+| os           | :heavy_check_mark: |
+| pad          | :heavy_check_mark: |
 | perf         | :x: |
 | seq          | :x: |
 | si           | :x: |
@@ -47,7 +47,7 @@ Currently this repository supports building the following libraries:
 | support      | :x: |
 | syn          | :x: |
 | texPalette   | :x: |
-| vi           | :x: |
+| vi           | :warning: |
 
 ## Preparation
 

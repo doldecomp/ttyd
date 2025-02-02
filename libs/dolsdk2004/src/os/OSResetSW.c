@@ -4,12 +4,12 @@
 #include "__os.h"
 
 static OSResetCallback ResetCallback;
-static int Down;
-static int LastState;
+static BOOL Down;
+static BOOL LastState;
 static OSTime HoldUp;
 static OSTime HoldDown;
 
-void __OSResetSWInterruptHandler(short exception, struct OSContext *context) {
+void __OSResetSWInterruptHandler(s16 exception, OSContext* context) {
     OSResetCallback callback;
 
     HoldDown = __OSGetSystemTime();
@@ -30,7 +30,7 @@ void __OSResetSWInterruptHandler(short exception, struct OSContext *context) {
 }
 
 OSResetCallback OSSetResetCallback(OSResetCallback callback) {
-    int enabled;
+    BOOL enabled;
     OSResetCallback prevCallback;
 
     enabled = OSDisableInterrupts();
@@ -54,9 +54,9 @@ BOOL OSGetResetButtonState(void) {
     OSTime now;
 
     now = __OSGetSystemTime();
-    ASSERTLINE(0x9E, 0 <= now);
-    ASSERTLINE(0x9F, HoldUp == 0 || HoldUp < now);
-    ASSERTLINE(0xA0, HoldDown == 0 || HoldDown < now);
+    ASSERTLINE(158, 0 <= now);
+    ASSERTLINE(159, HoldUp == 0 || HoldUp < now);
+    ASSERTLINE(160, HoldDown == 0 || HoldDown < now);
 
     reg = __PIRegs[0];
     if (!(reg & 0x00010000)) {
@@ -104,12 +104,12 @@ BOOL OSGetResetButtonState(void) {
     return state;
 }
 
-int OSGetResetSwitchState() {
+int OSGetResetSwitchState(void) {
     return OSGetResetButtonState();
 }
 
 void __OSSetResetButtonTimer(u8 min) {
-    int enabled = OSDisableInterrupts();
+    BOOL enabled = OSDisableInterrupts();
     if (min > 0x1F) {
         min = 0x1F;
     }

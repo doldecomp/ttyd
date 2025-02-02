@@ -17,8 +17,6 @@
 #include <dolphin/pad.h>
 #include <dolphin/dtk.h>
 #include <dolphin/ai.h>
-#include <dolphin/demo.h>
-
-#include "macros.h"
+#include <dolphin/exi.h>
 
 #endif

@@ -4,6 +4,10 @@
 #include "__os.h"
 #include "__dvd.h"
 
+extern volatile u32 BOOT_REGION_START AT_ADDRESS(0x812FDFF0);
+extern volatile u32 BOOT_REGION_END AT_ADDRESS(0x812FDFEC);
+extern volatile u8 g_unk_800030E2 AT_ADDRESS(0x800030E2);
+
 static int Prepared;
 
 static int PackArgs(void* addr, s32 argc, char** argv) {
@@ -38,7 +42,7 @@ static int PackArgs(void* addr, s32 argc, char** argv) {
         ptr -= 4;
         *(u32*)ptr = numArgs;
 
-        ASSERTMSGLINE(0x81, ptr - bootInfo2 >= 0x1000U, "OSExec: Argument list is too long");
+        ASSERTMSGLINE(129, ptr - bootInfo2 >= 0x1000U, "OSExec: Argument list is too long");
 
         *(u32*)(bootInfo2 + 8) = (ptr - bootInfo2);
     }
@@ -46,6 +50,7 @@ static int PackArgs(void* addr, s32 argc, char** argv) {
     return 1;
 }
 
+#ifdef __GEKKO__
 static asm void Run(register void* entryPoint) {
     nofralloc
 
@@ -66,6 +71,7 @@ static asm void Run(register void* entryPoint) {
     mtlr r0
     blr
 }
+#endif
 
 static void StartDol(const OSExecParams* params, void* entry) {
     OSExecParams* paramsWork = OSAllocFromArenaLo(sizeof(OSExecParams), 1);
@@ -79,7 +85,7 @@ static void StartDol(const OSExecParams* params, void* entry) {
 
 static void ReadDisc(void* addr, s32 length, s32 offset) {
     DVDCommandBlock block;
-    s64 start;
+    OSTime start;
 
     DVDReadAbsAsyncPrio(&block, addr, length, offset, NULL, 0);
 
@@ -118,7 +124,7 @@ void __OSSetExecParams(const OSExecParams* params, OSExecParams* addr) {
 
 static void StopStreaming() {
     DVDCommandBlock block;
-    s64 start;
+    OSTime start;
 
     if (!__OSIsGcam && IsStreamEnabled()) {
         AISetStreamVolLeft(0);
@@ -147,10 +153,10 @@ static int GetApploaderPosition(void) {
     }
 
     if (__OSAppLoaderOffset != 0) {
-        tgcHeader = OSAllocFromArenaLo(0x40, 0x20);
+        tgcHeader = OSAllocFromArenaLo(0x40, DOLPHIN_ALIGNMENT);
         ReadDisc(tgcHeader, 0x40, __OSAppLoaderOffset);
         apploaderOffsetInTGC = tgcHeader[14];
-        ASSERTMSGLINE(0x172, apploaderOffsetInTGC != 0, "OSExec() or OSResetSystem(): Wrong apploader offset. Maybe converted by an\nolder version of gcm2tgc. Use gcm2tgc v.1.20 or later.");
+        ASSERTMSGLINE(370, apploaderOffsetInTGC != 0, "OSExec() or OSResetSystem(): Wrong apploader offset. Maybe converted by an\nolder version of gcm2tgc. Use gcm2tgc v.1.20 or later.");
 
         apploaderPosition = __OSAppLoaderOffset + apploaderOffsetInTGC;
     } else {
@@ -160,20 +166,19 @@ static int GetApploaderPosition(void) {
 }
 
 typedef struct {
-    // total size: 0x20
-    char date[16]; // offset 0x0, size 0x10
-    u32 entry; // offset 0x10, size 0x4
-    u32 size; // offset 0x14, size 0x4
-    u32 rebootSize; // offset 0x18, size 0x4
-    u32 reserved2; // offset 0x1C, size 0x4
+    char date[16];
+    u32 entry;
+    u32 size;
+    u32 rebootSize;
+    u32 reserved2;
 } AppLoaderStruct;
 
 static AppLoaderStruct* LoadApploader() {
     AppLoaderStruct* header;
 
-    header = (AppLoaderStruct*)OSAllocFromArenaLo(sizeof(AppLoaderStruct), 0x20);
+    header = (AppLoaderStruct*)OSAllocFromArenaLo(sizeof(AppLoaderStruct), DOLPHIN_ALIGNMENT);
     ReadDisc(header, sizeof(AppLoaderStruct), GetApploaderPosition());
-    ASSERTMSGLINE(0x191, header->rebootSize != 0, "OSResetSystem(): old apploader");
+    ASSERTMSGLINE(401, header->rebootSize != 0, "OSResetSystem(): old apploader");
 
     ReadDisc((void*)0x81200000, OSRoundUp32B(header->size), GetApploaderPosition() + 0x20);
     ICInvalidateRange((void*)0x81200000, OSRoundUp32B(header->size));
@@ -192,7 +197,7 @@ static void* LoadDol(const OSExecParams* params, AppLoaderCallback getInterface)
     getInterface(&appInit, &appGetNext, &appGetEntry);
     paramsWork = (OSExecParams*)OSAllocFromArenaLo(sizeof(OSExecParams), 1);
     __OSSetExecParams(params, paramsWork);
-    appInit(OSReport);
+    appInit((void(*)(char*))OSReport);
     OSSetArenaLo(paramsWork);
 
     while (appGetNext(&addr, &length, &offset) != 0) {
@@ -206,15 +211,11 @@ static BOOL IsNewApploader(AppLoaderStruct* header) {
     return strncmp(header->date, "2004/02/01", 10) > 0 ? TRUE : FALSE;
 }
 
-extern volatile u32 BOOT_REGION_START : 0x812FDFF0;
-extern volatile u32 BOOT_REGION_END : 0x812FDFEC;
-extern volatile u8 g_unk_800030E2 : 0x800030E2;
-
 void __OSBootDolSimple(u32 doloffset, u32 restartCode, void* regionStart, void* regionEnd, BOOL argsUseDefault, s32 argc, char** argv) {
     OSExecParams* params;
     void* dolEntry;
     AppLoaderStruct* header;
-    s64 start;
+    OSTime start;
 
     OSDisableInterrupts();
     params = (OSExecParams*)OSAllocFromArenaLo(sizeof(OSExecParams), 1);
@@ -309,7 +310,7 @@ static void ExecCommon(const char* dolfile, const char** argv) {
     } else if (DVDOpen((char*)dolfile, &fileInfo)) {
         doloff = fileInfo.startAddr;
     } else {
-        ASSERTMSGLINE(0x2B1, 0, "OSExec(): The specified file doesn't exist");
+        ASSERTMSGLINE(689, 0, "OSExec(): The specified file doesn't exist");
         return;
     }
 
@@ -317,8 +318,8 @@ static void ExecCommon(const char* dolfile, const char** argv) {
 }
 
 void OSExecv(const char* dolfile, const char** argv) {
-    ASSERTMSGLINE(0x2CE, dolfile != 0, "OSExecv(): null pointer was specified for the dol file name.");
-    ASSERTMSGLINE(0x2CF, argv != 0, "OSExecv(): null pointer was specified for argv.");
+    ASSERTMSGLINE(718, dolfile != 0, "OSExecv(): null pointer was specified for the dol file name.");
+    ASSERTMSGLINE(719, argv != 0, "OSExecv(): null pointer was specified for argv.");
 
     OSDisableScheduler();
     __OSShutdownDevices(FALSE);
@@ -334,7 +335,7 @@ void OSExecl(const char* dolfile, const char* arg0, ...) {
     s32 i;
     char** argv;
 
-    ASSERTMSGLINE(0x2F7, dolfile != 0, "OSExecl(): null pointer was specified for the dol file name.");
+    ASSERTMSGLINE(759, dolfile != 0, "OSExecl(): null pointer was specified for the dol file name.");
 
     OSDisableScheduler();
     __OSShutdownDevices(FALSE);
@@ -352,7 +353,7 @@ void OSExecl(const char* dolfile, const char* arg0, ...) {
         argv[i++] = ptr;
     } while (ptr != 0);
     va_end(vl);
-    ASSERTMSGLINE(0x313, i < 0x400U, "OSExecl(): Arguments too long");
+    ASSERTMSGLINE(787, i < 0x400U, "OSExecl(): Arguments too long");
 
     ExecCommon(dolfile, argv);
 }

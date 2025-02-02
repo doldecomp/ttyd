@@ -258,12 +258,13 @@ config.linker_version = "GC/2.6"
 
 
 # Helper function for Dolphin libraries
-def DolphinLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
+def DolphinLib(lib_name: str, cflags: Any, objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
-        "mw_version": "GC/2.6",
-        "cflags": cflags_base,
+        "mw_version": "GC/1.2.5n",
+        "cflags": cflags,
         "progress_category": "sdk",
+        "src_dir": "libs/dolsdk2004/src",
         "objects": objects,
     }
 
@@ -921,6 +922,32 @@ config.libs = [
             Object(NonMatching, "musyx/runtime/Chorus/chorus_fx.c"),
         ],
     },
+    DolphinLib(
+        "os",
+        [*cflags_base, "-D__GEKKO__", "-i libs/dolsdk2004/src/dvd", "-i libs/dolsdk2004/src/os"],
+        [
+            Object(NonMatching, "os/OS.c"),
+            Object(NonMatching, "os/OSAlarm.c"),
+            Object(NonMatching, "os/OSAlloc.c"),
+            Object(NonMatching, "os/OSArena.c"),
+            Object(NonMatching, "os/OSAudioSystem.c"),
+            Object(NonMatching, "os/OSCache.c"),
+            Object(NonMatching, "os/OSContext.c"),
+            Object(NonMatching, "os/OSError.c"),
+            Object(NonMatching, "os/OSExec.c"),
+            Object(NonMatching, "os/OSFont.c"),
+            Object(NonMatching, "os/OSInterrupt.c"),
+            Object(NonMatching, "os/OSLink.c"),
+            Object(NonMatching, "os/OSMemory.c"),
+            Object(NonMatching, "os/OSMutex.c"),
+            Object(NonMatching, "os/OSReboot.c"),
+            Object(NonMatching, "os/OSReset.c"),
+            Object(NonMatching, "os/OSResetSW.c"),
+            Object(NonMatching, "os/OSThread.c"),
+            Object(NonMatching, "os/OSTime.c"),
+            Object(NonMatching, "os/__start.c"),
+        ],
+    ),
     Rel(
         "mri",
         [

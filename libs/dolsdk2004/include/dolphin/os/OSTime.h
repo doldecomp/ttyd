@@ -3,6 +3,10 @@
 
 #include <dolphin/types.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Time base frequency = 1/4 bus clock
 #define OS_TIME_SPEED (OS_BUS_CLOCK / 4)
 
@@ -32,5 +36,9 @@
 #define BIAS 0xB2575
 
 #define __OSSystemTime (OSTime*)0x800030D8
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // _DOLPHIN_OSTIME_H_

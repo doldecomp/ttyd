@@ -3062,110 +3062,110 @@ MSL_C.PPCEABI.bare.H.a/math_ppc.c:
 MSL_C.PPCEABI.bare.H.a/w_sqrt.c:
 	.text       start:0x8026C8B8 end:0x8026C8D8
 
-musyx.a/seq.c:
+musyx/runtime/seq.c:
 	.text       start:0x8026C8D8 end:0x80270900
 	.data       start:0x803B7E08 end:0x803B7E58
 	.bss        start:0x803E4BB8 end:0x803F24F8
 	.sbss       start:0x80418C70 end:0x80418C90
 	.sdata2     start:0x80422B58 end:0x80422B78
 
-musyx.a/synth.c:
+musyx/runtime/synth.c:
 	.text       start:0x80270900 end:0x80273D54
 	.bss        start:0x803F24F8 end:0x803F3AE0
 	.sbss       start:0x80418C90 end:0x80418CD8
 	.sdata2     start:0x80422B78 end:0x80422BB8
 
-musyx.a/seq_api.c:
+musyx/runtime/seq_api.c:
 	.text       start:0x80273D54 end:0x80273FBC
 
-musyx.a/snd_synthapi.c:
+musyx/runtime/snd_synthapi.c:
 	.text       start:0x80273FBC end:0x8027452C
 	.sdata2     start:0x80422BB8 end:0x80422BD0
 
-musyx.a/stream.c:
+musyx/runtime/stream.c:
 	.text       start:0x8027452C end:0x80277808
 	.bss        start:0x803F3AE0 end:0x803F54E0
 	.sbss       start:0x80418CD8 end:0x80418CE8
 	.sdata2     start:0x80422BD0 end:0x80422BE8
 
-data/musyx.a/synthdata.c:
+data/musyx/runtime/synthdata.c:
 	.text       start:0x80277808 end:0x802794F4
 	.bss        start:0x803F54E0 end:0x803FFD18
 	.sbss       start:0x80418CE8 end:0x80418D38
 
-musyx.a/synthmacros.c:
+musyx/runtime/synthmacros.c:
 	.text       start:0x802794F4 end:0x8027E3DC
 	.data       start:0x803B7E58 end:0x803B82A0
 	.bss        start:0x803FFD18 end:0x803FFD38
 	.sbss       start:0x80418D38 end:0x80418D58
 	.sdata2     start:0x80422BE8 end:0x80422C10
 
-musyx.a/synthvoice.c:
+musyx/runtime/synthvoice.c:
 	.text       start:0x8027E3DC end:0x80280264
 	.bss        start:0x803FFD38 end:0x80400CF8
 	.sbss       start:0x80418D58 end:0x80418D70
 
-musyx.a/synth_ac.c:
+musyx/runtime/synth_ac.c:
 	.text       start:0x80280264 end:0x80280384
 	.data       start:0x803B82A0 end:0x803B86A0
 	.sdata2     start:0x80422C10 end:0x80422C28
 
-musyx.a/synth_dbtab.c:
+musyx/runtime/synth_dbtab.c:
 	.data       start:0x803B86A0 end:0x803B8E40
 
-musyx.a/synth_adsr.c:
+musyx/runtime/synth_adsr.c:
 	.text       start:0x80280384 end:0x80280B44
 	.sdata2     start:0x80422C28 end:0x80422C50
 
-musyx.a/synth_vsamples.c:
+musyx/runtime/synth_vsamples.c:
 	.text       start:0x80280B44 end:0x802814DC
 	.bss        start:0x80400CF8 end:0x80401848
 
-data/musyx.a/s_data.c:
+data/musyx/runtime/s_data.c:
 	.text       start:0x802814DC end:0x802820EC
 	.bss        start:0x80401848 end:0x80401E60
 	.sbss       start:0x80418D70 end:0x80418D80
 
-musyx.a/hw_dspctrl.c:
+musyx/runtime/hw_dspctrl.c:
 	.text       start:0x802820EC end:0x8028567C
 	.rodata     start:0x803028F0 end:0x80302928
 	.data       start:0x803B8E40 end:0x803BA898
 	.bss        start:0x80401E60 end:0x80402540
 	.sbss       start:0x80418D80 end:0x80418DC0
 
-musyx.a/hw_volconv.c:
+musyx/runtime/hw_volconv.c:
 	.text       start:0x8028567C end:0x80285D6C
 	.data       start:0x803BA898 end:0x803BAAC0
 	.sdata2     start:0x80422C50 end:0x80422C88
 
-musyx.a/snd3d.c:
+musyx/runtime/snd3d.c:
 	.text       start:0x80285D6C end:0x80287AB4
 	.bss        start:0x80402540 end:0x80403740
 	.sbss       start:0x80418DC0 end:0x80418DE0
 	.sdata2     start:0x80422C88 end:0x80422CD8
 
-musyx.a/snd_init.c:
+musyx/runtime/snd_init.c:
 	.text       start:0x80287AB4 end:0x80287BF4
 
-musyx.a/snd_math.c:
+musyx/runtime/snd_math.c:
 	.text       start:0x80287BF4 end:0x80287FB4
 	.sdata2     start:0x80422CD8 end:0x80422CF8
 
-musyx.a/snd_midictrl.c:
+musyx/runtime/snd_midictrl.c:
 	.text       start:0x80287FB4 end:0x8028A2C4
 	.rodata     start:0x80302928 end:0x80302A38
 	.data       start:0x803BAAC0 end:0x803BAB50
 	.bss        start:0x80403740 end:0x8040A540
 	.sbss       start:0x80418DE0 end:0x80418DE8
 
-musyx.a/snd_service.c:
+musyx/runtime/snd_service.c:
 	.text       start:0x8028A2C4 end:0x8028A598
 	.rodata     start:0x80302A38 end:0x80302A68
 	.data       start:0x803BAB50 end:0x803BB360
 	.sdata      start:0x804181D0 end:0x804181D8
 	.sdata2     start:0x80422CF8 end:0x80422D00
 
-musyx.a/HARDWARE.C:
+musyx/runtime/HARDWARE.C:
 	.text       start:0x8028A598 end:0x8028B624
 	.rodata     start:0x80302A68 end:0x80302B68
 	.bss        start:0x8040A540 end:0x8040A550
@@ -3173,43 +3173,43 @@ musyx.a/HARDWARE.C:
 	.sbss       start:0x80418DE8 end:0x80418DF0
 	.sdata2     start:0x80422D00 end:0x80422D28
 
-musyx.a/dsp_import.c:
+musyx/runtime/dsp_import.c:
 	.data       start:0x803BB360 end:0x803BD220
 	.sdata      start:0x804181E8 end:0x804181F0
 
-musyx.a/hw_aramdma.c:
+musyx/runtime/hw_aramdma.c:
 	.text       start:0x8028B624 end:0x8028C3A8
 	.bss        start:0x8040A550 end:0x8040AE60
 	.sbss       start:0x80418DF0 end:0x80418E10
 
-musyx.a/hw_dolphin.c:
+musyx/runtime/hw_dolphin.c:
 	.text       start:0x8028C3A8 end:0x8028C870
 	.bss        start:0x8040AE60 end:0x8040CEC0
 	.sbss       start:0x80418E10 end:0x80418E40
 
-musyx.a/hw_memory.c:
+musyx/runtime/hw_memory.c:
 	.text       start:0x8028C870 end:0x8028C8FC
 
-musyx.a/creverb_fx.c:
+musyx/runtime/CheapReverb/creverb_fx.c:
 	.text       start:0x8028C8FC end:0x8028C938
 
-musyx.a/creverb.c:
+musyx/runtime/CheapReverb/creverb.c:
 	.text       start:0x8028C938 end:0x8028CD60
 	.data       start:0x803BD220 end:0x803BD230
 	.sdata2     start:0x80422D28 end:0x80422D58
 
-musyx.a/reverb_fx.c:
+musyx/runtime/StdReverb/reverb_fx.c:
 	.text       start:0x8028CD60 end:0x8028CDFC
 
-musyx.a/reverb.c:
+musyx/runtime/StdReverb/reverb.c:
 	.text       start:0x8028CDFC end:0x8028DA78
 	.data       start:0x803BD230 end:0x803BD250
 	.sdata2     start:0x80422D58 end:0x80422DA0
 
-musyx.a/delay_fx.c:
+musyx/runtime/Delay/delay_fx.c:
 	.text       start:0x8028DA78 end:0x8028DCBC
 
-musyx.a/chorus_fx.c:
+musyx/runtime/Chorus/chorus_fx.c:
 	.text       start:0x8028DCBC end:0x8028E4FC
 	.data       start:0x803BD250 end:0x803BDA50
 	.sdata2     start:0x80422DA0 end:0x80422DA8
@@ -3233,106 +3233,106 @@ dolphin/db/db.c:
 	.data       start:0x803BDA50 end:0x803BDA68
 	.sbss       start:0x80418E58 end:0x80418E60
 
-dolphin/os/OS.c:
+os/OS.c:
 	.text       start:0x8028F1C0 end:0x8028FC8C
 	.data       start:0x803BDA68 end:0x803BDC60
 	.bss        start:0x8040CEC0 end:0x8040CF30
 	.sdata      start:0x804181F8 end:0x80418208
 	.sbss       start:0x80418E60 end:0x80418E98
 
-dolphin/os/OSAlarm.c:
+os/OSAlarm.c:
 	.text       start:0x8028FC8C end:0x802903E8
 	.data       start:0x803BDC60 end:0x803BDC70
 	.sbss       start:0x80418E98 end:0x80418EA0
 
-dolphin/os/OSAlloc.c:
+os/OSAlloc.c:
 	.text       start:0x802903E8 end:0x8029071C
 	.sdata      start:0x80418208 end:0x80418210
 	.sbss       start:0x80418EA0 end:0x80418EB0
 
-dolphin/os/OSArena.c:
+os/OSArena.c:
 	.text       start:0x8029071C end:0x80290768
 	.sdata      start:0x80418210 end:0x80418218
 	.sbss       start:0x80418EB0 end:0x80418EB8
 
-dolphin/os/OSAudioSystem.c:
+os/OSAudioSystem.c:
 	.text       start:0x80290768 end:0x802909FC
 	.data       start:0x803BDC70 end:0x803BDCF0
 
-dolphin/os/OSCache.c:
+os/OSCache.c:
 	.text       start:0x802909FC end:0x80291074
 	.data       start:0x803BDCF0 end:0x803BDF20
 
-dolphin/os/OSContext.c:
+os/OSContext.c:
 	.text       start:0x80291074 end:0x80291A10
 	.data       start:0x803BDF20 end:0x803BE0F8
 
-dolphin/os/OSError.c:
+os/OSError.c:
 	.text       start:0x80291A10 end:0x802920BC
 	.data       start:0x803BE0F8 end:0x803BE418
 	.bss        start:0x8040CF30 end:0x8040CF80
 	.sdata      start:0x80418218 end:0x80418220
 
-dolphin/os/OSExec.c:
+os/OSExec.c:
 	.text       start:0x802920BC end:0x80292A1C
 	.data       start:0x803BE418 end:0x803BE428
 	.sdata      start:0x80418220 end:0x80418228
 	.sbss       start:0x80418EB8 end:0x80418EC0
 
-dolphin/os/OSFont.c:
+os/OSFont.c:
 	.text       start:0x80292A1C end:0x80293CD0
 	.data       start:0x803BE428 end:0x803BEF38
 	.sdata      start:0x80418228 end:0x80418230
 	.sbss       start:0x80418EC0 end:0x80418ED0
 	.sdata2     start:0x80422DA8 end:0x80422DB0
 
-dolphin/os/OSInterrupt.c:
+os/OSInterrupt.c:
 	.text       start:0x80293CD0 end:0x8029453C
 	.data       start:0x803BEF38 end:0x803BEF68
 	.sbss       start:0x80418ED0 end:0x80418EE8
 
-dolphin/os/OSLink.c:
+os/OSLink.c:
 	.text       start:0x8029453C end:0x80294F28
 	.data       start:0x803BEF68 end:0x803BEFB8
 
-dolphin/os/OSMemory.c:
+os/OSMemory.c:
 	.text       start:0x80294F28 end:0x80295200
 	.data       start:0x803BEFB8 end:0x803BEFC8
 
-dolphin/os/OSMutex.c:
+os/OSMutex.c:
 	.text       start:0x80295200 end:0x80295270
 
-dolphin/os/OSReboot.c:
+os/OSReboot.c:
 	.text       start:0x80295270 end:0x802952F4
 	.sbss       start:0x80418EE8 end:0x80418EF0
 
-dolphin/os/OSReset.c:
+os/OSReset.c:
 	.text       start:0x802952F4 end:0x80295778
 	.data       start:0x803BEFC8 end:0x803BF018
 	.sbss       start:0x80418EF0 end:0x80418F00
 
-dolphin/os/OSResetSW.c:
+os/OSResetSW.c:
 	.text       start:0x80295778 end:0x80295B04
 	.sbss       start:0x80418F00 end:0x80418F20
 
-dolphin/os/OSThread.c:
+os/OSThread.c:
 	.text       start:0x8029683C end:0x80297A48
 	.bss        start:0x8040CFD8 end:0x8040D9D0
 	.sdata      start:0x80418230 end:0x80418238
 	.sbss       start:0x80418F20 end:0x80418F30
 
-dolphin/os/OSTime.c:
+os/OSTime.c:
 	.text       start:0x80297A48 end:0x80297E6C
 	.data       start:0x803BF018 end:0x803BF078
 
 Runtime.PPCEABI.H.a/__mem.c:
 	.init       start:0x800050B4 end:0x800051EC
 
-dolphin/os/__start.c:
+os/__start.c:
 	.init       start:0x800051EC end:0x800054EC
 	.sbss       start:0x80418F30 end:0x80418F38
 
-dolphin/os/__ppc_eabi_init.cpp:
+os/__ppc_eabi_init.cpp:
 	.init       start:0x800054EC end:0x80005544
 	.text       start:0x80297E6C end:0x80297F00
 

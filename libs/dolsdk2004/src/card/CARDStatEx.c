@@ -3,19 +3,19 @@
 
 #include "__card.h"
 
-long __CARDGetStatusEx(long chan, long fileNo, struct CARDDir * dirent) {
-    ASSERTLINE(0x55, 0 <= chan && chan < 2);
-    ASSERTLINE(0x56, 0 <= fileNo && fileNo < CARD_MAX_FILE);
+s32 __CARDGetStatusEx(s32 chan, s32 fileNo, CARDDir* dirent) {
+    ASSERTLINE(85, 0 <= chan && chan < 2);
+    ASSERTLINE(86, 0 <= fileNo && fileNo < CARD_MAX_FILE);
 
     if ((fileNo < 0) || (fileNo >= CARD_MAX_FILE)) {
         return CARD_RESULT_FATAL_ERROR;
     }
 
     {
-        struct CARDControl * card;
-        struct CARDDir * dir;
-        struct CARDDir * ent;
-        long result = __CARDGetControlBlock(chan, &card);
+        CARDControl* card;
+        CARDDir* dir;
+        CARDDir* ent;
+        s32 result = __CARDGetControlBlock(chan, &card);
 
         if (result < 0) {
             return result;
@@ -31,20 +31,20 @@ long __CARDGetStatusEx(long chan, long fileNo, struct CARDDir * dirent) {
     }
 }
 
-long __CARDSetStatusExAsync(long chan, long fileNo, struct CARDDir * dirent, void (* callback)(long, long)) {
-    struct CARDControl * card;
-    struct CARDDir * dir;
-    struct CARDDir * ent;
-    long result;
-    unsigned char * p;
-    long i;
+s32 __CARDSetStatusExAsync(s32 chan, s32 fileNo, CARDDir* dirent, CARDCallback callback) {
+    CARDControl* card;
+    CARDDir* dir;
+    CARDDir* ent;
+    s32 result;
+    u8* p;
+    s32 i;
 
-    ASSERTLINE(0x8E, 0 <= fileNo && fileNo < CARD_MAX_FILE);
-    ASSERTLINE(0x8F, 0 <= chan && chan < 2);
-    ASSERTLINE(0x90, *dirent->fileName != 0xff && *dirent->fileName != 0x00);
+    ASSERTLINE(142, 0 <= fileNo && fileNo < CARD_MAX_FILE);
+    ASSERTLINE(143, 0 <= chan && chan < 2);
+    ASSERTLINE(144, *dirent->fileName != 0xff && *dirent->fileName != 0x00);
 
-    ASSERTMSGLINE(0x98, dirent->iconAddr == 0xffffffff || dirent->iconAddr < CARD_READ_SIZE, "CARDSetStatus[Async](): stat->iconAddr must be 0xffffffff or less than CARD_READ_SIZE.");
-    ASSERTMSGLINE(0x9B, dirent->commentAddr == 0xffffffff || (dirent->commentAddr & 0x1FFF) <= 8128, "CARDSetStatus[Async](): comment strings (set by stat->commentAddr) must not cross 8KB byte boundary.");
+    ASSERTMSGLINE(152, dirent->iconAddr == 0xffffffff || dirent->iconAddr < CARD_READ_SIZE, "CARDSetStatus[Async](): stat->iconAddr must be 0xffffffff or less than CARD_READ_SIZE.");
+    ASSERTMSGLINE(155, dirent->commentAddr == 0xffffffff || (dirent->commentAddr & 0x1FFF) <= 8128, "CARDSetStatus[Async](): comment strings (set by stat->commentAddr) must not cross 8KB byte boundary.");
 
     if ((fileNo < 0) || (fileNo >= CARD_MAX_FILE) || ((u8) dirent->fileName[0] == 0xFF) || ((u8) dirent->fileName[0] == 0)) {
         return CARD_RESULT_FATAL_ERROR;
@@ -54,13 +54,15 @@ long __CARDSetStatusExAsync(long chan, long fileNo, struct CARDDir * dirent, voi
     if (result < 0) {
         return result;
     }
+
     dir = __CARDGetDirBlock(card);
     ent = &dir[fileNo];
     result = __CARDIsWritable(card, ent);
     if (result < 0) {
         return __CARDPutControlBlock(card, result);
     }
-    for(p = dirent->fileName; p < (u8*)&dirent->time; p++) {
+
+    for (p = dirent->fileName; p < (u8*)&dirent->time; p++) {
         if (*p != 0) {
             continue;
         }
@@ -82,7 +84,7 @@ long __CARDSetStatusExAsync(long chan, long fileNo, struct CARDDir * dirent, voi
     if ((memcmp(&ent->fileName, &dirent->fileName, 32) != 0) || (memcmp(ent->gameName, dirent->gameName, 4) != 0) || (memcmp(ent->company, dirent->company, 2) != 0)) {
         for(i = 0; i < CARD_MAX_FILE; i++) {
             if (i != fileNo) {
-                struct CARDDir * ent = &dir[i]; // sure, just redeclare ent again...
+                CARDDir* ent = &dir[i]; // sure, just redeclare ent again...
                 if (((u8) ent->gameName[0] != 0xFF) 
                     && (memcmp(&ent->gameName, &dirent->gameName, 4) == 0) 
                     && (memcmp(&ent->company, &dirent->company, 2) == 0) 
@@ -95,6 +97,7 @@ long __CARDSetStatusExAsync(long chan, long fileNo, struct CARDDir * dirent, voi
         memcpy(&ent->gameName, &dirent->gameName, 4);
         memcpy(&ent->company, &dirent->company, 2);
     }
+
     ent->time = dirent->time;
     ent->bannerFormat = dirent->bannerFormat;
     ent->iconAddr = dirent->iconAddr;
@@ -103,6 +106,7 @@ long __CARDSetStatusExAsync(long chan, long fileNo, struct CARDDir * dirent, voi
     ent->commentAddr = dirent->commentAddr;
     ent->permission = dirent->permission;
     ent->copyTimes = dirent->copyTimes;
+
     result = __CARDUpdateDir(chan, callback);
     if (result < 0) {
         __CARDPutControlBlock(card, result);
@@ -110,11 +114,11 @@ long __CARDSetStatusExAsync(long chan, long fileNo, struct CARDDir * dirent, voi
     return result;
 }
 
-long __CARDSetStatusEx(long chan, long fileNo, struct CARDDir * dirent) {
-    long result = __CARDSetStatusExAsync(chan, fileNo, dirent, &__CARDSyncCallback);
-
+s32 __CARDSetStatusEx(s32 chan, s32 fileNo, CARDDir* dirent) {
+    s32 result = __CARDSetStatusExAsync(chan, fileNo, dirent, &__CARDSyncCallback);
     if (result < 0) {
         return result;
     }
+
     return __CARDSync(chan);
 }

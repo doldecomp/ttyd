@@ -9,10 +9,10 @@
 #include "system.h"
 #include <dolphin/gx.h>
 #include <dolphin/pad.h>
-#include <demo/DEMOPad.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
+#include <demo/DEMOPad.h>
 #include "mario/mariost.h"
 
 #pragma pool_data on
@@ -112,7 +112,7 @@ f32 compAngle(f32 a1, f32 a2) { //1:1
 	return a2 - a1;
 }
 
-static f32 angleABf(f32 x1, f32 y1, f32 x2, f32 y2) { //1:1
+f32 angleABf(f32 x1, f32 y1, f32 x2, f32 y2) { //1:1
 	f32 xdiff, ydiff;
 	f32 xabs, yabs;
 	f32 v8;

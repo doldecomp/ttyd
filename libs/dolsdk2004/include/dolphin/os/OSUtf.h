@@ -1,6 +1,8 @@
 #ifndef _DOLPHIN_OSUTF_H_
 #define _DOLPHIN_OSUTF_H_
 
+#include <dolphin/types.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

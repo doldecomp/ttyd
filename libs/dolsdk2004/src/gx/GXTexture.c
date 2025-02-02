@@ -1,6 +1,5 @@
 #include <dolphin/gx.h>
 #include <dolphin/os.h>
-#include <macros.h>
 
 #include "__gx.h"
 
@@ -525,7 +524,6 @@ GXBool GXGetTexObjMipMap(const GXTexObj *to)
     return (t->flags & 1) == 1;
 }
 
-// NONMATCHING
 void GXGetTexObjLODAll(const GXTexObj *tex_obj, GXTexFilter *min_filt, GXTexFilter *mag_filt, f32 *min_lod, f32 *max_lod, f32 *lod_bias, u8 *bias_clamp, u8 *do_edge_lod, GXAnisotropy *max_aniso)
 {
     s16 tmp; // r30
@@ -537,7 +535,7 @@ void GXGetTexObjLODAll(const GXTexObj *tex_obj, GXTexFilter *min_filt, GXTexFilt
     *min_lod = (u8)t->mode1 / 16.0f;
     *max_lod = (u32)GET_REG_FIELD(t->mode1, 8, 8) / 16.0f;
     tmp = (s32)GET_REG_FIELD(t->mode0, 8, 9);
-    *lod_bias = (s8)tmp * 0.03125f;
+    *lod_bias = (s8)tmp / 32.0f;
     *bias_clamp = (u32)GET_REG_FIELD(t->mode0, 1, 21);
     *do_edge_lod = !GET_REG_FIELD(t->mode0, 1, 8);
     *max_aniso = GET_REG_FIELD(t->mode0, 2, 19);
@@ -575,7 +573,6 @@ f32 GXGetTexObjMaxLOD(const GXTexObj *tex_obj)
     return (u32)GET_REG_FIELD(t->mode1, 8, 8) / 16.0f;
 }
 
-// NONMATCHING
 f32 GXGetTexObjLODBias(const GXTexObj *tex_obj)
 {
     s16 tmp;
@@ -583,7 +580,7 @@ f32 GXGetTexObjLODBias(const GXTexObj *tex_obj)
 
     ASSERTMSGLINE(0x4B8, tex_obj, "Texture Object Pointer is null");
     tmp = (s32)GET_REG_FIELD(t->mode0, 8, 9);
-    return (s8)tmp * 0.03125f;
+    return (s8)tmp / 32.0f;
 }
 
 GXBool GXGetTexObjBiasClamp(const GXTexObj *tex_obj)

@@ -1,7 +1,6 @@
 #include <dolphin/gx.h>
 #include <dolphin/mtx.h>
 #include <dolphin/os.h>
-#include <macros.h>
 
 #include "__gx.h"
 

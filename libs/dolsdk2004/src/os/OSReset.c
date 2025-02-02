@@ -7,7 +7,7 @@
 // macros? They dont seem to be in the SDK headers.
 #define ENQUEUE_INFO(info, queue)                            \
     do {                                                     \
-        struct OSResetFunctionInfo * __prev = (queue)->tail; \
+        OSResetFunctionInfo* __prev = (queue)->tail; \
         if (__prev == 0) {                                   \
             (queue)->head = (info);                          \
         } else {                                             \
@@ -20,8 +20,8 @@
 
 #define DEQUEUE_INFO(info, queue)                           \
     do {                                                    \
-        struct OSResetFunctionInfo * __next = (info)->next; \
-        struct OSResetFunctionInfo * __prev = (info)->prev; \
+        OSResetFunctionInfo* __next = (info)->next; \
+        OSResetFunctionInfo* __prev = (info)->prev; \
         if (__next == 0) {                                  \
             (queue)->tail = __prev;                         \
         } else {                                            \
@@ -36,8 +36,8 @@
 
 #define ENQUEUE_INFO_PRIO(info, queue)               \
     do {                                             \
-        struct OSResetFunctionInfo * __prev;         \
-        struct OSResetFunctionInfo * __next;         \
+        OSResetFunctionInfo* __prev;         \
+        OSResetFunctionInfo* __next;         \
         for(__next = (queue)->head; __next           \
           && (__next->priority <= (info)->priority); \
                 __next = __next->next) ;             \
@@ -57,23 +57,24 @@
         }                                            \
     } while(0);
 
-static struct OSResetFunctionQueue ResetFunctionQueue;
+static OSResetFunctionQueue ResetFunctionQueue;
 static u32 bootThisDol;
 
+// prototypes
 static int CallResetFunctions(int final);
-static asm void Reset(u32 resetCode);
+static void Reset(u32 resetCode);
 
-void OSRegisterResetFunction(struct OSResetFunctionInfo * info) {
-    ASSERTLINE(0xD0, info->func);
+void OSRegisterResetFunction(OSResetFunctionInfo* info) {
+    ASSERTLINE(208, info->func);
 
     ENQUEUE_INFO_PRIO(info, &ResetFunctionQueue);
 }
 
-void OSUnregisterResetFunction(struct OSResetFunctionInfo * info) {
+void OSUnregisterResetFunction(OSResetFunctionInfo* info) {
     DEQUEUE_INFO(info, &ResetFunctionQueue);
 }
 
-int __OSCallResetFunctions(int final) {
+int __OSCallResetFunctions(BOOL final) {
     OSResetFunctionInfo* info;
     int err;
     u32 priority;
@@ -96,6 +97,7 @@ int __OSCallResetFunctions(int final) {
     return 1;
 }
 
+#ifdef __GEKKO__
 static asm void Reset(u32 resetCode) {
     nofralloc
     b L_000001BC
@@ -136,6 +138,7 @@ L_00000200:
 L_00000208:
     b L_000001A0
 }
+#endif
 
 static void KillThreads(void) {
     OSThread* thread;
@@ -161,9 +164,9 @@ void __OSDoHotReset(u32 resetCode) {
     Reset(resetCode * 8);
 }
 
-void __OSShutdownDevices(int doRecal) {
+void __OSShutdownDevices(BOOL doRecal) {
     int rc;
-    int disableRecalibration;
+    BOOL disableRecalibration;
 
     __OSStopAudioSystem();
 
@@ -177,7 +180,7 @@ void __OSShutdownDevices(int doRecal) {
     OSDisableInterrupts();
 
     rc = __OSCallResetFunctions(TRUE);
-    ASSERTLINE(0x198, rc);
+    ASSERTLINE(408, rc);
 
     LCDisable();
     if (!doRecal) {

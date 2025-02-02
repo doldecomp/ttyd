@@ -18,7 +18,7 @@ static OSResetFunctionInfo ResetFunctionInfo = {
 
 u32 OSGetPhysicalMemSize(void) {
 #if DEBUG
-    OSBootInfo * BootInfo = (OSBootInfo *)OSPhysicalToCached(0);
+    OSBootInfo* BootInfo = (OSBootInfo*)OSPhysicalToCached(0);
 
     return BootInfo->memorySize;
 #else
@@ -28,7 +28,7 @@ u32 OSGetPhysicalMemSize(void) {
 
 u32 OSGetConsoleSimulatedMemSize(void) {
 #if DEBUG
-    u32 * memSize = (u32 *)OSPhysicalToCached(0xF0);
+    u32* memSize = (u32*)OSPhysicalToCached(0xF0);
 
     return *memSize;
 #else
@@ -44,7 +44,7 @@ static BOOL OnReset(BOOL final) {
     return TRUE;
 }
 
-void (* __OSErrorTable[])(u16, OSContext*, ...);
+void (*__OSErrorTable[])(u16, OSContext*, ...);
 
 static void MEMIntrruptHandler(__OSInterrupt interrupt, OSContext* context) {
     u32 addr;
@@ -68,8 +68,8 @@ void OSProtectRange(u32 chan, void* addr, u32 nBytes, u32 control) {
     u32 end;
     u16 reg;
 
-    ASSERTLINE(0xCE, chan < 4);
-    ASSERTLINE(0xCF, (control & ~(OS_PROTECT_CONTROL_RDWR)) == 0);
+    ASSERTLINE(206, chan < 4);
+    ASSERTLINE(207, (control & ~(OS_PROTECT_CONTROL_RDWR)) == 0);
 
     if (4 <= chan) {
         return;
@@ -102,10 +102,9 @@ void OSProtectRange(u32 chan, void* addr, u32 nBytes, u32 control) {
     OSRestoreInterrupts(enabled);
 }
 
+#ifdef __GEKKO__
 static asm void Config24MB(void) {
-    // clang-format off
     nofralloc
-
     li r7, 0x0
     lis r4, 0x0
     addi r4, r4, 0x2
@@ -138,13 +137,12 @@ static asm void Config24MB(void) {
     mflr r3
     mtsrr0 r3
     rfi
-    // clang-format on
 }
+#endif
 
+#ifdef __GEKKO__
 static asm void Config48MB(void) {
-    // clang-format off
     nofralloc
-
     li r7, 0x0
     lis r4, 0x0
     addi r4, r4, 0x2
@@ -177,28 +175,27 @@ static asm void Config48MB(void) {
     mflr r3
     mtsrr0 r3
     rfi
-    // clang-format on
 }
+#endif
 
+#ifdef __GEKKO__
 static asm void RealMode(register u32 addr) {
-    // clang-format off
     nofralloc
-
-    clrlwi r3, r3, 2
-    mtsrr0 r3
-    mfmsr r3
-    rlwinm r3, r3, 0, 28, 25
-    mtsrr1 r3
+    clrlwi addr, addr, 2
+    mtsrr0 addr
+    mfmsr addr
+    rlwinm addr, addr, 0, 28, 25
+    mtsrr1 addr
     rfi
-    // clang-format on
 }
+#endif
 
-void __OSInitMemoryProtection() {
+void __OSInitMemoryProtection(void) {
 #ifndef DEBUG
     u32 padding[9];
     u32 temp;
 #endif
-    int enabled;
+    BOOL enabled;
     u32 size;
 
     size = OSGetConsoleSimulatedMemSize();

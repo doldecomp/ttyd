@@ -4470,7 +4470,7 @@ static u16 UcsFF[256] = {
 	0x0000, 0x0000, 0x0000, 0x0000
 };
 
-static u16* UcsSjisTable[256] = {0}; // size: 0x400, address: 0xBA64
+static u16* UcsSjisTable[256] = {0};
 
 u16 OSUTF32toSJIS(u32 utf32) {
     u16* table;
@@ -6327,7 +6327,7 @@ static u16 SjisEA[256] = {
 	0x0000, 0x0000, 0x0000, 0x0000
 };
 
-static u16* SjisUcsTable[256] = {0}; // size: 0x400, address: 0x10E64
+static u16* SjisUcsTable[256] = {0};
 
 u32 OSSJIStoUTF32(u16 sjis) {
     u16* table;

@@ -1,38 +1,34 @@
-#include <dolphin.h>
 #include <dolphin/card.h>
 
 #include "__card.h"
 
+// prototypes
 static void WriteCallback(s32 chan, s32 result);
 static void EraseCallback(s32 chan, s32 result);
 
-void *__CARDGetFatBlock(CARDControl *card) {
-    ASSERTLINE(0x39, card->currentFat);
+void* __CARDGetFatBlock(CARDControl* card) {
+    ASSERTLINE(57, card->currentFat);
     return card->currentFat;
 }
 
 static void WriteCallback(s32 chan, s32 result) {
-    CARDControl *card;
+    CARDControl* card;
     CARDCallback callback;
-    u16 *fat0;
-    u16 *fat1;
+    u16* fat0;
+    u16* fat1;
 
     card = &__CARDBlock[chan];
 
-    if (result >= 0)
-    {
-        fat0 = (u16 *)((u8 *)card->workArea + 0x6000);
-        fat1 = (u16 *)((u8 *)card->workArea + 0x8000);
+    if (result >= 0) {
+        fat0 = (u16*)((u8*)card->workArea + 0x6000);
+        fat1 = (u16*)((u8*)card->workArea + 0x8000);
 
-        ASSERTLINE(0x52, card->currentFat);
-        if (card->currentFat == fat0)
-        {
+        ASSERTLINE(82, card->currentFat);
+        if (card->currentFat == fat0) {
             card->currentFat = fat1;
             memcpy(fat1, fat0, 0x2000);
-        }
-        else
-        {
-            ASSERTLINE(0x5A, card->currentFat == fat1);
+        } else {
+            ASSERTLINE(90, card->currentFat == fat1);
             card->currentFat = fat0;
             memcpy(fat0, fat1, 0x2000);
         }
@@ -42,17 +38,16 @@ static void WriteCallback(s32 chan, s32 result) {
         __CARDPutControlBlock(card, result);
 
     callback = card->eraseCallback;
-    if (callback)
-    {
+    if (callback) {
         card->eraseCallback = NULL;
         callback(chan, result);
     }
 }
 
 static void EraseCallback(s32 chan, s32 result) {
-    CARDControl *card = &__CARDBlock[chan];
+    CARDControl* card = &__CARDBlock[chan];
     CARDCallback callback;
-    u16 *fat;
+    u16* fat;
     u32 addr;
 
     if (result < 0)
@@ -69,24 +64,24 @@ static void EraseCallback(s32 chan, s32 result) {
 error:
     if (!card->apiCallback)
         __CARDPutControlBlock(card, result);
+
     callback = card->eraseCallback;
-    if (callback)
-    {
+    if (callback) {
         card->eraseCallback = NULL;
         callback(chan, result);
     }
 }
 
 s32 __CARDAllocBlock(s32 chan, u32 cBlock, CARDCallback callback) {
-    CARDControl *card;
-    u16 *fat;
+    CARDControl* card;
+    u16* fat;
     u16 iBlock;
     u16 startBlock;
     u16 prevBlock;
     u16 count;
 
-    ASSERTLINE(0xB6, 0 < cBlock);
-    ASSERTLINE(0xB7, 0 <= chan && chan < 2);
+    ASSERTLINE(182, 0 < cBlock);
+    ASSERTLINE(183, 0 <= chan && chan < 2);
 
     card = &__CARDBlock[chan];
     if (!card->attached)
@@ -100,8 +95,7 @@ s32 __CARDAllocBlock(s32 chan, u32 cBlock, CARDCallback callback) {
     startBlock = 0xFFFF;
     iBlock = fat[4];
     count = 0;
-    while (0 < cBlock)
-    {
+    while (0 < cBlock) {
         if (card->cBlock - 5 < ++count)
             return CARD_RESULT_BROKEN;
 
@@ -109,8 +103,7 @@ s32 __CARDAllocBlock(s32 chan, u32 cBlock, CARDCallback callback) {
         if (!CARDIsValidBlockNo(card, iBlock))
             iBlock = 5;
 
-        if (fat[iBlock] == 0x0000u)
-        {
+        if (fat[iBlock] == 0x0000u) {
             if (startBlock == 0xFFFF)
                 startBlock = iBlock;
             else
@@ -120,26 +113,25 @@ s32 __CARDAllocBlock(s32 chan, u32 cBlock, CARDCallback callback) {
             --cBlock;
         }
     }
+
     fat[4] = iBlock;
     card->startBlock = startBlock;
-
     return __CARDUpdateFatBlock(chan, fat, callback);
 }
 
 s32 __CARDFreeBlock(s32 chan, u16 nBlock, CARDCallback callback) {
-    CARDControl *card;
-    u16 *fat;
+    CARDControl* card;
+    u16* fat;
     u16 nextBlock;
 
-    ASSERTLINE(0xFD, 0 <= chan && chan < 2);
+    ASSERTLINE(253, 0 <= chan && chan < 2);
 
     card = &__CARDBlock[chan];
     if (!card->attached)
         return CARD_RESULT_NOCARD;
 
     fat = __CARDGetFatBlock(card);
-    while (nBlock != 0xFFFF)
-    {
+    while (nBlock != 0xFFFF) {
         if (!CARDIsValidBlockNo(card, nBlock))
             return CARD_RESULT_BROKEN;
 
@@ -152,11 +144,11 @@ s32 __CARDFreeBlock(s32 chan, u16 nBlock, CARDCallback callback) {
     return __CARDUpdateFatBlock(chan, fat, callback);
 }
 
-s32 __CARDUpdateFatBlock(s32 chan, u16 *fat, CARDCallback callback) {
-    CARDControl *card;
+s32 __CARDUpdateFatBlock(s32 chan, u16* fat, CARDCallback callback) {
+    CARDControl* card;
     u32 addr;
 
-    ASSERTLINE(0x127, 0 <= chan && chan < 2);
+    ASSERTLINE(295, 0 <= chan && chan < 2);
 
     card = &__CARDBlock[chan];
     ++fat[2];

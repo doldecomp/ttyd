@@ -11,24 +11,23 @@ extern "C" {
 #define OS_RESET_HOTRESET 1
 #define OS_RESET_SHUTDOWN 2
 
-struct OSResetFunctionQueue {
-    struct OSResetFunctionInfo * head;
-    struct OSResetFunctionInfo * tail;
-};
+typedef struct OSResetFunctionInfo OSResetFunctionInfo;
+typedef struct OSResetFunctionQueue {
+    OSResetFunctionInfo* head;
+    OSResetFunctionInfo* tail;
+} OSResetFunctionQueue;
 
 typedef BOOL (*OSResetFunction)(BOOL);
 
-typedef struct OSResetFunctionInfo OSResetFunctionInfo;
-struct OSResetFunctionInfo
-{
+struct OSResetFunctionInfo {
     OSResetFunction func;
     u32 priority;
-    OSResetFunctionInfo *next;
-    OSResetFunctionInfo *prev;
+    OSResetFunctionInfo* next;
+    OSResetFunctionInfo* prev;
 };
 
-void OSRegisterResetFunction(OSResetFunctionInfo *info);
-void OSUnregisterResetFunction(OSResetFunctionInfo * info);
+void OSRegisterResetFunction(OSResetFunctionInfo* info);
+void OSUnregisterResetFunction(OSResetFunctionInfo* info);
 void OSResetSystem(int reset, u32 resetCode, BOOL forceMenu);
 u32 OSGetResetCode();
 u32 OSSetBootDol(u32 dolOffset);

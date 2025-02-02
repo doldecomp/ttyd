@@ -1,7 +1,6 @@
 #include <dolphin.h>
 #include <dolphin/os.h>
 
-// internal header
 #include "__os.h"
 
 #define PAD3_BUTTON_ADDR        0x800030E4
@@ -16,14 +15,12 @@
 #define DVD_DEVICECODE_ADDR     0x800030E6
 #define DOL_ADDR_LIMIT          0x80700000
 
-u16 Pad3Button : PAD3_BUTTON_ADDR;
+u16 Pad3Button AT_ADDRESS(PAD3_BUTTON_ADDR);
 static u8 Debug_BBA = 0;
 
 extern void InitMetroTRK();
 
-__declspec(weak) void InitMetroTRK_BBA() {
-    
-}
+__declspec(weak) void InitMetroTRK_BBA() {}
 
 __declspec(section ".init") extern char _stack_addr[];
 __declspec(section ".init") extern char _SDA_BASE_[];
@@ -57,10 +54,9 @@ static void __init_registers(void);
 static void __init_data(void);
 
 static void __check_pad3(void) {
-	if ((Pad3Button & 0x0eef) == 0x0eef) {
+	if ((Pad3Button & 0xEEF) == 0xEEF) {
 		OSResetSystem(OS_RESET_RESTART, 0, FALSE);
 	}
-	return;
 }
 
 static void __set_debug_bba(void) { 
@@ -71,6 +67,7 @@ static u8 __get_debug_bba(void) {
     return Debug_BBA;
 }
 
+#ifdef __GEKKO__
 __declspec(section ".init")
 __declspec(weak) asm void __start(void) {
   // clang-format off
@@ -187,22 +184,23 @@ _goto_skip_init_bba:
 	b exit
   // clang-format on
 }
+#endif
 
 static void __copy_rom_section(void* dst, const void* src, unsigned long size) {
-  if (size && (dst != src)) {
-    memcpy(dst, src, size);
-    __flush_cache(dst, size);
-  }
+	if (size && dst != src) {
+		memcpy(dst, src, size);
+		__flush_cache(dst, size);
+	}
 }
 
 static void __init_bss_section(void* dst, unsigned long size) {
-  if (size) {
-    memset(dst, 0, size);
-  }
+	if (size) {
+		memset(dst, 0, size);
+	}
 }
 
+#ifdef __GEKKO__
 asm static void __init_registers(void) {
-  // clang-format off
 	nofralloc
 	li r0, 0
 	li r3, 0
@@ -240,26 +238,28 @@ asm static void __init_registers(void) {
 	lis r13, _SDA_BASE_@h
 	ori r13, r13, _SDA_BASE_@l
 	blr
-  // clang-format on
 }
+#endif
 
 static void __init_data(void) {
-  __rom_copy_info* dci;
-  __bss_init_info* bii;
+    __rom_copy_info* dci;
+    __bss_init_info* bii;
 
-  dci = _rom_copy_info;
-  while (TRUE) {
-    if (dci->size == 0)
-      break;
-    __copy_rom_section(dci->addr, dci->rom, dci->size);
-    dci++;
-  }
+    dci = _rom_copy_info;
+    while (TRUE) {
+        if (dci->size == 0)
+            break;
 
-  bii = _bss_init_info;
-  while (TRUE) {
-    if (bii->size == 0)
-      break;
-    __init_bss_section(bii->addr, bii->size);
-    bii++;
-  }
+        __copy_rom_section(dci->addr, dci->rom, dci->size);
+        dci++;
+    }
+
+    bii = _bss_init_info;
+    while (TRUE) {
+        if (bii->size == 0)
+            break;
+
+        __init_bss_section(bii->addr, bii->size);
+        bii++;
+    }
 }

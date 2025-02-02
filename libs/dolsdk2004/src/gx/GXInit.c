@@ -4,7 +4,6 @@
 #include <dolphin/gx.h>
 #include <dolphin/os.h>
 #include <dolphin/vi.h>
-#include <macros.h>
 
 #include "__gx.h"
 

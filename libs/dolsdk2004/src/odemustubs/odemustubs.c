@@ -1,10 +1,11 @@
 #include <dolphin.h>
 
+// prototypes
 __declspec(weak) int Hu_IsStub();
 void DBInitInterrupts();
-long DBQueryData();
-unsigned long DBRead();
-unsigned long DBWrite();
+s32 DBQueryData();
+u32 DBRead();
+u32 DBWrite();
 void DBOpen();
 void DBClose();
 
@@ -12,30 +13,22 @@ __declspec(weak) int Hu_IsStub() {
     return 1;
 }
 
-void DBInitComm() {
-    
-}
+void DBInitComm(int* inputFlagPtr, int* mtrCallback) {}
 
-void DBInitInterrupts() {
+void DBInitInterrupts() {}
 
-}
-
-long DBQueryData() {
+s32 DBQueryData() {
     return 0;
 }
 
-unsigned long DBRead() {
+u32 DBRead() {
     return 0;
 }
 
-unsigned long DBWrite() {
+u32 DBWrite() {
     return 0;
 }
 
-void DBOpen() {
-    
-}
+void DBOpen() {}
 
-void DBClose() {
-    
-}
+void DBClose() {}

@@ -1,10 +1,8 @@
-#include <dolphin.h>
-#include <dolphin/os.h>
 #include <dolphin/card.h>
 
 #include "__card.h"
 
-s32 CARDRenameAsync(s32 chan, const char *old, const char *new, CARDCallback callback) {
+s32 CARDRenameAsync(s32 chan, const char* old, const char* new, CARDCallback callback) {
     CARDControl* card;
     CARDDir* dir;
     CARDDir* ent;
@@ -21,13 +19,14 @@ s32 CARDRenameAsync(s32 chan, const char *old, const char *new, CARDCallback cal
         return CARD_RESULT_FATAL_ERROR;
     if (CARD_FILENAME_MAX < (u32)strlen(old) || CARD_FILENAME_MAX < (u32)strlen(new))
         return CARD_RESULT_NAMETOOLONG;
+
     result = __CARDGetControlBlock(chan, &card);
     if (result < 0)
         return result;
+
     newNo = oldNo = -1;
     dir = __CARDGetDirBlock(card);
-    for (fileNo = 0; fileNo < CARD_MAX_FILE; fileNo++)
-    {
+    for (fileNo = 0; fileNo < CARD_MAX_FILE; fileNo++) {
         ent = &dir[fileNo];
         if (ent->gameName[0] == 0xFF)
             continue;
@@ -62,10 +61,10 @@ s32 CARDRenameAsync(s32 chan, const char *old, const char *new, CARDCallback cal
     return result;
 }
 
-s32 CARDRename(s32 chan, const char *old, const char *new) {
+s32 CARDRename(s32 chan, const char* old, const char* new) {
 	s32 result = CARDRenameAsync(chan, old, new, __CARDSyncCallback);
-
 	if (result < 0)
 		return result;
+
 	return __CARDSync(chan);
 }

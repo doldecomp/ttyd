@@ -1,7 +1,7 @@
 #include <dolphin.h>
 #include <dolphin/os.h>
 
-void OSInitStopwatch(struct OSStopwatch * sw, char * name) {
+void OSInitStopwatch(OSStopwatch* sw, char* name) {
     sw->name = name;
     sw->total = 0;
     sw->hits = 0;
@@ -9,18 +9,18 @@ void OSInitStopwatch(struct OSStopwatch * sw, char * name) {
     sw->max = 0;
 }
 
-void OSStartStopwatch(struct OSStopwatch * sw) {
-    sw->running = 1;
+void OSStartStopwatch(OSStopwatch* sw) {
+    sw->running = TRUE;
     sw->last = OSGetTime();
 }
 
-void OSStopStopwatch(struct OSStopwatch * sw) {
-    long long interval;
+void OSStopStopwatch(OSStopwatch* sw) {
+    OSTime interval;
 
-    if (sw->running != 0) {
+    if (sw->running) {
         interval = OSGetTime() - sw->last;
         sw->total += interval;
-        sw->running = 0;
+        sw->running = FALSE;
         sw->hits++;
         if (sw->max < interval) {
             sw->max = interval;
@@ -31,21 +31,21 @@ void OSStopStopwatch(struct OSStopwatch * sw) {
     }
 }
 
-long long OSCheckStopwatch(struct OSStopwatch * sw) {
-    long long currTotal;
+OSTime OSCheckStopwatch(OSStopwatch* sw) {
+    OSTime currTotal;
 
     currTotal = sw->total;
-    if (sw->running != 0) {
+    if (sw->running) {
         currTotal += OSGetTime() - sw->last;
     }
     return currTotal;
 }
 
-void OSResetStopwatch(struct OSStopwatch * sw) {
+void OSResetStopwatch(OSStopwatch* sw) {
     OSInitStopwatch(sw, sw->name);
 }
 
-void OSDumpStopwatch(struct OSStopwatch * sw) {
+void OSDumpStopwatch(OSStopwatch* sw) {
     OSReport("Stopwatch [%s]	:\n", sw->name);
     OSReport("\tTotal= %lld us\n",    OSTicksToMicroseconds(sw->total));
     OSReport("\tHits = %d \n",        sw->hits);

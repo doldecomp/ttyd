@@ -2,22 +2,52 @@
 #              Dolphin SDK 2004 Libraries Makefile              #
 #################################################################
 
-ifneq (,$(findstring Windows,$(OS)))
-  EXE := .exe
-else
-  WINE ?=
-endif
+include util.mk
 
 # If 0, tells the console to chill out. (Quiets the make process.)
 VERBOSE ?= 0
 
-UNAME_S := $(shell uname -s)
-ifeq ($(UNAME_S),Linux)
-  HOST_OS := linux
-else ifeq ($(UNAME_S),Darwin)
-  HOST_OS := macos
+# Force correct find on Windows
+ifeq ($(OS),Windows_NT)
+
+# Attempt to locate MSYS or Git Bash find.exe
+FIND_CANDIDATES := C:/msys64/usr/bin/find.exe \
+                   C:/Program\ Files/Git/usr/bin/find.exe
+
+define FIND_MSYS
+  $(foreach c,$(FIND_CANDIDATES),\
+    $(if $(wildcard $(c)),$(c),))
+endef
+
+FOUND_MSYS_FIND := $(firstword $(FIND_MSYS))
+
+ifeq ($(FOUND_MSYS_FIND),)
+  $(warning Could not find an MSYS or Git Bash "find.exe". Falling back to Windows find.)
+  FIND := find
 else
-  $(error Unsupported host/building OS <$(UNAME_S)>)
+  FIND := "$(FOUND_MSYS_FIND)"
+endif
+
+else
+  # On non-Windows (Linux, macOS), just assume the normal find.
+  FIND := find
+endif
+
+
+# Host OS detection
+ifeq ($(OS),Windows_NT)
+  HOST_OS := windows
+  EXE := .exe
+else
+  WINE ?=
+  UNAME_S := $(shell uname -s)
+  ifeq ($(UNAME_S),Linux)
+    HOST_OS := linux
+  else ifeq ($(UNAME_S),Darwin)
+    HOST_OS := macos
+  else
+    $(error Unsupported host/building OS <$(UNAME_S)>)
+  endif
 endif
 
 BUILD_DIR := build
@@ -60,17 +90,19 @@ TARGET_LIBS := G2D              \
                texPalette       \
                vi
 
+VERIFY_LIBS := $(filter-out amcstubs dsp odemustubs,$(TARGET_LIBS))
+
 ifeq ($(VERBOSE),0)
   QUIET := @
 endif
 
-PYTHON := python3
+PYTHON ?= python3
 
 # Every file has a debug version. Append D to the list.
 TARGET_LIBS_DEBUG := $(addsuffix D,$(TARGET_LIBS))
 
 # TODO, decompile
-SRC_DIRS := $(shell find src -type d)
+SRC_DIRS := $(shell $(FIND) src -type d)
 
 ###################### Other Tools ######################
 
@@ -87,35 +119,78 @@ O_FILES := $(foreach file,$(C_FILES),$(BUILD_DIR)/$(file:.c=.c.o)) \
 DEP_FILES := $(O_FILES:.o=.d) $(DECOMP_C_OBJS:.o=.asmproc.d)
 
 ##################### Compiler Options #######################
-findcmd = $(shell type $(1) >/dev/null 2>/dev/null; echo $$?)
+# Use a helper to detect if a command is found, but handle Windows vs. Unix
+ifeq ($(HOST_OS),windows)
+  # In Windows (MSYS), "where" returns 0 if found, 1 if not found
+  find-command = $(shell where $(1) 1>NUL 2>NUL && echo 0 || echo 1)
+else
+  # In Unix, "type" returns 0 if found, non-zero if not found
+  find-command = $(shell type $(1) >/dev/null 2>/dev/null; echo $$?)
+endif
 
-# todo, please, better CROSS than this.
-CROSS := powerpc-linux-gnu-
+# detect prefix for PowerPC toolchain
+ifneq ($(call find-command,powerpc-linux-gnu-ld),0)
+  ifneq ($(call find-command,powerpc-eabi-ld),0)
+    $(error Unable to detect a suitable PowerPC toolchain installed. Please install/configure one!)
+  else
+    CROSS := powerpc-eabi-
+  endif
+else
+  CROSS := powerpc-linux-gnu-
+endif
 
 COMPILER_VERSION ?= 1.2.5n
 
 COMPILER_DIR := mwcc_compiler/GC/$(COMPILER_VERSION)
 AS = $(CROSS)as
-MWCC    := $(WINE) $(COMPILER_DIR)/mwcceppc.exe
 AR = $(CROSS)ar
 LD = $(CROSS)ld
 OBJDUMP = $(CROSS)objdump
 OBJCOPY = $(CROSS)objcopy
+
+# On Windows, you can run the compiler natively.
+# If you still want to rely on Wine, you can keep it. If not, remove "$(WINE) ".
+MWCC    := $(WINE) $(COMPILER_DIR)/mwcceppc$(EXE)
+
 ifeq ($(HOST_OS),macos)
   CPP := clang -E -P -x c
+else ifeq ($(HOST_OS),windows)
+  # If using MSYS, we often have `cpp` installed. If you prefer clang, adjust:
+  CPP := cpp -P -x c
 else
   CPP := cpp
 endif
-DTK     := $(TOOLS_DIR)/dtk
+
+DTK     := $(TOOLS_DIR)/dtk$(EXE)
 DTK_VERSION := 0.7.4
 
 CC        = $(MWCC)
 
 ######################## Flags #############################
 
-CHARFLAGS := -char unsigned
+CHARFLAGS          := -char unsigned
+RELEASE_OPTLEVEL   := -O4,p
+SYM_ON             := -sym on
 
-CFLAGS = $(CHARFLAGS) -nodefaults -proc gekko -fp hard -Cpp_exceptions off -enum int -warn pragmas -requireprotos -pragma 'cats off' -nostdinc -msgstyle gcc -cwd source -warn pragmas -pragma "cats off" -nowraplines -maxerrors 0 -nofail
+# why. Did some SDK libs (like CARD) prefer char signed over unsigned? TODO: Figure out consistency behind this.
+build/debug/src/card/CARDRename.o: CHARFLAGS := -char signed
+build/release/src/card/CARDRename.o: CHARFLAGS := -char signed
+build/debug/src/card/CARDOpen.o: CHARFLAGS := -char signed
+build/release/src/card/CARDOpen.o: CHARFLAGS := -char signed
+
+build/debug/src/mtx/mtx.o: CHARFLAGS := -char signed
+build/release/src/mtx/mtx.o: CHARFLAGS := -char signed
+build/debug/src/mtx/mtx44.o: CHARFLAGS := -char signed
+build/release/src/mtx/mtx44.o: CHARFLAGS := -char signed
+
+build/release/src/exi/EXIBios.o: RELEASE_OPTLEVEL := -O3,p
+
+# no sym on for GDIndirect?
+build/release/src/gd/GDIndirect.o: SYM_ON := 
+
+%/stub.o: CFLAGS += -warn off
+
+CFLAGS = $(CHARFLAGS) -nodefaults -proc gekko -fp hard -Cpp_exceptions off -enum int -warn pragmas -requireprotos -pragma 'cats off' -D__GEKKO__
 INCLUDES := -Iinclude -Iinclude/libc -ir src
 
 ASFLAGS = -mgekko -I src -I include
@@ -123,12 +198,6 @@ ASFLAGS = -mgekko -I src -I include
 ######################## Targets #############################
 
 $(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(DATA_DIRS),$(shell mkdir -p build/release/$(dir) build/debug/$(dir)))
-
-# why. Did some SDK libs (like CARD) prefer char signed over unsigned? TODO: Figure out consistency behind this.
-build/debug/src/card/CARDRename.o: CHARFLAGS := -char signed
-build/release/src/card/CARDRename.o: CHARFLAGS := -char signed
-build/debug/src/card/CARDOpen.o: CHARFLAGS := -char signed
-build/release/src/card/CARDOpen.o: CHARFLAGS := -char signed
 
 ######################## Build #############################
 
@@ -139,8 +208,7 @@ TARGET_LIBS_DEBUG := $(addprefix baserom/,$(addsuffix .a,$(TARGET_LIBS_DEBUG)))
 
 default: all
 
-# TODO: Start decomp
-all: $(DTK) amcnotstub.a amcnotstubD.a gx.a gxD.a hio.a hioD.a amcstubs.a amcstubsD.a odemustubs.a odemustubsD.a odenotstub.a odenotstubD.a vi.a viD.a os.a osD.a card.a cardD.a
+all: $(DTK) amcnotstub.a amcnotstubD.a gx.a gxD.a hio.a hioD.a amcstubs.a amcstubsD.a odemustubs.a odemustubsD.a odenotstub.a odenotstubD.a vi.a viD.a os.a osD.a card.a cardD.a pad.a padD.a exi.a exiD.a mtx.a mtxD.a mcc.a mccD.a gd.a gdD.a
 
 verify: build/release/test.bin build/debug/test.bin build/verify.sha1
 	@sha1sum -c build/verify.sha1
@@ -150,13 +218,13 @@ extract: $(DTK)
 	@$(DTK) ar extract $(TARGET_LIBS) --out baserom/release/src
 	@$(DTK) ar extract $(TARGET_LIBS_DEBUG) --out baserom/debug/src
     # Thank you GPT, very cool. Temporary hack to remove D off of inner src folders to let objdiff work.
-	@for dir in $$(find baserom/debug/src -type d -name 'src'); do \
-		find "$$dir" -mindepth 1 -maxdepth 1 -type d | while read subdir; do \
+	@for dir in $$($(FIND) baserom/debug/src -type d -name 'src'); do \
+		$(FIND) "$$dir" -mindepth 1 -maxdepth 1 -type d | while read subdir; do \
 			mv "$$subdir" "$${subdir%?}"; \
 		done \
 	done
 	# Disassemble the objects and extract their dwarf info.
-	find baserom -name '*.o' | while read i; do \
+	$(FIND) baserom -name '*.o' | while read i; do \
 		$(DTK) elf disasm $$i $${i%.o}.s ; \
 		$(DTK) dwarf dump $$i -o $${i%.o}_DWARF.c ; \
 	done
@@ -190,7 +258,7 @@ build/debug/src/%.o: src/%.c
 
 build/release/src/%.o: src/%.c
 	@echo 'Compiling $< (release)'
-	$(QUIET)$(CC) -c -O4,p -inline auto -sym on $(CFLAGS) -I- $(INCLUDES) -DRELEASE $< -o $@
+	$(QUIET)$(CC) -c $(RELEASE_OPTLEVEL) -inline auto $(SYM_ON) $(CFLAGS) -I- $(INCLUDES) -DRELEASE $< -o $@
 
 ################################ Build AR Files ###############################
 
@@ -198,54 +266,17 @@ amcnotstub_c_files := $(wildcard src/amcnotstub/*.c)
 amcnotstub.a  : $(addprefix $(BUILD_DIR)/release/,$(amcnotstub_c_files:.c=.o))
 amcnotstubD.a : $(addprefix $(BUILD_DIR)/debug/,$(amcnotstub_c_files:.c=.o))
 
-card_c_files := \
-	src/card/CARDBios.c \
-	src/card/CARDUnlock.c \
-	src/card/CARDRdwr.c \
-	src/card/CARDBlock.c \
-	src/card/CARDDir.c \
-	src/card/CARDCheck.c \
-	src/card/CARDMount.c \
-	src/card/CARDFormat.c \
-	src/card/CARDOpen.c \
-	src/card/CARDCreate.c \
-	src/card/CARDRead.c \
-	src/card/CARDWrite.c \
-	src/card/CARDDelete.c \
-	src/card/CARDStat.c \
-	src/card/CARDRename.c \
-	src/card/CARDStatEx.c \
-	src/card/CARDRaw.c \
-	src/card/CARDNet.c \
-	src/card/CARDErase.c \
-	src/card/CARDProgram.c
+card_c_files := $(wildcard src/card/*.c)
 card.a  : $(addprefix $(BUILD_DIR)/release/,$(card_c_files:.c=.o))
 cardD.a : $(addprefix $(BUILD_DIR)/debug/,$(card_c_files:.c=.o))
 
-gx_c_files := \
-	src/gx/GXInit.c \
-	src/gx/GXFifo.c \
-	src/gx/GXAttr.c \
-	src/gx/GXMisc.c \
-	src/gx/GXGeometry.c \
-	src/gx/GXFrameBuf.c \
-	src/gx/GXLight.c \
-	src/gx/GXTexture.c \
-	src/gx/GXBump.c \
-	src/gx/GXTev.c \
-	src/gx/GXPixel.c \
-	src/gx/GXDraw.c \
-	src/gx/GXStubs.c \
-	src/gx/GXDisplayList.c \
-	src/gx/GXVert.c \
-	src/gx/GXTransform.c \
-	src/gx/GXVerify.c \
-	src/gx/GXVerifXF.c \
-	src/gx/GXVerifRAS.c \
-	src/gx/GXSave.c \
-	src/gx/GXPerf.c
+gx_c_files := $(wildcard src/gx/*.c)
 gx.a  : $(addprefix $(BUILD_DIR)/release/,$(gx_c_files:.c=.o))
 gxD.a : $(addprefix $(BUILD_DIR)/debug/,$(gx_c_files:.c=.o))
+
+gd_c_files := $(wildcard src/gd/*.c)
+gd.a  : $(addprefix $(BUILD_DIR)/release/,$(gd_c_files:.c=.o))
+gdD.a : $(addprefix $(BUILD_DIR)/debug/,$(gd_c_files:.c=.o))
 
 amcstubs_c_files := $(wildcard src/amcstubs/*.c)
 amcstubs.a  : $(addprefix $(BUILD_DIR)/release/,$(amcstubs_c_files:.c=.o))
@@ -255,11 +286,15 @@ hio_c_files := $(wildcard src/hio/*.c)
 hio.a  : $(addprefix $(BUILD_DIR)/release/,$(hio_c_files:.c=.o))
 hioD.a : $(addprefix $(BUILD_DIR)/debug/,$(hio_c_files:.c=.o))
 
-vi_c_files := \
-	src/vi/vi.c \
-	src/vi/i2c.c \
-	src/vi/initphilips.c \
-	src/vi/gpioexi.c
+mcc_c_files := $(wildcard src/mcc/*.c)
+mcc.a  : $(addprefix $(BUILD_DIR)/release/,$(mcc_c_files:.c=.o))
+mccD.a : $(addprefix $(BUILD_DIR)/debug/,$(mcc_c_files:.c=.o))
+
+pad_c_files := $(wildcard src/pad/*.c)
+pad.a  : $(addprefix $(BUILD_DIR)/release/,$(pad_c_files:.c=.o))
+padD.a : $(addprefix $(BUILD_DIR)/debug/,$(pad_c_files:.c=.o))
+
+vi_c_files := $(wildcard src/vi/*.c)
 vi.a  : $(addprefix $(BUILD_DIR)/release/,$(vi_c_files:.c=.o))
 viD.a : $(addprefix $(BUILD_DIR)/debug/,$(vi_c_files:.c=.o))
 
@@ -275,6 +310,19 @@ os_c_files := $(wildcard src/os/*.c)
 os.a  : $(addprefix $(BUILD_DIR)/release/,$(os_c_files:.c=.o))
 osD.a : $(addprefix $(BUILD_DIR)/debug/,$(os_c_files:.c=.o))
 
+exi_c_files := $(wildcard src/exi/*.c)
+exi.a  : $(addprefix $(BUILD_DIR)/release/,$(exi_c_files:.c=.o))
+exiD.a : $(addprefix $(BUILD_DIR)/debug/,$(exi_c_files:.c=.o))
+
+mtx_c_files := $(wildcard src/mtx/*.c)
+mtx.a  : $(addprefix $(BUILD_DIR)/release/,$(mtx_c_files:.c=.o))
+mtxD.a : $(addprefix $(BUILD_DIR)/debug/,$(mtx_c_files:.c=.o))
+
+build/release/baserom.elf: build/release/src/stub.o $(foreach l,$(VERIFY_LIBS),baserom/$(l).a)
+build/release/test.elf:    build/release/src/stub.o $(foreach l,$(VERIFY_LIBS),$(l).a)
+build/debug/baserom.elf:   build/release/src/stub.o $(foreach l,$(VERIFY_LIBS),baserom/$(l)D.a)
+build/debug/test.elf:      build/release/src/stub.o $(foreach l,$(VERIFY_LIBS),$(l)D.a)
+
 %.bin: %.elf
 	$(OBJCOPY) -O binary $< $@
 
@@ -286,6 +334,10 @@ osD.a : $(addprefix $(BUILD_DIR)/debug/,$(os_c_files:.c=.o))
 	@ test ! -z '$?' || { echo 'no object files for $@'; return 1; }
 	@echo 'Creating static library $@'
 	$(QUIET)$(AR) -v -r $@ $(filter %.o,$?)
+
+# generate baserom hashes
+build/verify.sha1: build/release/baserom.bin build/debug/baserom.bin
+	sha1sum $^ | sed 's/baserom/test/' > $@
 
 # ------------------------------------------------------------------------------
 

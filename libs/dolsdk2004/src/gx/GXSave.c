@@ -332,7 +332,6 @@ static void __ParseVertexData(u8 vatIdx)
     }
 }
 
-// NONMATCHING
 void __GXShadowDispList(void *list, u32 nbytes)
 {
     u8 cmd;
@@ -379,8 +378,8 @@ void __GXShadowDispList(void *list, u32 nbytes)
             break;
         case 1:
             if (__ReadMem(&reg8, 1) && __ReadMem(&d32, 4)) {
-                vatIdx = GET_REG_FIELD(reg8, 4, 0);
-                cpAddr = GET_REG_FIELD(reg8, 4, 4);
+                vatIdx = reg8 & 0xF;
+                cpAddr = (reg8& 0xF0) >> 4;
                 __SaveCPRegs(cpAddr, vatIdx, d32);
             }
             break;

@@ -150,7 +150,7 @@ do { \
     regAddr = addr; \
 } while (0)
 
-#define GET_REG_FIELD(reg, size, shift) ((u32)((reg) >> (shift)) & ((1 << (size)) - 1))
+#define GET_REG_FIELD(reg, size, shift) ((int)((reg) >> (shift)) & ((1 << (size)) - 1))
 
 #define SET_REG_FIELD(line, reg, size, shift, val) \
 do { \
