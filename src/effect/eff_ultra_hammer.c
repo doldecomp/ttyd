@@ -407,7 +407,7 @@ f32 scroll_tbl[] = {
 };
 
 void effUltraHammerMain(EffectEntry* effect);
-void effUltraHammerDisp(enum CameraId cameraId, void *param);
+void effUltraHammerDisp(enum CameraId camId, void *param);
 
 EffectEntry* effUltraHammerEntry(BOOL arg0, s32 counter, f32 x, f32 y, f32 z, f32 scale) {
     EffectEntry* effect;
@@ -482,7 +482,7 @@ void effUltraHammerMain(EffectEntry* effect) {
     dispEntry(CAMERA_3D, 2, effUltraHammerDisp, effect, dispCalcZ(&position));
 }
 
-void effUltraHammerDisp(enum CameraId cameraId, void *param) { //minor regalloc
+void effUltraHammerDisp(enum CameraId camId, void *param) { //minor regalloc
     EffectEntry *effect;
     EffUltraHammerData *data;
     int i;
@@ -497,12 +497,12 @@ void effUltraHammerDisp(enum CameraId cameraId, void *param) { //minor regalloc
     
     effect = param;
     data = effect->userdata;
-    temp_r31 = camGetPtr(cameraId);
+    temp_r31 = camGetPtr(camId);
     temp_r24 = data->unk0;
     
     PSMTXTrans(spC0, data->position.x, data->position.y, data->position.z);
     PSMTXScale(sp60, data->scale, data->scale, data->scale);
-    PSMTXRotRad(sp90, 'y', MTXDegToRad(-camGetPtr(cameraId)->field_0x114));
+    PSMTXRotRad(sp90, 'y', MTXDegToRad(-camGetPtr(camId)->viewYaw));
     PSMTXConcat(spC0, sp90, spC0);
     PSMTXConcat(spC0, sp60, sp30);
     GXSetNumChans(1);

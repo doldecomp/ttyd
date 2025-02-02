@@ -15,7 +15,7 @@ static OffscreenWork work[2]; //field, battle
 #define offscreenGetWorkGp() (gp->inBattle ? &work[1] : &work[0])
 
 //local prototypes
-void offscreenDisp(CameraId cameraId, void* param);
+void offscreenDisp(CameraId camId, void* param);
 
 void offscreenInit(void) { //TODO: fix r31
 	work[0].count = 10;
@@ -63,7 +63,7 @@ s32 offscreenEntry(const char* name) { //1:1, needs variable names
 	return i;
 }
 
-void offscreenDisp(CameraId cameraId, void* param) {
+void offscreenDisp(CameraId camId, void* param) {
 	//param is null
 
 }

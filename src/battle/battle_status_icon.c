@@ -17,7 +17,7 @@ IconDispTableEntry _disp_table[] = {
 };
 
 //local prototypes
-void BattleStatusIconDisp(CameraId cameraId, void* param);
+void BattleStatusIconDisp(CameraId camId, void* param);
 
 void BattleStatusIconInit(BattleWorkUnit* unit) {
 	memset(&unit->mStatusIconWork, 0, sizeof(BattleWorkStatusIcon));
@@ -61,6 +61,6 @@ void BattleStatusIconDelete(BattleWorkUnit* unit) {
 	; //stubbed in retail
 }
 
-void BattleStatusIconDisp(CameraId cameraId, void* param) {
+void BattleStatusIconDisp(CameraId camId, void* param) {
 	BattleWorkUnit* unit = param; //cast to proper type
 }

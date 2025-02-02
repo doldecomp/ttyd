@@ -43,8 +43,8 @@ inline CameraEntry* camEntryOrtho(CameraCallback callback, const char* name, f32
     camera->cameraUp = camUpDefault;
     camera->near = near;
     camera->far = far;
-    camera->field_0x114 = 0.0f;
-    camera->field_0x118 = VECDistance(&camera->cameraPos, &camera->target);
+    camera->viewYaw = 0.0f;
+    camera->viewDistance = VECDistance(&camera->cameraPos, &camera->target);
     camera->callback = callback;
     camera->mode = 0;
     camera->bankRotation = 0.0f;
@@ -55,16 +55,16 @@ inline CameraEntry* camEntryOrtho(CameraCallback callback, const char* name, f32
     camera->fovY = fovY;
     camera->field_0x1E8 = 8;
     strcpy(camera->name, name);
-    camera->mScissor[0] = 0;
-    camera->mScissor[1] = 0;
-    camera->mScissor[2] = DEMOGetRenderModeObj()->fbWidth;
-    camera->mScissor[3] = DEMOGetRenderModeObj()->efbHeight;
-    camera->mProjection[0] = 0.0f;
-    camera->mProjection[1] = 0.0f;
-    camera->mProjection[2] = (f32)DEMOGetRenderModeObj()->fbWidth;
-    camera->mProjection[3] = (f32)DEMOGetRenderModeObj()->efbHeight;
-    camera->mProjection[4] = nearZ;
-    camera->mProjection[5] = farZ;
+    camera->viewportScissor[0] = 0;
+    camera->viewportScissor[1] = 0;
+    camera->viewportScissor[2] = DEMOGetRenderModeObj()->fbWidth;
+    camera->viewportScissor[3] = DEMOGetRenderModeObj()->efbHeight;
+    camera->viewportBounds[0] = 0.0f;
+    camera->viewportBounds[1] = 0.0f;
+    camera->viewportBounds[2] = (f32)DEMOGetRenderModeObj()->fbWidth;
+    camera->viewportBounds[3] = (f32)DEMOGetRenderModeObj()->efbHeight;
+    camera->viewportBounds[4] = nearZ;
+    camera->viewportBounds[5] = farZ;
     return camera;
 }
 
@@ -120,8 +120,8 @@ CameraEntry* camEntryPersp(CameraCallback callback, const char* name, f32 fovY, 
 	camera->cameraUp = camUpDefault;
 	camera->near = near;
 	camera->far = far;
-	camera->field_0x114 = 0.0f;
-	camera->field_0x118 = VECDistance(&camera->cameraPos, &camera->target);
+	camera->viewYaw = 0.0f;
+	camera->viewDistance = VECDistance(&camera->cameraPos, &camera->target);
 	camera->callback = callback;
 	camera->mode = 0;
 	camera->field_0x4 = 0;
@@ -134,16 +134,16 @@ CameraEntry* camEntryPersp(CameraCallback callback, const char* name, f32 fovY, 
 	camera->postTranslation.x = 0.0f;
 	camera->field_0x1E8 = 8;
 	strcpy(camera->name, name);
-	camera->mScissor[0] = 0;
-	camera->mScissor[1] = 0;
-	camera->mScissor[2] = DEMOGetRenderModeObj()->fbWidth;
-	camera->mScissor[3] = DEMOGetRenderModeObj()->efbHeight;
-	camera->mProjection[0] = 0.0f;
-	camera->mProjection[1] = 0.0f;
-	camera->mProjection[2] = (f32)DEMOGetRenderModeObj()->fbWidth;
-	camera->mProjection[3] = (f32)DEMOGetRenderModeObj()->efbHeight;
-	camera->mProjection[4] = nearZ;
-	camera->mProjection[5] = farZ;
+	camera->viewportScissor[0] = 0;
+	camera->viewportScissor[1] = 0;
+	camera->viewportScissor[2] = DEMOGetRenderModeObj()->fbWidth;
+	camera->viewportScissor[3] = DEMOGetRenderModeObj()->efbHeight;
+	camera->viewportBounds[0] = 0.0f;
+	camera->viewportBounds[1] = 0.0f;
+	camera->viewportBounds[2] = (f32)DEMOGetRenderModeObj()->fbWidth;
+	camera->viewportBounds[3] = (f32)DEMOGetRenderModeObj()->efbHeight;
+	camera->viewportBounds[4] = nearZ;
+	camera->viewportBounds[5] = farZ;
 	camera->field_0x1F0 = (Vec){0.0f, 8.0f, 400.0f};
 	camera->field_0x20C = (Vec){0.0f, 0.0f, 0.0f};
 	camera->field_0x200 = (Vec){0.0f, 0.0f, 0.0f};
@@ -213,8 +213,8 @@ void cam3dMain(CameraEntry* camera) {
 
 
 
-CameraEntry* camGetPtr(s32 id) {
-	return camPtrTbl[id];
+CameraEntry* camGetPtr(CameraId camId) {
+	return camPtrTbl[camId];
 }
 
 CameraEntry* camGetCurPtr(void) {

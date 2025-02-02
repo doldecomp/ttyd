@@ -29,7 +29,7 @@ u16 suuji_s[] = { 474, 476, 478, 480, 482, 484, 486, 488, 490, 492 }; // 0-9 sma
 // local prototypes
 void _callback_tpl(s32 error, DVDFileInfo* info);
 void _callback_bin(s32 error, DVDFileInfo* info);
-void iconDisp(CameraId cameraId, void* param);
+void iconDisp(CameraId camId, void* param);
 void iconGX(Mtx mtx, IconEntry* entry);
 
 // TODO: inline function? I see nothing in the symbol map
@@ -294,15 +294,15 @@ void iconChange(const char* name, s16 iconId) {
     entry->flags |= 1;
 }
 
-void iconDisp(CameraId cameraId, void* param) {
+void iconDisp(CameraId camId, void* param) {
     IconEntry* entry = param; // cast to correct type
     CameraEntry* camera;
     Mtx trans, scale, rot, mtx;
 
-    camera = camGetPtr(cameraId);
+    camera = camGetPtr(camId);
     MTXTrans(trans, entry->position.x, entry->position.y, entry->position.z);
     MTXScale(scale, entry->scale, entry->scale, entry->scale);
-    MTXRotRad(rot, 'y', MTXDegToRad(-camera->field_0x114));
+    MTXRotRad(rot, 'y', MTXDegToRad(-camera->viewYaw));
     MTXConcat(trans, rot, mtx);
     MTXConcat(mtx, scale, mtx);
     MTXConcat(camera->view, mtx, mtx);
@@ -319,7 +319,7 @@ void iconDispGxAlpha(Vec position, s16 flags, s16 iconId, u8 alpha, f32 scale) {
     if (icon_tpl_ok && icon_bin_ok) {
         MTXTrans(transmtx, position.x, position.y, position.z);
         MTXScale(scalemtx, scale, scale, scale);
-        MTXRotRad(rotmtx, 'y', MTXDegToRad(-camera->field_0x114));
+        MTXRotRad(rotmtx, 'y', MTXDegToRad(-camera->viewYaw));
         MTXConcat(transmtx, rotmtx, mtx);
         MTXConcat(mtx, scalemtx, mtx);
         MTXConcat(camera->view, mtx, mtx);

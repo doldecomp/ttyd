@@ -376,7 +376,7 @@ typedef enum MarioPartner {
 } MarioPartner;
 
 typedef struct PouchPartyData {
-	s16 flags; //0x0
+	u16 flags; //0x0
 	s16 maximumHP; //0x2, includes HP Plus P boost
 	s16 baseMaxHP; //0x4
 	s16 currentHP; //0x6

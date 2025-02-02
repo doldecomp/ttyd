@@ -234,7 +234,7 @@ BOOL msgDisp(smartEntry* smart, u8 alpha, f32 x, f32 y) {
 }
 
 
-void msgWindow_Disp(CameraId cameraId, void* param) {
+void msgWindow_Disp(CameraId camId, void* param) {
 	WindowEntry* window = param; //cast to correct type
 	CameraEntry* camera = camGetCurPtr();
 	s32 type;
@@ -334,6 +334,6 @@ s32 msgIconStr2ID(const char* str) {
 
 
 
-void selectWindow_Disp(CameraId cameraId, void* param) {
+void selectWindow_Disp(CameraId camId, void* param) {
 	WindowEntry* window = param; //cast to correct type
 }

@@ -17,12 +17,12 @@ static FadeWork* wp;
 
 //local prototypes
 void _callback(s32 error, DVDFileInfo* info);
-void disp_texture(CameraId cameraId, void* param);
+void disp_texture(CameraId camId, void* param);
 void z(void);
 static void zFill(void);
-void disp_maku(CameraId cameraId, void* param);
-void disp_tec(CameraId cameraId, void* param);
-void disp_dummy_black(CameraId cameraId, void* param);
+void disp_maku(CameraId camId, void* param);
+void disp_tec(CameraId camId, void* param);
+void disp_dummy_black(CameraId camId, void* param);
 
 void _callback(s32 error, DVDFileInfo* info) {
 	UnpackTexPalette(wp->texture);
@@ -180,7 +180,7 @@ void fadeMain(void) {
 
 }
 
-void disp_texture(CameraId cameraId, void* param) {
+void disp_texture(CameraId camId, void* param) {
 	//passed wp, unused
 }
 
@@ -192,17 +192,17 @@ static void zFill(void) {
 
 }
 
-void disp_maku(CameraId cameraId, void* param) {
+void disp_maku(CameraId camId, void* param) {
 	FadeEntry* entry = param;
 
 }
 
-void disp_tec(CameraId cameraId, void* param) {
+void disp_tec(CameraId camId, void* param) {
 	//passed wp, unused
 
 }
 
-void disp_dummy_black(CameraId cameraId, void* param) {
+void disp_dummy_black(CameraId camId, void* param) {
 	//passed wp, unused
 
 }

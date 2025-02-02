@@ -46,17 +46,17 @@ inline void calcMtx(MapObjectEntry* entry, Mtx dest, Vec position) { // guessing
 	MTXConcat(trans, scale, dest);
 }
 
-void mobjDispXLU(CameraId cameraId, void* param) {
+void mobjDispXLU(CameraId camId, void* param) {
 	MapObjectEntry* entry = param; //cast to correct type
 
 }
 
-void mobjDisp(CameraId cameraId, void* param) {
+void mobjDisp(CameraId camId, void* param) {
 	MapObjectEntry* entry = param; //cast to correct type
 
 }
 
-void mobjDisp_OffscreenXLU(CameraId cameraId, void* param) {
+void mobjDisp_OffscreenXLU(CameraId camId, void* param) {
 	MapObjectEntry* entry = param; //cast to correct type
 
 }

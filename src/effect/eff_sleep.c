@@ -5,7 +5,7 @@
 #include <math.h>
 
 //local prototypes
-void effSleepDisp(CameraId cameraId, EffectEntry* effect);
+void effSleepDisp(CameraId camId, EffectEntry* effect);
 
 EffectEntry* effSleepEntry(s32 a1, s32 a2, f32 x, f32 y, f32 z, f32 scale, f32 rotation) {
 	EffectEntry* effect;
@@ -51,6 +51,6 @@ void effSleepMain(EffectEntry* effect) {
 
 }
 
-void effSleepDisp(CameraId cameraId, EffectEntry* effect) {
+void effSleepDisp(CameraId camId, EffectEntry* effect) {
 
 }

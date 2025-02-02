@@ -61,7 +61,7 @@ PuniTexInfo* puniGetTex(void) {
     return Punitex;
 }
 
-void evt_icon_disp_func(CameraId cameraId, void* param) {
+void evt_icon_disp_func(CameraId camId, void* param) {
 }
 
 PuniTexInfo* _make_texbuf(PuniTexInfo* texbuf, s32 count, const char* a3, const char* a4, f32 a5) {

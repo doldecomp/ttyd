@@ -60,7 +60,7 @@ void seq_gameMain(SequenceWork* wp) {
             camera = camGetPtr(CAMERA_3D);
             position = camera->cameraPos;
             camera2 = camGetPtr(CAMERA_3D);
-            psndSetPosDirListener(&position, camera2->field_0x114);
+            psndSetPosDirListener(&position, camera2->viewYaw);
             break;
     }
 }

@@ -38,10 +38,10 @@ typedef struct CameraEntry {
 	f32 fovY; //0x38
 	f32 aspect; //0x3C
 	u8 field_0x40[0xF4 - 0x40]; //0x40
-	u16 mScissor[4]; //0xF4, TODO retype?
-	f32 mProjection[6]; //0xFC, TODO retype?
-	f32 field_0x114; //0x114
-	f32 field_0x118; //0x118
+	u16 viewportScissor[4]; //0xF4
+	f32 viewportBounds[6]; //0xFC
+	f32 viewYaw; //0x114
+	f32 viewDistance; //0x118
 	Mtx view; //0x11C
 	f32 bankRotation; //0x14C
 	Vec postTranslation; //0x150
@@ -72,5 +72,5 @@ void camInit(void);
 void camMain(void);
 void camDraw(void);
 
-CameraEntry* camGetPtr(s32 id);
+CameraEntry* camGetPtr(CameraId camId);
 CameraEntry* camGetCurPtr(void);

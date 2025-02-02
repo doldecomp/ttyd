@@ -110,6 +110,8 @@ void PSMTXReflect(Mtx m, const Vec* p, const Vec* n);
 #define MTXReflect    PSMTXReflect
 #endif
 
+#define MTXLookAt C_MTXLookAt
+
 // C versions only
 void C_MTXLookAt(Mtx m, const Point3d* camPos, const Vec* camUp, const Point3d* target);
 void C_MTXLightFrustum(Mtx m, f32 t, f32 b, f32 l, f32 r, f32 n, f32 scaleS, f32 scaleT, f32 transS, f32 transT);
@@ -193,6 +195,9 @@ void PSMTX44RotAxisRad(Mtx44 m, const Vec* axis, f32 rad);
 #define MTX44RotTrig    PSMTX44RotTrig
 #define MTX44RotAxisRad PSMTX44RotAxisRad
 #endif
+
+#define MTXOrtho C_MTXOrtho
+#define MTXPerspective C_MTXPerspective
 
 // C versions only
 void C_MTXFrustum(Mtx44 m, f32 t, f32 b, f32 l, f32 r, f32 n, f32 f);

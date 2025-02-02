@@ -122,7 +122,7 @@ typedef struct NpcEntry {
 	const char* jumpSfxName; //0x1EC
 	const char* landingSfxName; //0x1F0
 	//end TODO
-	s32 cameraId; //0x1F4, CameraId
+	s32 camId; //0x1F4, CameraId
 	//TODO: create territory substruct?
 	NpcTerritoryType territoryType; //0x1F8, verified
 	Vec territoryBase; //0x1FC, verified

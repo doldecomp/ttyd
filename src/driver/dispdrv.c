@@ -42,11 +42,11 @@ void dispReInit(void) {
 	entry_n = 0;
 }
 
-void dispEntry(CameraId cameraId, s32 renderMode, DispCallback callback, void* param, f32 order) {
+void dispEntry(CameraId camId, s32 renderMode, DispCallback callback, void* param, f32 order) {
 	DispEntry* entry = &pDispWork[entry_n];
 
 	if (order != order) return;
-	entry->cameraId = cameraId;
+	entry->camId = camId;
 	entry->renderMode = (u8)renderMode;
 	entry->callback = callback;
 	entry->param = param;
@@ -86,14 +86,14 @@ void dispSort(void) {
 	qqsort(pSortWork, entry_n, 4, _sort);
 }
 
-void dispDraw(CameraId cameraId) {
+void dispDraw(CameraId camId) {
 	s32 i;
 
 	for (i = 0; i < entry_n; i++) {
 		DispEntry* entry = pSortWork[i];
-		if (entry->cameraId == cameraId) {
+		if (entry->camId == camId) {
 			GXSetColorUpdate(GX_TRUE);
-			switch (cameraId) {
+			switch (camId) {
 				case 4:
 				case 5:
 				case 7:
@@ -141,7 +141,7 @@ void dispDraw(CameraId cameraId) {
 					break;
 			}
 			currentWorkPtr = entry;
-			entry->callback(cameraId, entry->param);
+			entry->callback(camId, entry->param);
 		}
 	}
 }

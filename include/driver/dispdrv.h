@@ -3,11 +3,11 @@
 #include <dolphin/types.h>
 #include "driver/camdrv.h"
 
-typedef void (*DispCallback)(CameraId cameraId, void* param);
+typedef void (*DispCallback)(CameraId camId, void* param);
 
 #pragma warn_padding off
 typedef struct DispEntry {
-	u8 cameraId; //0x0, CameraId
+	u8 camId; //0x0, CameraId
 	u8 renderMode; //0x1
 	//will pad 2 bytes
 	f32 order; //0x4
@@ -18,8 +18,8 @@ typedef struct DispEntry {
 
 void dispInit(void);
 void dispReInit(void);
-void dispEntry(CameraId cameraId, s32 renderMode, DispCallback callback, void* param, f32 order);
+void dispEntry(CameraId camId, s32 renderMode, DispCallback callback, void* param, f32 order);
 void dispSort(void);
-void dispDraw(CameraId cameraId);
+void dispDraw(CameraId camId);
 f32 dispCalcZ(Vec* input);
 DispEntry* dispGetCurWork(void);

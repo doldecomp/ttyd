@@ -73,10 +73,10 @@ TEXPalette* env_tpl;
 
 //local prototypes
 void _callback(s32 result, DVDFileInfo* fileInfo);
-void envCapture(CameraId cameraId, void* param);
-void envCapture2(CameraId cameraId, void* param);
-void envDisp(CameraId cameraId, void* param);
-void envDisp2(CameraId cameraId, void* param);
+void envCapture(CameraId camId, void* param);
+void envCapture2(CameraId camId, void* param);
+void envDisp(CameraId camId, void* param);
+void envDisp2(CameraId camId, void* param);
 void envDisp_DepthOfField(void);
 void envDisp_Blur(void);
 
@@ -126,7 +126,7 @@ void envTexSetup(void) { //1:1
     }
 }
 
-void envCapture(CameraId cameraId, void* param) { //1:1
+void envCapture(CameraId camId, void* param) { //1:1
     EnvironmentWork* wp = envGetWork();
     u16 var0, var1, var2, var3;
     u32 size;
@@ -157,7 +157,7 @@ void envCapture(CameraId cameraId, void* param) { //1:1
     }
 }
 
-void envCapture2(CameraId cameraId, void* param) { //1:1
+void envCapture2(CameraId camId, void* param) { //1:1
     EnvironmentWork* wp = envGetWork();
     u16 var0, var1;
 
@@ -179,7 +179,7 @@ void envCapture2(CameraId cameraId, void* param) { //1:1
     }
 }
 
-void envDisp(CameraId cameraId, void *param) {
+void envDisp(CameraId camId, void *param) {
     f32 vp[GX_VIEWPORT_SZ];
     f32 pm[GX_PROJECTION_SZ];
 
@@ -192,7 +192,7 @@ void envDisp(CameraId cameraId, void *param) {
     GXSetProjectionv(pm);
 }
 
-void envDisp2(CameraId cameraId, void *param) { //almost 1:1, needs extra addi
+void envDisp2(CameraId camId, void *param) { //almost 1:1, needs extra addi
     f32 vp[GX_VIEWPORT_SZ];
     f32 pm[GX_PROJECTION_SZ];
     EnvironmentWork* wp;

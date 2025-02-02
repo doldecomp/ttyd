@@ -28,13 +28,13 @@ static ImageWork* wp = &work;
 
 //local prototypes
 static void zFill(void);
-void imgDisp(CameraId cameraId, void* param);
-void imgDisp_ProjPlane(CameraId cameraId, void* param);
+void imgDisp(CameraId camId, void* param);
+void imgDisp_ProjPlane(CameraId camId, void* param);
 void imgCapture_Prim(ImageEntry* entry, s32 id);
-void imgCapture(CameraId cameraId, void* param);
+void imgCapture(CameraId camId, void* param);
 
 
-void imgShadowDisp(CameraId cameraId, void* param);
+void imgShadowDisp(CameraId camId, void* param);
 
 static void zFill(void) { //almost 1:1
 	CameraEntry* camera;
@@ -93,7 +93,7 @@ static void zFill(void) { //almost 1:1
 	GXSetColorUpdate(GX_TRUE);
 }
 
-void imgDisp(CameraId cameraId, void* param) {
+void imgDisp(CameraId camId, void* param) {
 	ImageEntry* entry = param;
 	int i;
 
@@ -103,7 +103,7 @@ void imgDisp(CameraId cameraId, void* param) {
 
 }
 
-void imgDisp_ProjPlane(CameraId cameraId, void* param) {
+void imgDisp_ProjPlane(CameraId camId, void* param) {
 	ImageEntry* entry = param;
 
 }
@@ -112,7 +112,7 @@ void imgCapture_Prim(ImageEntry* entry, s32 id) {
 
 }
 
-void imgCapture(CameraId cameraId, void* param) {
+void imgCapture(CameraId camId, void* param) {
 	//param is NULL
 	
 }
@@ -157,7 +157,7 @@ s32 imgEntry(const char* name, s32 type) { //1:1, needs variable names
 	entry->shadowId = 0;
 	entry->field_0x11C = 0.0f;
 	MTXIdentity(entry->field_0x120);
-	entry->cameraId = CAMERA_3D_IMAGE;
+	entry->camId = CAMERA_3D_IMAGE;
 	entry->field_0x154 = 4;
 
 	entry->shadows[0].flags = 0;
@@ -203,7 +203,7 @@ void imgMain(void) { //1:1
 					if (!(entry->shadows[shadow].flags & 4)) break;
 				}
 				if (shadow != 3) {
-					dispEntry(entry->cameraId, 1, imgDisp, entry, entry->order);
+					dispEntry(entry->camId, 1, imgDisp, entry, entry->order);
 					switch (entry->shadowId) {
 						case 0:
 							animPoseSetMaterialFlagOff(entry->poseId, 0x10000);
@@ -282,7 +282,7 @@ void imgSetShadow(ImageEntry* entry, s32 shadowId) { //1:1
 	entry->shadowId = shadowId;
 }
 
-void imgShadowDisp(CameraId cameraId, void* param) {
+void imgShadowDisp(CameraId camId, void* param) {
 	ImageEntry* entry = param;
 
 }

@@ -8,7 +8,7 @@ typedef struct WinMgrEntry WinMgrEntry;
 
 struct WinMgrDesc {
 	u8 field_0x0[0x8 - 0x0]; //0x0
-	s32 cameraId; //0x8, CameraId
+	s32 camId; //0x8, CameraId
 	s32 field_0xC; //0xC, entry->field_0x18
 	s32 field_0x10; //0x10, entry->field_0x1C
 	s32 field_0x14; //0x14, entry->field_0x20

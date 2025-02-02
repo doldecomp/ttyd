@@ -18,7 +18,7 @@ typedef struct effScanningData {
 } effScanningData;
 
 void effScanningMain(EffectEntry* effect);
-void effScanningDisp(CameraId cameraId, void* param);
+void effScanningDisp(CameraId camId, void* param);
 
 EffectEntry* effScanningEntry(s32 int2, f32 float3, f32 float4, f32 float5) {
 	EffectEntry* entry;
@@ -85,6 +85,6 @@ void effScanningMain(EffectEntry* effect) {
 	}
 }
 
-void effScanningDisp(CameraId cameraId, void* param) {
+void effScanningDisp(CameraId camId, void* param) {
 
 }

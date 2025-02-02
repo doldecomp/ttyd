@@ -68,7 +68,7 @@ void statusWinReInit(void) {
 		wp->field_0x4 &= ~0xA;
 		wp->field_0x4 |= 5;
 	}
-	else if (wp->field_0x4 & 0x20) {
+	if (wp->field_0x4 & 0x20) {
 		wp->field_0x4 &= ~0x20;
 		wp->field_0x4 |= 0xA;
 		wp->field_0x4 &= ~5;
@@ -129,7 +129,7 @@ void gaugeDisp(s32 a1, f32 x, f32 y) {
 
 }
 
-void statusWinDisp(CameraId cameraId, void* param) {
+void statusWinDisp(CameraId camId, void* param) {
 	alwaysDtEntry* dtEntry;
 	s32 v6;
 	int i;
@@ -160,4 +160,8 @@ void statusWinDisp(CameraId cameraId, void* param) {
 		MTXScale(iconScale, dtEntry->scale, dtEntry->scale, dtEntry->scale);
 		MTXConcat(iconPos, iconScale, iconPos);
 	}
+}
+
+void statusGetValue(StatusValue* values) {
+	
 }

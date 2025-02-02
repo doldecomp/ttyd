@@ -42,7 +42,7 @@ f32 bom_ry[10] = {
 
 //local prototypes
 void effExpBomMain(EffectEntry* effect);
-void effExpBomDisp(CameraId cameraId, void* param);
+void effExpBomDisp(CameraId camId, void* param);
 
 EffectEntry* effExpBomN64Entry(f32 x, f32 y, f32 z) {
 	EffectEntry* effect;
@@ -111,7 +111,7 @@ void effExpBomMain(EffectEntry* effect) {
 	}
 }
 
-void effExpBomDisp(CameraId cameraId, void* param) {
+void effExpBomDisp(CameraId camId, void* param) {
 	EffectEntry* effect = param; //cast to correct type
 
 }

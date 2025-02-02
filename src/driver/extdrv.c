@@ -22,6 +22,6 @@ void extMain(void) {
 
 
 
-void extMakeTexture(CameraId cameraId, void* param) {
+void extMakeTexture(CameraId camId, void* param) {
 
 }

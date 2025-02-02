@@ -20,8 +20,8 @@ TEXPalette* winTexTpl;
 static s32 cnt;
 
 //local prototypes
-void winDisp(CameraId cameraId, void* param);
-void winDispKoopa(CameraId cameraId, void* param);
+void winDisp(CameraId camId, void* param);
+void winDispKoopa(CameraId camId, void* param);
 
 WindowWork* winGetPtr(void) {
 	return wp;
@@ -103,11 +103,11 @@ void winMain(void) {
 	}
 }
 
-void winDisp(CameraId cameraId, void* param) {
+void winDisp(CameraId camId, void* param) {
 
 }
 
-void winDispKoopa(CameraId cameraId, void* param) {
+void winDispKoopa(CameraId camId, void* param) {
 
 }
 

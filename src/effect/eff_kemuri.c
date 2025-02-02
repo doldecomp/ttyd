@@ -94,6 +94,6 @@ void effKemuriMain(EffectEntry* effect) {
 
 }
 
-void effKemuriDisp(CameraId cameraId, void* param) {
+void effKemuriDisp(CameraId camId, void* param) {
 	EffectEntry* entry = param;
 }

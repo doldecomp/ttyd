@@ -3,7 +3,7 @@
 #include "driver/dispdrv.h"
 
 //local prototypes
-void accrobat_timing_icon_disp(CameraId cameraId, void* param);
+void accrobat_timing_icon_disp(CameraId camId, void* param);
 
 s32 BattleAcrobatStart(BattleWork* work, s32 unitId, s32 windowStartFrame,
 						s32 windowEndFrame, s32 endFrame, s32 earlyFrames) {
@@ -77,7 +77,7 @@ s32 BattleAcrobatMain(BattleWork* work) {
 }
 
 //param = BattleWorkUnit* unit;
-void accrobat_timing_icon_disp(CameraId cameraId, void* param) {
+void accrobat_timing_icon_disp(CameraId camId, void* param) {
 	BattleWorkUnit* unit = param; //cast to proper type
 	f32 x, y, z; //sp 8, c, 10
 

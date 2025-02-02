@@ -492,12 +492,12 @@ void marioDispBlurSub(s32* unused, s32 blurId) {
 
 }
 
-void marioDispBlur(CameraId cameraId, void* param) {
+void marioDispBlur(CameraId camId, void* param) {
 	MarioWork* wp = param; //cast to correct type
 
 }
 
-void marioDisp(CameraId cameraId, void* param) {
+void marioDisp(CameraId camId, void* param) {
 	MarioWork* wp = param; //cast to correct type
 	Mtx mtx1; //TODO: rename
 	f32 scale;

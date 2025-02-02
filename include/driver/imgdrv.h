@@ -35,7 +35,7 @@ typedef struct ImageEntry {
 	f32 field_0x118; //0x118
 	f32 field_0x11C; //0x11C
 	Mtx field_0x120; //0x120
-	CameraId cameraId; //0x150
+	CameraId camId; //0x150
 	s32 field_0x154; //0x154
 } ImageEntry;
 

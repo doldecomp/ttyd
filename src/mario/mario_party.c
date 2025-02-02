@@ -4,17 +4,22 @@
 #include "mario/mario.h"
 #include "party.h"
 
-void partyJoin(MarioPartner partnerId) {
-	if (partnerId < 8) {
-		pouchGetPtr()->partyData[partnerId].flags |= 1; //obtained
-	}
+s32 marioGetParty(void) {
+    s32 id;
+
+    id = marioGetPartyId();
+    if (id >= 0) {
+        return partyGetPtr(id)->currentMemberId;
+    } else {
+        return 0;
+    }
 }
 
 s32 marioGetPartyId(void) {
     MarioWork* wp = marioGetPtr();
     PartyEntry* party;
     s32 partyId;
-    
+
     partyId = wp->currPartySlotId[0];
     if (partyId >= 0) {
         party = partyGetPtr(partyId);
@@ -36,7 +41,7 @@ s32 marioGetExtraPartyId(void) {
     MarioWork* wp = marioGetPtr();
     PartyEntry* party;
     s32 partyId;
-    
+
     partyId = wp->currPartySlotId[0];
     if (partyId >= 0) {
         party = partyGetPtr(partyId);
@@ -44,7 +49,7 @@ s32 marioGetExtraPartyId(void) {
             return partyId;
         }
     }
-    
+
     partyId = wp->currPartySlotId[1];
     if (partyId >= 0) {
         party = partyGetPtr(partyId);
@@ -53,4 +58,10 @@ s32 marioGetExtraPartyId(void) {
         }
     }
     return -1;
+}
+
+void partyJoin(MarioPartner partnerId) {
+    if (partnerId < 8) {
+        pouchGetPtr()->partyData[partnerId].flags |= 1; // obtained
+    }
 }

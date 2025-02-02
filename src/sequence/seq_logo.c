@@ -68,9 +68,9 @@ static LogoWork work;
 static LogoWork* wp = &work;
 
 //local prototypes
-void logoDisp(CameraId cameraId, void* param);
-void dummy_draw(CameraId cameraId, void* param);
-void progDisp(CameraId cameraId, void* param);
+void logoDisp(CameraId camId, void* param);
+void dummy_draw(CameraId camId, void* param);
+void progDisp(CameraId camId, void* param);
 
 void seq_logoInit(SequenceWork* work) {
 	memset(wp, 0, sizeof(LogoWork));
@@ -263,7 +263,7 @@ void seq_logoMain(SequenceWork* work) {
 }
 
 //param is unused
-void logoDisp(CameraId cameraId, void* param) {
+void logoDisp(CameraId camId, void* param) {
 	GXRenderModeObj* rmode;
 	f32 width, x, height, y;
 
@@ -437,7 +437,7 @@ void logoDisp(CameraId cameraId, void* param) {
 }
 
 //param is unused
-void dummy_draw(CameraId cameraId, void* param) {
+void dummy_draw(CameraId camId, void* param) {
 	GXRenderModeObj* rmode;
 	f32 scale;
 	u16 height;
@@ -456,14 +456,14 @@ void dummy_draw(CameraId cameraId, void* param) {
 }
 
 //param is unused
-void progDisp(CameraId cameraId, void* param) {
+void progDisp(CameraId camId, void* param) {
 	static OSTime time; //time instance 2
 	const char* msg;
 	f32 width;
 	u32 button;
 	s32 type;
 
-	camGetPtr(cameraId); //unused
+	camGetPtr(camId); //unused
 	if (wp->progressive) {
 		switch (wp->field_0x4) {
 			case 0:

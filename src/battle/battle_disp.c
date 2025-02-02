@@ -251,7 +251,7 @@ void btlDispMain(void) {
 	}
 }
 
-void btlUnitPartsDisp(CameraId cameraId, BattleWorkUnitPart* parts) {
+void btlUnitPartsDisp(CameraId camId, BattleWorkUnitPart* parts) {
 
 }
 

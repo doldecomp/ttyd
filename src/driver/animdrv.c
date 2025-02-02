@@ -52,7 +52,7 @@ void animPose_AllocBuffer(AnimationPose* pose);
 void animPoseRefresh(void);
 
 
-void animPaperPoseDisp(CameraId cameraId, void* param);
+void animPaperPoseDisp(CameraId camId, void* param);
 void animPaperPoseDispSub(s32 unused, AnimationPose* pose);
 
 AnimationWork* animGetPtr(void) { //1:1, obv
@@ -628,7 +628,7 @@ BOOL animGroupBaseAsync(const char* name, s32 group, void* callback) {
 
 
 
-void animPaperPoseDisp(CameraId cameraId, void* param) {
+void animPaperPoseDisp(CameraId camId, void* param) {
 	AnimationPose* pose;
 	int i;
 

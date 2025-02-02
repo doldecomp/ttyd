@@ -8,9 +8,9 @@
 //TODO: move into battle/seq/?
 
 //local prototypes
-void BattleDrawEnemyHP(CameraId cameraId, void* param);
+void BattleDrawEnemyHP(CameraId camId, void* param);
 
-void BattleDrawEnemyHP(CameraId cameraId, void* param) {
+void BattleDrawEnemyHP(CameraId camId, void* param) {
 	BattleWork* wp = param;
 	BattleWorkUnit* unit;
 	Vec position;

@@ -25,7 +25,7 @@ static WinMgrWork work;
 static WinMgrWork* wp = &work;
 
 //local prototypes
-void winMgrDisp(CameraId cameraId, void* param);
+void winMgrDisp(CameraId camId, void* param);
 void winMgrSeq(WinMgrEntry* entry);
 
 void winMgrInit(void) {
@@ -39,7 +39,7 @@ void winMgrReInit(void) {
 }
 
 //TODO: finish
-void winMgrDisp(CameraId cameraId, void* param) {
+void winMgrDisp(CameraId camId, void* param) {
 	Mtx rotmtx, scalemtx;
 	WinMgrEntry* entry = (WinMgrEntry*)param; //convert
 	MTXRotRad(rotmtx, 'z', entry->rotation * (f32)(PI / 180));
@@ -63,7 +63,7 @@ void winMgrMain(void) {
 				desc->main(entry);
 			}
 			if (entry->flags & 2) {
-				dispEntry((CameraId)desc->cameraId, 0, winMgrDisp, entry, (f32)(entry->priority + 300));
+				dispEntry((CameraId)desc->camId, 0, winMgrDisp, entry, (f32)(entry->priority + 300));
 			}
 		}
 	}

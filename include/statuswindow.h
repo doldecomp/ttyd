@@ -4,7 +4,7 @@
 
 typedef struct StatusWindowWork {
 	u8 field_0x0[0x4 - 0x0]; //0x0
-	s16 field_0x4; //0x4
+	u16 field_0x4; //0x4
 	u8 align_0x6[2]; //0x6
 	f32 field_0x8; //0x8
 	f32 field_0xC; //0xC
@@ -31,6 +31,10 @@ typedef struct StatusWindowWork {
 	u8 field_0x84[0x88 - 0x84]; //0x84
 	s32 field_0x88; //0x88
 } StatusWindowWork;
+
+typedef struct StatusValue {
+	u8 unk0[0x18]; //0x0
+} StatusValue;
 
 void statusWinInit(void);
 void statusWinReInit(void);

@@ -27,11 +27,11 @@ static NpcWork2 work;
 
 //local prototypes
 void mtx_setup(NpcEntry* entry, Mtx mtx, s32 history);
-void npcDisp_xlu(CameraId cameraId, void* param);
-void npcDisp(CameraId cameraId, void* param);
-void npcDisp_offscreen_xlu(CameraId cameraId, void* param);
-void npcDisp_offscreen(CameraId cameraId, void* param);
-void npcDisp_blur(CameraId cameraId, void* param);
+void npcDisp_xlu(CameraId camId, void* param);
+void npcDisp(CameraId camId, void* param);
+void npcDisp_offscreen_xlu(CameraId camId, void* param);
+void npcDisp_offscreen(CameraId camId, void* param);
+void npcDisp_blur(CameraId camId, void* param);
 void _npcDeleteGroup(NpcEntry* entry);
 
 #define npcGetWorkPtr2(inBattle) ((inBattle) ? &work.battle : &work.field)
@@ -168,31 +168,31 @@ void mtx_setup(NpcEntry* entry, Mtx mtx, s32 history) { //1:1 once "!= 0.0f" che
 	}
 }
 
-void npcDisp_xlu(CameraId cameraId, void* param) {
+void npcDisp_xlu(CameraId camId, void* param) {
 	NpcEntry* entry = param; //cast to proper type
 
 
 }
 
-void npcDisp(CameraId cameraId, void* param) {
+void npcDisp(CameraId camId, void* param) {
 	NpcEntry* entry = param; //cast to proper type
 
 
 }
 
-void npcDisp_offscreen_xlu(CameraId cameraId, void* param) {
+void npcDisp_offscreen_xlu(CameraId camId, void* param) {
 	NpcEntry* entry = param; //cast to proper type
 
 
 }
 
-void npcDisp_offscreen(CameraId cameraId, void* param) {
+void npcDisp_offscreen(CameraId camId, void* param) {
 	NpcEntry* entry = param; //cast to proper type
 
 
 }
 
-void npcDisp_blur(CameraId cameraId, void* param) {
+void npcDisp_blur(CameraId camId, void* param) {
 	NpcEntry* entry = param; //cast to proper type
 
 
@@ -290,7 +290,7 @@ s32 npcEntry(const char* a1, const char* animName) {
 	entry->field_0x1D0 = 0.0f;
 	entry->field_0x1C8 = 1.0f;
 	entry->color = (GXColor){ 0xFF, 0xFF, 0xFF, 0xFF };
-	entry->cameraId = CAMERA_3D;
+	entry->camId = CAMERA_3D;
 	entry->field_0x2F8 = 0;
 	entry->field_0x317 = 1;
 	if (animPoseGetVivianType(entry->poseId)) {
@@ -533,7 +533,7 @@ void fbatSetAttackAnnounceEnable(void) {
 	gp->fbatData->firstStrike.enabled = TRUE;
 }
 
-void _fbatFirstAttackAnnounceDisp(CameraId cameraId, void* param) {
+void _fbatFirstAttackAnnounceDisp(CameraId camId, void* param) {
 	FirstStrikeInfo* firstStrike = param;
 	const char* message;
 
