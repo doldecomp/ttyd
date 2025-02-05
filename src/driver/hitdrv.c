@@ -1,78 +1,89 @@
 #include "driver/hitdrv.h"
+#include "dolphin/os.h"
+#include "driver/mapdrv.h"
+#include "memory.h"
+#include "party.h"
 #include <string.h>
 
-HitEntry* lbl_80418408; //TODO: proper name
+HitObj* lbl_80418408; // TODO: proper name
 
-//local prototypes
-void hitReCalcMatrix2(HitEntry* hit, Mtx mtx, BOOL recursion);
-u16 hitCalcVtxPosition(HitEntry* hit);
+// local prototypes
+void hitReCalcMatrix2(HitObj* hit, Mtx mtx, BOOL recursion);
+u16 hitCalcVtxPosition(HitObj* hit);
 
 inline BOOL tempfunc(HitCheckQuery* query, HitVector* vector);
 inline BOOL tempfunc2(HitCheckQuery* query, HitVector* vector);
 inline BOOL tempfunc3(HitCheckQuery* query, HitVector* vector);
 BOOL checkTriVec_xz(HitCheckQuery* query, HitVector* vector);
-BOOL chkFilterAttr(HitCheckQuery* query, HitEntry* entry);
-void hitObjGetPosSub(HitEntry* hit, Vec* position, s32* counter, BOOL recursion);
-void hitDamageReturnSet(HitEntry* hit, HitDamageReturn* damage, BOOL recursion);
+BOOL chkFilterAttr(HitCheckQuery* query, HitObj* entry);
+void hitObjGetPosSub(HitObj* hit, Vec* position, s32* counter, BOOL recursion);
+void hitDamageReturnSet(HitObj* hit, HitDamageReturn* damage, BOOL recursion);
 
 void hitInit(void) {
-	; //stubbed in retail
+    ; // stubbed in retail
 }
 
 void hitReInit(void) {
-	HitEntry* entry;
-	MapEntry* map;
-	s32 i, j;
+    MapEntry* entry;
+    MapWork* wp;
+    s32 j;
+    s32 i;
+    HitObj* hit;
 
-	map = mapGetWork()->entries;
-	for (i = 0; i < map->count; i++, map++) {
-		entry = map->hitObjects;
-		if (entry) {
-			for (j = 0; j < map->hitNumJoints; j++) {
-
-			}
-		}
-	}
-
+    wp = mapGetWork();
+    entry = wp->entries;
+    for (i = 0; i < wp->entries->count; entry++, i++) {
+        hit = entry->hitObjects;
+        if (hit != NULL) {
+            for (j = 0; j < entry->hitNumJoints; j++, hit++) {
+                if (hit->unkAC != NULL) {
+                    _mapFree(hit->unkAC);
+                }
+            }
+            _mapFree(entry->hitObjects);
+            entry->hitObjects = NULL;
+            entry->hitNumJoints = 0;
+        }
+    }
 }
 
 void hitMain(void) {
-
 }
 
+#pragma dont_inline on
+HitObj* _hitEnt(MapFileJoint* joint, HitObj* parent, Mtx parentMtx, s32 mapIndex) {
+}
+#pragma dont_inline reset
 
+HitObj* hitEntrySub(MapFileJoint* joint, HitObj* parent, Mtx parentMtx, BOOL ignoreSiblings, s32 mapIndex) {
+    HitObj* object;
 
-
-
-
-
-
-HitEntry* hitEntry(MapJoint* joint, Mtx mtx, BOOL group) {
-	MapWork* wp;
-	MapEntry* entry;
-	u32 size;
-
-	wp = mapGetWork();
-	entry = &wp->entries[group];
-	entry->hitNumJoints = mapGetJoints(joint);
-	size = OSRoundUp32B(sizeof(HitEntry) * (entry->hitNumJoints + 128));
-	memset(entry->hitObjects, 0, size);
-	//return hitEntrySub(joint, 0, mtx, 1, group);
+    object = _hitEnt(joint, parent, parentMtx, mapIndex);
+    if (joint->child) {
+        object->child = hitEntrySub(joint->child, object, object->unkC, FALSE, mapIndex);
+    }
+    if (!ignoreSiblings) {
+        if (joint->next) {
+            object->next = hitEntrySub(joint->next, parent, parentMtx, FALSE, mapIndex);
+        }
+    }
+    return object;
 }
 
+HitObj* hitEntry(MapFileJoint* joint, f32 (*mtx)[4], s32 mapIndex) {
+    MapWork* wp = mapGetWork();
+    s32 numJoints;
+    u32 size;
 
+    numJoints = mapGetJoints(joint);
+    wp->entries[mapIndex].hitNumJoints = numJoints;
+    size = OSRoundUp32B(((wp->entries[mapIndex].hitNumJoints + 0x80) * 0xE4));
+    wp->entries[mapIndex].hitObjects = _mapAlloc(size);
+    memset(wp->entries[mapIndex].hitObjects, 0, size);
+    return hitEntrySub(joint, NULL, mtx, 1, mapIndex);
+}
 
-
-
-
-
-
-
-
-
-
-
-void hitReCalcMatrix(HitEntry* hit, Mtx mtx) {
+void hitReCalcMatrix(HitObj* hit, Mtx mtx) {
     Vec world;
 
     hit->flags |= 0x40;
@@ -81,7 +92,7 @@ void hitReCalcMatrix(HitEntry* hit, Mtx mtx) {
     hit->unkCC = PSVECDistance(&world, &hit->unkC0);
 }
 
-void hitReCalcMatrix2(HitEntry* hit, Mtx mtx, BOOL recursion) {
+void hitReCalcMatrix2(HitObj* hit, Mtx mtx, BOOL recursion) {
     int var_r3_3;
 
     var_r3_3 = 0;
@@ -119,17 +130,9 @@ void hitReCalcMatrix2(HitEntry* hit, Mtx mtx, BOOL recursion) {
     }
 }
 
-
-
-
-
-u16 hitCalcVtxPosition(HitEntry* hit) {
-    //TODO
+u16 hitCalcVtxPosition(HitObj* hit) {
+    // TODO
 }
-
-
-
-
 
 inline BOOL tempfunc(HitCheckQuery* query, HitVector* vector) {
     Vec sp80;
@@ -137,7 +140,7 @@ inline BOOL tempfunc(HitCheckQuery* query, HitVector* vector) {
     Vec sp98;
     f32 dotProduct;
     f32 temp_f2;
-    
+
     PSVECSubtract(&query->targetPos, &vector->e13, &sp80);
     dotProduct = PSVECDotProduct(&vector->normal, &sp80);
     if (query->singleSided) {
@@ -193,7 +196,7 @@ inline BOOL tempfunc2(HitCheckQuery* query, HitVector* vector) {
     Vec sp74;
     f32 dotProduct;
     f32 temp_f2;
-    
+
     PSVECSubtract(&query->targetPos, &vector->e13, &sp5C);
     dotProduct = PSVECDotProduct(&vector->normal, &sp5C);
     if (query->singleSided) {
@@ -253,7 +256,7 @@ inline BOOL tempfunc3(HitCheckQuery* query, HitVector* vector) {
     Vec sp50;
     f32 dotProduct;
     f32 var_f27;
-    
+
     PSVECSubtract(&query->targetPos, &vector->e13, &sp8);
     dotProduct = PSVECDotProduct(&vector->normal, &sp8);
     if (query->singleSided) {
@@ -295,7 +298,7 @@ inline BOOL tempfunc3(HitCheckQuery* query, HitVector* vector) {
             return 0;
         }
     }
-    
+
     if ((query->targetDistance >= 0.0f) && ((-dotProduct / var_f27) >= query->targetDistance)) {
         return 0;
     }
@@ -310,15 +313,15 @@ inline BOOL tempfunc3(HitCheckQuery* query, HitVector* vector) {
     return 1;
 }
 
-HitEntry* hitCheckVecFilter(HitCheckQuery* query, HitFilterCallback callback) { //1:1
+HitObj* hitCheckVecFilter(HitCheckQuery* query, HitFilterCallback callback) { // 1:1
     f32 temp;
     HitVector* vector;
     Vec position;
     Vec spBC;
     Vec normal;
     Vec spA4;
-    HitEntry* var_r29;
-    HitEntry* var_r28;
+    HitObj* var_r29;
+    HitObj* var_r28;
     int i;
     f32 distance;
     f32 var_f29;
@@ -347,7 +350,8 @@ HitEntry* hitCheckVecFilter(HitCheckQuery* query, HitFilterCallback callback) { 
                     }
                     var_r31 = var_r29->unkAC;
                     for (i = 0; i < var_r29->unkA8; i++, var_r31++) {
-                        if ((query->singleSided == 0) || !(PSVECDotProduct(&var_r31->normal, &query->targetDir) >= 0.0f)) {
+                        if ((query->singleSided == 0) ||
+                            !(PSVECDotProduct(&var_r31->normal, &query->targetDir) >= 0.0f)) {
                             if (checkTriVec_xz(query, var_r31) && (var_f29 < 0.0f || var_f29 > query->targetDistance)) {
                                 var_f29 = query->targetDistance;
                                 var_r28 = var_r29;
@@ -416,7 +420,7 @@ HitEntry* hitCheckVecFilter(HitCheckQuery* query, HitFilterCallback callback) { 
             goto label_235;
         }
     } else {
-label_235:
+    label_235:
         while (var_r29 != NULL) {
             if (callback == NULL || callback(query, var_r29)) {
                 if (!(PSVECDistance(&spA4, &var_r29->unkC0) > (temp_f28 + var_r29->unkCC))) {
@@ -452,14 +456,14 @@ label_235:
     return var_r28;
 }
 
-HitEntry* hitCheckFilter(HitFilterCallback callback, f32* hitX, f32* hitY, f32* hitZ, f32* distance,
-						f32* hitNX, f32* hitNY, f32* hitNZ, f32 x, f32 y, f32 z, f32 nx, f32 ny, f32 nz) { //1:1
+HitObj* hitCheckFilter(HitFilterCallback callback, f32* hitX, f32* hitY, f32* hitZ, f32* distance, f32* hitNX,
+                       f32* hitNY, f32* hitNZ, f32 x, f32 y, f32 z, f32 nx, f32 ny, f32 nz) { // 1:1
     HitCheckQuery temp;
     HitCheckQuery* query = &temp;
-    HitEntry *entry;
-    
-    query->targetPos = (Vec){x, y, z};
-    query->targetDir = (Vec){nx, ny, nz};
+    HitObj* entry;
+
+    query->targetPos = (Vec){ x, y, z };
+    query->targetDir = (Vec){ nx, ny, nz };
     query->targetDistance = *distance;
     entry = hitCheckVecFilter(query, callback);
     if (entry == NULL) {
@@ -486,42 +490,52 @@ BOOL checkTriVec_xz(HitCheckQuery* query, HitVector* vector) {
         if (distToTrianglePlane < 0.0f) {
             return FALSE;
         }
-        if ((v1.x * (-vector->v1.y * query->targetDir.z)) + 
-            (v1.y * ((vector->v1.x * query->targetDir.z) - (vector->v1.z * query->targetDir.x))) + 
-            (v1.z * (vector->v1.y * query->targetDir.x)) < 0.0f) {
+        if ((v1.x * (-vector->v1.y * query->targetDir.z)) +
+                (v1.y * ((vector->v1.x * query->targetDir.z) - (vector->v1.z * query->targetDir.x))) +
+                (v1.z * (vector->v1.y * query->targetDir.x)) <
+            0.0f) {
             return FALSE;
         }
         PSVECSubtract(&query->targetPos, &vector->e21, &v2);
-        if ((v2.x * (-vector->v2.y * query->targetDir.z)) + 
-            (v2.y * ((vector->v2.x * query->targetDir.z) - (vector->v2.z * query->targetDir.x))) + 
-            (v2.z * (vector->v2.y * query->targetDir.x)) < 0.0f) {
+        if ((v2.x * (-vector->v2.y * query->targetDir.z)) +
+                (v2.y * ((vector->v2.x * query->targetDir.z) - (vector->v2.z * query->targetDir.x))) +
+                (v2.z * (vector->v2.y * query->targetDir.x)) <
+            0.0f) {
             return FALSE;
         }
         PSVECSubtract(&query->targetPos, &vector->e32, &v3);
-        if ((v3.x * (-vector->v3.y * query->targetDir.z)) + 
-            (v3.y * ((vector->v3.x * query->targetDir.z) - (vector->v3.z * query->targetDir.x))) + 
-            (v3.z * (vector->v3.y * query->targetDir.x)) < 0.0f) {
+        if ((v3.x * (-vector->v3.y * query->targetDir.z)) +
+                (v3.y * ((vector->v3.x * query->targetDir.z) - (vector->v3.z * query->targetDir.x))) +
+                (v3.z * (vector->v3.y * query->targetDir.x)) <
+            0.0f) {
             return FALSE;
         }
     } else {
-        if (((vector->normal.x * query->targetDir.x) + (vector->normal.z * query->targetDir.z)) * distToTrianglePlane >= 0.0f) {
+        if (((vector->normal.x * query->targetDir.x) + (vector->normal.z * query->targetDir.z)) * distToTrianglePlane >=
+            0.0f) {
             return FALSE;
         }
-        if (((v1.x * (-vector->v1.y * query->targetDir.z)) + 
-             (v1.y * ((vector->v1.x * query->targetDir.z) - (vector->v1.z * query->targetDir.x))) + 
-             (v1.z * (vector->v1.y * query->targetDir.x))) * distToTrianglePlane < 0.0f) {
+        if (((v1.x * (-vector->v1.y * query->targetDir.z)) +
+             (v1.y * ((vector->v1.x * query->targetDir.z) - (vector->v1.z * query->targetDir.x))) +
+             (v1.z * (vector->v1.y * query->targetDir.x))) *
+                distToTrianglePlane <
+            0.0f) {
             return FALSE;
         }
         PSVECSubtract(&query->targetPos, &vector->e21, &v2);
-        if (((v2.x * (-vector->v2.y * query->targetDir.z)) + 
-             (v2.y * ((vector->v2.x * query->targetDir.z) - (vector->v2.z * query->targetDir.x))) + 
-             (v2.z * (vector->v2.y * query->targetDir.x))) * distToTrianglePlane < 0.0f) {
+        if (((v2.x * (-vector->v2.y * query->targetDir.z)) +
+             (v2.y * ((vector->v2.x * query->targetDir.z) - (vector->v2.z * query->targetDir.x))) +
+             (v2.z * (vector->v2.y * query->targetDir.x))) *
+                distToTrianglePlane <
+            0.0f) {
             return FALSE;
         }
         PSVECSubtract(&query->targetPos, &vector->e32, &v3);
-        if (((v3.x * (-vector->v3.y * query->targetDir.z)) + 
-            (v3.y * ((vector->v3.x * query->targetDir.z) - (vector->v3.z * query->targetDir.x))) + 
-            (v3.z * (vector->v3.y * query->targetDir.x))) * distToTrianglePlane < 0.0f) {
+        if (((v3.x * (-vector->v3.y * query->targetDir.z)) +
+             (v3.y * ((vector->v3.x * query->targetDir.z) - (vector->v3.z * query->targetDir.x))) +
+             (v3.z * (vector->v3.y * query->targetDir.x))) *
+                distToTrianglePlane <
+            0.0f) {
             return FALSE;
         }
     }
@@ -541,7 +555,7 @@ BOOL checkTriVec_xz(HitCheckQuery* query, HitVector* vector) {
     return TRUE;
 }
 
-BOOL hitCheckVecHitObjXZ(HitCheckQuery* query, HitEntry* entry) { //1:1
+BOOL hitCheckVecHitObjXZ(HitCheckQuery* query, HitObj* entry) { // 1:1
     int i;
     HitVector* vector;
 
@@ -552,26 +566,26 @@ BOOL hitCheckVecHitObjXZ(HitCheckQuery* query, HitEntry* entry) { //1:1
     }
     vector = entry->unkAC;
     for (i = 0; i < entry->unkA8; i++, vector++) {
-        if ((query->singleSided == 0 || !(PSVECDotProduct(&vector->normal, &query->targetDir) >= 0.0f)) && checkTriVec_xz(query, vector)) {
+        if ((query->singleSided == 0 || !(PSVECDotProduct(&vector->normal, &query->targetDir) >= 0.0f)) &&
+            checkTriVec_xz(query, vector)) {
             return 1;
         }
     }
     return 0;
 }
 
-BOOL chkFilterAttr(HitCheckQuery* query, HitEntry* entry) { //1:1
+BOOL chkFilterAttr(HitCheckQuery* query, HitObj* entry) { // 1:1
     return (entry->attributes & query->user0) == 0;
 }
 
-HitEntry* hitCheckAttr(s32 user0, f32* hitX, f32* hitY, f32* hitZ, f32* distance, f32* hitNX,
-					  f32* hitNY, f32* hitNZ, f32 x, f32 y, f32 z, f32 nx, f32 ny, f32 nz) { //1:1
+HitObj* hitCheckAttr(s32 user0, f32* hitX, f32* hitY, f32* hitZ, f32* distance, f32* hitNX, f32* hitNY, f32* hitNZ,
+                     f32 x, f32 y, f32 z, f32 nx, f32 ny, f32 nz) { // 1:1
     HitCheckQuery temp;
     HitCheckQuery* query = &temp;
-    HitEntry* entry;
+    HitObj* entry;
 
-
-    query->targetPos = (Vec){x, y, z};
-    query->targetDir = (Vec){nx, ny, nz};
+    query->targetPos = (Vec){ x, y, z };
+    query->targetDir = (Vec){ nx, ny, nz };
     query->targetDistance = *distance;
     query->user0 = user0;
     entry = hitCheckVecFilter(query, chkFilterAttr);
@@ -588,14 +602,15 @@ HitEntry* hitCheckAttr(s32 user0, f32* hitX, f32* hitY, f32* hitZ, f32* distance
     return entry;
 }
 
-HitEntry* hitCheckSphereFilter(HitFilterCallback callback, f32 x, f32 y, f32 z, f32 distance) { //almost 1:1, stubborn regalloc
+HitObj* hitCheckSphereFilter(HitFilterCallback callback, f32 x, f32 y, f32 z,
+                             f32 distance) { // almost 1:1, stubborn regalloc
     MapWork* wp = mapGetWork();
     MapEntry* var_r31 = wp->entries;
     MapEntry* map;
     Vec sp68;
     int j;
-    HitEntry* temp_r27;
-    HitEntry* var_r23;
+    HitObj* temp_r27;
+    HitObj* var_r23;
     HitVector* vector;
     f32 var_f28;
     f32 temp_f1;
@@ -611,7 +626,7 @@ HitEntry* hitCheckSphereFilter(HitFilterCallback callback, f32 x, f32 y, f32 z, 
     var_f28 = -1.0f;
     objectId = -1;
     query = &temp;
-    sp68 = (Vec){x, y, z};
+    sp68 = (Vec){ x, y, z };
     for (i = 0; i < var_r31->count; var_r31++, i++) {
         var_r23 = var_r31->hitObjects;
         for (j = 0; j < var_r31->hitNumJoints; j++, var_r23++) {
@@ -670,15 +685,15 @@ HitEntry* hitCheckSphereFilter(HitFilterCallback callback, f32 x, f32 y, f32 z, 
     return &map->hitObjects[objectId];
 }
 
-HitEntry *hitNameToPtr(const char *name) { //1:1
-    MapEntry *map;
-    MapWork *wp = mapGetWork();
+HitObj* hitNameToPtr(const char* name) { // 1:1
+    MapEntry* map;
+    MapWork* wp = mapGetWork();
     int j;
-    MapEntry *new_var;
-    MapEntry *new_var2;
+    MapEntry* new_var;
+    MapEntry* new_var2;
     int i;
-    HitEntry *hit;
-    
+    HitObj* hit;
+
     if (name == NULL) {
         return NULL;
     }
@@ -693,11 +708,11 @@ HitEntry *hitNameToPtr(const char *name) { //1:1
             }
         }
     }
-    
+
     return NULL;
 }
 
-void hitObjGetPosSub(HitEntry* hit, Vec* position, s32* counter, BOOL recursion) { //1:1, awful inlining
+void hitObjGetPosSub(HitObj* hit, Vec* position, s32* counter, BOOL recursion) { // 1:1, awful inlining
     Vec sp8;
 
     if (hit->child != NULL) {
@@ -714,24 +729,24 @@ void hitObjGetPosSub(HitEntry* hit, Vec* position, s32* counter, BOOL recursion)
     }
 }
 
-void hitObjGetPos(const char* name, Vec* position) { //1:1
+void hitObjGetPos(const char* name, Vec* position) { // 1:1
     Vec spC;
     s32 counter;
-    HitEntry* hit;
+    HitObj* hit;
 
     counter = 0;
-    spC = (Vec){0.0f, 0.0f, 0.0f};
+    spC = (Vec){ 0.0f, 0.0f, 0.0f };
     hit = hitNameToPtr(name);
     if (hit == NULL) {
-        *position = (Vec){0.0f, 0.0f, 0.0f};
+        *position = (Vec){ 0.0f, 0.0f, 0.0f };
         return;
     }
     hitObjGetPosSub(hit, &spC, &counter, 0);
-    PSVECScale(&spC, position, 1.0f / (f32) counter);
+    PSVECScale(&spC, position, 1.0f / (f32)counter);
 }
 
-void hitObjGetNormal(const char *name, Vec *normal) { //1:1
-    HitEntry* hit;
+void hitObjGetNormal(const char* name, Vec* normal) { // 1:1
+    HitObj* hit;
 
     hit = hitNameToPtr(name);
     if (hit != NULL && hit->joint->partCount > 0) {
@@ -739,12 +754,12 @@ void hitObjGetNormal(const char *name, Vec *normal) { //1:1
     }
 }
 
-const char* hitGetName(HitEntry* hit) { //1:1
+const char* hitGetName(HitObj* hit) { // 1:1
     MapEntry* map;
     s32 count;
     int i;
     u32 start, size;
-    
+
     if (hit == NULL) {
         return NULL;
     }
@@ -752,7 +767,7 @@ const char* hitGetName(HitEntry* hit) { //1:1
     count = map->count;
     for (i = 0; i < count; map++, i++) {
         start = (u32)map->hitObjects;
-        size = OSRoundUp32B((map->hitNumJoints + 0x80) * sizeof(HitEntry));
+        size = OSRoundUp32B((map->hitNumJoints + 0x80) * sizeof(HitObj));
         if ((u32)hit >= start && (u32)hit < start + size) {
             break;
         }
@@ -763,11 +778,11 @@ const char* hitGetName(HitEntry* hit) { //1:1
     return hit->joint->name;
 }
 
-s32 hitGetAttr(HitEntry* hit) { //1:1
+s32 hitGetAttr(HitObj* hit) { // 1:1
     return hit != NULL ? hit->attributes : 0;
 }
 
-void hitDamageReturnSet(HitEntry* hit, HitDamageReturn* damage, BOOL recursion) { //1:1
+void hitDamageReturnSet(HitObj* hit, HitDamageReturn* damage, BOOL recursion) { // 1:1
     hit->attributes |= 0x40000000;
     hit->damage = damage;
     if (hit->child != NULL) {
@@ -780,21 +795,21 @@ void hitDamageReturnSet(HitEntry* hit, HitDamageReturn* damage, BOOL recursion) 
     }
 }
 
-void hitGrpDamageReturnSet(const char* name, HitDamageReturn* damage) { //1:1
-    HitEntry* hit;
-    
+void hitGrpDamageReturnSet(const char* name, HitDamageReturn* damage) { // 1:1
+    HitObj* hit;
+
     hit = hitNameToPtr(name);
     if (hit != NULL) {
         hitDamageReturnSet(hit, damage, FALSE);
     }
 }
 
-Vec* hitGetDamageReturnPos(HitEntry* hit) {
+Vec* hitGetDamageReturnPos(HitObj* hit) {
     return &hit->damage->position;
 }
 
-void hitBindMapObj(const char *hitName, const char *mapobjName) {
-    HitEntry* hit;
+void hitBindMapObj(const char* hitName, const char* mapobjName) {
+    HitObj* hit;
     MapObject* mapObj;
 
     hit = hitNameToPtr(hitName);
@@ -812,8 +827,8 @@ void hitBindMapObj(const char *hitName, const char *mapobjName) {
 }
 
 void hitBindUpdate(const char* name) {
-    HitEntry* parent;
-    HitEntry* hit;
+    HitObj* parent;
+    HitObj* hit;
     Mtx mtx;
 
     hit = hitNameToPtr(name);

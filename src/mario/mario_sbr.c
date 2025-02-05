@@ -19,3 +19,7 @@ f32 revise360(f32 angle) {
     }
     return angle;
 }
+
+f32 toMovedir(f32 angle) {
+    
+}

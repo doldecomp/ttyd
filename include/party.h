@@ -4,28 +4,28 @@
 #include <dolphin/types.h>
 
 #pragma enumsalwaysint off
-typedef enum PartyMembers {
-	kPartyNone, //0x0
-	kPartyGoombella, //0x1
-	kPartyKoops, //0x2
-	kPartyBobbery, //0x3
-	kPartyYoshi, //0x4
-	kPartyFlurrie, //0x5
-	kPartyVivian, //0x6
-	kPartyMsMowz, //0x7
-	kPartyEgg, //0x8
-	kPartyFlavio, //0x9
-	kPartyPunio, //0xA
-	kPartyFrankly, //0xB
-	kPartyGus, //0xC
-	kPartyGoombellaFollower, //0xD
-	kPartyKoopsFollower, //0xE
-	kPartyBobberyFollower, //0xF
-	kPartyYoshiFollower, //0x10
-	kPartyFlurrieFollower, //0x11
-	kPartyVivianFollower, //0x12
-	kPartyMsMowzFollower //0x13
-} PartyMembers;
+typedef enum PartyMember {
+    PARTY_NONE, //0
+    PARTY_GOOMBELLA, //1
+    PARTY_KOOPS, //2
+    PARTY_BOBBERY, //3
+    PARTY_YOSHI, //4
+    PARTY_FLURRIE, //5
+    PARTY_VIVIAN, //6
+    PARTY_MS_MOWZ, //7
+    PARTY_EGG, //8
+    PARTY_FLAVIO, //9
+    PARTY_PUNIO, //10
+    PARTY_FRANKLY, //11
+    PARTY_GUS, //12
+    PARTY_GOOMBELLA_FOLLOWER, //13
+    PARTY_KOOPS_FOLLOWER, //14
+    PARTY_BOBBERY_FOLLOWER, //15
+    PARTY_YOSHI_FOLLOWER, //16
+    PARTY_FLURRIE_FOLLOWER, //17
+    PARTY_VIVIAN_FOLLOWER, //18
+    PARTY_MS_MOWZ_FOLLOWER //19
+} PartyMember;
 #pragma enumsalwaysint on
 
 typedef struct PartyEntry {

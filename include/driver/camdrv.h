@@ -27,7 +27,7 @@ typedef enum CameraId {
 typedef struct CameraEntry {
 	u16 flags; //0x0
 	u16 mode; //0x2
-	u16 field_0x4; //0x4
+	u16 unk4; //0x4
 	u16 field_0x6; //0x6, padding?
 	f32 field_0x8; //0x8
 	Vec cameraPos; //0xC

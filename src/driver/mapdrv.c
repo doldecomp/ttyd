@@ -33,12 +33,12 @@ f32 scrl_uv[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 s32 fog_type[5] = {2, 4, 5, 6, 7};
 
 //local prototypes
-void mapGetJointsSub(MapJoint* joint, s32* numJoints);
+void mapGetJointsSub(MapFileJoint* joint, s32* numJoints);
 void mapGetBoundingBox(Vec min, Vec max);
 void mapBuildTexture(MapObject* obj, TEXPalette* texture, void* table);
-MapObject* _mapEnt(MapJoint* joint, MapObject* parent, Mtx mtx, s32 index);
-MapObject* mapEntrySub(MapJoint* joint, MapObject* parent, Mtx mtx, BOOL isRoot, s32 index);
-MapObject* mapEntry(MapJoint* joint, Mtx mtx, s32 index);
+MapObject* _mapEnt(MapFileJoint* joint, MapObject* parent, Mtx mtx, s32 index);
+MapObject* mapEntrySub(MapFileJoint* joint, MapObject* parent, Mtx mtx, BOOL isRoot, s32 index);
+MapObject* mapEntry(MapFileJoint* joint, Mtx mtx, s32 index);
 void makeDisplayList(BOOL group);
 //anim functions?
 void _mapLoad(MapWork* wp, BOOL group, const char* map);
@@ -75,7 +75,7 @@ s32 mapGetActiveGroup(void) {
 }
 
 //heavily inlined
-void mapGetJointsSub(MapJoint* joint, s32* numJoints) { //1:1
+void mapGetJointsSub(MapFileJoint* joint, s32* numJoints) { //1:1
 	(*numJoints)++;
 	if (joint->child) {
 		mapGetJointsSub(joint->child, numJoints);
@@ -85,7 +85,7 @@ void mapGetJointsSub(MapJoint* joint, s32* numJoints) { //1:1
 	}
 }
 
-s32 mapGetJoints(MapJoint* joint) { //1:1
+s32 mapGetJoints(MapFileJoint* joint) { //1:1
 	s32 numJoints;
 
 	numJoints = 0;
@@ -100,7 +100,7 @@ s32 mapGetJoints(MapJoint* joint) { //1:1
 
 void mapGetBoundingBox(Vec min, Vec max) {
 	Vec vec;
-	MapJoint* joint;
+	MapFileJoint* joint;
 	MapObject* obj;
 	MapWork* wp;
 	int i;
@@ -163,7 +163,7 @@ void mapInit(void) {
 
 void mapBuildTexture(MapObject* obj, TEXPalette* texture, void* table) {
 	int i;
-	MapJointPart* part;
+	MapFileJointPart* part;
 
 	for (i = 0; i < obj->joints->partCount; i++) {
 		part = &obj->joints->parts[i];
@@ -176,7 +176,7 @@ void mapBuildTexture(MapObject* obj, TEXPalette* texture, void* table) {
 	}
 }
 
-MapObject* _mapEnt(MapJoint* joint, MapObject* parent, Mtx mtx, s32 index) {
+MapObject* _mapEnt(MapFileJoint* joint, MapObject* parent, Mtx mtx, s32 index) {
 	return NULL;
 
 
@@ -185,7 +185,7 @@ MapObject* _mapEnt(MapJoint* joint, MapObject* parent, Mtx mtx, s32 index) {
 }
 
 //recursively inlined
-MapObject* mapEntrySub(MapJoint* joint, MapObject* parent, Mtx mtx, BOOL isRoot, s32 index) {
+MapObject* mapEntrySub(MapFileJoint* joint, MapObject* parent, Mtx mtx, BOOL isRoot, s32 index) {
 	MapObject* obj = _mapEnt(joint, parent, mtx, index);
 	if (joint->child) {
 		obj->child = mapEntrySub(joint->child, obj, obj->modelWorldMtx, FALSE, index);
@@ -198,7 +198,7 @@ MapObject* mapEntrySub(MapJoint* joint, MapObject* parent, Mtx mtx, BOOL isRoot,
 	return obj;
 }
 
-MapObject* mapEntry(MapJoint* joint, Mtx mtx, s32 index) {
+MapObject* mapEntry(MapFileJoint* joint, Mtx mtx, s32 index) {
 	return NULL;
 
 

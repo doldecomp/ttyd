@@ -3,10 +3,10 @@
 #include <dolphin/gx.h>
 #include <dolphin/mtx.h>
 
-typedef struct MapJointPart {
+typedef struct MapFileJointPart {
 	void* material; //0x0
 	void* mesh; //0x4
-} MapJointPart;
+} MapFileJointPart;
 
 typedef struct MapJointDrawMode {
 	u8 unk0[0x1 - 0x0]; //0x0
@@ -15,13 +15,13 @@ typedef struct MapJointDrawMode {
 } MapJointDrawMode;
 
 
-typedef struct MapJoint {
+typedef struct MapFileJoint {
 	const char* name; //0x0
 	const char* type; //0x4
-	struct MapJoint* parent; //0x8
-	struct MapJoint* child; //0xC
-	struct MapJoint* next; //0x10
-	struct MapJoint* prev; //0x14
+	struct MapFileJoint* parent; //0x8
+	struct MapFileJoint* child; //0xC
+	struct MapFileJoint* next; //0x10
+	struct MapFileJoint* prev; //0x14
 	Vec scale; //0x18
 	Vec rotation; //0x24
 	Vec translation; //0x30
@@ -30,8 +30,8 @@ typedef struct MapJoint {
 	u8 field_0x54[0x58 - 0x54]; //0x54
 	MapJointDrawMode* drawMode; //0x58
 	s32 partCount; //0x5C
-	MapJointPart parts[]; //0x60+
-} MapJoint;
+	MapFileJointPart parts[]; //0x60+
+} MapFileJoint;
 
 typedef struct MapFileHeader {
 	s32 fileSize; //0x0
@@ -50,7 +50,7 @@ typedef struct MapFileChunk {
 
 typedef struct MapFileInfo {
 	const char* version; //0x0
-	MapJoint* joint; //0x4
+	MapFileJoint* joint; //0x4
 	const char* mapName; //0x8
 	const char* hitName; //0xC
 } MapFileInfo;
@@ -69,7 +69,7 @@ typedef struct MapHeader {
 
 typedef struct MapObject {
 	u8 field_0x0[0x8 - 0x0]; //0x0
-	MapJoint* joints; //0x8
+	MapFileJoint* joints; //0x8
 	u8 field_0xC[0x1C - 0xC]; //0xC
 	Mtx modelWorldMtx; //0x1C
 	u8 field_0x4C[0xAC - 0x4C]; //0x4C
@@ -102,12 +102,12 @@ typedef struct MapEntry {
 	u32 tplSize; //0x88
 	u8 field_0x8C[0xA8 - 0x8C]; //0x8C
 	MapObject* rootMapObj; //0xA8
-	struct HitEntry* rootHitObj; //0xAC
+	struct HitObj* rootHitObj; //0xAC
 	u8 field_0xB0[0x150 - 0xB0]; //0xB0
 	s32 numJoints; //0x150, TODO: rename? see: hitNumJoints
 	MapObject* objects; //0x154, TODO: rename? see: hitNumJoints
 	s32 hitNumJoints; //0x158
-	struct HitEntry* hitObjects; //0x15C
+	struct HitObj* hitObjects; //0x15C
 	u8 field_0x160[0x164 - 0x160]; //0x160
 	MapEntryAnimData* animData; //0x164
 	u8 field_0x168[0x178 - 0x168]; //0x168
@@ -124,7 +124,7 @@ void mapDispOff(void);
 void mapDispOn(void);
 MapWork* mapGetWork(void);
 s32 mapGetActiveGroup(void);
-s32 mapGetJoints(MapJoint* joint);
+s32 mapGetJoints(MapFileJoint* joint);
 void mapInit(void);
 MapEntryAnimData* mapSearchAnmObj(const char* animName);
 void mapCheckAnimation(const char* animName, BOOL* valid, f32* a3);

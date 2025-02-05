@@ -3,7 +3,7 @@
 #include <dolphin/mtx.h>
 #include "driver/mapdrv.h"
 
-typedef BOOL (*HitFilterCallback)(struct HitCheckQuery* query, struct HitEntry* entry);
+typedef BOOL (*HitFilterCallback)(struct HitCheckQuery* query, struct HitObj* entry);
 
 typedef struct HitVector {
     Vec e13; //0x0, v3 - v1
@@ -31,28 +31,28 @@ typedef struct HitDamageReturn {
     Vec position; //0x4
 } HitDamageReturn;
 
-typedef struct HitEntry {
+typedef struct HitObj {
 	u16 flags; //0x0
     u8 unk2[0x4 - 0x2]; //0x2
     s32 attributes; //0x4
-    MapJoint* joint; //0x8
+    MapFileJoint* joint; //0x8
     Mtx unkC; //0xC
     Mtx unk3C; //0x3C
     Mtx unk6C; //0x6C
     Vec unk9C; //0x9C
     s16 unkA8; //0xA8
-    u8 unkAA[0xAC - 0xAA]; //0xAA
+    s16 mapIndex; //0xAA
     HitVector* unkAC; //0xAC
     HitDamageReturn* damage; //0xB0
     u8 unkB4[0xC0 - 0xB4]; //0xB4
     Vec unkC0; //0xC0
     f32 unkCC; //0xCC
     MapObject* mapObj; //0xD0
-    struct HitEntry* parent; //0xD4
-    struct HitEntry* child; //0xD8
-    struct HitEntry* next; //0xDC
-    struct HitEntry* nextActive; //0xE0
-} HitEntry;
+    struct HitObj* parent; //0xD4
+    struct HitObj* child; //0xD8
+    struct HitObj* next; //0xDC
+    struct HitObj* nextActive; //0xE0
+} HitObj;
 
 void hitInit(void);
 void hitMain(void);
@@ -64,19 +64,19 @@ void hitMain(void);
 
 
 
-void hitReCalcMatrix(HitEntry* hit, Mtx mtx);
-HitEntry* hitCheckVecFilter(HitCheckQuery* query, HitFilterCallback callback);
-HitEntry* hitCheckFilter(HitFilterCallback callback, f32* hitX, f32* hitY, f32* hitZ, f32* distance,
+void hitReCalcMatrix(HitObj* hit, Mtx mtx);
+HitObj* hitCheckVecFilter(HitCheckQuery* query, HitFilterCallback callback);
+HitObj* hitCheckFilter(HitFilterCallback callback, f32* hitX, f32* hitY, f32* hitZ, f32* distance,
 						f32* hitNX, f32* hitNY, f32* hitNZ, f32 x, f32 y, f32 z, f32 nx, f32 ny, f32 nz);
-BOOL hitCheckVecHitObjXZ(HitCheckQuery* query, HitEntry* entry);
-HitEntry* hitCheckAttr(s32 user0, f32* hitX, f32* hitY, f32* hitZ, f32* distance, f32* hitNX,
+BOOL hitCheckVecHitObjXZ(HitCheckQuery* query, HitObj* entry);
+HitObj* hitCheckAttr(s32 user0, f32* hitX, f32* hitY, f32* hitZ, f32* distance, f32* hitNX,
 					  f32* hitNY, f32* hitNZ, f32 x, f32 y, f32 z, f32 nx, f32 ny, f32 nz);
-HitEntry* hitCheckSphereFilter(HitFilterCallback callback, f32 x, f32 y, f32 z, f32 distance);
-HitEntry *hitNameToPtr(const char *name);
+HitObj* hitCheckSphereFilter(HitFilterCallback callback, f32 x, f32 y, f32 z, f32 distance);
+HitObj *hitNameToPtr(const char *name);
 void hitObjGetPos(const char* name, Vec* position);
 void hitObjGetNormal(const char *name, Vec *normal);
-const char* hitGetName(HitEntry* hit);
-s32 hitGetAttr(HitEntry* hit);
+const char* hitGetName(HitObj* hit);
+s32 hitGetAttr(HitObj* hit);
 void hitGrpDamageReturnSet(const char* name, HitDamageReturn* damage);
-Vec* hitGetDamageReturnPos(HitEntry* hit);
+Vec* hitGetDamageReturnPos(HitObj* hit);
 void hitBindMapObj(const char *hitName, const char *mapobjName);

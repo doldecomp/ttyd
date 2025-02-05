@@ -124,7 +124,7 @@ CameraEntry* camEntryPersp(CameraCallback callback, const char* name, f32 fovY, 
 	camera->viewDistance = VECDistance(&camera->cameraPos, &camera->target);
 	camera->callback = callback;
 	camera->mode = 0;
-	camera->field_0x4 = 0;
+	camera->unk4 = 0;
 	camera->field_0x8 = 0.0f;
 	camera->fovY = fovY;
 	camera->aspect = aspect;

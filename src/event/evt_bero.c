@@ -273,7 +273,7 @@ USER_FUNC(evt_bero_get_now_number) {
 USER_FUNC(evt_bero_get_info) {
 	BeroEntry** table = BeroINFOARR;
 	BeroEntry* entry;
-	HitEntry* hit;
+	HitObj* hit;
 	s32* switches;
 	s32 num, val;
 	int i;

@@ -202,7 +202,7 @@ s16 marioSetMutekiTime(s32 msec) {
 }
 
 BOOL marioBgmodeChk(void) {
-
+	return (mp->flags >> 25) & 1;
 }
 
 void marioBgmodeOn(void) {

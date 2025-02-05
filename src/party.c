@@ -1,11 +1,22 @@
 #include "party.h"
-#include "mario/mario.h"
-#include "mario/mario_cam.h"
-#include "mario/mario_pouch.h"
-#include "memory.h"
-#include "driver/animdrv.h"
-#include <string.h>
 
+PartyEntry* partyPtrTbl[2];
+
+PartyEntry* partyGetPtr(s32 id) {
+	if (id >= 0) {
+		return partyPtrTbl[id];
+	}
+	return NULL;
+}
+
+PartyEntry* anotherPartyGetPtr(s32 id) {
+	if (id < 0) {
+		return NULL;
+	}
+	return *(partyPtrTbl + ((id + 1) & 1));
+}
+
+/*
 //.data
 typedef struct PartyData {
 	char* name; //0, TODO: modelname? animname?
@@ -20,9 +31,8 @@ typedef struct PartyData {
 	void* exit_func; //9
 } PartyData;
 
-PartyData partyDataTbl[1] = { //change to [20]
-	{NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},
-	/*{"c_pkr", kuribo_init, partyMoveWalk, kuribo_use, kuribo_use_post, kuribo_bye, NULL, NULL, NULL, NULL},
+PartyData partyDataTbl[] = { //change to [20]
+	{"c_pkr", kuribo_init, partyMoveWalk, kuribo_use, kuribo_use_post, kuribo_bye, NULL, NULL, NULL, NULL},
 	{"c_pnk", nokonoko_init, nokonoko_move, nokonoko_use, nokonoko_use_post, nokonoko_bye, NULL, NULL, NULL, NULL},
 	{"c_bomt_n", bomhei_init, partyMoveWalk, bomhei_use, bomhei_use_post, bomhei_bye, NULL, NULL, NULL, bomhei_exit},
 	{"c_babyyoshi", yoshi_init, partyMoveWalk, yoshi_use, NULL, yoshi_bye, NULL, NULL, NULL, yoshi_exit},
@@ -40,7 +50,8 @@ PartyData partyDataTbl[1] = { //change to [20]
 	{"c_babyyoshi", yoshi_init, partyMoveWalk, yoshi_use, NULL, yoshi_bye, NULL, NULL, NULL, NULL},
 	{"c_windy", cloud_init, cloud_move, cloud_use, NULL, kuribo_bye, NULL, NULL, NULL, cloud_exit},
 	{"c_vivian", vivian_init, vivian_move, vivian_use, NULL, kuribo_bye, NULL, NULL, NULL, NULL},
-	{"c_tyutyu", chuchu_init, partyMoveWalk, chuchu_use, NULL, kuribo_bye, NULL, NULL, NULL, NULL}*/
+	{"c_tyutyu", chuchu_init, partyMoveWalk, chuchu_use, NULL, kuribo_bye, NULL, NULL, NULL, NULL}
+	{NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},
 };
 
 char* partyPoseTbl[20][15] = {
@@ -136,7 +147,7 @@ BOOL partyPaperOn(PartyEntry* entry, char* anim) {
 	}
 	v6 = !v5;
 	if (!strcmp(anim, "p_slit")) {
-		v6 = entry->currentMemberId == kPartyFlurrie;
+		v6 = entry->currentMemberId == PARTY_FLURRIE;
 	}
 	animPoseSetPaperAnimGroup(entry->field_0xC, anim, v6);
 	return TRUE;
@@ -174,10 +185,10 @@ s32 partyEntry2(s32 memberId) {
 	entry->field_0x14 = -1;
 	entry->flags = 9;
 	entry->currentSlotId = (s8)slotId; //TODO: re-type?
-	entry->currentMemberId = (PartyMembers)memberId;
+	entry->currentMemberId = (PartyMember)memberId;
 	entry->flags |= 4;
 	party_dp = &partyDataTbl[memberId];
-	if (entry->currentMemberId == kPartyYoshi) {
+	if (entry->currentMemberId == PARTY_YOSHI) {
 		animName = yoshigroup[pouchGetPartyColor(PARTNER_YOSHI)];
 		if ((entry->flags2 & 0x8000)) {
 			animName = "d_mario";
@@ -200,3 +211,4 @@ s32 partyEntry2(s32 memberId) {
 
 	return -1;
 }
+*/
