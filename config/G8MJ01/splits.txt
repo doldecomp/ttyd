@@ -3609,14 +3609,14 @@ dolphin/si/SISamplingRate.c:
 	.data       start:0x803C1708 end:0x803C17A0
 	.sbss       start:0x80419250 end:0x80419260
 
-dolphin/thp/THPDec.c:
+thp/THPDec.c:
 	.text       start:0x802B9434 end:0x802C099C
 	.rodata     start:0x80302B78 end:0x80302C08
 	.data       start:0x803C17A0 end:0x803C17DC
 	.bss        start:0x8040F120 end:0x8040F250
 	.sdata      start:0x80418350 end:0x80418354
-	.sbss       start:0x80419260 end:0x804192C0
+	.sbss       start:0x80419260 end:0x80419378
 	.sdata2     start:0x80422F40 end:0x80422F5C
 
-dolphin/thp/THPAudio.c:
+thp/THPAudio.c:
 	.text       start:0x802C099C end:0x802C0ECC

@@ -948,6 +948,14 @@ config.libs = [
             Object(NonMatching, "os/__start.c"),
         ],
     ),
+    DolphinLib(
+        "thp",
+        cflags_base,
+        [
+            Object(Matching, "thp/THPAudio.c"),
+            Object(Matching, "thp/THPDec.c"),
+        ],
+    ),
     Rel(
         "mri",
         [
