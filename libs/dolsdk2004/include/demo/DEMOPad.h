@@ -3,6 +3,10 @@
 
 #include <dolphin/pad.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define DEMO_SUBSTICK_UP 0x0100
 #define DEMO_SUBSTICK_DOWN 0x0200
 #define DEMO_SUBSTICK_LEFT 0x0400
@@ -29,7 +33,11 @@ extern DEMOPadStatus DemoPad[PAD_MAX_CONTROLLERS];
 
 extern u32 DemoNumValidPads;
 
-void DEMOPadRead();
-void DEMOPadInit();
+void DEMOPadRead(void);
+void DEMOPadInit(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // _DEMOPAD_H_

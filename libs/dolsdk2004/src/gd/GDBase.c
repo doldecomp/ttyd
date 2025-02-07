@@ -1,6 +1,5 @@
 #include <dolphin/gd.h>
 #include <dolphin/os.h>
-#include "__gd.h"
 
 GDLObj* __GDCurrentDL = NULL;
 static GDOverflowCb overflowcb = NULL;

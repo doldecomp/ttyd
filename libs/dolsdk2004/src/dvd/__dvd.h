@@ -1,31 +1,53 @@
 #ifndef _DOLPHIN_DVD_INTERNAL_H_
 #define _DOLPHIN_DVD_INTERNAL_H_
 
+#include <dolphin/os.h>
 #include <dolphin/dvd.h>
 
-// dvd.c
-void __DVDAudioBufferConfig(struct DVDCommandBlock * block, unsigned long enable, unsigned long size, void (* callback)(long, struct DVDCommandBlock *));
-void __DVDPrepareResetAsync(void (* callback)(long, struct DVDCommandBlock *));
-int __DVDTestAlarm(const struct OSAlarm * alarm);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-// dvdfs.c
-extern struct OSThreadQueue __DVDThreadQueue;
-extern unsigned long __DVDLongFileNameFlag;
+// DVD
+DVDCommandChecker __DVDSetOptionalCommandChecker(DVDCommandChecker func);
+void __DVDSetImmCommand(u32 command);
+void __DVDSetDmaCommand(u32 command);
+void* __DVDGetIssueCommandAddr(void);
+void __DVDAudioBufferConfig(DVDCommandBlock* block, u32 enable, u32 size, DVDCBCallback callback);
+void __DVDPrepareResetAsync(DVDCBCallback callback);
+int __DVDTestAlarm(const OSAlarm* alarm);
 
-void __DVDFSInit();
+// DVD ERROR
+void __DVDStoreErrorCode(u32 error);
 
-// dvdlow.c
-void __DVDInterruptHandler(short unused, struct OSContext * context);
+// DVD FATAL
+void __DVDPrintFatalMessage(void);
 
-// dvdqueue.c
-void __DVDClearWaitingQueue();
-int __DVDPushWaitingQueue(long prio, struct DVDCommandBlock * block);
-struct DVDCommandBlock * __DVDPopWaitingQueue();
-int __DVDCheckWaitingQueue();
-int __DVDDequeueWaitingQueue(struct DVDCommandBlock * block);
-int __DVDIsBlockInWaitingQueue(struct DVDCommandBlock * block);
+// DVD FS
+extern OSThreadQueue __DVDThreadQueue;
+extern u32 __DVDLongFileNameFlag;
 
-// fstload.c
-void __fstLoad();
+void __DVDFSInit(void);
+
+// DVD LOW
+void __DVDInitWA(void);
+void __DVDInterruptHandler(__OSInterrupt interrupt, OSContext* context);
+void __DVDLowSetWAType(u32 type, s32 seekLoc);
+int __DVDLowTestAlarm(const OSAlarm* alarm);
+
+// DVD QUEUE
+void __DVDClearWaitingQueue(void);
+int __DVDPushWaitingQueue(s32 prio, DVDCommandBlock* block);
+DVDCommandBlock* __DVDPopWaitingQueue(void);
+int __DVDCheckWaitingQueue(void);
+int __DVDDequeueWaitingQueue(DVDCommandBlock* block);
+int __DVDIsBlockInWaitingQueue(DVDCommandBlock* block);
+
+// FST LOAD
+void __fstLoad(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // _DOLPHIN_DVD_INTERNAL_H_

@@ -2,6 +2,8 @@
 #include <dolphin/pad.h>
 #include <dolphin/si.h>
 
+#include "__si.h"
+
 #if DEBUG
 const char* __PADVersion = "<< Dolphin SDK - PAD\tdebug build: Apr  5 2004 03:56:05 (0x2301) >>";
 #else
@@ -45,17 +47,6 @@ static PADStatus Origin[4];
 
 u32 __PADSpec;
 
-// external
-extern u32 __PADFixBits;
-u32 SIGetTypeAsync(s32 chan, void (* callback)(s32, u32));
-u32 SIGetType(s32 chan);
-int SIIsChanBusy(s32 chan);
-void SISetSamplingRate(u32 msec);
-void __SITestSamplingRate(u32 tvmode);
-u32 SIGetType(s32 chan);
-int SIRegisterPollingHandler(__OSInterruptHandler handler);
-int SIUnregisterPollingHandler(__OSInterruptHandler handler);
-
 // prototypes
 static void PADTypeAndStatusCallback(s32 chan, u32 type);
 static u16 GetWirelessID(s32 chan);
@@ -76,6 +67,8 @@ static s8 ClampS8(s8 var, s8 org);
 static u8 ClampU8(u8 var, u8 org);
 static void SPEC2_MakeStatus(s32 chan, PADStatus *status, u32 data[2]);
 static BOOL OnReset(BOOL f);
+void __PADDisableXPatch(void);
+BOOL __PADDisableRumble(BOOL disable);
 
 typedef void (*SPECCallback)(s32, PADStatus*, u32*);
 static SPECCallback MakeStatus = SPEC2_MakeStatus;
@@ -375,8 +368,7 @@ BOOL PADInit() {
 
     Initialized = TRUE;
 
-    if (__PADFixBits != 0)
-    {
+    if (__PADFixBits != 0) {
         OSTime time = OSGetTime();
         __OSWirelessPadFixMode
             = (u16)((((time)&0xffff) + ((time >> 16) & 0xffff) + ((time >> 32) & 0xffff) + ((time >> 48) & 0xffff))
@@ -777,7 +769,7 @@ static BOOL OnReset(BOOL final) {
     return TRUE;
 }
 
-void __PADDisableXPatch() {
+void __PADDisableXPatch(void) {
     XPatchBits = 0;
 }
 

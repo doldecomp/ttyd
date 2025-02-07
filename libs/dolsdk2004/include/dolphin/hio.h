@@ -1,4 +1,5 @@
 #ifndef _DOLPHIN_HIO_H_
+#define _DOLPHIN_HIO_H_
 
 #include <dolphin/types.h>
 

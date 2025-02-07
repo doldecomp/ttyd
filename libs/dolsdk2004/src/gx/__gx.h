@@ -1,3 +1,14 @@
+#ifndef _DOLPHIN_GX_INTERNAL_H_
+#define _DOLPHIN_GX_INTERNAL_H_
+
+#include <dolphin/gx.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+// FIFO WRITE
+
 #define GX_WRITE_U8(ub)     \
     GXWGFifo.u8 = (u8)(ub)
 
@@ -10,6 +21,9 @@
 #define GX_WRITE_F32(f)     \
    GXWGFifo.f32 = (f32)(f);
 
+
+// REG VERIF
+
 #if DEBUG
 #define VERIF_XF_REG(addr, value) \
 do { \
@@ -19,6 +33,7 @@ do { \
         __gxVerif->xfRegsDirty[regAddr] = 1; \
     } \
 } while (0)
+
 #define VERIF_XF_REG_alt(addr, value) \
 do { \
     s32 xfAddr = (addr); \
@@ -27,7 +42,9 @@ do { \
         __gxVerif->xfRegsDirty[xfAddr] = 1; \
     } \
 } while (0)
+
 #define VERIF_RAS_REG(value) (__gxVerif->rasRegs[((value) & 0xFF000000) >> 24] = value)
+
 #define VERIF_MTXLIGHT(addr, data) \
 do { \
     s32 xfAddr; \
@@ -60,6 +77,8 @@ do { \
 #define VERIF_RAS_REG(value) ((void)0)
 #endif
 
+// WRITE REG
+
 #define GX_WRITE_XF_REG(addr, value) \
 do { \
     GX_WRITE_U8(0x10); \
@@ -75,6 +94,7 @@ do { \
     GX_WRITE_U32(value); \
     VERIF_XF_REG_alt(addr, xfData); \
 } while (0)
+
 #define GX_WRITE_XF_REG_F(addr, value) \
 do { \
     f32 xfData = (value); \
@@ -86,6 +106,7 @@ do { \
 do { \
     GX_WRITE_U32(value); \
 } while (0)
+
 #define GX_WRITE_XF_REG_F(addr, value) \
 do { \
     GX_WRITE_F32(value); \
@@ -150,145 +171,150 @@ do { \
     regAddr = addr; \
 } while (0)
 
+// REG MACROS
+
 #define GET_REG_FIELD(reg, size, shift) ((int)((reg) >> (shift)) & ((1 << (size)) - 1))
 
+// TODO: reconcile reg macro differences
+// this one is needed to match non GX libs
+#define OLD_SET_REG_FIELD(line, reg, size, shift, val) \
+do { \
+    ASSERTMSGLINE(line, ((u32)(val) & ~((1 << (size)) - 1)) == 0, "GX Internal: Register field out of range"); \
+    (reg) = ((u32)(reg) & ~(((1 << (size)) - 1) << (shift))) | ((u32)(val) << (shift)); \
+} while (0)
+
+// above doesn't seem to work with GX, only can get it to work with this
 #define SET_REG_FIELD(line, reg, size, shift, val) \
 do { \
     ASSERTMSGLINE(line, ((u32)(val) & ~((1 << (size)) - 1)) == 0, "GX Internal: Register field out of range"); \
     (reg) = ((u32)__rlwimi((u32)(reg), (val), (shift), 32 - (shift) - (size), 31 - (shift))); \
 } while (0)
 
-/* (reg) = ((u32)(reg) & ~(((1 << (size)) - 1) << (shift))) | ((u32)(val) << (shift)); \ */
-
 #define CHECK_GXBEGIN(line, name) ASSERTMSGLINE(line, !__GXinBegin, "'" name "' is not allowed between GXBegin/GXEnd")
 
-/* GXAttr.c */
-
+/* GXAttr */
 void __GXSetVCD(void);
 void __GXSetVAT(void);
 
-/* GXBump.c */
-
+/* GXBump */
 void __GXUpdateBPMask(void);
 void __GXFlushTextureState(void);
 
-/* GXFifo.c */
-
+/* GXFifo */
 // GXFifoObj private data
-struct __GXFifoObj {
-    u8 *base;
-    u8 *top;
+typedef struct __GXFifoObj {
+    u8* base;
+    u8* top;
     u32 size;
     u32 hiWatermark;
     u32 loWatermark;
-    void *rdPtr;
-    void *wrPtr;
+    void* rdPtr;
+    void* wrPtr;
     s32 count;
     u8 bind_cpu;
     u8 bind_gp;
-};
+} __GXFifoObj;
 
-void __GXSaveCPUFifoAux(struct __GXFifoObj *realFifo);
+void __GXSaveCPUFifoAux(__GXFifoObj* realFifo);
 void __GXFifoInit(void);
 void __GXInsaneWatermark(void);
 void __GXCleanGPFifo(void);
 
-/* GXGeometry.c */
-
+/* GXGeometry */
 void __GXSetDirtyState(void);
 void __GXSendFlushPrim(void);
 void __GXSetGenMode(void);
 
-/* GXInit.c */
+/* GXInit */
 void __GXInitGX();
 void __GXInitRevisionBits(void);
 
-struct __GXData_struct {
-    // total size: 0x5B0
-    unsigned short vNumNot; // offset 0x0, size 0x2
-    unsigned short bpSentNot; // offset 0x2, size 0x2
-    unsigned short vNum; // offset 0x4, size 0x2
-    unsigned short vLim; // offset 0x6, size 0x2
-    unsigned long cpEnable; // offset 0x8, size 0x4
-    unsigned long cpStatus; // offset 0xC, size 0x4
-    unsigned long cpClr; // offset 0x10, size 0x4
-    unsigned long vcdLo; // offset 0x14, size 0x4
-    unsigned long vcdHi; // offset 0x18, size 0x4
-    unsigned long vatA[8]; // offset 0x1C, size 0x20
-    unsigned long vatB[8]; // offset 0x3C, size 0x20
-    unsigned long vatC[8]; // offset 0x5C, size 0x20
-    unsigned long lpSize; // offset 0x7C, size 0x4
-    unsigned long matIdxA; // offset 0x80, size 0x4
-    unsigned long matIdxB; // offset 0x84, size 0x4
-    unsigned long indexBase[4]; // offset 0x88, size 0x10
-    unsigned long indexStride[4]; // offset 0x98, size 0x10
-    unsigned long ambColor[2]; // offset 0xA8, size 0x8
-    unsigned long matColor[2]; // offset 0xB0, size 0x8
-    unsigned long suTs0[8]; // offset 0xB8, size 0x20
-    unsigned long suTs1[8]; // offset 0xD8, size 0x20
-    unsigned long suScis0; // offset 0xF8, size 0x4
-    unsigned long suScis1; // offset 0xFC, size 0x4
-    unsigned long tref[8]; // offset 0x100, size 0x20
-    unsigned long iref; // offset 0x120, size 0x4
-    unsigned long bpMask; // offset 0x124, size 0x4
-    unsigned long IndTexScale0; // offset 0x128, size 0x4
-    unsigned long IndTexScale1; // offset 0x12C, size 0x4
-    unsigned long tevc[16]; // offset 0x130, size 0x40
-    unsigned long teva[16]; // offset 0x170, size 0x40
-    unsigned long tevKsel[8]; // offset 0x1B0, size 0x20
-    unsigned long cmode0; // offset 0x1D0, size 0x4
-    unsigned long cmode1; // offset 0x1D4, size 0x4
-    unsigned long zmode; // offset 0x1D8, size 0x4
-    unsigned long peCtrl; // offset 0x1DC, size 0x4
-    unsigned long cpDispSrc; // offset 0x1E0, size 0x4
-    unsigned long cpDispSize; // offset 0x1E4, size 0x4
-    unsigned long cpDispStride; // offset 0x1E8, size 0x4
-    unsigned long cpDisp; // offset 0x1EC, size 0x4
-    unsigned long cpTexSrc; // offset 0x1F0, size 0x4
-    unsigned long cpTexSize; // offset 0x1F4, size 0x4
-    unsigned long cpTexStride; // offset 0x1F8, size 0x4
-    unsigned long cpTex; // offset 0x1FC, size 0x4
-    unsigned char cpTexZ; // offset 0x200, size 0x1
-    unsigned long genMode; // offset 0x204, size 0x4
-    GXTexRegion TexRegions0[8]; // offset 0x208, size 0x80
-    GXTexRegion TexRegions1[8]; // offset 0x288, size 0x80
-    GXTexRegion TexRegions2[8]; // offset 0x308, size 0x80
-    GXTlutRegion TlutRegions[20]; // offset 0x388, size 0x140
-    GXTexRegion* (*texRegionCallback)(GXTexObj*, GXTexMapID); // offset 0x4C8, size 0x4
-    GXTlutRegion* (*tlutRegionCallback)(unsigned long); // offset 0x4CC, size 0x4
-    GXAttrType nrmType; // offset 0x4D0, size 0x4
-    unsigned char hasNrms; // offset 0x4D4, size 0x1
-    unsigned char hasBiNrms; // offset 0x4D5, size 0x1
-    unsigned long projType; // offset 0x4D8, size 0x4
-    float projMtx[6]; // offset 0x4DC, size 0x18
-    float vpLeft; // offset 0x4F4, size 0x4
-    float vpTop; // offset 0x4F8, size 0x4
-    float vpWd; // offset 0x4FC, size 0x4
-    float vpHt; // offset 0x500, size 0x4
-    float vpNearz; // offset 0x504, size 0x4
-    float vpFarz; // offset 0x508, size 0x4
-    float zOffset; // offset 0x50C, size 0x4
-    float zScale; // offset 0x510, size 0x4
-    unsigned long tImage0[8]; // offset 0x514, size 0x20
-    unsigned long tMode0[8]; // offset 0x534, size 0x20
-    unsigned long texmapId[16]; // offset 0x554, size 0x40
-    unsigned long tcsManEnab; // offset 0x594, size 0x4
-    unsigned long tevTcEnab; // offset 0x598, size 0x4
-    GXPerf0 perf0; // offset 0x59C, size 0x4
-    GXPerf1 perf1; // offset 0x5A0, size 0x4
-    unsigned long perfSel; // offset 0x5A4, size 0x4
-    unsigned char inDispList; // offset 0x5A8, size 0x1
-    unsigned char dlSaveContext; // offset 0x5A9, size 0x1
-    unsigned char abtWaitPECopy; // offset 0x5AA, size 0x1
-    unsigned char dirtyVAT; // offset 0x5AB, size 0x1
-    unsigned long dirtyState; // offset 0x5AC, size 0x4
-};
+typedef struct __GXData_struct {
+    u16 vNumNot;
+    u16 bpSentNot;
+    u16 vNum;
+    u16 vLim;
+    u32 cpEnable;
+    u32 cpStatus;
+    u32 cpClr;
+    u32 vcdLo;
+    u32 vcdHi;
+    u32 vatA[8];
+    u32 vatB[8];
+    u32 vatC[8];
+    u32 lpSize;
+    u32 matIdxA;
+    u32 matIdxB;
+    u32 indexBase[4];
+    u32 indexStride[4];
+    u32 ambColor[2];
+    u32 matColor[2];
+    u32 suTs0[8];
+    u32 suTs1[8];
+    u32 suScis0;
+    u32 suScis1;
+    u32 tref[8];
+    u32 iref;
+    u32 bpMask;
+    u32 IndTexScale0;
+    u32 IndTexScale1;
+    u32 tevc[16];
+    u32 teva[16];
+    u32 tevKsel[8];
+    u32 cmode0;
+    u32 cmode1;
+    u32 zmode;
+    u32 peCtrl;
+    u32 cpDispSrc;
+    u32 cpDispSize;
+    u32 cpDispStride;
+    u32 cpDisp;
+    u32 cpTexSrc;
+    u32 cpTexSize;
+    u32 cpTexStride;
+    u32 cpTex;
+    u8 cpTexZ;
+    u32 genMode;
+    GXTexRegion TexRegions0[8];
+    GXTexRegion TexRegions1[8];
+    GXTexRegion TexRegions2[8];
+    GXTlutRegion TlutRegions[20];
+    GXTexRegion* (*texRegionCallback)(GXTexObj*, GXTexMapID);
+    GXTlutRegion* (*tlutRegionCallback)(u32);
+    GXAttrType nrmType;
+    u8 hasNrms;
+    u8 hasBiNrms;
+    u32 projType;
+    f32 projMtx[6];
+    f32 vpLeft;
+    f32 vpTop;
+    f32 vpWd;
+    f32 vpHt;
+    f32 vpNearz;
+    f32 vpFarz;
+    f32 zOffset;
+    f32 zScale;
+    u32 tImage0[8];
+    u32 tMode0[8];
+    u32 texmapId[16];
+    u32 tcsManEnab;
+    u32 tevTcEnab;
+    GXPerf0 perf0;
+    GXPerf1 perf1;
+    u32 perfSel;
+    u8 inDispList;
+    u8 dlSaveContext;
+    u8 abtWaitPECopy;
+    u8 dirtyVAT;
+    u32 dirtyState;
+} GXData;
 
-extern struct __GXData_struct * const __GXData;
-extern void *__memReg;
-extern void *__peReg;
-extern void *__cpReg;
-extern void *__piReg;
+extern GXData* const __GXData;
+extern void* __memReg;
+extern void* __peReg;
+extern void* __cpReg;
+extern void* __piReg;
+
 #if DEBUG
 extern GXBool __GXinBegin;
 #endif
@@ -303,14 +329,13 @@ extern GXBool __GXinBegin;
 #define GX_SET_PE_REG(offset, val)  (*(volatile u16*)((volatile u16*)(__peReg) + (offset)) = val)
 #define GX_SET_PI_REG(offset, val)  (*(volatile u32*)((volatile u32*)(__piReg) + (offset)) = val)
 
-/* GXMisc.c */
-
+/* GXMisc */
 void __GXBypass(u32 reg);
 u16 __GXReadPEReg(u32 reg);
 void __GXPEInit(void);
 void __GXAbort();
 
-/* GXPerf.c */
+/* GXPerf */
 void __GXSetBWDials(u16 cpDial, u16 tcDial, u16 peDial, u16 cpuRdDial, u16 cpuWrDial);
 
 static inline u32 __GXReadCPCounterU32(u32 regAddrL, u32 regAddrH) {
@@ -361,40 +386,34 @@ static inline u32 __GXReadPECounterU32(u32 regAddrL, u32 regAddrH) {
     return (ctrH0 << 0x10) | ctrL;
 }
 
-/* GXSave.c */
-
-void __GXShadowDispList(void *list, u32 nbytes);
+/* GXSave */
+void __GXShadowDispList(void* list, u32 nbytes);
 void __GXShadowIndexState(u32 idx_reg, u32 reg_data);
 void __GXPrintShadowState(void);
 
-/* GXStubs.c */
+/* GXStubs */
+void __GXSetRange(f32 nearz, f32 fgSideX);
 
-void __GXSetRange(float nearz, float fgSideX);
-
-/* GXTexture.c */
-
-void __GetImageTileCount(GXTexFmt fmt, u16 wd, u16 ht, u32 *rowTiles, u32 *colTiles, u32 *cmpTiles);
+/* GXTexture */
+void __GetImageTileCount(GXTexFmt fmt, u16 wd, u16 ht, u32* rowTiles, u32* colTiles, u32* cmpTiles);
 void __GXSetSUTexRegs(void);
-void __GXGetSUTexSize(GXTexCoordID coord, u16 *width, u16 *height);
+void __GXGetSUTexSize(GXTexCoordID coord, u16* width, u16* height);
 void __GXSetTmemConfig(u32 config);
 
-/* GXTransform.c */
-
+/* GXTransform */
 void __GXSetMatrixIndex(GXAttr matIdxAttr);
 void __GXSetProjection(void);
 void __GXSetViewport();
 
 
-/* GXVerifRAS.c */
-
+/* GXVerifRAS */
 void __GXVerifySU(void);
 void __GXVerifyBUMP(void);
 void __GXVerifyTEX(void);
 void __GXVerifyTEV(void);
 void __GXVerifyPE(void);
 
-/* GXVerif.c */
-
+/* GXVerif */
 typedef enum {
     GXWARN_INVALID_VTX_FMT = 0,
     GXWARN_TEX_SIZE_INIT = 1,
@@ -426,7 +445,7 @@ typedef enum {
     GXWARN_DIAG_LOD = 27,
     GXWARN_TEX_ANISO = 28,
     GXWARN_TEX_FIELD = 29,
-    GXWARN_TEX_MPEG = 30,
+    GXWARN_TEX_RND_FP = 30,
     GXWARN_RND_CLR_INDX = 31,
     GXWARN_TEV_ENV = 32,
     GXWARN_TEV_INV_CHAN = 33,
@@ -452,22 +471,22 @@ typedef enum {
     GXWARN_XF_CTRL_UNINIT = 53,
     GXWARN_XF_CTRL_INIT = 54,
     GXWARN_INV_COLOR_TG_COMB = 55,
-    GXWARN_INV_NUM_COLORS = 56,
+    GXWARN_XF_NO_CLR_TEX = 56,
     GXWARN_VTX_NO_GEOM = 57,
-    GXWARN_CLR_XF0_CP1 = 58,
-    GXWARN_CLR_XF1_CP0 = 59,
-    GXWARN_CLR_XF1_CP2 = 60,
-    GXWARN_CLR_XF2_CPN1 = 61,
-    GXWARN_CLR_XF2_CPN2 = 62,
+    GXWARN_VAT_MISMATCH = 58,
+    GXWARN_VAT_NRM_TYPE = 59,
+    GXWARN_VAT_NRM_FRAC = 60,
+    GXWARN_VAT_F32_FRAC = 61,
+    GXWARN_VAT_CLR_FRAC = 62,
     GXWARN_INV_IVS_CLR = 63,
     GXWARN_NRM_XF0_CP1 = 64,
     GXWARN_NRM_XF0_CP3 = 65,
     GXWARN_NRM_XF1_CP0 = 66,
     GXWARN_NRM_XF1_CP3 = 67,
     GXWARN_NRM_XF3_CP1 = 68,
-    GXWARN_NRM_XF3_CP0 = 69,
-    GXWARN_INV_IVS_NRM = 70,
-    GXWARN_TEX_XFN_CPM = 71,
+    GXWARN_VCD_FMT_UNSUP = 69,
+    GXWARN_VCD_CLR_ORDER = 70,
+    GXWARN_VCD_TEX_ORDER = 71,
     GXWARN_TEX_SRC_NPOS = 72,
     GXWARN_TEX_SRC_NNRM = 73,
     GXWARN_TEX_SRC_NCLR0 = 74,
@@ -481,10 +500,10 @@ typedef enum {
     GXWARN_BM_INV_LIT_POS = 82,
     GXWARN_BM_NO_NBT = 83,
     GXWARN_INV_TEX_NUM = 84,
-    GXWARN_INV_TG_SRC = 85,
-    GXWARN_CLR_ADDR_UNINIT = 86,
-    GXWARN_CLR_MAT_UNINIT = 87,
-    GXWARN_CLR_AMB_UNINIT = 88,
+    GXWARN_VIEWPORT_TOP = 85,
+    GXWARN_VIEWPORT_BOTTOM = 86,
+    GXWARN_VIEWPORT_LEFT = 87,
+    GXWARN_VIEWPORT_RIGHT = 88,
     GXWARN_CLR_INV_SPEC = 89,
     GXWARN_CLR_NO_NRM = 90,
     GXWARN_CLR_INV_MTX_NDX = 91,
@@ -509,7 +528,19 @@ typedef enum {
     GXWARN_INV_MTX_VAL = 110,
     GXWARN_ADDR_UNINIT = 111,
     GXWARN_REG_UNINIT = 112,
-    GXWARN_MAX = 113,
+    GXWARN_DL_INV_CMD = 113,
+    GXWARN_DL_NESTED = 114,
+    GXWARN_CLR_XF0_CP1 = 115,
+    GXWARN_CLR_XF1_CP0 = 116,
+    GXWARN_CLR_XF1_CP2 = 117,
+    GXWARN_CLR_XF2_CPN1 = 118,
+    GXWARN_CLR_XF2_CPN2 = 119,
+    GXWARN_INV_NUM_COLORS = 120,
+    GXWARN_INV_TG_SRC = 121,
+    GXWARN_CLR_ADDR_UNINIT = 122,
+    GXWARN_CLR_MAT_UNINIT = 123,
+    GXWARN_CLR_AMB_UNINIT = 124,
+    GXWARN_MAX = 125,
 } GXWarnID;
 
 #define __GX_WARN(id) (__gxVerif->cb(__gxvWarnLev[(id)], (id), __gxvWarnings[(id)]))
@@ -526,25 +557,24 @@ do { \
     __gxVerif->cb(level, (id), __gxvDummyStr); \
 } while (0)
 
-struct __GXVerifyData {
-    // total size: 0x13F8
-    GXVerifyCallback cb; // offset 0x0, size 0x4
-    GXWarningLevel verifyLevel; // offset 0x4, size 0x4
-    u32 xfRegs[80]; // offset 0x8, size 0x140
-    u32 xfMtx[256]; // offset 0x148, size 0x400
-    u32 xfNrm[96]; // offset 0x548, size 0x180
-    u32 xfDMtx[256]; // offset 0x6C8, size 0x400
-    u32 xfLight[128]; // offset 0xAC8, size 0x200
-    u32 rasRegs[256]; // offset 0xCC8, size 0x400
-    u8 xfRegsDirty[80]; // offset 0x10C8, size 0x50
-    u8 xfMtxDirty[256]; // offset 0x1118, size 0x100
-    u8 xfNrmDirty[96]; // offset 0x1218, size 0x60
-    u8 xfDMtxDirty[256]; // offset 0x1278, size 0x100
-    u8 xfLightDirty[128]; // offset 0x1378, size 0x80
-};
+typedef struct __GXVerifyData {
+    GXVerifyCallback cb;
+    GXWarningLevel verifyLevel;
+    u32 xfRegs[80];
+    u32 xfMtx[256];
+    u32 xfNrm[96];
+    u32 xfDMtx[256];
+    u32 xfLight[128];
+    u32 rasRegs[256];
+    u8 xfRegsDirty[80];
+    u8 xfMtxDirty[256];
+    u8 xfNrmDirty[96];
+    u8 xfDMtxDirty[256];
+    u8 xfLightDirty[128];
+} __GXVerifyData;
 
-extern struct __GXVerifyData *__gxVerif;
-extern char *__gxvWarnings[125];
+extern __GXVerifyData* __gxVerif;
+extern char* __gxvWarnings[125];
 extern char __gxvDummyStr[256];
 extern GXWarningLevel __gxvWarnLev[];
 
@@ -552,6 +582,11 @@ void __GXVerifyGlobal(void);
 void __GXVerifyCP(GXVtxFmt fmt);
 void __GXVerifyState(GXVtxFmt vtxfmt);
 
-/* GXVerifXF.c */
-
+/* GXVerifXF */
 void __GXVerifyXF(void);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

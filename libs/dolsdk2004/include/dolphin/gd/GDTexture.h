@@ -1,5 +1,5 @@
-#ifndef _DOLPHIN_GD_FILE_H
-#define _DOLPHIN_GD_FILE_H
+#ifndef _DOLPHIN_GD_TEXTURE_H
+#define _DOLPHIN_GD_TEXTURE_H
 
 #include <dolphin/types.h>
 #include <dolphin/gx/GXEnum.h>

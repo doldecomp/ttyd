@@ -40,7 +40,7 @@ void AISetStreamVolLeft(u8 vol);
 u8 AIGetStreamVolLeft(void);
 void AISetStreamVolRight(u8 vol);
 u8 AIGetStreamVolRight(void);
-void AIInit(u8 *stack);
+void AIInit(u8* stack);
 void AIReset(void);
 
 #ifdef __cplusplus

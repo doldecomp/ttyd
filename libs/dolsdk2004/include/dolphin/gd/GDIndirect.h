@@ -1,5 +1,5 @@
-#ifndef _DOLPHIN_GDINDIRECT_H_
-#define _DOLPHIN_GDINDIRECT_H_
+#ifndef _DOLPHIN_GD_INDIRECT_H_
+#define _DOLPHIN_GD_INDIRECT_H_
 
 #include <dolphin/types.h>
 #include <dolphin/gx/GXEnum.h>

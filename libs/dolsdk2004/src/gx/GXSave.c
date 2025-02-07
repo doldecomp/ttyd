@@ -5,16 +5,16 @@
 
 #include "__gx.h"
 
-static const u8 *dlist;
+static const u8* dlist;
 static u32 dlistSize;
 static u32 bytesRead;
 
+// prototypes
 void __GXShadowIndexState(u32 idx_reg, u32 reg_data);
 
-static u8 __ReadMem(void *ptr, u32 sz)
-{
-    const u8 *src;
-    u8 *dst;
+static u8 __ReadMem(void* ptr, u32 sz) {
+    const u8* src;
+    u8* dst;
     u32 i;
 
     if (sz > dlistSize - bytesRead) {
@@ -31,16 +31,15 @@ static u8 __ReadMem(void *ptr, u32 sz)
     return TRUE;
 }
 
-inline void DPF(...)
-{
+inline void DPF(char*, ...) {
     u8 unused[4];
 }
 
-static void __SaveCPRegs(u8 reg, u8 vatIdx, u32 data)
-{
+static void __SaveCPRegs(u8 reg, u8 vatIdx, u32 data) {
     s32 idx;
 
     DPF("\tCP Stream Reg[0x%x] = 0x%x\n", reg, data);
+
     switch (reg) {
     case 0:
     case 1:
@@ -76,8 +75,8 @@ static void __SaveCPRegs(u8 reg, u8 vatIdx, u32 data)
         }
         break;
     default:
-        if (__gxVerif->verifyLevel >= __gxvWarnLev[113]) {
-            __gxVerif->cb(__gxvWarnLev[113], 0x71, __gxvWarnings[113]);
+        if (__gxVerif->verifyLevel >= __gxvWarnLev[GXWARN_DL_INV_CMD]) {
+            __GX_WARN(GXWARN_DL_INV_CMD);
         }
         OSReport("[Invalid CP Stream Register Address 0x%x\n]", reg);
         break;
@@ -102,8 +101,7 @@ static void __ReconstVtxStatus(u8 vatIdx) {
 static u32 vtxCompSize[5] = { 1, 1, 2, 2, 4 };
 static int clrCompSize[6] = { 2, 3, 4, 2, 3, 4 };
 
-static u32 GetAttrSize(u8 vatIdx, u32 attrIdx)
-{
+static u32 GetAttrSize(u8 vatIdx, u32 attrIdx) {
     u32 vcd;
     u32 vat;
     u32 nc;
@@ -313,16 +311,15 @@ static u32 GetAttrSize(u8 vatIdx, u32 attrIdx)
     return 0;
 }
 
-static void __ParseVertexData(u8 vatIdx)
-{
+static void __ParseVertexData(u8 vatIdx) {
     u16 vcnt;
     GXAttr attrIdx;
     u32 vsize;
 
     if (__ReadMem(&vcnt, 2)) {
         vsize = 0;
-        for (attrIdx = 0; attrIdx < 26; attrIdx++) {
-            if (attrIdx != 25) {
+        for (attrIdx = 0; attrIdx < GX_VA_MAX_ATTR; attrIdx++) {
+            if (attrIdx != GX_VA_NBT) {
                 vsize += GetAttrSize(vatIdx, attrIdx);
             }
         }
@@ -332,8 +329,7 @@ static void __ParseVertexData(u8 vatIdx)
     }
 }
 
-void __GXShadowDispList(void *list, u32 nbytes)
-{
+void __GXShadowDispList(void* list, u32 nbytes) {
     u8 cmd;
     u8 cmdOp;
     u8 vatIdx;
@@ -407,8 +403,8 @@ void __GXShadowDispList(void *list, u32 nbytes)
             }
             break;
         case 8:
-            if (__gxVerif->verifyLevel >= __gxvWarnLev[114]) {
-                __gxVerif->cb(__gxvWarnLev[114], 0x72, __gxvWarnings[114]);
+            if (__gxVerif->verifyLevel >= __gxvWarnLev[GXWARN_DL_NESTED]) {
+                __GX_WARN(GXWARN_DL_NESTED);
             }
             return;
         case 12:
@@ -419,8 +415,8 @@ void __GXShadowDispList(void *list, u32 nbytes)
             }
             break;
         default:
-            if (__gxVerif->verifyLevel >= __gxvWarnLev[113]) {
-                __gxVerif->cb(__gxvWarnLev[113], 0x71, __gxvWarnings[113]);
+            if (__gxVerif->verifyLevel >= __gxvWarnLev[GXWARN_DL_INV_CMD]) {
+                __GX_WARN(GXWARN_DL_INV_CMD);
             }
             OSReport("[Bad Display List Command: 0x%02X\n]", cmdOp);
             break;
@@ -430,10 +426,9 @@ void __GXShadowDispList(void *list, u32 nbytes)
     DPF("Displaylist OUT\n");
 }
 
-void __GXShadowIndexState(u32 idx_reg, u32 reg_data)
-{
-    u32 * basePtr;
-    u32 * memAddr;
+void __GXShadowIndexState(u32 idx_reg, u32 reg_data) {
+    u32* basePtr;
+    u32* memAddr;
     u32 cnt;
     u32 stride;
     u32 addr;
@@ -447,21 +442,20 @@ void __GXShadowIndexState(u32 idx_reg, u32 reg_data)
     addr = reg_data & 0xFFF;
     cnt = (reg_data >> 12) & 0xF;
     index = reg_data >> 16;
-    memAddr = (u32 *)((u8 *)basePtr + (index * stride));
+    memAddr = (u32*)((u8*)basePtr + (index * stride));
     cnt++;
 
     while (cnt-- != 0) {
         data = *memAddr;
         VERIF_MTXLIGHT(addr, data);
-        memAddr = (u32 *)((u8 *)memAddr + stride);
+        memAddr = (u32*)((u8*)memAddr + stride);
         addr++;
     }
 
     &data;  // needed to match
 }
 
-void __GXPrintShadowState(void)
-{
+void __GXPrintShadowState(void) {
     u32 i;
     u32 j;
 
@@ -469,30 +463,37 @@ void __GXPrintShadowState(void)
     OSReport("\tvcdLo = 0x%x\n", __GXData->vcdLo);
     OSReport("\tvcdHi = 0x%x\n", __GXData->vcdHi);
     OSReport("\thasBiNrms = 0x%x\n", __GXData->hasBiNrms);
+
     for (i = 0; i < 8; i++) {
         OSReport("\tVertex Format %d:\n", i);
         OSReport("\t\tvatA = 0x%x\n", __GXData->vatA[i]);
         OSReport("\t\tvatB = 0x%x\n", __GXData->vatB[i]);
         OSReport("\t\tvatC = 0x%x\n", __GXData->vatC[i]);
     }
+
     OSReport("\n-------------------------------------\n");
     OSReport("XF Pos/Tex Matrix State:\n");
+
     for (i = 0; i < 256; i += 4) {
         if (__gxVerif->xfMtxDirty[i]) {
             OSReport("\tXF_MATRIX[%d] = ", i);
-            OSReport("%f, %f, %f, %f\n", *(f32 *)&__gxVerif->xfMtx[i], *(f32 *)&__gxVerif->xfMtx[i + 1], *(f32 *)&__gxVerif->xfMtx[i + 2], *(f32 *)&__gxVerif->xfMtx[i + 3]);
+            OSReport("%f, %f, %f, %f\n", *(f32*)&__gxVerif->xfMtx[i], *(f32*)&__gxVerif->xfMtx[i + 1], *(f32*)&__gxVerif->xfMtx[i + 2], *(f32*)&__gxVerif->xfMtx[i + 3]);
         }
     }
+
     OSReport("\n-------------------------------------\n");
     OSReport("XF Normal Matrix State:\n");
+
     for (i = 0; i < 96; i += 3) {
         if (__gxVerif->xfNrmDirty[i]) {
             OSReport("\tXF_NRM_MTX[%d] = ", i);
-            OSReport("%f, %f, %f\n", *(f32 *)&__gxVerif->xfMtx[i], *(f32 *)&__gxVerif->xfMtx[i + 1], *(f32 *)&__gxVerif->xfMtx[i + 2]);
+            OSReport("%f, %f, %f\n", *(f32*)&__gxVerif->xfMtx[i], *(f32*)&__gxVerif->xfMtx[i + 1], *(f32*)&__gxVerif->xfMtx[i + 2]);
         }
     }
+
     OSReport("\n-------------------------------------\n");
     OSReport("XF Light State:\n");
+
     for (i = 0; i < 128; i += 16) {
         if (__gxVerif->xfLightDirty[i]) {
             OSReport("\tXF_LIGHT[%d]:\n", i >> 4);
@@ -500,22 +501,27 @@ void __GXPrintShadowState(void)
                 OSReport("\t\tparam[%d] = 0x%x\n", j, __gxVerif->xfLight[i + j]);
             }
             for (j = 4; j < 16; j++) {
-                OSReport("\t\tparam[%d] = %Lg\n", j, *(f32 *)&__gxVerif->xfLight[i + j]);
+                OSReport("\t\tparam[%d] = %Lg\n", j, *(f32*)&__gxVerif->xfLight[i + j]);
             }
         }
     }
+
     OSReport("\n-------------------------------------\n");
     OSReport("XF Register State:\n");
+
     for (i = 0; i < 80; i++) {
         if (__gxVerif->xfRegsDirty[i]) {
-            OSReport("\tXF_REG[0x%x] = 0x%x (%f)\n", i, __gxVerif->xfRegs[i], *(f32 *)&__gxVerif->xfRegs[i]);
+            OSReport("\tXF_REG[0x%x] = 0x%x (%f)\n", i, __gxVerif->xfRegs[i], *(f32*)&__gxVerif->xfRegs[i]);
         }
     }
+
     OSReport("\n-------------------------------------\n");
     OSReport("Raster Registers State:\n");
+
     for (i = 0; i < 256; i++) {
         OSReport("\tRAS_REG[0x%x] = 0x%x\n", i, __gxVerif->rasRegs[i]);
     }
+
     OSReport("\n-------------------------------------\n");
 }
 

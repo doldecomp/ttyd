@@ -45,6 +45,11 @@ extern inline float fabsf(float x) {
     return __fabsf(x);
 }
 
+extern float cosf(float);
+extern inline float cos(float x) {
+    return cosf(x);
+}
+
 inline float floor(float x) {
     int i=(int)x;   
     float y=x-(float)i; 

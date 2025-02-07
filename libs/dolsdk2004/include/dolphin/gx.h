@@ -30,8 +30,8 @@ extern "C" {
 #endif
 
 // GXMisc
-void (* GXSetDrawSyncCallback(void (* cb)(unsigned short)))(unsigned short);
-void GXSetDrawSync(unsigned short token);
+void (*GXSetDrawSyncCallback(void (*cb)(u16)))(u16);
+void GXSetDrawSync(u16 token);
 
 #ifdef __cplusplus
 }

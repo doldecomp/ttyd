@@ -2,6 +2,7 @@
 #define _DOLPHIN_GX_GXVERT_H_
 
 #include <dolphin/types.h>
+#include <dolphin/os.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -9,8 +10,7 @@ extern "C" {
 
 #define GXFIFO_ADDR 0xCC008000
 
-typedef union
-{
+typedef union {
     u8  u8;
     u16 u16;
     u32 u32;
@@ -24,7 +24,7 @@ typedef union
 } PPCWGPipe;
 
 #ifdef __MWERKS__
-volatile PPCWGPipe GXWGFifo : GXFIFO_ADDR;
+volatile PPCWGPipe GXWGFifo AT_ADDRESS(GXFIFO_ADDR);
 #else
 #define GXWGFifo (*(volatile PPCWGPipe *)GXFIFO_ADDR)
 #endif

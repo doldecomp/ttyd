@@ -1,6 +1,5 @@
-#include <dolphin/gd/GDPixel.h>
+#include <dolphin/gd.h>
 #include <dolphin/os.h>
-#include "__gd.h"
 
 void GDSetFog(GXFogType type, f32 startz, f32 endz, f32 nearz, f32 farz, GXColor color) {
     f32 A;

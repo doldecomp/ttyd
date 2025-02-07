@@ -1,6 +1,5 @@
-#include <dolphin/gd/GDTransform.h>
+#include <dolphin/gd.h>
 #include <dolphin/os.h>
-#include "__gd.h"
 
 void GDLoadPosMtxImm(const Mtx mtx, u32 id) {
     GDWriteXFCmdHdr(4 * id, 12);

@@ -3,6 +3,10 @@
 
 #include <dolphin/gx.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef enum G2DMatCtg {
     G2D_CTG_TEXTURE,
     G2D_CTG_RGB_DIRECT,
@@ -76,5 +80,9 @@ void G2DDrawLayer(G2DLayer* layer, s8* aSortBuffer);
 void G2DSetCamera(G2DPosOri* po);
 void G2DInitWorld(u32 nWorldX, u32 nWorldY);
 void G2DSetViewport(u16 nLeft, u16 nTop, u16 nWidth, u16 nHeight);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // _DOLPHIN_G2D_H_

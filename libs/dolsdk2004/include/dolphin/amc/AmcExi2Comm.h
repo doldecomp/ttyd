@@ -4,6 +4,10 @@
 #include <dolphin/os.h>
 #include <dolphin/amc/AmcTypes.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef enum
 {
 	AMC_EXI_NO_ERROR = 0,
@@ -112,5 +116,8 @@ void		EXI2_Unreserve( void );
 // ---------------------------------------------------------------------------
 AmcExiError	EXI2_GetStatusReg( u16* pu16StatusReg );
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif

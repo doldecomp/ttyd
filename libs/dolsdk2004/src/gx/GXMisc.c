@@ -10,8 +10,7 @@ static GXDrawDoneCallback DrawDoneCB;
 static u8 DrawDone;
 static OSThreadQueue FinishQueue;
 
-void GXSetMisc(GXMiscToken token, u32 val)
-{
+void GXSetMisc(GXMiscToken token, u32 val) {
     switch (token) {
     case GX_MT_XF_FLUSH:
         __GXData->vNum = val;
@@ -23,7 +22,7 @@ void GXSetMisc(GXMiscToken token, u32 val)
         }
         break;
     case GX_MT_DL_SAVE_CONTEXT:
-        ASSERTMSGLINE(0xDF, !__GXData->inDispList, "GXSetMisc: Cannot change DL context setting while making a display list");
+        ASSERTMSGLINE(223, !__GXData->inDispList, "GXSetMisc: Cannot change DL context setting while making a display list");
         __GXData->dlSaveContext = (val != 0);
         break;
     case GX_MT_ABORT_WAIT_COPYOUT:
@@ -39,9 +38,8 @@ void GXSetMisc(GXMiscToken token, u32 val)
     }
 }
 
-void GXFlush(void)
-{
-    CHECK_GXBEGIN(0x10E, "GXFlush");
+void GXFlush(void) {
+    CHECK_GXBEGIN(270, "GXFlush");
     if (__GXData->dirtyState) {
         __GXSetDirtyState();
     }
@@ -58,15 +56,13 @@ void GXFlush(void)
     PPCSync();
 }
 
-void GXResetWriteGatherPipe(void)
-{
+void GXResetWriteGatherPipe(void) {
     while (PPCMfwpar() & 1) {
     }
     PPCMtwpar(OSUncachedToPhysical((void *)GXFIFO_ADDR));
 }
 
-static void __GXAbortWait(u32 clocks)
-{
+static void __GXAbortWait(u32 clocks) {
     OSTime time0;
     OSTime time1;
 
@@ -76,9 +72,9 @@ static void __GXAbortWait(u32 clocks)
     } while (time1 - time0 <= (clocks / 4));
 }
 
-static void __GXAbortWaitPECopyDone() {
-    unsigned long peCnt0; // r31
-    unsigned long peCnt1; // r30
+static void __GXAbortWaitPECopyDone(void) {
+    u32 peCnt0;
+    u32 peCnt1;
 
     peCnt0 = __GXReadMEMCounterU32(0x28, 0x27);
     do {
@@ -89,7 +85,7 @@ static void __GXAbortWaitPECopyDone() {
     } while (peCnt0 != peCnt1);
 }
 
-void __GXAbort() {
+void __GXAbort(void) {
     if (__GXData->abtWaitPECopy && GXGetGPFifo() != (GXFifoObj*)NULL) {
         __GXAbortWaitPECopyDone();
     }
@@ -100,8 +96,7 @@ void __GXAbort() {
     __GXAbortWait(20);
 }
 
-void GXAbortFrame(void)
-{
+void GXAbortFrame(void) {
     __GXAbort();
 
     if (GXGetGPFifo() != (GXFifoObj*)NULL) {
@@ -112,36 +107,33 @@ void GXAbortFrame(void)
     }
 }
 
-void GXSetDrawSync(u16 token)
-{
+void GXSetDrawSync(u16 token) {
     BOOL enabled;
     u32 reg;
 
-    CHECK_GXBEGIN(0x1AE, "GXSetDrawSync");
+    CHECK_GXBEGIN(430, "GXSetDrawSync");
 
     enabled = OSDisableInterrupts();
     reg = token | 0x48000000;
     GX_WRITE_RAS_REG(reg);
-    SET_REG_FIELD(0x1BB, reg, 16, 0, token);
-    SET_REG_FIELD(0x1BB, reg, 8, 24, 0x47);
+    SET_REG_FIELD(443, reg, 16, 0, token);
+    SET_REG_FIELD(443, reg, 8, 24, 0x47);
     GX_WRITE_RAS_REG(reg);
     GXFlush();
     OSRestoreInterrupts(enabled);
     __GXData->bpSentNot = 0;
 }
 
-u16 GXReadDrawSync(void)
-{
+u16 GXReadDrawSync(void) {
     u16 token = GX_GET_PE_REG(7);
     return token;
 }
 
-void GXSetDrawDone(void)
-{
+void GXSetDrawDone(void) {
     u32 reg;
     BOOL enabled;
 
-    CHECK_GXBEGIN(0x1E8, "GXSetDrawDone");
+    CHECK_GXBEGIN(488, "GXSetDrawDone");
     enabled = OSDisableInterrupts();
     reg = 0x45000002;
     GX_WRITE_RAS_REG(reg);
@@ -150,11 +142,10 @@ void GXSetDrawDone(void)
     OSRestoreInterrupts(enabled);
 }
 
-void GXWaitDrawDone(void)
-{
+void GXWaitDrawDone(void) {
     BOOL enabled;
 
-    CHECK_GXBEGIN(0x216, "GXWaitDrawDone");
+    CHECK_GXBEGIN(534, "GXWaitDrawDone");
 
     enabled = OSDisableInterrupts();
     while (!DrawDone) {
@@ -163,165 +154,147 @@ void GXWaitDrawDone(void)
     OSRestoreInterrupts(enabled);
 }
 
-void GXDrawDone(void)
-{
-    CHECK_GXBEGIN(0x236, "GXDrawDone");
+void GXDrawDone(void) {
+    CHECK_GXBEGIN(566, "GXDrawDone");
     GXSetDrawDone();
     GXWaitDrawDone();
 }
 
-void GXPixModeSync(void)
-{
-    CHECK_GXBEGIN(0x259, "GXPixModeSync");
+void GXPixModeSync(void) {
+    CHECK_GXBEGIN(601, "GXPixModeSync");
     GX_WRITE_RAS_REG(__GXData->peCtrl);
     __GXData->bpSentNot = 0;
 }
 
-void GXTexModeSync(void)
-{
+void GXTexModeSync(void) {
     u32 reg;
 
-    CHECK_GXBEGIN(0x271, "GXTexModeSync");
+    CHECK_GXBEGIN(625, "GXTexModeSync");
     reg = 0x63000000;
     GX_WRITE_RAS_REG(reg);
     __GXData->bpSentNot = 0;
 }
 
 #if DEBUG
-void __GXBypass(u32 reg)
-{
-    CHECK_GXBEGIN(0x287, "__GXBypass");
+void __GXBypass(u32 reg) {
+    CHECK_GXBEGIN(647, "__GXBypass");
     GX_WRITE_RAS_REG(reg);
     __GXData->bpSentNot = 0;
 }
 
-u16 __GXReadPEReg(u32 reg)
-{
+u16 __GXReadPEReg(u32 reg) {
     return GX_GET_PE_REG(reg);
 }
 #endif
 
-void GXPokeAlphaMode(GXCompare func, u8 threshold)
-{
+void GXPokeAlphaMode(GXCompare func, u8 threshold) {
     u32 reg;
 
     reg = (func << 8) | threshold;
     GX_SET_PE_REG(3, reg);
 }
 
-void GXPokeAlphaRead(GXAlphaReadMode mode)
-{
+void GXPokeAlphaRead(GXAlphaReadMode mode) {
     u32 reg;
 
     reg = 0;
-    SET_REG_FIELD(0x2B5, reg, 2, 0, mode);
-    SET_REG_FIELD(0x2B5, reg, 1, 2, 1);
+    SET_REG_FIELD(693, reg, 2, 0, mode);
+    SET_REG_FIELD(693, reg, 1, 2, 1);
     GX_SET_PE_REG(4, reg);
 }
 
-void GXPokeAlphaUpdate(GXBool update_enable)
-{
+void GXPokeAlphaUpdate(GXBool update_enable) {
     u32 reg;
 
     reg = GX_GET_PE_REG(1);
-    SET_REG_FIELD(0x2C0, reg, 1, 4, update_enable);
+    SET_REG_FIELD(704, reg, 1, 4, update_enable);
     GX_SET_PE_REG(1, reg);
 }
 
-void GXPokeBlendMode(GXBlendMode type, GXBlendFactor src_factor, GXBlendFactor dst_factor, GXLogicOp op)
-{
+void GXPokeBlendMode(GXBlendMode type, GXBlendFactor src_factor, GXBlendFactor dst_factor, GXLogicOp op) {
     u32 reg;
 
     reg = GX_GET_PE_REG(1);
-    SET_REG_FIELD(0x2D0, reg, 1, 0, (type == GX_BM_BLEND) || (type == GX_BM_SUBTRACT));
-    SET_REG_FIELD(0x2D1, reg, 1, 11, (type == GX_BM_SUBTRACT));
-    SET_REG_FIELD(0x2D3, reg, 1, 1, (type == GX_BM_LOGIC));
-    SET_REG_FIELD(0x2D4, reg, 4, 12, op);
-    SET_REG_FIELD(0x2D5, reg, 3, 8, src_factor);
-    SET_REG_FIELD(0x2D6, reg, 3, 5, dst_factor);
-    SET_REG_FIELD(0x2D6, reg, 8, 24, 0x41);
+    SET_REG_FIELD(720, reg, 1, 0, (type == GX_BM_BLEND) || (type == GX_BM_SUBTRACT));
+    SET_REG_FIELD(721, reg, 1, 11, (type == GX_BM_SUBTRACT));
+    SET_REG_FIELD(723, reg, 1, 1, (type == GX_BM_LOGIC));
+    SET_REG_FIELD(724, reg, 4, 12, op);
+    SET_REG_FIELD(725, reg, 3, 8, src_factor);
+    SET_REG_FIELD(726, reg, 3, 5, dst_factor);
+    SET_REG_FIELD(726, reg, 8, 24, 0x41);
     GX_SET_PE_REG(1, reg);
 }
 
-void GXPokeColorUpdate(GXBool update_enable)
-{
+void GXPokeColorUpdate(GXBool update_enable) {
     u32 reg;
 
     reg = GX_GET_PE_REG(1);
-    SET_REG_FIELD(0x2E2, reg, 1, 3, update_enable);
+    SET_REG_FIELD(738, reg, 1, 3, update_enable);
     GX_SET_PE_REG(1, reg);
 }
 
-void GXPokeDstAlpha(GXBool enable, u8 alpha)
-{
+void GXPokeDstAlpha(GXBool enable, u8 alpha) {
     u32 reg = 0;
 
-    SET_REG_FIELD(0x2EB, reg, 8, 0, alpha);
-    SET_REG_FIELD(0x2EC, reg, 1, 8, enable);
+    SET_REG_FIELD(747, reg, 8, 0, alpha);
+    SET_REG_FIELD(748, reg, 1, 8, enable);
     GX_SET_PE_REG(2, reg);
 }
 
-void GXPokeDither(GXBool dither)
-{
+void GXPokeDither(GXBool dither) {
     u32 reg;
 
     reg = GX_GET_PE_REG(1);
-    SET_REG_FIELD(0x2F6, reg, 1, 2, dither);
+    SET_REG_FIELD(758, reg, 1, 2, dither);
     GX_SET_PE_REG(1, reg);
 }
 
-void GXPokeZMode(GXBool compare_enable, GXCompare func, GXBool update_enable)
-{
+void GXPokeZMode(GXBool compare_enable, GXCompare func, GXBool update_enable) {
     u32 reg = 0;
 
-    SET_REG_FIELD(0x2FF, reg, 1, 0, compare_enable);
-    SET_REG_FIELD(0x300, reg, 3, 1, func);
-    SET_REG_FIELD(0x301, reg, 1, 4, update_enable);
+    SET_REG_FIELD(767, reg, 1, 0, compare_enable);
+    SET_REG_FIELD(768, reg, 3, 1, func);
+    SET_REG_FIELD(769, reg, 1, 4, update_enable);
     GX_SET_PE_REG(0, reg);
 }
 
-void GXPeekARGB(u16 x, u16 y, u32 *color)
-{
+void GXPeekARGB(u16 x, u16 y, u32* color) {
     u32 addr = (u32)OSPhysicalToUncached(0x08000000);
 
-    SET_REG_FIELD(0x318, addr, 10, 2, x);
-    SET_REG_FIELD(0x319, addr, 10, 12, y);
-    SET_REG_FIELD(0x319, addr, 2, 22, 0);
-    *color = *(u32 *)addr;
+    SET_REG_FIELD(792, addr, 10, 2, x);
+    SET_REG_FIELD(793, addr, 10, 12, y);
+    SET_REG_FIELD(793, addr, 2, 22, 0);
+    *color = *(u32*)addr;
 }
 
-void GXPokeARGB(u16 x, u16 y, u32 color)
-{
+void GXPokeARGB(u16 x, u16 y, u32 color) {
     u32 addr = (u32)OSPhysicalToUncached(0x08000000);
 
     SET_REG_FIELD(0x322, addr, 10, 2, x);
     SET_REG_FIELD(0x323, addr, 10, 12, y);
     SET_REG_FIELD(0x323, addr, 2, 22, 0);
-    *(u32 *)addr = color;
+    *(u32*)addr = color;
 }
 
-void GXPeekZ(u16 x, u16 y, u32 *z)
-{
+void GXPeekZ(u16 x, u16 y, u32* z) {
     u32 addr = (u32)OSPhysicalToUncached(0x08000000);
 
-    SET_REG_FIELD(0x32C, addr, 10, 2, x);
-    SET_REG_FIELD(0x32D, addr, 10, 12, y);
-    SET_REG_FIELD(0x32D, addr, 2, 22, 1);
-    *z = *(u32 *)addr;
+    SET_REG_FIELD(812, addr, 10, 2, x);
+    SET_REG_FIELD(813, addr, 10, 12, y);
+    SET_REG_FIELD(813, addr, 2, 22, 1);
+    *z = *(u32*)addr;
 }
 
-void GXPokeZ(u16 x, u16 y, u32 z)
-{
+void GXPokeZ(u16 x, u16 y, u32 z) {
     u32 addr = (u32)OSPhysicalToUncached(0x08000000);
 
-    SET_REG_FIELD(0x336, addr, 10, 2, x);
-    SET_REG_FIELD(0x337, addr, 10, 12, y);
-    SET_REG_FIELD(0x337, addr, 2, 22, 1);
-    *(u32 *)addr = z;
+    SET_REG_FIELD(822, addr, 10, 2, x);
+    SET_REG_FIELD(823, addr, 10, 12, y);
+    SET_REG_FIELD(823, addr, 2, 22, 1);
+    *(u32*)addr = z;
 }
 
-GXDrawSyncCallback GXSetDrawSyncCallback(GXDrawSyncCallback cb)
-{
+GXDrawSyncCallback GXSetDrawSyncCallback(GXDrawSyncCallback cb) {
     GXDrawSyncCallback oldcb;
     BOOL enabled;
 
@@ -332,8 +305,7 @@ GXDrawSyncCallback GXSetDrawSyncCallback(GXDrawSyncCallback cb)
     return oldcb;
 }
 
-static void GXTokenInterruptHandler(__OSInterrupt interrupt, OSContext *context)
-{
+static void GXTokenInterruptHandler(__OSInterrupt interrupt, OSContext* context) {
     u16 token;
     OSContext exceptionContext;
     u32 reg;
@@ -351,8 +323,7 @@ static void GXTokenInterruptHandler(__OSInterrupt interrupt, OSContext *context)
     GX_SET_PE_REG(5, reg);
 }
 
-GXDrawDoneCallback GXSetDrawDoneCallback(GXDrawDoneCallback cb)
-{
+GXDrawDoneCallback GXSetDrawDoneCallback(GXDrawDoneCallback cb) {
     GXDrawDoneCallback oldcb;
     BOOL enabled;
 
@@ -363,8 +334,7 @@ GXDrawDoneCallback GXSetDrawDoneCallback(GXDrawDoneCallback cb)
     return oldcb;
 }
 
-static void GXFinishInterruptHandler(__OSInterrupt interrupt, OSContext *context)
-{
+static void GXFinishInterruptHandler(__OSInterrupt interrupt, OSContext* context) {
     OSContext exceptionContext;
     u32 reg;
 
@@ -382,8 +352,7 @@ static void GXFinishInterruptHandler(__OSInterrupt interrupt, OSContext *context
     OSWakeupThread(&FinishQueue);
 }
 
-void __GXPEInit(void)
-{
+void __GXPEInit(void) {
     u32 reg;
     __OSSetInterruptHandler(0x12, GXTokenInterruptHandler);
     __OSSetInterruptHandler(0x13, GXFinishInterruptHandler);
@@ -398,8 +367,7 @@ void __GXPEInit(void)
     GX_SET_PE_REG(5, reg);
 }
 
-u32 GXCompressZ16(u32 z24, GXZFmt16 zfmt)
-{
+u32 GXCompressZ16(u32 z24, GXZFmt16 zfmt) {
     u32 z16;
     u32 z24n;
     s32 exp;
@@ -457,18 +425,17 @@ u32 GXCompressZ16(u32 z24, GXZFmt16 zfmt)
         z16 = ((z24 >> shift) & 0xFFF & ~0xFFFFF000) | (exp << 12);
         break;
     default:
-        OSPanic(__FILE__, 0x3EC, "GXCompressZ16: Invalid Z format\n");
+        OSPanic(__FILE__, 1004, "GXCompressZ16: Invalid Z format\n");
         break;
     }
     return z16;
 }
 
-u32 GXDecompressZ16(u32 z16, GXZFmt16 zfmt)
-{
+u32 GXDecompressZ16(u32 z16, GXZFmt16 zfmt) {
     u32 z24;
     u32 cb1;
-    long exp;
-    long shift;
+    s32 exp;
+    s32 shift;
 
     cb1; cb1; cb1; z16; z16; z16;  // needed to match
 
@@ -507,7 +474,7 @@ u32 GXDecompressZ16(u32 z16, GXZFmt16 zfmt)
         z24 = (cb1 | ((z16 & 0xFFF) << shift)) & 0xFFFFFF;
         break;
     default:
-        OSPanic(__FILE__, 0x41E, "GXDecompressZ16: Invalid Z format\n");
+        OSPanic(__FILE__, 1054, "GXDecompressZ16: Invalid Z format\n");
         break;
     }
     return z24;

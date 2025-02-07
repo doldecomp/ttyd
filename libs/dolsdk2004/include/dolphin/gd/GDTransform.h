@@ -1,5 +1,5 @@
-#ifndef _DOLPHIN_GDTRANSFORM_H_
-#define _DOLPHIN_GDTRANSFORM_H_
+#ifndef _DOLPHIN_GD_TRANSFORM_H_
+#define _DOLPHIN_GD_TRANSFORM_H_
 
 #include <dolphin/types.h>
 #include <dolphin/gx/GXEnum.h>

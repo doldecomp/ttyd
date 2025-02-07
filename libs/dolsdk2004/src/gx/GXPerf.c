@@ -3,11 +3,10 @@
 
 #include "__gx.h"
 
-void GXSetGPMetric(GXPerf0 perf0, GXPerf1 perf1)
-{
+void GXSetGPMetric(GXPerf0 perf0, GXPerf1 perf1) {
     u32 reg;
 
-    CHECK_GXBEGIN(0x86, "GXSetGPMetric");
+    CHECK_GXBEGIN(134, "GXSetGPMetric");
 
     switch (__GXData->perf0) {
     case GX_PERF0_VERTICES:
@@ -57,7 +56,7 @@ void GXSetGPMetric(GXPerf0 perf0, GXPerf1 perf1)
     case GX_PERF0_NONE:
         break;
     default:
-        ASSERTMSGLINE(0xC2, 0, "GXSetGPMetric: Invalid GXPerf0 metric name");
+        ASSERTMSGLINE(194, 0, "GXSetGPMetric: Invalid GXPerf0 metric name");
         break;
     }
 
@@ -96,14 +95,14 @@ void GXSetGPMetric(GXPerf0 perf0, GXPerf1 perf1)
     case GX_PERF1_NONE:
         break;
     default:
-        ASSERTMSGLINE(0xF4, 0, "GXSetGPMetric: Invalid GXPerf1 metric name");
+        ASSERTMSGLINE(244, 0, "GXSetGPMetric: Invalid GXPerf1 metric name");
         break;
     }
 
     __GXData->perf0 = perf0;
     switch (__GXData->perf0) {
     case GX_PERF0_VERTICES:
-        ASSERTMSGLINE(0x102, 0, "The use of GX_PERF0_VERTICES is prohibited. Use GX_PERF1_VERTICES instead.\n");
+        ASSERTMSGLINE(258, 0, "The use of GX_PERF0_VERTICES is prohibited. Use GX_PERF1_VERTICES instead.\n");
         reg = 0x273;
         GX_WRITE_XF_REG(6, reg);
         break;
@@ -143,7 +142,7 @@ void GXSetGPMetric(GXPerf0 perf0, GXPerf1 perf1)
     case GX_PERF0_AVG_QUAD_CNT:        reg = 0x2402C1AD; GX_WRITE_RAS_REG(reg); break;
     case GX_PERF0_NONE: break;
     default:
-        ASSERTMSGLINE(0x1F8, 0, "GXSetGPMetric: Invalid GXPerf0 metric name");
+        ASSERTMSGLINE(504, 0, "GXSetGPMetric: Invalid GXPerf0 metric name");
         break;
     }
 
@@ -173,7 +172,7 @@ void GXSetGPMetric(GXPerf0 perf0, GXPerf1 perf1)
     case GX_PERF1_CP_ALL_REQ:  reg = 5; GX_SET_CP_REG(3, reg); break;
     case GX_PERF1_NONE: break;
     default:
-        ASSERTMSGLINE(0x289, 0, "GXSetGPMetric: Invalid GXPerf1 metric name");
+        ASSERTMSGLINE(649, 0, "GXSetGPMetric: Invalid GXPerf1 metric name");
         break;
     }
 
@@ -181,8 +180,7 @@ void GXSetGPMetric(GXPerf0 perf0, GXPerf1 perf1)
 }
 
 #pragma scheduling off
-void GXReadGPMetric(u32 *cnt0, u32 *cnt1)
-{
+void GXReadGPMetric(u32* cnt0, u32* cnt1) {
     u32 cpCtr0, cpCtr1, cpCtr2, cpCtr3;
 
     cpCtr0 = __GXReadCPCounterU32(32, 33);
@@ -192,7 +190,7 @@ void GXReadGPMetric(u32 *cnt0, u32 *cnt1)
 
     switch (__GXData->perf0) {
     case GX_PERF0_CLIP_RATIO:
-        *cnt0 = cpCtr1 * 0x3E8 / cpCtr0;
+        *cnt0 = cpCtr1 * 1000 / cpCtr0;
         break;
     case GX_PERF0_VERTICES:
     case GX_PERF0_CLIP_VTX:
@@ -234,7 +232,7 @@ void GXReadGPMetric(u32 *cnt0, u32 *cnt1)
         *cnt0 = 0;
         break;
     default:
-        ASSERTMSGLINE(0x2FD, 0, "GXReadGPMetric: Invalid GXPerf0 metric name");
+        ASSERTMSGLINE(765, 0, "GXReadGPMetric: Invalid GXPerf0 metric name");
         *cnt0 = 0;
         break;
     }
@@ -280,31 +278,28 @@ void GXReadGPMetric(u32 *cnt0, u32 *cnt1)
         *cnt1 = 0;
         break;
     default:
-        ASSERTMSGLINE(0x338, 0, "GXReadGPMetric: Invalid GXPerf1 metric name");
+        ASSERTMSGLINE(824, 0, "GXReadGPMetric: Invalid GXPerf1 metric name");
         *cnt1 = 0;
         break;
     }
 }
 #pragma scheduling reset
 
-void GXClearGPMetric(void)
-{
+void GXClearGPMetric(void) {
     u32 reg;
 
     reg = 4;
     GX_SET_CP_REG(2, reg);
 }
 
-u32 GXReadGP0Metric(void)
-{
+u32 GXReadGP0Metric(void) {
     u32 cnt0, cnt1;
 
     GXReadGPMetric(&cnt0, &cnt1);
     return cnt0;
 }
 
-u32 GXReadGP1Metric(void)
-{
+u32 GXReadGP1Metric(void) {
     u32 cnt0, cnt1;
 
     GXReadGPMetric(&cnt0, &cnt1);
@@ -312,8 +307,7 @@ u32 GXReadGP1Metric(void)
 }
 
 #pragma scheduling off
-void GXReadMemMetric(u32 *cp_req, u32 *tc_req, u32 *cpu_rd_req, u32 *cpu_wr_req, u32 *dsp_req, u32 *io_req, u32 *vi_req, u32 *pe_req, u32 *rf_req, u32 *fi_req)
-{
+void GXReadMemMetric(u32* cp_req, u32* tc_req, u32* cpu_rd_req, u32* cpu_wr_req, u32* dsp_req, u32* io_req, u32* vi_req, u32* pe_req, u32* rf_req, u32* fi_req) {
     *cp_req = __GXReadMEMCounterU32(26, 25);
     *tc_req = __GXReadMEMCounterU32(28, 27);
     *cpu_rd_req = __GXReadMEMCounterU32(30, 29);
@@ -327,8 +321,7 @@ void GXReadMemMetric(u32 *cp_req, u32 *tc_req, u32 *cpu_rd_req, u32 *cpu_wr_req,
 }
 #pragma scheduling reset
 
-void GXClearMemMetric(void)
-{
+void GXClearMemMetric(void) {
     GX_SET_MEM_REG(25, 0);
     GX_SET_MEM_REG(26, 0);
     GX_SET_MEM_REG(27, 0);
@@ -352,8 +345,7 @@ void GXClearMemMetric(void)
 }
 
 #pragma scheduling off
-void GXReadPixMetric(u32 *top_pixels_in, u32 *top_pixels_out, u32 *bot_pixels_in, u32 *bot_pixels_out, u32 *clr_pixels_in, u32 *copy_clks)
-{
+void GXReadPixMetric(u32* top_pixels_in, u32* top_pixels_out, u32* bot_pixels_in, u32* bot_pixels_out, u32* clr_pixels_in, u32* copy_clks) {
     *top_pixels_in = __GXReadPECounterU32(12, 13) * 4;
     *top_pixels_out = __GXReadPECounterU32(14, 15) * 4;
     *bot_pixels_in = __GXReadPECounterU32(16, 17) * 4;
@@ -363,11 +355,10 @@ void GXReadPixMetric(u32 *top_pixels_in, u32 *top_pixels_out, u32 *bot_pixels_in
 }
 #pragma scheduling reset
 
-void GXClearPixMetric(void)
-{
+void GXClearPixMetric(void) {
     u32 reg;
 
-    CHECK_GXBEGIN(0x48B, "GXClearPixMetric");
+    CHECK_GXBEGIN(1163, "GXClearPixMetric");
 
     reg = 0x57000000;
     GX_WRITE_RAS_REG(reg);
@@ -376,35 +367,31 @@ void GXClearPixMetric(void)
     __GXData->bpSentNot = 0;
 }
 
-void GXSetVCacheMetric(GXVCachePerf attr)
-{
+void GXSetVCacheMetric(GXVCachePerf attr) {
     u32 reg;
 
-    SET_REG_FIELD(0x4AA, __GXData->perfSel, 4, 0, attr);
+    SET_REG_FIELD(1194, __GXData->perfSel, 4, 0, attr);
     GX_WRITE_SOME_REG4(8, 0x20, __GXData->perfSel, -12);
     reg = 1;
     GX_WRITE_SOME_REG4(8, 0x10, reg, -12);
 }
 
 #pragma scheduling off
-void GXReadVCacheMetric(u32 *check, u32 *miss, u32 *stall)
-{
+void GXReadVCacheMetric(u32* check, u32* miss, u32* stall) {
     *check = __GXReadCPCounterU32(40, 41);
     *miss = __GXReadCPCounterU32(42, 43);
     *stall = __GXReadCPCounterU32(44, 45);
 }
 #pragma scheduling reset
 
-void GXClearVCacheMetric(void)
-{
+void GXClearVCacheMetric(void) {
     GX_WRITE_SOME_REG4(8, 0, 0, -12);
 }
 
-void GXInitXfRasMetric(void)
-{
+void GXInitXfRasMetric(void) {
     u32 reg;
 
-    CHECK_GXBEGIN(0x50D, "GXInitXfRasMetric");
+    CHECK_GXBEGIN(1293, "GXInitXfRasMetric");
 
     reg = 0x2402C022;
     GX_WRITE_RAS_REG(reg);
@@ -414,8 +401,7 @@ void GXInitXfRasMetric(void)
 }
 
 #pragma scheduling off
-void GXReadXfRasMetric(u32 *xf_wait_in, u32 *xf_wait_out, u32 *ras_busy, u32 *clocks)
-{
+void GXReadXfRasMetric(u32* xf_wait_in, u32* xf_wait_out, u32* ras_busy, u32* clocks) {
     *ras_busy = __GXReadCPCounterU32(32, 33);
     *clocks = __GXReadCPCounterU32(34, 35);
     *xf_wait_in = __GXReadCPCounterU32(36, 37);
@@ -423,8 +409,7 @@ void GXReadXfRasMetric(u32 *xf_wait_in, u32 *xf_wait_out, u32 *ras_busy, u32 *cl
 }
 #pragma scheduling reset
 
-u32 GXReadClksPerVtx(void)
-{
+u32 GXReadClksPerVtx(void) {
     u32 perfCnt;
     u32 ctrh;
 

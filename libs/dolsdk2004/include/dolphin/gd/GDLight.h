@@ -1,5 +1,5 @@
-#ifndef _DOLPHIN_GDLIGHT_H_
-#define _DOLPHIN_GDLIGHT_H_
+#ifndef _DOLPHIN_GD_LIGHT_H_
+#define _DOLPHIN_GD_LIGHT_H_
 
 #include <dolphin/gx/GXEnum.h>
 #include <dolphin/gx/GXStruct.h>

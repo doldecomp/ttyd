@@ -18,5 +18,6 @@
 #include <dolphin/dtk.h>
 #include <dolphin/ai.h>
 #include <dolphin/exi.h>
+#include <dolphin/si.h>
 
 #endif

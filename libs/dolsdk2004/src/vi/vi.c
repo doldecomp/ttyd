@@ -85,16 +85,16 @@ static void (*PositionCallback)(s16, s16);
 static u32 encoderType;
 static s16 displayOffsetH;
 static s16 displayOffsetV;
-static u32 changeMode;
+static volatile u32 changeMode;
 static volatile u64 changed;
 static volatile u32 shdwChangeMode;
-static u16 regs[59];
+static volatile u16 regs[59];
 static volatile u64 shdwChanged;
 static VITiming* CurrTiming;
 static u32 CurrTvMode;
 static u32 NextBufAddr;
 static u32 CurrBufAddr;
-static u16 shdwRegs[59];
+static volatile u16 shdwRegs[59];
 
 #define MARK_CHANGED(index) (changed |= 1LL << (63 - (index)))
 
@@ -752,7 +752,6 @@ static void PrintDebugPalCaution(void) {
     }
 }
 
-// NONMATCHING - SET_REG_FIELD issues
 void VIConfigure(const GXRenderModeObj* rm) {
     VITiming* tm;
     u32 regDspCfg;
@@ -774,6 +773,7 @@ void VIConfigure(const GXRenderModeObj* rm) {
         "VIConfigure(): Odd number(%d) is specified to viHeight\n",
         rm->viHeight);
 
+#ifdef DEBUG
     if (rm->xFBmode == VI_XFBMODE_DF || newNonInter == VI_TVMODE_NTSC_PROG || newNonInter == 3) {
         ASSERTMSGLINEV(1933, rm->xfbHeight == rm->viHeight,
             "VIConfigure(): xfbHeight(%d) is not equal to viHeight(%d) when DF XFB mode or progressive mode is specified\n",
@@ -785,6 +785,7 @@ void VIConfigure(const GXRenderModeObj* rm) {
             "VIConfigure(): xfbHeight(%d) is not as twice as viHeight(%d) when SF XFB mode is specified\n",
             rm->xfbHeight, rm->viHeight);
     }
+#endif
 
     tvInGame = (u32)rm->viTVmode >> 2;
     tvInBootrom = *(u32*)OSPhysicalToCached(0xCC);
@@ -858,16 +859,14 @@ void VIConfigure(const GXRenderModeObj* rm) {
         regDspCfg = (((u32)(regDspCfg)) & ~0x00000004) | (((u32)(1)) << 2);
         regClksel = (((u32)(regClksel)) & ~0x00000001) | (((u32)(1)) << 0);
     } else {
-        SET_REG_FIELD(2052, regDspCfg, 1, 2, HorVer.nonInter & 1);
-        regDspCfg = (((u32)(regDspCfg)) & ~0x00000004) | (((u32)(HorVer.nonInter & 1)) << 2);
+        OLD_SET_REG_FIELD(2052, regDspCfg, 1, 2, HorVer.nonInter & 1);
         regClksel = (((u32)(regClksel)) & ~0x00000001);
     }
 
-    SET_REG_FIELD(2056, regDspCfg, 1, 0, HorVer.threeD << 3);
+    OLD_SET_REG_FIELD(2056, regDspCfg, 1, 3, HorVer.threeD);
 
     if ((HorVer.tv == VI_PAL) || (HorVer.tv == VI_MPAL) || (HorVer.tv == 3)) {
-        SET_REG_FIELD(2060, regDspCfg, 2, 8, HorVer.tv);
-        regDspCfg = (((u32)(regDspCfg)) & ~0x00000300) | (((u32)(HorVer.tv)) << 8);
+        OLD_SET_REG_FIELD(2060, regDspCfg, 2, 8, HorVer.tv);
     } else {
         regDspCfg = (((u32)(regDspCfg)) & ~0x00000300);
     }
@@ -988,7 +987,6 @@ void VISetBlack(BOOL black) {
     OSRestoreInterrupts(enabled);
 }
 
-// NONMATCHING
 void VISet3D(BOOL threeD) {
     BOOL enabled;
     u32 reg;
@@ -996,7 +994,7 @@ void VISet3D(BOOL threeD) {
     enabled = OSDisableInterrupts();
     HorVer.threeD = threeD;
     reg = regs[1];
-    SET_REG_FIELD(0x933, reg, 1, 3, HorVer.threeD);
+    OLD_SET_REG_FIELD(2355, reg, 1, 3, HorVer.threeD);
     regs[1] = reg;
     MARK_CHANGED(1);
     setScalingRegs(HorVer.PanSizeX, HorVer.DispSizeX, HorVer.threeD);
@@ -1089,14 +1087,13 @@ u32 VIGetTvFormat(void) {
     return format;
 }
 
-// NONMATCHING
 u32 VIGetScanMode(void) {
     u32 scanMode;
     BOOL enabled = OSDisableInterrupts();
 
     if ((u32)(__VIRegs[54] & 1) == 1) {
         scanMode = 2;
-    } else if (((__VIRegs[scanMode] >> 2) & 1) == 0) {
+    } else if (!((__VIRegs[1] & (1 << 2)) >> 2)) {
         scanMode = 0;
     } else {
         scanMode = 1;
@@ -1142,15 +1139,15 @@ void __VIGetAdjustingValues(s16* x, s16* y) {
     OSRestoreInterrupts(enabled);
 }
 
-// NONMATCHING
+// DEBUG NONMATCHING - wrong reg use, equivalent
 void __VIEnableRawPositionInterrupt(s16 x, s16 y, void (*callback)(s16, s16)) {
     BOOL enabled;
     u32 halfLine;
     u32 halfLineOff;
 
     enabled = OSDisableInterrupts();
-    __VIRegs[29] = x + 1;
-    __VIRegs[31] = x + 1;
+    __VIRegs[29] = x + 1U;
+    __VIRegs[31] = x + 1U;
 
     if (HorVer.nonInter == 0) {
         if (y & 1) {
@@ -1254,23 +1251,21 @@ void __VIGetCurrentPosition(s16* x, s16* y) {
     __VIDisplayPositionToXY(hcount, vcount, x, y);
 }
 
-// NONMATCHING
 void __VISetLatchMode(u32 mode) {
     u32 reg;
 
     reg = __VIRegs[1];
-    SET_REG_FIELD(0xB12, reg, 3, 6, mode & ~3);
-    SET_REG_FIELD(0xB13, reg, 5, 8, mode & ~3);
+    OLD_SET_REG_FIELD(2834, reg, 2, 4, mode);
+    OLD_SET_REG_FIELD(2835, reg, 2, 6, mode);
     __VIRegs[1] = reg;
 }
 
 #pragma dont_inline on
-// NONMATCHING
 int __VIGetLatch0Position(s16* px, s16* py) {
     u32 hcount;
     u32 vcount;
 
-    if ((__VIRegs[31] >> 0xF) & 1) {
+    if (((__VIRegs[32] & 0x8000) >> 15) != 0) {
         vcount = __VIRegs[32] & 0x7FF;
         hcount = __VIRegs[33] & 0x7FF;
         __VIRegs[32] = 0;
@@ -1285,12 +1280,11 @@ int __VIGetLatch0Position(s16* px, s16* py) {
 #pragma dont_inline reset
 
 #pragma dont_inline on
-// NONMATCHING
 int __VIGetLatch1Position(s16* px, s16* py) {
     u32 hcount;
     u32 vcount;
 
-    if ((__VIRegs[31] >> 0xF) & 1) {
+    if (((__VIRegs[34] & 0x8000) >> 15) != 0) {
         vcount = __VIRegs[34] & 0x7FF;
         hcount = __VIRegs[35] & 0x7FF;
         __VIRegs[34] = 0;

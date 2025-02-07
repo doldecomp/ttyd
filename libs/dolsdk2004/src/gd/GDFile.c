@@ -1,4 +1,4 @@
-#include <dolphin/gd/GDFile.h>
+#include <dolphin/gd.h>
 #include <dolphin/os.h>
 
 #define ROUND(n, a) (((u32)(n) + (a)-1) & ~((a)-1))

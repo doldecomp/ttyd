@@ -472,7 +472,15 @@ typedef union
 #define FPSCR_NI_BIT        29          // Non-IEEE mode
 #endif
 
-// PPCArch.c
+union FpscrUnion {
+    f64 f;
+    struct {
+        u32 fpscr_pad;
+        u32 fpscr;
+    } u;
+};
+
+// PPCArch
 u32 PPCMfmsr();
 void PPCMtmsr(u32 newMSR);
 u32 PPCOrMsr(u32 value);
@@ -519,7 +527,7 @@ u32 PPCMfdmaL();
 u32 PPCMfpvr();
 u32 PPCMfdmaU();
 
-// PPCPm.c
+// PPCPm
 void PMBegin(void);
 void PMEnd(void);
 void PMCycles(void);

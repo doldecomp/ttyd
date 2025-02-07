@@ -1,6 +1,7 @@
 #include <dolphin.h>
 #include <dolphin/exi.h>
 #include <dolphin/os.h>
+#include <dolphin/si.h>
 #include <dolphin/db.h>
 
 #include "__os.h"
@@ -17,10 +18,24 @@ extern void __OSInitMemoryProtection(void);
 #define OS_EXCEPTIONTABLE_ADDR 0x3000
 #define OS_DBJUMPPOINT_ADDR 0x60
 
-#ifdef DEBUG
-const char* __OSVersion = "<< Dolphin SDK - OS\tdebug build: Apr  5 2004 03:55:13 (0x2301) >>";
+#if SDK_REVISION < 1
+#define BUILD_DATE  "Apr  5 2004"
+#define DBUILD_TIME "03:55:13"
+#define RBUILD_TIME "04:13:58"
+#elif SDK_REVISION < 2
+#define BUILD_DATE  "May 21 2004"
+#define DBUILD_TIME "09:15:32"
+#define RBUILD_TIME "09:28:09"
 #else
-const char* __OSVersion = "<< Dolphin SDK - OS\trelease build: Apr  5 2004 04:13:58 (0x2301) >>";
+#define BUILD_DATE  "Nov 10 2004"
+#define DBUILD_TIME "06:08:19"
+#define RBUILD_TIME "06:26:41"
+#endif
+
+#ifdef DEBUG
+const char* __OSVersion = "<< Dolphin SDK - OS\tdebug build: "BUILD_DATE" "DBUILD_TIME" (0x2301) >>";
+#else
+const char* __OSVersion = "<< Dolphin SDK - OS\trelease build: "BUILD_DATE" "RBUILD_TIME" (0x2301) >>";
 #endif
 
 static DVDDriveInfo DriveInfo;
@@ -278,9 +293,9 @@ void OSInit(void) {
 
         OSReport("\nDolphin OS\n");
 #if DEBUG
-        OSReport("Kernel built : %s %s\n", "Apr  5 2004", "03:55:13");
+        OSReport("Kernel built : %s %s\n", BUILD_DATE, DBUILD_TIME);
 #else
-        OSReport("Kernel built : %s %s\n", "Apr  5 2004", "04:13:58");
+        OSReport("Kernel built : %s %s\n", BUILD_DATE, RBUILD_TIME);
 #endif
         OSReport("Console Type : ");
 

@@ -1,6 +1,5 @@
-#include <dolphin/gd/GDTexture.h>
+#include <dolphin/gd.h>
 #include <dolphin/os.h>
-#include "__gd.h"
 
 u8 GD2HWFiltConv[] = {0, 4, 1, 5, 2, 6};
 

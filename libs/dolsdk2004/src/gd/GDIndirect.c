@@ -1,7 +1,5 @@
-#include <dolphin/gd/GDIndirect.h>
+#include <dolphin/gd.h>
 #include <dolphin/os.h>
-
-#include "__gd.h"
 
 void GDSetTevIndirect(GXTevStageID tev_stage, GXIndTexStageID ind_stage,
                       GXIndTexFormat format, GXIndTexBiasSel bias_sel,

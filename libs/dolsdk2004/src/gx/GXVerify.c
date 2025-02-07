@@ -4,10 +4,10 @@
 
 #include "__gx.h"
 
-static struct __GXVerifyData __gxVerifData;
-struct __GXVerifyData * __gxVerif = &__gxVerifData;
+static __GXVerifyData __gxVerifData;
+struct __GXVerifyData* __gxVerif = &__gxVerifData;
 
-char *__gxvWarnings[125] = {
+char* __gxvWarnings[125] = {
     "Invalid Vertex Format. Normal count must be set to %s.",
     "Texture size %ld not initialized.",
     "Left edge of scissor rectangle is less than %d.",
@@ -265,30 +265,26 @@ GXWarningLevel __gxvWarnLev[125] = {
 
 char __gxvDummyStr[256];
 
-static void __GXVerifyGlobal(void)
-{
-}
+static void __GXVerifyGlobal(void) {}
 
-static void __GXVerifyCP(GXVtxFmt fmt)
-{
+static void __GXVerifyCP(GXVtxFmt fmt) {
     u32 nrmCnt = GET_REG_FIELD(__GXData->vatA[fmt], 1, 9);
     
     if (__gxVerif->verifyLevel >= GX_WARN_SEVERE) {
         if (__GXData->hasNrms && nrmCnt != 0) {
-            if (__gxVerif->verifyLevel >= __gxvWarnLev[0]) {
-                __GX_WARNF(0, "GX_NRM_XYZ");
+            if (__gxVerif->verifyLevel >= __gxvWarnLev[GXWARN_INVALID_VTX_FMT]) {
+                __GX_WARNF(GXWARN_INVALID_VTX_FMT, "GX_NRM_XYZ");
             }            
         }
         else if (__GXData->hasBiNrms && nrmCnt != 1) {
-            if (__gxVerif->verifyLevel >= __gxvWarnLev[0]) {
-                __GX_WARNF(0, "GX_NRM_NBT or GX_NRM_NBT3");
+            if (__gxVerif->verifyLevel >= __gxvWarnLev[GXWARN_INVALID_VTX_FMT]) {
+                __GX_WARNF(GXWARN_INVALID_VTX_FMT, "GX_NRM_NBT or GX_NRM_NBT3");
             } 
         }
     }
 }
 
-void __GXVerifyState(GXVtxFmt vtxfmt)
-{
+void __GXVerifyState(GXVtxFmt vtxfmt) {
     if (__gxVerif->verifyLevel != GX_WARN_NONE) {
         __GXVerifyGlobal();
         __GXVerifyCP(vtxfmt);
@@ -302,55 +298,55 @@ void __GXVerifyState(GXVtxFmt vtxfmt)
 }
 
 void __GXVerifyVATImm(GXAttr attr, GXCompCnt cnt, GXCompType type, u8 frac) {
-    if (__gxVerif->verifyLevel != 0) {
-        if (attr == 11 || attr == 12) {
+    if (__gxVerif->verifyLevel != GX_WARN_NONE) {
+        if (attr == GX_VA_CLR0 || attr == GX_VA_CLR1) {
             switch (type) {
-            case 0:
-            case 1:
-            case 2:
-                if (cnt != 0 && __gxVerif->verifyLevel >= __gxvWarnLev[0x3A]) {
-                    __GX_WARNF(0x3A, "RGB format type", "GX_CLR_RGB");
+            case GX_RGB565:
+            case GX_RGB8:
+            case GX_RGBX8:
+                if (cnt != GX_CLR_RGB && __gxVerif->verifyLevel >= __gxvWarnLev[GXWARN_VAT_MISMATCH]) {
+                    __GX_WARNF(GXWARN_VAT_MISMATCH, "RGB format type", "GX_CLR_RGB");
                 }
                 break;
-            case 3:
-            case 4:
-            case 5:
-                if (cnt != 1 && __gxVerif->verifyLevel >= __gxvWarnLev[0x3A]) {
-                    __GX_WARNF(0x3A, "RGBA format type", "GX_CLR_RGBA");
+            case GX_RGBA4:
+            case GX_RGBA6:
+            case GX_RGBA8:
+                if (cnt != GX_CLR_RGBA && __gxVerif->verifyLevel >= __gxvWarnLev[GXWARN_VAT_MISMATCH]) {
+                    __GX_WARNF(GXWARN_VAT_MISMATCH, "RGBA format type", "GX_CLR_RGBA");
                 }
                 break;
             }
         }
 
         if (frac != 0) {
-            if (attr == 11 || attr == 12) {
-                if (__gxVerif->verifyLevel >= __gxvWarnLev[0x3E]) {
-                    __GX_WARN(0x3E);
+            if (attr == GX_VA_CLR0 || attr == GX_VA_CLR1) {
+                if (__gxVerif->verifyLevel >= __gxvWarnLev[GXWARN_VAT_CLR_FRAC]) {
+                    __GX_WARN(GXWARN_VAT_CLR_FRAC);
                 }
-            } else if (type == 4) {
-                if (__gxVerif->verifyLevel >= __gxvWarnLev[0x3D]) {
-                    __GX_WARN(0x3D);
+            } else if (type == GX_F32) {
+                if (__gxVerif->verifyLevel >= __gxvWarnLev[GXWARN_VAT_F32_FRAC]) {
+                    __GX_WARN(GXWARN_VAT_F32_FRAC);
                 }
             }
         }
 
-        if (attr == 10 || attr == 25) {
+        if (attr == GX_VA_NRM || attr == GX_VA_NBT) {
             switch (type) {
-            case 1:
-                if (frac != 6 && __gxVerif->verifyLevel >= __gxvWarnLev[0x3C]) {
-                    __GX_WARNF(0x3C, "GX_S8", 6);
+            case GX_S8:
+                if (frac != 6 && __gxVerif->verifyLevel >= __gxvWarnLev[GXWARN_VAT_NRM_FRAC]) {
+                    __GX_WARNF(GXWARN_VAT_NRM_FRAC, "GX_S8", 6);
                 }
                 break;
-            case 3:
-                if (frac != 14 && __gxVerif->verifyLevel >= __gxvWarnLev[0x3C]) {
-                    __GX_WARNF(0x3C, "GX_S16", 14);
+            case GX_S16:
+                if (frac != 14 && __gxVerif->verifyLevel >= __gxvWarnLev[GXWARN_VAT_NRM_FRAC]) {
+                    __GX_WARNF(GXWARN_VAT_NRM_FRAC, "GX_S16", 14);
                 }
                 break;
-            case 4:
+            case GX_F32:
                 break;
             default:
-                if (__gxVerif->verifyLevel >= __gxvWarnLev[0x3B]) {
-                    __GX_WARN(0x3B);
+                if (__gxVerif->verifyLevel >= __gxvWarnLev[GXWARN_VAT_NRM_TYPE]) {
+                    __GX_WARN(GXWARN_VAT_NRM_TYPE);
                 }
                 break;
             }
@@ -358,15 +354,13 @@ void __GXVerifyVATImm(GXAttr attr, GXCompCnt cnt, GXCompType type, u8 frac) {
     }
 }
 
-void GXSetVerifyLevel(GXWarningLevel level)
-{
+void GXSetVerifyLevel(GXWarningLevel level) {
     __gxVerif->verifyLevel = level;
 }
 
-GXVerifyCallback GXSetVerifyCallback(GXVerifyCallback cb)
-{
+GXVerifyCallback GXSetVerifyCallback(GXVerifyCallback cb) {
     GXVerifyCallback old_cb = __gxVerif->cb;
-    
+
     __gxVerif->cb = cb;
     return old_cb;
 }

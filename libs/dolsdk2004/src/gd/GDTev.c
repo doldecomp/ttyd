@@ -1,6 +1,5 @@
-#include <dolphin/gd/GDTev.h>
+#include <dolphin/gd.h>
 #include <dolphin/os.h>
-#include "__gd.h"
 
 void GDSetTevOp(GXTevStageID stage, GXTevMode mode) {
     GXTevColorArg carg = GX_CC_RASC;

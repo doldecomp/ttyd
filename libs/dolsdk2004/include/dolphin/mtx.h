@@ -110,13 +110,16 @@ void PSMTXReflect(Mtx m, const Vec* p, const Vec* n);
 #define MTXReflect    PSMTXReflect
 #endif
 
-#define MTXLookAt C_MTXLookAt
-
 // C versions only
 void C_MTXLookAt(Mtx m, const Point3d* camPos, const Vec* camUp, const Point3d* target);
 void C_MTXLightFrustum(Mtx m, f32 t, f32 b, f32 l, f32 r, f32 n, f32 scaleS, f32 scaleT, f32 transS, f32 transT);
 void C_MTXLightPerspective(Mtx m, f32 fovY, f32 aspect, f32 scaleS, f32 scaleT, f32 transS, f32 transT);
 void C_MTXLightOrtho(Mtx m, f32 t, f32 b, f32 l, f32 r, f32 scaleS, f32 scaleT, f32 transS, f32 transT);
+
+#define MTXLookAt           C_MTXLookAt
+#define MTXLightFrustum     C_MTXLightFrustum
+#define MTXLightPerspective C_MTXLightPerspective
+#define MTXLightOrtho       C_MTXLightOrtho
 
 // MTXVEC
 // C versions
@@ -196,14 +199,16 @@ void PSMTX44RotAxisRad(Mtx44 m, const Vec* axis, f32 rad);
 #define MTX44RotAxisRad PSMTX44RotAxisRad
 #endif
 
-#define MTXOrtho C_MTXOrtho
-#define MTXPerspective C_MTXPerspective
-
 // C versions only
 void C_MTXFrustum(Mtx44 m, f32 t, f32 b, f32 l, f32 r, f32 n, f32 f);
 void C_MTXPerspective(Mtx44 m, f32 fovY, f32 aspect, f32 n, f32 f);
 void C_MTXOrtho(Mtx44 m, f32 t, f32 b, f32 l, f32 r, f32 n, f32 f);
 u32 C_MTX44Inverse(const Mtx44 src, Mtx44 inv);
+
+#define MTXFrustum     C_MTXFrustum
+#define MTXPerspective C_MTXPerspective
+#define MTXOrtho       C_MTXOrtho
+#define MTX44Inverse   C_MTX44Inverse
 
 // MTX44VEC
 // C versions
@@ -298,6 +303,9 @@ f32 PSVECDistance(const Vec* a, const Vec* b);
 void C_VECHalfAngle(const Vec* a, const Vec* b, Vec* half);
 void C_VECReflect(const Vec* src, const Vec* normal, Vec* dst);
 
+#define VECHalfAngle C_VECHalfAngle
+#define VECReflect   C_VECReflect
+
 // QUAT
 // C versions
 void C_QUATAdd(const Quaternion* p, const Quaternion* q, Quaternion* r);
@@ -349,6 +357,16 @@ void C_QUATLerp(const Quaternion* p, const Quaternion* q, Quaternion* r, f32 t);
 void C_QUATSlerp(const Quaternion* p, const Quaternion* q, Quaternion* r, f32 t);
 void C_QUATSquad(const Quaternion* p, const Quaternion* a, const Quaternion* b, const Quaternion* q, Quaternion* r, f32 t);
 void C_QUATCompA(const Quaternion* qprev, const Quaternion* q, const Quaternion* qnext, Quaternion* a);
+
+#define QUATExp         C_QUATExp
+#define QUATLogN        C_QUATLogN
+#define QUATMakeClosest C_QUATMakeClosest
+#define QUATRotAxisRad  C_QUATRotAxisRad
+#define QUATMtx         C_QUATMtx
+#define QUATLerp        C_QUATLerp
+#define QUATSlerp       C_QUATSlerp
+#define QUATSquad       C_QUATSquad
+#define QUATCompA       C_QUATCompA
 
 #ifdef __cplusplus
 }

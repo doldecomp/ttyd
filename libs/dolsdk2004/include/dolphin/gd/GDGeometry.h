@@ -1,5 +1,5 @@
-#ifndef _DOLPHIN_GDGEOMETRY_H_
-#define _DOLPHIN_GDGEOMETRY_H_
+#ifndef _DOLPHIN_GD_GEOMETRY_H_
+#define _DOLPHIN_GD_GEOMETRY_H_
 
 #include <dolphin/gx/GXStruct.h>
 
