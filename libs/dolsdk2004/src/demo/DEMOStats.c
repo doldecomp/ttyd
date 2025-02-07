@@ -1,6 +1,6 @@
 #include <dolphin.h>
 #include <dolphin/gx.h>
-#include <dolphin/demo.h>
+#include <demo.h>
 
 #include "__demo.h"
 

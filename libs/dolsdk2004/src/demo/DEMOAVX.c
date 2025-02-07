@@ -1,6 +1,6 @@
 #include <dolphin.h>
 #include <dolphin/gx.h>
-#include <dolphin/demo.h>
+#include <demo.h>
 #include "fake_tgmath.h"
 
 static s16 __AVX_internal_buffer[3200] ATTRIBUTE_ALIGN(32);

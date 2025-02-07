@@ -1,6 +1,6 @@
 #include <dolphin.h>
 #include <dolphin/gx.h>
-#include <dolphin/demo.h>
+#include <demo.h>
 
 
 static u32 __DEMOWIN_PAD_repeat_threshold = 0x0000000F;

@@ -862,6 +862,15 @@ config.libs = [
             Object(NonMatching, "unk_0x8025de70.c"),
         ],
     },
+    DolphinLib(
+        "demo",
+        [*cflags_base, "-i libs/dolsdk2004/src/demo"],
+        [
+            Object(NonMatching, "demo/DEMOFont.c"),
+            Object(NonMatching, "demo/DEMOPuts.c"),
+            Object(NonMatching, "demo/DEMOStats.c"),
+        ],
+    ),
     {
         "lib": "MusyX",
         "mw_version": "GC/1.3.2",
@@ -923,6 +932,119 @@ config.libs = [
         ],
     },
     DolphinLib(
+        "ai",
+        [*cflags_base, "-i libs/dolsdk2004/src/gx"],
+        [
+            Object(NonMatching, "ai/ai.c"),
+        ],
+    ),
+    DolphinLib(
+        "ar",
+        [*cflags_base, "-i libs/dolsdk2004/src/ar"],
+        [
+            Object(NonMatching, "ar/ar.c"),
+            Object(NonMatching, "ar/arq.c"),
+        ],
+    ),
+    DolphinLib(
+        "base",
+        cflags_base,
+        [
+            Object(NonMatching, "base/PPCArch.c"),
+        ],
+    ),
+    DolphinLib(
+        "card",
+        [*cflags_base, "-i libs/dolsdk2004/src", "-i libs/dolsdk2004/src/card", "-i libs/dolsdk2004/src/os"],
+        [
+            Object(NonMatching, "card/CARDBios.c"),
+            Object(NonMatching, "card/CARDUnlock.c"),
+            Object(NonMatching, "card/CARDRdwr.c"),
+            Object(NonMatching, "card/CARDBlock.c"),
+            Object(NonMatching, "card/CARDDir.c"),
+            Object(NonMatching, "card/CARDCheck.c"),
+            Object(NonMatching, "card/CARDMount.c"),
+            Object(NonMatching, "card/CARDFormat.c"),
+            Object(NonMatching, "card/CARDOpen.c"),
+            Object(NonMatching, "card/CARDCreate.c"),
+            Object(NonMatching, "card/CARDRead.c"),
+            Object(NonMatching, "card/CARDWrite.c"),
+            Object(NonMatching, "card/CARDDelete.c"),
+            Object(NonMatching, "card/CARDStat.c"),
+            Object(NonMatching, "card/CARDNet.c"),
+        ],
+    ),
+    DolphinLib(
+        "db",
+        cflags_base,
+        [
+            Object(NonMatching, "db/db.c"),
+        ],
+    ),
+    DolphinLib(
+        "dsp",
+        [*cflags_base, "-i libs/dolsdk2004/src/dsp"],
+        [
+            Object(NonMatching, "dsp/dsp.c"),
+            Object(NonMatching, "dsp/dsp_debug.c"),
+            Object(NonMatching, "dsp/dsp_task.c"),
+        ],
+    ),
+    DolphinLib(
+        "dvd",
+        [*cflags_base, "-i libs/dolsdk2004/src", "-i libs/dolsdk2004/src/dvd", "-i libs/dolsdk2004/src/os"],
+        [
+            Object(NonMatching, "dvd/dvdlow.c"),
+            Object(NonMatching, "dvd/dvdfs.c"),
+            Object(NonMatching, "dvd/dvd.c"),
+            Object(NonMatching, "dvd/dvdqueue.c"),
+            Object(NonMatching, "dvd/dvderror.c"),
+            Object(NonMatching, "dvd/dvdidutils.c"),
+            Object(NonMatching, "dvd/dvdFatal.c"),
+            Object(NonMatching, "dvd/fstload.c"),
+        ],
+    ),
+    DolphinLib(
+        "exi",
+        [*cflags_base, "-i libs/dolsdk2004/src/os"],
+        [
+            Object(NonMatching, "exi/EXIBios.c"),
+            Object(NonMatching, "exi/EXIUart.c"),
+        ],
+    ),
+    DolphinLib(
+        "gx",
+        [*cflags_base, "-i libs/dolsdk2004/src/gx"],
+        [
+            Object(NonMatching, "gx/GXInit.c"),
+            Object(NonMatching, "gx/GXFifo.c"),
+            Object(NonMatching, "gx/GXAttr.c"),
+            Object(NonMatching, "gx/GXMisc.c"),
+            Object(NonMatching, "gx/GXGeometry.c"),
+            Object(NonMatching, "gx/GXFrameBuf.c"),
+            Object(NonMatching, "gx/GXLight.c"),
+            Object(NonMatching, "gx/GXTexture.c"),
+            Object(NonMatching, "gx/GXBump.c"),
+            Object(NonMatching, "gx/GXTev.c"),
+            Object(NonMatching, "gx/GXPixel.c"),
+            Object(NonMatching, "gx/GXDraw.c"),
+            Object(NonMatching, "gx/GXDisplayList.c"),
+            Object(NonMatching, "gx/GXTransform.c"),
+            Object(NonMatching, "gx/GXPerf.c"),
+        ],
+    ),
+    DolphinLib(
+        "mtx",
+        cflags_base,
+        [
+            Object(NonMatching, "mtx/mtx.c"),
+            Object(NonMatching, "mtx/mtxvec.c"),
+            Object(NonMatching, "mtx/mtx44.c"),
+            Object(NonMatching, "mtx/mtx44vec.c"),
+            Object(NonMatching, "mtx/vec.c"),
+        ],
+    ),
+    DolphinLib(
         "os",
         [*cflags_base, "-D__GEKKO__", "-i libs/dolsdk2004/src/dvd", "-i libs/dolsdk2004/src/os"],
         [
@@ -949,11 +1071,34 @@ config.libs = [
         ],
     ),
     DolphinLib(
+        "pad",
+        [*cflags_base, "-i libs/dolsdk2004/src/si"],
+        [
+            Object(NonMatching, "pad/Padclamp.c"),
+            Object(NonMatching, "pad/Pad.c"),
+        ],
+    ),
+    DolphinLib(
+        "si",
+        [*cflags_base, "-i libs/dolsdk2004/src/os"],
+        [
+            Object(NonMatching, "si/SIBios.c"),
+            Object(NonMatching, "si/SISamplingRate.c"),
+        ],
+    ),
+    DolphinLib(
         "thp",
         cflags_base,
         [
             Object(Matching, "thp/THPAudio.c"),
             Object(Matching, "thp/THPDec.c"),
+        ],
+    ),
+    DolphinLib(
+        "vi",
+        [*cflags_base, "-i libs/dolsdk2004/src/gx", "-i libs/dolsdk2004/src/os", "-i libs/dolsdk2004/src/vi"],
+        [
+            Object(NonMatching, "vi/vi.c"),
         ],
     ),
     Rel(

@@ -2,7 +2,7 @@
 #include <dolphin/pad.h>
 #include <dolphin/gx.h>
 #include <dolphin/vi.h>
-#include <dolphin/demo.h>
+#include <demo.h>
 
 #include "__demo.h"
 
