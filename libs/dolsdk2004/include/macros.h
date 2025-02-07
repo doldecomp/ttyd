@@ -28,4 +28,9 @@
     
 #define ASSERT(cond) ASSERTLINE(__LINE__, cond)
 
+#define ALIGN_PREV(u, align) (u & (~(align - 1)))
+#define ALIGN_NEXT(u, align) ((u + (align - 1)) & (~(align - 1)))
+#define IS_ALIGNED(X, N)     (((X) & ((N)-1)) == 0)
+#define IS_NOT_ALIGNED(X, N) (((X) & ((N)-1)) != 0)
+
 #endif // _H_MACROS_

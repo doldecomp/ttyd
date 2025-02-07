@@ -30,6 +30,7 @@ __local_PIO2$384 = .data:0x00000088; // type:object size:0x4 scope:local data:fl
 __local_PI$366 = .data:0x0000008C; // type:object size:0x4 scope:local data:float
 negone_one$360 = .data:0x00000090; // type:object size:0x8 scope:local
 neg_one$365 = .data:0x00000098; // type:object size:0x4 scope:local data:float
+lbl_23_data_9C = .data:0x0000009C; // type:object size:0x4
 __local_3PIO2$368 = .data:0x000000A0; // type:object size:0x4 scope:local data:float
 one_negone$359 = .data:0x000000A8; // type:object size:0x8 scope:local
 __local_PIO2$367 = .data:0x000000B0; // type:object size:0x4 scope:local data:float

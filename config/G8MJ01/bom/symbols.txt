@@ -996,6 +996,7 @@ init_tenin = .data:0x00007244; // type:object size:0x20 data:4byte
 talk_tenin = .data:0x00007264; // type:object size:0x8 data:4byte
 init_white = .data:0x0000726C; // type:object size:0x14C scope:local data:4byte
 mario_jump = .data:0x000073B8; // type:object size:0x314
+lbl_3_data_76CC = .data:0x000076CC; // type:object size:0x18
 iri_25_item_tbl = .data:0x000076E4; // type:object size:0x8
 talk_white = .data:0x000076EC; // type:object size:0x1D4 scope:local data:4byte
 iri_25_white_bed = .data:0x000078C0; // type:object size:0x5AC data:4byte

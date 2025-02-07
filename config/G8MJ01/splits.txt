@@ -3315,6 +3315,13 @@ os/OSResetSW.c:
 	.text       start:0x80295778 end:0x80295B04
 	.sbss       start:0x80418F00 end:0x80418F20
 
+os/OSRtc.c:
+	.text       start:0x80295B04 end:0x802967B8
+	.bss        start:0x8040CF80 end:0x8040CFD8
+
+os/OSSync.c:
+	.text       start:0x802967B8 end:0x8029683C
+
 os/OSThread.c:
 	.text       start:0x8029683C end:0x80297A48
 	.bss        start:0x8040CFD8 end:0x8040D9D0
@@ -3332,7 +3339,7 @@ os/__start.c:
 	.init       start:0x800051EC end:0x800054EC
 	.sbss       start:0x80418F30 end:0x80418F38
 
-os/__ppc_eabi_init.cpp:
+os/__ppc_eabi_init.c:
 	.init       start:0x800054EC end:0x80005544
 	.text       start:0x80297E6C end:0x80297F00
 
@@ -3398,7 +3405,7 @@ dvd/fstload.c:
 
 vi/vi.c:
 	.text       start:0x8029D6FC end:0x8029F53C
-	.data       start:0x803BF3E8 end:0x803BF7E0
+	.data       start:0x803BF3E8 end:0x803BF7D0
 	.bss        start:0x8040DBC8 end:0x8040DD10
 	.sdata      start:0x80418278 end:0x80418288
 	.sbss       start:0x80419008 end:0x80419070
