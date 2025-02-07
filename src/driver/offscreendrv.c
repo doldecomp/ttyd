@@ -58,8 +58,8 @@ s32 offscreenEntry(const char* name) { //1:1, needs variable names
 	entry->prevTop = 2;
 	entry->prevRight = 2;
 	entry->prevBottom = 2;
-	entry->field_0x3C = 5;
-	entry->field_0x40 = 5;
+	entry->unk3C = 5;
+	entry->unk40 = 5;
 	return i;
 }
 

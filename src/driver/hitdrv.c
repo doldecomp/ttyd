@@ -9,7 +9,7 @@ HitObj* lbl_80418408; // TODO: proper name
 
 // local prototypes
 void hitReCalcMatrix2(HitObj* hit, Mtx mtx, BOOL recursion);
-u16 hitCalcVtxPosition(HitObj* hit);
+s16 hitCalcVtxPosition(HitObj* hit);
 
 inline BOOL tempfunc(HitCheckQuery* query, HitVector* vector);
 inline BOOL tempfunc2(HitCheckQuery* query, HitVector* vector);
@@ -18,6 +18,7 @@ BOOL checkTriVec_xz(HitCheckQuery* query, HitVector* vector);
 BOOL chkFilterAttr(HitCheckQuery* query, HitObj* entry);
 void hitObjGetPosSub(HitObj* hit, Vec* position, s32* counter, BOOL recursion);
 void hitDamageReturnSet(HitObj* hit, HitDamageReturn* damage, BOOL recursion);
+s32 hitGetEntNum(HitObj* hitObject);
 
 void hitInit(void) {
     ; // stubbed in retail
@@ -47,13 +48,71 @@ void hitReInit(void) {
     }
 }
 
-void hitMain(void) {
-}
-
-#pragma dont_inline on
 HitObj* _hitEnt(MapFileJoint* joint, HitObj* parent, Mtx parentMtx, s32 mapIndex) {
+    MapWork* wp;
+    HitObj* hitObject;
+    Mtx v45; // [sp+D4h] [-4Ch] BYREF
+    Mtx v44; // [sp+A4h] [-7Ch] BYREF
+    Mtx v43; // [sp+74h] [-ACh] BYREF
+    Mtx v42; // [sp+44h] [-DCh] BYREF
+    Mtx v41; // [sp+14h] [-10Ch] BYREF
+    Vec v40; // [sp+8h] [-118h] BYREF
+    int i;
+    s32 numVectors;
+
+    wp = mapGetWork();
+    hitObject = wp->entries[mapIndex].hitObjects;
+    for (i = 0; i < wp->entries[mapIndex].hitNumJoints; i++) {
+        if (!hitObject->joint) {
+            break;
+        }
+        hitObject++;
+    }
+    hitObject->flags = 0;
+    hitObject->joint = joint;
+    hitObject->mapIndex = mapIndex;
+    PSMTXTrans(v45, joint->translation.x, joint->translation.y, joint->translation.z);
+    PSMTXScale(v44, joint->scale.x, joint->scale.y, joint->scale.z);
+    PSMTXRotRad(v43, 'x', MTXDegToRad(joint->rotation.x));
+    PSMTXRotRad(v42, 'y', MTXDegToRad(joint->rotation.y));
+    PSMTXRotRad(v41, 'z', MTXDegToRad(joint->rotation.z));
+    PSMTXConcat(v45, v41, v45);
+    PSMTXConcat(v45, v42, v45);
+    PSMTXConcat(v45, v43, v45);
+    PSMTXConcat(v45, v44, hitObject->unk3C);
+    PSMTXConcat(parentMtx, hitObject->unk3C, hitObject->unkC);
+    hitObject->parent = parent;
+    hitObject->next = 0;
+    hitObject->child = 0;
+    hitObject->unkAC = 0;
+    if (joint->drawMode) {
+        hitObject->attributes = joint->drawMode->unk8;
+    } else {
+        hitObject->attributes = 0;
+    }
+    if (joint->partCount) {
+        PSVECAdd(&joint->bboxMin, &joint->bboxMax, &hitObject->unk9C);
+        PSVECScale(&hitObject->unk9C, &hitObject->unk9C, 0.5);
+    } else {
+        hitObject->unk9C = joint->translation;
+    }
+    PSMTXMultVec(hitObject->unkC, &hitObject->unk9C, &hitObject->unkC0);
+    joint->bboxMin.x -= 0.1f;
+    joint->bboxMin.y -= 0.1f;
+    joint->bboxMin.z -= 0.1f;
+    joint->bboxMax.x += 0.1f;
+    joint->bboxMax.y += 0.1f;
+    joint->bboxMax.z += 0.1f;
+    PSMTXMultVec(hitObject->unkC, &hitObject->joint->bboxMax, &v40);
+    hitObject->unkCC = PSVECDistance(&v40, &hitObject->unkC0);
+
+    numVectors = hitGetEntNum(hitObject);
+    if (numVectors > 0) {
+        hitObject->unkAC = _mapAlloc(sizeof(HitVector) * numVectors);
+        hitObject->unkA8 = hitCalcVtxPosition(hitObject);
+    }
+    return hitObject;
 }
-#pragma dont_inline reset
 
 HitObj* hitEntrySub(MapFileJoint* joint, HitObj* parent, Mtx parentMtx, BOOL ignoreSiblings, s32 mapIndex) {
     HitObj* object;
@@ -70,7 +129,7 @@ HitObj* hitEntrySub(MapFileJoint* joint, HitObj* parent, Mtx parentMtx, BOOL ign
     return object;
 }
 
-HitObj* hitEntry(MapFileJoint* joint, f32 (*mtx)[4], s32 mapIndex) {
+HitObj* hitEntry(MapFileJoint* joint, Mtx mtx, s32 mapIndex) {
     MapWork* wp = mapGetWork();
     s32 numJoints;
     u32 size;
@@ -80,7 +139,14 @@ HitObj* hitEntry(MapFileJoint* joint, f32 (*mtx)[4], s32 mapIndex) {
     size = OSRoundUp32B(((wp->entries[mapIndex].hitNumJoints + 0x80) * 0xE4));
     wp->entries[mapIndex].hitObjects = _mapAlloc(size);
     memset(wp->entries[mapIndex].hitObjects, 0, size);
-    return hitEntrySub(joint, NULL, mtx, 1, mapIndex);
+    return hitEntrySub(joint, NULL, mtx, TRUE, mapIndex);
+}
+
+HitObj* hitEntryMOBJ(MapFileJoint* joint, Mtx mtx) {
+    MapWork* wp = mapGetWork();
+
+    wp->entries[0].hitNumJoints += mapGetJoints(joint);
+    return hitEntrySub(joint, NULL, mtx, TRUE, 0);
 }
 
 void hitReCalcMatrix(HitObj* hit, Mtx mtx) {
@@ -130,9 +196,11 @@ void hitReCalcMatrix2(HitObj* hit, Mtx mtx, BOOL recursion) {
     }
 }
 
-u16 hitCalcVtxPosition(HitObj* hit) {
+#pragma dont_inline on
+s16 hitCalcVtxPosition(HitObj* hit) {
     // TODO
 }
+#pragma dont_inline reset
 
 inline BOOL tempfunc(HitCheckQuery* query, HitVector* vector) {
     Vec sp80;
@@ -845,4 +913,34 @@ void hitBindUpdate(const char* name) {
         PSMTXScale(mtx, 10.0f, 10.0f, 10.0f);
         hitReCalcMatrix(hit, mtx);
     }
+}
+
+s32 hitGetEntNum(HitObj* hitObject) {
+    MapFileJoint* joint;
+    MapFileMesh* mesh;
+    s32 numVectors;
+    s32 i;
+
+    numVectors = 0;
+    joint = hitObject->joint;
+    for (i = 0; i < joint->partCount; i++) {
+        mesh = joint->parts[i].mesh;
+        if (mesh) {
+            if (!mesh->isPackedDisplay) {
+                s32 j;
+                for (j = 0; j < mesh->displayListCount; j++) {
+                    numVectors += (*mesh->displayLists[j].displayLists - 2);
+                }
+            } else {
+                s32 j;
+                for (j = 0; j < mesh->displayListCount; j++) {
+                    u8* data = mesh->displayLists[j * 2].packedDisplayLists;
+                    u32 vertCount = *(u16*)(data + 1);
+                    numVectors += (vertCount - 2);
+                }
+            }
+        }
+    }
+
+    return numVectors;
 }

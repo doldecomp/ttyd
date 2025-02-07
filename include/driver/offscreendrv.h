@@ -11,8 +11,8 @@ typedef struct OffscreenEntry {
 	u16 currRight; //0x18
 	u16 currBottom; //0x1A
 	u8 field_0x1C[0x3C - 0x1C]; //0x1C
-	s32 field_0x3C; //0x3C
-	s32 field_0x40; //0x40
+	s32 unk3C; //0x3C
+	s32 unk40; //0x40
 	u8 field_0x44[0x48 - 0x44]; //0x44
 	u16 prevLeft; //0x48
 	u16 prevTop; //0x4A
@@ -30,7 +30,3 @@ void offscreenReset(BOOL inBattle);
 s32 offscreenEntry(const char* name);
 void offscreenMain(void);
 void offscreenAddBoundingBox(s32 id, u16 left, u16 top, u16 right, u16 bottom);
-
-
-
-

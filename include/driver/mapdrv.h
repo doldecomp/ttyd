@@ -3,15 +3,41 @@
 #include <dolphin/gx.h>
 #include <dolphin/mtx.h>
 
+/*typedef struct DisplayList {
+    u32 offset;      // 0x00 - Offset to vertex data
+    u32 vertexCount; // 0x04 - Number of vertices
+} DisplayList;
+
+typedef struct PackedDisplayList {
+    u32 offset;      // 0x00 - Offset to packed data
+    u16 vertexCount; // 0x04 - Number of vertices
+    u8 padding[2];   // 0x06
+} PackedDisplayList;*/
+
+typedef struct MapFileMesh {
+	u8 unk0; //0x0
+	u8 padding[2]; //0x1
+	u8 isPackedDisplay; //0x3, BOOL
+	s32 displayListCount; //0x4
+	u32 elementMask; //0x8
+	u32 vcdTableOffset; //0xC
+    union {
+        u32* displayLists;  // 0x10
+        u8* packedDisplayLists;  // 0x10
+    } displayLists[];
+} MapFileMesh;
+
 typedef struct MapFileJointPart {
 	void* material; //0x0
-	void* mesh; //0x4
+	MapFileMesh* mesh; //0x4
 } MapFileJointPart;
 
 typedef struct MapJointDrawMode {
 	u8 unk0[0x1 - 0x0]; //0x0
 	u8 cullMode; //0x1
-	u8 unk2[0x10 - 0x2]; //0x2
+	u8 unk2[0x8 - 0x2]; //0x2
+	s32 unk8; //0x8
+	u8 unkC[0x10 - 0xC]; //0xC
 } MapJointDrawMode;
 
 
