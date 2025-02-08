@@ -13,12 +13,12 @@
 #endif
 
 static STREAM_INFO streamInfo[64];
-static u32 nextPublicID = 0;
+static u8 streamCallCnt;
+static u8 streamCallDelay;
 #if MUSY_VERSION >= MUSY_VERSION_CHECK(2, 0, 2)
 static struct streamDefaults streamDefaults;
 #endif
-static u8 streamCallDelay = 0;
-static u8 streamCallCnt = 0;
+static u32 nextPublicID;
 
 void streamInit() {
   s32 i;
@@ -279,7 +279,6 @@ void streamHandle() {
 void streamCorrectLoops() {}
 
 void streamKill(u32 voice) {
-  STREAM_INFO* si;
 #if MUSY_VERSION <= MUSY_VERSION_CHECK(2, 0, 1)
   si = &streamInfo[voice];
   switch (si->state) {
@@ -295,19 +294,21 @@ void streamKill(u32 voice) {
     break;
   }
 #else
-  u32 i;
+    u32 i; // r30
+    STREAM_INFO* si; // r31
 
-  for (i = 0; i < 64; ++i) {
-    si = &streamInfo[i];
-    if ((si->state == 1 || si->state == 2) && si->voice == voice) {
-      if (si->state == 2) {
-        voiceUnblock(si->voice); // TODO fix in release
-      }
-      si->state = 3;
-      si->updateFunction(0, 0, 0, 0, si->user);
-      break;
+    for (i = 0; i < 64; i++) {
+        u32 currVoice;
+        si = &streamInfo[i];
+        if ((si->state == 1 || si->state == 2) && ((currVoice = si->voice), currVoice == voice)) {
+            if (si->state == 2) {
+                voiceUnblock(currVoice);
+            }
+            si->state = 3;
+            si->updateFunction(0, 0, 0, 0, si->user);
+            break;
+        }
     }
-  }
 #endif
 }
 
