@@ -67,7 +67,8 @@ typedef enum PartySlotId {
 typedef struct UseStruct {
     u32 unk0; //0x0
     f32 unk4; //0x4
-    u8 field_0x8[0x18 - 0x8]; //0x8
+    f32 unk8; //0x8
+    u8 field_0x8[0x18 - 0xC]; //0xC
 } UseStruct;
 
 typedef struct PartyEntry {

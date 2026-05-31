@@ -98,3 +98,23 @@ f32 cloudGetBreathDir() {
     
     return breathDir;
 }
+
+f32 cloudGetBreathDist() {
+    u32 partyId = marioGetPartyId();
+    PartyEntry* party = partyGetPtr(partyId);
+    f32 breathDist;
+
+    if (party == NULL) {
+        breathDist = 0.0f;
+        return breathDist;
+    }
+
+    if ((party->currentMemberId != PARTY_FLURRIE || (party->flags & kIsBeingUsed) == 0) || party->useMotionId < kFall) {
+        breathDist = 0.0f;
+    }
+    else {
+        breathDist = party->useStruct->unk8;
+    }
+
+    return breathDist;
+}
