@@ -103,6 +103,12 @@ parser.add_argument(
     help="path to sjiswrap.exe (optional)",
 )
 parser.add_argument(
+    "--ninja",
+    metavar="BINARY",
+    type=Path,
+    help="path to ninja binary (optional)",
+)
+parser.add_argument(
     "--verbose",
     action="store_true",
     help="print verbose output",
@@ -112,6 +118,13 @@ parser.add_argument(
     dest="non_matching",
     action="store_true",
     help="builds equivalent (but non-matching) or modded objects",
+)
+parser.add_argument(
+    "--warn",
+    dest="warn",
+    type=str,
+    choices=["all", "off", "error"],
+    help="how to handle warnings",
 )
 parser.add_argument(
     "--no-progress",
@@ -134,6 +147,7 @@ config.compilers_path = args.compilers
 config.generate_map = args.map
 config.non_matching = args.non_matching
 config.sjiswrap_path = args.sjiswrap
+config.ninja_path = args.ninja
 config.progress = args.progress
 if not is_windows():
     config.wrapper = args.wrapper
@@ -142,12 +156,12 @@ if not config.non_matching:
     config.asm_dir = None
 
 # Tool versions
-config.binutils_tag = "2.42-1"
-config.compilers_tag = "20240706"
-config.dtk_tag = "v1.4.1"
-config.objdiff_tag = "v2.7.1"
-config.sjiswrap_tag = "v1.2.0"
-config.wibo_tag = "0.6.11"
+config.binutils_tag = "2.42-2"
+config.compilers_tag = "20260305"
+config.dtk_tag = "v1.8.3"
+config.objdiff_tag = "v3.7.1"
+config.sjiswrap_tag = "v1.2.2"
+config.wibo_tag = "1.1.0"
 
 # Project
 config.config_path = Path("config") / config.version / "config.yml"
@@ -158,7 +172,6 @@ config.asflags = [
     "-I include",
     f"-I build/{config.version}/include",
     f"--defsym BUILD_VERSION={version_num}",
-    f"--defsym VERSION_{config.version}",
 ]
 config.ldflags = [
     "-fp hardware",
