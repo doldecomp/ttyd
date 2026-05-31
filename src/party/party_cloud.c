@@ -32,10 +32,11 @@ void cloudResetAt() {
 
     if(party != NULL && party->currentMemberId == PARTY_FLURRIE) {
         CameraEntry* camera = camGetPtr(CAMERA_3D);
-
-        cloud_at->x = (camera->target).x;
-        cloud_at->y = (camera->target).y;
-        cloud_at->z = (camera->target).z;
+        cloud_at.x = camera->target.x;
+        camera = camGetPtr(CAMERA_3D);
+        cloud_at.y = camera->target.y;
+        camera = camGetPtr(CAMERA_3D);
+        cloud_at.z = camera->target.z;
 
         marioCamZoomOffReq2(600);
     }
@@ -43,6 +44,6 @@ void cloudResetAt() {
     mario->dispFlags = mario->dispFlags & ~(1 << 8); //kDisableMakeDispDir
     mario->dispFlags = mario->dispFlags & ~(1 << 2); //kForceFrontPose
     marioAdjustMoveDir();
-    mario->unk150.x = float_0p01_8041dfb0;
-    mario->unk138 = float_0_8041df70;
+    mario->unk150.x = 0.01f;
+    mario->unk138 = 0.0f;
 }
