@@ -212,3 +212,7 @@ s32 partyEntry2(s32 memberId) {
 	return -1;
 }
 */
+
+void partySetCamId(PartyEntry* party, s32 cameraId) {
+	party->camId = cameraId;
+}
