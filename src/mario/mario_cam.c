@@ -22,9 +22,9 @@ void marioResetCamShift(void) {
 void marioResetCamShiftRate(void) {
     MarioWork* mario = marioGetPtr();
 
-    mario->unk150 = 0.03;
-    mario->unk154 = 0.06;
-    mario->unk158 = 0.06;
+    mario->unk150.x = 0.03;
+    mario->unk150.y = 0.06;
+    mario->unk150.z = 0.06;
     mario->unk64 = 0.0f;
     mario->unk68 = 2.0f;
     mario->unk6C = (Vec){ 0.0f, 0.0f, 0.0f };
@@ -195,7 +195,7 @@ BOOL marioCamZoomUp(void) {
         yOffset = (320.0f - (f32)mario->unk16C) / 3.5f;
     }
 
-    if (party && party->currentMemberId == PARTY_FLURRIE && party->flags & 0x100) {
+    if (party && party->currentMemberId == PARTY_MEMBER_FLURRIE && party->flags & 0x100) {
         angleAdjust = toMovedir(mario->unk1A8) >= 180.0f ? -70.0f : 70.0f;
         tempX = mario->unk168;
         zoomDistance = 550.0f;
