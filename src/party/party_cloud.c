@@ -47,3 +47,19 @@ void cloudResetAt() {
     mario->unk150.x = 0.01f;
     mario->unk138 = 0.0f;
 }
+
+u8 cloudGetStatus() {
+    u32 partyId = marioGetPartyId();
+    PartyEntry* party = partyGetPtr(partyId);
+    u8 status = 2;
+
+    if (party == NULL || (party->currentMemberId == PARTY_FLURRIE && (party->flags & (1 << 8)) == 0)) {
+        status = 0;
+        return status;
+    }
+    else if (party->useMotionId == 10 && party->useMotionId < 20) {
+        status = 1;
+    }
+
+    return status;
+}

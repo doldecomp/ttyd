@@ -4,3 +4,4 @@
 
 void cloudGetAt(Vec* position);
 void cloudResetAt();
+u8 cloudGetStatus();
