@@ -1,6 +1,7 @@
 #include "party/party_cloud.h"
 #include "party.h"
 #include "mario/mario.h"
+#include "mario/mario_sbr.h"
 
 Vec cloud_at;
 
@@ -74,4 +75,26 @@ void mot_cloud() {
         mario->airTimer = 0;
         mario->currSubMotionId = 0;
     }
+}
+
+f32 cloudGetBreathDir() {
+    PartyEntry* party = partyGetPtr(kParty);
+    f32 breathDir;
+
+    if (party == NULL) {
+        breathDir = 0.0f;
+        return breathDir;
+    }
+
+    if ((party->flags & kIsBeingUsed) != 0 && (party->useMotionId < 10)){
+        breathDir = -1.0f;
+    }
+    else if (party->useStruct == NULL) {
+        breathDir = 0.0f;
+    }
+    else {
+        breathDir = toMovedir(party->useStruct->unk4);
+    }
+    
+    return breathDir;
 }

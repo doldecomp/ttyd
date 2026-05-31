@@ -5,3 +5,4 @@
 void cloudGetAt(Vec* position);
 void cloudResetAt();
 u8 cloudGetStatus();
+f32 cloudGetBreathDir(void);
