@@ -50,6 +50,41 @@ typedef enum MarioMotion {
 } MarioMotion;
 #pragma enumsalwaysint on
 
+// #pragma enumsalwaysint off
+// typedef enum MarioFlags {
+// 	kActive = 0x1,
+// 	kCtrlOff = 0x2,
+// 	kCtrlOff2 = 0x4,
+// 	kKeyOff = 0x8,
+// 	kForcedMovement = 0x20,
+// 	kUseForceDirection = 0x40,
+// 	kStopAirMovement = 0x80,
+// 	kFloorsDisabled = 0x100,
+// 	kForceFall = 0x200,
+// 	kWallsDisabled = 0x400,
+// 	kHammerHitWall = 0x800,
+// 	kPreBattlePhysics = 0x1000,
+// 	kIsCarryingBobbery = 0x2000,
+// 	kItemGetDisabled = 0x4000,
+// 	kIsPushing = 0x8000,
+// 	kIsJumping = 0x10000,
+// 	kIsFalling = 0x20000,
+// 	kIsStepping = 0x40000,
+// 	kHasInputJump = 0x80000,
+// 	kPaperMode = 0x100000,
+// 	kGoneThroughBars = 0x200000,
+// 	kPartyWalkDisabled = 0x400000,
+// 	kSlitAbilityDisabled = 0x800000,
+// 	kTubeMode = 0x1000000,
+// 	kBgMode = 0x2000000,
+// 	kInShallowWater = 0x4000000,
+// 	kIsTouchingCeiling = 0x8000000,
+// 	kChgMotDisabled = 0x10000000,
+// 	kIsShadowMario = 0x40000000,
+// 	kIs8Bit = 0x80000000
+// } MarioFlags;
+// #pragma enumsalwaysint on
+
 //TODO: US struct is bigger, 0x2F8 vs 0x2E0
 typedef struct MarioWork {
 	u32 flags; //0x0

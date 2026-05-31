@@ -70,7 +70,7 @@ void mot_cloud() {
     
     if((mario->trigFlags & 0x1) != 0) {
         mario->trigFlags &= ~0x1;
-        mario->flags &= ~0xF0000;
+        mario->flags &= ~0xF0000; //~(kHasInputJump|kIsStepping|kIsFalling|kIsJumping);
         mario->wMultiTimer = 0;
         mario->airTimer = 0;
         mario->currSubMotionId = 0;
@@ -86,7 +86,7 @@ f32 cloudGetBreathDir() {
         return breathDir;
     }
 
-    if ((party->flags & kIsBeingUsed) != 0 && (party->useMotionId < 10)){
+    if ((party->flags & kIsBeingUsed) != 0 && (party->useMotionId < kFall)){
         breathDir = -1.0f;
     }
     else if (party->useStruct == NULL) {
