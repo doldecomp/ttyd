@@ -94,9 +94,7 @@ typedef struct MarioWork {
 	f32 unk144; //0x144
 	f32 unk148; //0x148
 	f32 unk14C; //0x14C
-	f32 unk150; //0x150
-	f32 unk154; //0x154
-	f32 unk158; //0x158
+	Vec unk150; //0x150
 	f32 camFollowRate; //0x15C
 	u8 unk160[0x168 - 0x160]; //0x160
 	s32 unk168; //0x168
