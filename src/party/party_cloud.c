@@ -10,7 +10,7 @@ void cloudGetAt(Vec* position) {
     u32 partyId = marioGetPartyId();
     PartyEntry* party = partyGetPtr(partyId);
 
-    if (party == NULL || (party->currentMemberId == PARTY_FLURRIE && (party->flags & (1 << 8)) == 0)) {
+    if (party == NULL || (party->currentMemberId == PARTY_MEMBER_FLURRIE && (party->flags & PARTY_FLAG_IS_BEING_USED) == 0)) {
         return;
     }
 
@@ -31,7 +31,7 @@ void cloudResetAt() {
     u32 partyId = marioGetPartyId();
     PartyEntry* party = partyGetPtr(partyId);
 
-    if(party != NULL && party->currentMemberId == PARTY_FLURRIE) {
+    if(party != NULL && party->currentMemberId == PARTY_MEMBER_FLURRIE) {
         CameraEntry* camera = camGetPtr(CAMERA_3D);
         cloud_at.x = camera->target.x;
         camera = camGetPtr(CAMERA_3D);
@@ -54,7 +54,7 @@ u8 cloudGetStatus() {
     PartyEntry* party = partyGetPtr(partyId);
     u8 status = 2;
 
-    if (party == NULL || (party->currentMemberId == PARTY_FLURRIE && (party->flags & (1 << 8)) == 0)) {
+    if (party == NULL || (party->currentMemberId == PARTY_MEMBER_FLURRIE && (party->flags & PARTY_FLAG_IS_BEING_USED) == 0)) {
         status = 0;
         return status;
     }
@@ -70,7 +70,7 @@ void mot_cloud() {
     
     if((mario->trigFlags & 0x1) != 0) {
         mario->trigFlags &= ~0x1;
-        mario->flags &= ~0xF0000; //~(kHasInputJump|kIsStepping|kIsFalling|kIsJumping);
+        mario->flags &= ~(MARIO_HAS_INPUT_JUMP|MARIO_IS_STEPPING|MARIO_IS_FALLING|MARIO_IS_JUMPING);
         mario->wMultiTimer = 0;
         mario->airTimer = 0;
         mario->currSubMotionId = 0;
@@ -86,7 +86,7 @@ f32 cloudGetBreathDir() {
         return breathDir;
     }
 
-    if ((party->flags & kIsBeingUsed) != 0 && (party->useMotionId < kFall)){
+    if ((party->flags & PARTY_FLAG_IS_BEING_USED) != 0 && (party->useMotionId < MARIO_MOTION_FALL)){
         breathDir = -1.0f;
     }
     else if (party->useStruct == NULL) {
@@ -109,7 +109,7 @@ f32 cloudGetBreathDist() {
         return breathDist;
     }
 
-    if ((party->currentMemberId != PARTY_FLURRIE || (party->flags & kIsBeingUsed) == 0) || party->useMotionId < kFall) {
+    if ((party->currentMemberId != PARTY_MEMBER_FLURRIE || (party->flags & PARTY_FLAG_IS_BEING_USED) == 0) || party->useMotionId < MARIO_MOTION_FALL) {
         breathDist = 0.0f;
     }
     else {

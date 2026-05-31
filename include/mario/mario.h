@@ -5,85 +5,85 @@
 
 #pragma enumsalwaysint off
 typedef enum MarioMotion {
-	kStay, //0x0
-	kWalk, //0x1
-	kDash, //0x2
-	kJump, //0x3
-	kJumpNPC, //0x4
-	kJumpSw, //0x5
-	kJumpStand, //0x6
-	kJump2, //0x7
-	kJump3, //0x8
-	kJumpSmall, //0x9
-	kFall, //0xA
-	kFall2, //0xB
-	kUpstairs, //0xC
-	kLand, //0xD
-	kTalk, //0xE
-	kGetItem, //0xF
-	kHip, //0x10
-	kHip2, //0x11
-	kHammer, //0x12
-	kHammer2, //0x13
-	kJabara, //0x14
-	kSlit, //0x15
-	kRoll, //0x16
-	kKaze, //0x17
-	kPlane, //0x18
-	kShip, //0x19
-	kYoshi, //0x1A
-	kCloud, //0x1B
-	kVivian, //0x1C
-	kDokan, //0x1D
-	kGrasp, //0x1E
-	kDamage, //0x1F
-	kDamageToge, //0x20
-	kBottomless, //0x21
-	kForceReset, //0x22
-	kShadow, //0x23
-	kPartyUse, //0x24
-	kKpaSwim, //0x25
-	kKpaPowUp, //0x26
-	kKpaPowDown, //0x27
-	kDummy, //0x28
-	kMotionMax = 0xFFFF
+	MARIO_MOTION_STAY, //0x0
+	MARIO_MOTION_WALK, //0x1
+	MARIO_MOTION_DASH, //0x2
+	MARIO_MOTION_JUMP, //0x3
+	MARIO_MOTION_JUMP_NPC, //0x4
+	MARIO_MOTION_JUMP_SW, //0x5
+	MARIO_MOTION_JUMP_STAND, //0x6
+	MARIO_MOTION_JUMP_2, //0x7
+	MARIO_MOTION_JUMP_3, //0x8
+	MARIO_MOTION_JUMP_SMALL, //0x9
+	MARIO_MOTION_FALL, //0xA
+	MARIO_MOTION_FALL_2, //0xB
+	MARIO_MOTION_UPSTAIRS, //0xC
+	MARIO_MOTION_LAND, //0xD
+	MARIO_MOTION_TALK, //0xE
+	MARIO_MOTION_GET_ITEM, //0xF
+	MARIO_MOTION_HIP, //0x10
+	MARIO_MOTION_HIP_2, //0x11
+	MARIO_MOTION_HAMMER, //0x12
+	MARIO_MOTION_HAMMER_2, //0x13
+	MARIO_MOTION_JABARA, //0x14
+	MARIO_MOTION_SLIT, //0x15
+	MARIO_MOTION_ROLL, //0x16
+	MARIO_MOTION_KAZE, //0x17
+	MARIO_MOTION_PLANE, //0x18
+	MARIO_MOTION_SHIP, //0x19
+	MARIO_MOTION_YOSHI, //0x1A
+	MARIO_MOTION_CLOUD, //0x1B
+	MARIO_MOTION_VIVIAN, //0x1C
+	MARIO_MOTION_DOKAN, //0x1D
+	MARIO_MOTION_GRASP, //0x1E
+	MARIO_MOTION_DAMAGE, //0x1F
+	MARIO_MOTION_DAMAGE_TOGE, //0x20
+	MARIO_MOTION_BOTTOMLESS, //0x21
+	MARIO_MOTION_FORCE_RESET, //0x22
+	MARIO_MOTION_SHADOW, //0x23
+	MARIO_MOTION_PARTY_USE, //0x24
+	MARIO_MOTION_KPA_SWIM, //0x25
+	MARIO_MOTION_KPA_POW_UP, //0x26
+	MARIO_MOTION_KPA_POW_DOWN, //0x27
+	MARIO_MOTION_DUMMY, //0x28
+	MARIO_MOTION_MOTION_MAX = 0xFFFF
 } MarioMotion;
 #pragma enumsalwaysint on
 
-// #pragma enumsalwaysint off
-// typedef enum MarioFlags {
-// 	kActive = 0x1,
-// 	kCtrlOff = 0x2,
-// 	kCtrlOff2 = 0x4,
-// 	kKeyOff = 0x8,
-// 	kForcedMovement = 0x20,
-// 	kUseForceDirection = 0x40,
-// 	kStopAirMovement = 0x80,
-// 	kFloorsDisabled = 0x100,
-// 	kForceFall = 0x200,
-// 	kWallsDisabled = 0x400,
-// 	kHammerHitWall = 0x800,
-// 	kPreBattlePhysics = 0x1000,
-// 	kIsCarryingBobbery = 0x2000,
-// 	kItemGetDisabled = 0x4000,
-// 	kIsPushing = 0x8000,
-// 	kIsJumping = 0x10000,
-// 	kIsFalling = 0x20000,
-// 	kIsStepping = 0x40000,
-// 	kHasInputJump = 0x80000,
-// 	kPaperMode = 0x100000,
-// 	kGoneThroughBars = 0x200000,
-// 	kPartyWalkDisabled = 0x400000,
-// 	kSlitAbilityDisabled = 0x800000,
-// 	kTubeMode = 0x1000000,
-// 	kBgMode = 0x2000000,
-// 	kInShallowWater = 0x4000000,
-// 	kIsTouchingCeiling = 0x8000000,
-// 	kChgMotDisabled = 0x10000000,
-// 	kIsShadowMario = 0x40000000,
-// 	kIs8Bit = 0x80000000
-// } MarioFlags;
-// #pragma enumsalwaysint on
+#pragma enumsalwaysint off
+typedef enum MarioFlags {
+	MARIO_ACTIVE = 0x1,
+	MARIO_CTRL_OFF = 0x2,
+	MARIO_CTRL_OFF_2 = 0x4,
+	MARIO_KEY_OFF = 0x8,
+	MARIO_FORCED_MOVEMENT = 0x20,
+	MARIO_USE_FORCE_DIRECTION = 0x40,
+	MARIO_STOP_AIR_MOVEMENT = 0x80,
+	MARIO_FLOORS_DISABLED = 0x100,
+	MARIO_FORCE_WALL = 0x200,
+	MARIO_WALLS_DISABLED = 0x400,
+	MARIO_HAMMER_HIT_WALL = 0x800,
+	MARIO_PRE_BATTLE_PHYSICS = 0x1000,
+	MARIO_IS_CARRYING_BOBBERY = 0x2000,
+	MARIO_ITEM_GET_DISABLED = 0x4000,
+	MARIO_IS_PUSHING = 0x8000,
+	MARIO_IS_JUMPING = 0x10000,
+	MARIO_IS_FALLING = 0x20000,
+	MARIO_IS_STEPPING = 0x40000,
+	MARIO_HAS_INPUT_JUMP = 0x80000,
+	MARIO_PAPER_MODE = 0x100000,
+	MARIO_GONE_THROUGH_BARS = 0x200000,
+	MARIO_PARTY_WALK_DISABLED = 0x400000,
+	MARIO_SLIT_ABILITY_DISABLED = 0x800000,
+	MARIO_TUBE_MODE = 0x1000000,
+	MARIO_BG_MODE = 0x2000000,
+	MARIO_IN_SHALLOW_WATER = 0x4000000,
+	MARIO_IS_TOUCHING_CEILING = 0x8000000,
+	MARIO_CHG_MOT_DISABLED = 0x10000000,
+	MARIO_IS_SHADOW_MARIO = 0x40000000,
+	MARIO_IS_8_BIT = 0x80000000
+} MarioFlags;
+#pragma enumsalwaysint on
 
 //TODO: US struct is bigger, 0x2F8 vs 0x2E0
 typedef struct MarioWork {
