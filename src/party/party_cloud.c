@@ -63,3 +63,15 @@ u8 cloudGetStatus() {
 
     return status;
 }
+
+void mot_cloud() {
+    MarioWork* mario = marioGetPtr();
+    
+    if((mario->trigFlags & 0x1) != 0) {
+        mario->trigFlags &= ~0x1;
+        mario->flags &= ~0xF0000;
+        mario->wMultiTimer = 0;
+        mario->airTimer = 0;
+        mario->currSubMotionId = 0;
+    }
+}
