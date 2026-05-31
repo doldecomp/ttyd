@@ -1,6 +1,8 @@
 #include "party/party_cloud.h"
 #include "party.h"
 
+Vec cloud_at;
+
 void cloudGetAt(Vec* position) {
     MarioWork* mario = marioGetPtr();
     u32 partyId = marioGetPartyId();
