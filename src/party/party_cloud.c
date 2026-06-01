@@ -2,6 +2,8 @@
 #include "party.h"
 #include "mario/mario.h"
 #include "mario/mario_sbr.h"
+#include "mario/mario_party.h"
+#include "mario/mario_cam.h"
 
 Vec cloud_at;
 
