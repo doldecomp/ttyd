@@ -72,7 +72,7 @@ void mot_cloud() {
     
     if((mario->trigFlags & 0x1) != 0) {
         mario->trigFlags &= ~0x1;
-        mario->flags &= ~(MARIO_HAS_INPUT_JUMP|MARIO_IS_STEPPING|MARIO_IS_FALLING|MARIO_IS_JUMPING);
+        mario->flags &= ~(MARIO_FLAG_HAS_INPUT_JUMP|MARIO_FLAG_IS_STEPPING|MARIO_FLAG_IS_FALLING|MARIO_FLAG_IS_JUMPING);
         mario->wMultiTimer = 0;
         mario->airTimer = 0;
         mario->currSubMotionId = 0;
