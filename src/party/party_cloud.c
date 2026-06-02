@@ -159,3 +159,47 @@ f32 cloudGetBreathPower(f32 param_1, Vec* param_2) {
 
     return breathPower;
 }
+
+
+// Might be beyond me at the moment
+//
+// u8 cloudGetHitBreathout(u8 param_1) {
+//     u32 partyId = marioGetPartyId();
+//     PartyEntry* party = partyGetPtr(partyId);
+//     u8 hitBreathout;
+
+//     if (party == NULL) {
+//         hitBreathout = 0.0f;
+//         return hitBreathout;
+//     }
+
+//     if (
+//         party->currentMemberId == PARTY_MEMBER_FLURRIE 
+//         && (party->flags & PARTY_FLAG_IS_BEING_USED) != 0 
+//         && party->useMotionId >= MARIO_MOTION_FALL
+//     ){
+//         hitBreathout = 0;
+//         switch (param_1) {
+//             case 0: 
+//                 hitBreathout = (int)party->useStruct + 0x20;
+//                 break;
+//             case 1: 
+//                 hitBreathout = (int)party->useStruct + 0x24;
+//                 break;
+//             case 2: 
+//                 hitBreathout = (int)party->useStruct + 0x28;
+//                 break;
+//             case 3: 
+//                 hitBreathout = (int)party->useStruct + 0x2C;
+//                 break;
+//             default: 
+//                 hitBreathout = 0;
+//                 break;
+//         }
+//         return hitBreathout;
+//     }
+//     else {
+//         hitBreathout = 0;
+//     }
+//     return hitBreathout;
+// }
