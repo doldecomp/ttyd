@@ -34,7 +34,7 @@ typedef struct {
     MtxPtr stackPtr;
 } MTXStack;
 
-#define MTXDegToRad(d) (d * 0.01745329252f)
+#define MTXDegToRad(d) ((d) * 0.01745329252f)
 #define MTXRadToDeg(r) (r * 57.29577951f)
 
 // MTX

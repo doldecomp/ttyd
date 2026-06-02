@@ -233,7 +233,7 @@ typedef struct AnimationWork {
     Vec* vtxArrayNrm;                 // 0xFC
     FileEntry* mp_ag2tg;              // 0x100
     void* testHeap;                   // 0x104
-    void* testAlloc;                  // 0x108
+    u32 testAlloc;                    // 0x108
     BOOL inBattle;                    // 0x10C
 } AnimationWork;
 
