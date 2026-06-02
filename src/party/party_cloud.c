@@ -4,6 +4,8 @@
 #include "mario/mario_sbr.h"
 #include "mario/mario_party.h"
 #include "mario/mario_cam.h"
+#include "system.h"
+#include <math.h>
 
 Vec cloud_at;
 
@@ -119,4 +121,41 @@ f32 cloudGetBreathDist() {
     }
 
     return breathDist;
+}
+
+f32 cloudGetBreathPower(f32 param_1, Vec* param_2) {
+    PartyEntry* party = partyGetPtr(kParty);
+    f32 breathPower;
+    f32 dist;
+    f32 angle;
+    f32 unk8;
+    f32 val;
+
+    breathPower = 0.0f;
+    if (party == NULL)  {
+        return breathPower;
+    }
+
+    val = 10.0f;
+    if(
+        party->currentMemberId == PARTY_MEMBER_FLURRIE 
+        && (party->flags & PARTY_FLAG_IS_BEING_USED) != 0 
+        && party->useMotionId >= MARIO_MOTION_FALL
+        && ((fabs(party->position.y - param_2->y - 18.0f)) <= val)
+    ) {
+        unk8 = party->useStruct->unk8;
+        if (-((0.5f * param_1) - distABf(party->position.x, party->position.z, param_2->x, param_2->z)) <= unk8) {
+            dist = toMovedir(party->useStruct->unk4);
+            angle = angleABf(party->position.x, party->position.z, param_2->x, param_2->z);
+            dist = revise360(angle - dist);
+            
+            if (dist <= 30.0f || dist >= 330.0f) {
+                breathPower = cos((3.1415927f * dist) / 180.0f);
+                val = 100.0f;
+                breathPower = val * fabsf(breathPower);
+            }
+        }
+    }
+
+    return breathPower;
 }
