@@ -1,4 +1,5 @@
 #include "party/party_cloud.h"
+#include "dolphin/types.h"
 #include "party.h"
 #include "mario/mario.h"
 #include "mario/mario_sbr.h"
@@ -97,7 +98,7 @@ f32 cloudGetBreathDir() {
         breathDir = 0.0f;
     }
     else {
-        breathDir = toMovedir(party->useStruct->unk4);
+        breathDir = toMovedir(*(float*)((int)party->useStruct + 0x4));
     }
     
     return breathDir;
@@ -117,7 +118,7 @@ f32 cloudGetBreathDist() {
         breathDist = 0.0f;
     }
     else {
-        breathDist = party->useStruct->unk8;
+        breathDist = *(float*)((int)party->useStruct + 0x8);
     }
 
     return breathDist;
@@ -143,9 +144,9 @@ f32 cloudGetBreathPower(f32 param_1, Vec* param_2) {
         && party->useMotionId >= MARIO_MOTION_FALL
         && ((fabs(party->position.y - param_2->y - 18.0f)) <= val)
     ) {
-        unk8 = party->useStruct->unk8;
+        unk8 = *(float*)((int)party->useStruct + 0x8);
         if (-((0.5f * param_1) - distABf(party->position.x, party->position.z, param_2->x, param_2->z)) <= unk8) {
-            dist = toMovedir(party->useStruct->unk4);
+            dist = toMovedir(*(float*)((int)party->useStruct + 0x4));
             angle = angleABf(party->position.x, party->position.z, param_2->x, param_2->z);
             dist = revise360(angle - dist);
             

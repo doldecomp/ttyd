@@ -64,13 +64,6 @@ typedef enum PartySlotId {
 } PartySlotId;
 #pragma enumsalwaysint on
 
-typedef struct UseStruct {
-    u32 unk0; //0x0
-    f32 unk4; //0x4
-    f32 unk8; //0x8
-    u8 field_0x8[0x18 - 0xC]; //0xC
-} UseStruct;
-
 typedef struct PartyEntry {
 	u32 flags; //0x0
 	u32 flags2; //0x4
@@ -91,7 +84,7 @@ typedef struct PartyEntry {
 	s32 camId; //0x164
     s32 yoshiPsndSFXId	; //0x168
     s32 unk16C; //0x16C
-    UseStruct* useStruct; //0x170
+    void* useStruct; //0x170
 	u8 field_0x168[0x188 - 0x174]; //0x174
 } PartyEntry;
 
