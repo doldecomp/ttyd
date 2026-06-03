@@ -94,7 +94,8 @@ f32 cloudGetBreathDir() {
         breathDir = 0.0f;
     }
     else {
-        breathDir = toMovedir(*(float*)((int)party->useStruct + 0x4));
+        PartyCloud* cloud = (PartyCloud*)party->useStruct;
+        breathDir = toMovedir(cloud->unk4);
     }
     
     return breathDir;
@@ -114,7 +115,8 @@ f32 cloudGetBreathDist() {
         breathDist = 0.0f;
     }
     else {
-        breathDist = *(float*)((int)party->useStruct + 0x8);
+        PartyCloud* cloud = (PartyCloud*)party->useStruct;
+        breathDist = cloud->unk8;
     }
 
     return breathDist;
@@ -140,9 +142,11 @@ f32 cloudGetBreathPower(f32 param_1, Vec* param_2) {
         && party->useMotionId >= MARIO_MOTION_FALL
         && ((fabs(party->position.y - param_2->y - 18.0f)) <= val)
     ) {
-        unk8 = *(float*)((int)party->useStruct + 0x8);
+        PartyCloud* cloud = (PartyCloud*)party->useStruct;
+        unk8 = cloud->unk8;
         if (-((0.5f * param_1) - distABf(party->position.x, party->position.z, param_2->x, param_2->z)) <= unk8) {
-            dist = toMovedir(*(float*)((int)party->useStruct + 0x4));
+            PartyCloud* cloud = (PartyCloud*)party->useStruct;
+            dist = toMovedir(cloud->unk4);
             angle = angleABf(party->position.x, party->position.z, param_2->x, param_2->z);
             dist = revise360(angle - dist);
             
