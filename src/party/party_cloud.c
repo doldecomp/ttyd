@@ -37,12 +37,9 @@ void cloudResetAt() {
     PartyEntry* party = partyGetPtr(partyId);
 
     if(party != NULL && party->currentMemberId == PARTY_MEMBER_FLURRIE) {
-        CameraEntry* camera = camGetPtr(CAMERA_3D);
-        cloud_at.x = camera->target.x;
-        camera = camGetPtr(CAMERA_3D);
-        cloud_at.y = camera->target.y;
-        camera = camGetPtr(CAMERA_3D);
-        cloud_at.z = camera->target.z;
+        cloud_at.x = camGetPtr(CAMERA_3D)->target.x;
+        cloud_at.y = camGetPtr(CAMERA_3D)->target.y;
+        cloud_at.z = camGetPtr(CAMERA_3D)->target.z;
 
         marioCamZoomOffReq2(600);
     }
