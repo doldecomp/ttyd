@@ -44,8 +44,8 @@ void cloudResetAt() {
         marioCamZoomOffReq2(600);
     }
 
-    mario->dispFlags = mario->dispFlags & ~(1 << 8); //kDisableMakeDispDir
-    mario->dispFlags = mario->dispFlags & ~(1 << 2); //kForceFrontPose
+    mario->dispFlags &= ~(1 << 8); //kDisableMakeDispDir
+    mario->dispFlags &= ~(1 << 2); //kForceFrontPose
     marioAdjustMoveDir();
     mario->unk150.x = 0.01f;
     mario->unk138 = 0.0f;
@@ -84,8 +84,7 @@ f32 cloudGetBreathDir() {
     f32 breathDir;
 
     if (party == NULL) {
-        breathDir = 0.0f;
-        return breathDir;
+        return 0.0f;
     }
 
     if ((party->flags & PARTY_FLAG_IS_BEING_USED) != 0 && (party->useMotionId < MARIO_MOTION_FALL)){
