@@ -58,9 +58,9 @@ typedef enum PartyFlags {
 
 #pragma enumsalwaysint off
 typedef enum PartySlotId {
-    kParty, //0x0
-    kFollower, //0x1
-    kNone = 0xFFFFFFFF
+    PARTY_SLOT_PARTY = 0, //0x0
+    PARTY_SLOT_FOLLOWER = 1, //0x1
+    PARTY_SLOT_NONE = -1
 } PartySlotId;
 #pragma enumsalwaysint on
 
