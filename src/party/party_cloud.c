@@ -76,14 +76,14 @@ void mot_cloud() {
     if((mario->trigFlags & 0x1) != 0) {
         mario->trigFlags &= ~0x1;
         mario->flags &= ~(MARIO_FLAG_HAS_INPUT_JUMP|MARIO_FLAG_IS_STEPPING|MARIO_FLAG_IS_FALLING|MARIO_FLAG_IS_JUMPING);
-        mario->wMultiTimer = 0;
+        mario->multiTimer = 0;
         mario->airTimer = 0;
         mario->currSubMotionId = 0;
     }
 }
 
 f32 cloudGetBreathDir() {
-    PartyEntry* party = partyGetPtr(kParty);
+    PartyEntry* party = partyGetPtr(PARTY_SLOT_PARTY);
     f32 breathDir;
 
     if (party == NULL) {
@@ -125,7 +125,7 @@ f32 cloudGetBreathDist() {
 }
 
 f32 cloudGetBreathPower(f32 param_1, Vec* param_2) {
-    PartyEntry* party = partyGetPtr(kParty);
+    PartyEntry* party = partyGetPtr(PARTY_SLOT_PARTY);
     f32 breathPower;
     f32 dist;
     f32 angle;
