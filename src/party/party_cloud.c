@@ -1,5 +1,6 @@
 #include "party/party_cloud.h"
 #include "dolphin/types.h"
+#include "musyx/musyx.h"
 #include "party.h"
 #include "mario/mario.h"
 #include "mario/mario_sbr.h"
@@ -162,45 +163,36 @@ f32 cloudGetBreathPower(f32 param_1, Vec* param_2) {
 }
 
 
-// Might be beyond me at the moment
-//
-// u8 cloudGetHitBreathout(u8 param_1) {
-//     u32 partyId = marioGetPartyId();
-//     PartyEntry* party = partyGetPtr(partyId);
-//     u8 hitBreathout;
+s32 cloudGetHitBreathout(s32 param_1) {
+    u32 partyId = marioGetPartyId();
+    PartyEntry* party = partyGetPtr(partyId);
+    s32 hitBreathout;
 
-//     if (party == NULL) {
-//         hitBreathout = 0.0f;
-//         return hitBreathout;
-//     }
+    if (party == NULL) {
+        return 0;
+    }
 
-//     if (
-//         party->currentMemberId == PARTY_MEMBER_FLURRIE 
-//         && (party->flags & PARTY_FLAG_IS_BEING_USED) != 0 
-//         && party->useMotionId >= MARIO_MOTION_FALL
-//     ){
-//         hitBreathout = 0;
-//         switch (param_1) {
-//             case 0: 
-//                 hitBreathout = (int)party->useStruct + 0x20;
-//                 break;
-//             case 1: 
-//                 hitBreathout = (int)party->useStruct + 0x24;
-//                 break;
-//             case 2: 
-//                 hitBreathout = (int)party->useStruct + 0x28;
-//                 break;
-//             case 3: 
-//                 hitBreathout = (int)party->useStruct + 0x2C;
-//                 break;
-//             default: 
-//                 hitBreathout = 0;
-//                 break;
-//         }
-//         return hitBreathout;
-//     }
-//     else {
-//         hitBreathout = 0;
-//     }
-//     return hitBreathout;
-// }
+    if (
+        party->currentMemberId != PARTY_MEMBER_FLURRIE 
+        || (party->flags & PARTY_FLAG_IS_BEING_USED) == 0
+        || party->useMotionId < MARIO_MOTION_FALL
+    ){
+            return 0;
+    }
+
+    hitBreathout = 0;
+    if (param_1 == 0) {
+        hitBreathout = ((PartyCloud*)party->useStruct)->unk20;
+    }
+    else if (param_1 == 1) { 
+        hitBreathout = ((PartyCloud*)party->useStruct)->unk24;
+    }
+    else if (param_1 == 2) {
+        hitBreathout = ((PartyCloud*)party->useStruct)->unk28;
+    }
+    else if (param_1 == 3) { 
+        hitBreathout = ((PartyCloud*)party->useStruct)->unk2C;
+    }
+    
+    return hitBreathout;
+}
