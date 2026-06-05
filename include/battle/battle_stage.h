@@ -3,15 +3,20 @@
 #include <dolphin/types.h>
 #include "battle/battle_stage_object.h"
 
-typedef struct BattleStageSpotEntry {
-	u8 field_0x0[0x2C - 0x0]; //0x0
-} BattleStageSpotEntry;
+typedef struct BattleSpotEntry {
+	u16 flags; // 0x0
+	u8 field_0x2[0x4 - 0x2]; // 0x2
+	Vec field_4; // 0x4
+	Vec field_10; // 0x10
+	Vec field_1C; // 0x1C
+	s32 field_28; // 0x28, unknown, unused and set by an sbss2 var, TODO?
+} BattleSpotEntry;
 
-typedef struct BattleStageSpotWork {
+typedef struct BattleSpotWork {
 	s32 count; //0x0
-	BattleStageSpotEntry* entries; //0x4
-	u8 field_0x8[4]; //0x8
-} BattleStageSpotWork;
+	BattleSpotEntry* entries; //0x4
+	BOOL skipRender; //0x8
+} BattleSpotWork;
 
 typedef struct BattleStageData {
 	char* mGlobalStageDataDir; //0x0
@@ -31,6 +36,3 @@ BattleStage* BattleStageGetPtr(void);
 void BattleStageInit(void);
 void BattleStageMain(void);
 void BattleStageEnd(void);
-
-
-
