@@ -5,49 +5,84 @@
 
 #pragma enumsalwaysint off
 typedef enum MarioMotion {
-	kStay, //0x0
-	kWalk, //0x1
-	kDash, //0x2
-	kJump, //0x3
-	kJumpNPC, //0x4
-	kJumpSw, //0x5
-	kJumpStand, //0x6
-	kJump2, //0x7
-	kJump3, //0x8
-	kJumpSmall, //0x9
-	kFall, //0xA
-	kFall2, //0xB
-	kUpstairs, //0xC
-	kLand, //0xD
-	kTalk, //0xE
-	kGetItem, //0xF
-	kHip, //0x10
-	kHip2, //0x11
-	kHammer, //0x12
-	kHammer2, //0x13
-	kJabara, //0x14
-	kSlit, //0x15
-	kRoll, //0x16
-	kKaze, //0x17
-	kPlane, //0x18
-	kShip, //0x19
-	kYoshi, //0x1A
-	kCloud, //0x1B
-	kVivian, //0x1C
-	kDokan, //0x1D
-	kGrasp, //0x1E
-	kDamage, //0x1F
-	kDamageToge, //0x20
-	kBottomless, //0x21
-	kForceReset, //0x22
-	kShadow, //0x23
-	kPartyUse, //0x24
-	kKpaSwim, //0x25
-	kKpaPowUp, //0x26
-	kKpaPowDown, //0x27
-	kDummy, //0x28
-	kMotionMax = 0xFFFF
+	MARIO_MOTION_STAY, //0x0
+	MARIO_MOTION_WALK, //0x1
+	MARIO_MOTION_DASH, //0x2
+	MARIO_MOTION_JUMP, //0x3
+	MARIO_MOTION_JUMP_NPC, //0x4
+	MARIO_MOTION_JUMP_SW, //0x5
+	MARIO_MOTION_JUMP_STAND, //0x6
+	MARIO_MOTION_JUMP_2, //0x7
+	MARIO_MOTION_JUMP_3, //0x8
+	MARIO_MOTION_JUMP_SMALL, //0x9
+	MARIO_MOTION_FALL, //0xA
+	MARIO_MOTION_FALL_2, //0xB
+	MARIO_MOTION_UPSTAIRS, //0xC
+	MARIO_MOTION_LAND, //0xD
+	MARIO_MOTION_TALK, //0xE
+	MARIO_MOTION_GET_ITEM, //0xF
+	MARIO_MOTION_HIP, //0x10
+	MARIO_MOTION_HIP_2, //0x11
+	MARIO_MOTION_HAMMER, //0x12
+	MARIO_MOTION_HAMMER_2, //0x13
+	MARIO_MOTION_JABARA, //0x14
+	MARIO_MOTION_SLIT, //0x15
+	MARIO_MOTION_ROLL, //0x16
+	MARIO_MOTION_KAZE, //0x17
+	MARIO_MOTION_PLANE, //0x18
+	MARIO_MOTION_SHIP, //0x19
+	MARIO_MOTION_YOSHI, //0x1A
+	MARIO_MOTION_CLOUD, //0x1B
+	MARIO_MOTION_VIVIAN, //0x1C
+	MARIO_MOTION_DOKAN, //0x1D
+	MARIO_MOTION_GRASP, //0x1E
+	MARIO_MOTION_DAMAGE, //0x1F
+	MARIO_MOTION_DAMAGE_TOGE, //0x20
+	MARIO_MOTION_BOTTOMLESS, //0x21
+	MARIO_MOTION_FORCE_RESET, //0x22
+	MARIO_MOTION_SHADOW, //0x23
+	MARIO_MOTION_PARTY_USE, //0x24
+	MARIO_MOTION_KPA_SWIM, //0x25
+	MARIO_MOTION_KPA_POW_UP, //0x26
+	MARIO_MOTION_KPA_POW_DOWN, //0x27
+	MARIO_MOTION_DUMMY, //0x28
+	MARIO_MOTION_MOTION_MAX = 0xFFFF
 } MarioMotion;
+#pragma enumsalwaysint on
+
+#pragma enumsalwaysint off
+typedef enum MarioFlags {
+	MARIO_FLAG_ACTIVE = (1 << 0),
+	MARIO_FLAG_CTRL_OFF = (1 << 1),
+	MARIO_FLAG_CTRL_OFF_2 = (1 << 2),
+	MARIO_FLAG_KEY_OFF = (1 << 3),
+	MARIO_FLAG_FORCED_MOVEMENT = (1 << 5),
+	MARIO_FLAG_USE_FORCE_DIRECTION = (1 << 6),
+	MARIO_FLAG_STOP_AIR_MOVEMENT = (1 << 7),
+	MARIO_FLAG_FLOORS_DISABLED = (1 << 8),
+	MARIO_FLAG_FORCE_WALL = (1 << 9),
+	MARIO_FLAG_WALLS_DISABLED = (1 << 10),
+	MARIO_FLAG_HAMMER_HIT_WALL = (1 << 11),
+	MARIO_FLAG_PRE_BATTLE_PHYSICS = (1 << 12),
+	MARIO_FLAG_IS_CARRYING_BOBBERY = (1 << 13),
+	MARIO_FLAG_ITEM_GET_DISABLED = (1 << 14),
+	MARIO_FLAG_IS_PUSHING = (1 << 15),
+	MARIO_FLAG_IS_JUMPING = (1 << 16),
+	MARIO_FLAG_IS_FALLING = (1 << 17),
+	MARIO_FLAG_IS_STEPPING = (1 << 18),
+	MARIO_FLAG_HAS_INPUT_JUMP = (1 << 19),
+	MARIO_FLAG_PAPER_MODE = (1 << 20),
+	MARIO_FLAG_GONE_THROUGH_BARS = (1 << 21),
+	MARIO_FLAG_PARTY_WALK_DISABLED = (1 << 22),
+	MARIO_FLAG_SLIT_ABILITY_DISABLED = (1 << 23),
+	MARIO_FLAG_TUBE_MODE = (1 << 24),
+	MARIO_FLAG_BG_MODE = (1 << 25),
+	MARIO_FLAG_IN_SHALLOW_WATER = (1 << 26),
+	MARIO_FLAG_IS_TOUCHING_CEILING = (1 << 27),
+	MARIO_FLAG_CHG_MOT_DISABLED = (1 << 28),
+	MARIO_FLAG_IS_SHADOW_MARIO = (1 << 30),
+	MARIO_FLAG_IS_8_BIT = (1 << 31)
+} MarioFlags;
 #pragma enumsalwaysint on
 
 //TODO: US struct is bigger, 0x2F8 vs 0x2E0
@@ -70,7 +105,10 @@ typedef struct MarioWork {
 	s8 colorId; //0x3D
 	u8 field_0x3E[0x44 - 0x3E]; //0x3E
 	u32 currSubMotionId; //0x44
-	u8 field_0x48[0x5C - 0x48]; //0x48
+	u32 multiTimer; //0x48, ???
+	u8 field_0x4C[0x50 - 0x4C]; //0x4C
+	s16 airTimer; // 0x50
+	u8 field_0x52[0x5C - 0x52]; //0x52
 	s16 unk5C; //0x5C
 	s16 unk5E; //0x5E
 	s16 unk60; //0x60
@@ -94,9 +132,7 @@ typedef struct MarioWork {
 	f32 unk144; //0x144
 	f32 unk148; //0x148
 	f32 unk14C; //0x14C
-	f32 unk150; //0x150
-	f32 unk154; //0x154
-	f32 unk158; //0x158
+	Vec unk150; //0x150
 	f32 camFollowRate; //0x15C
 	u8 unk160[0x168 - 0x160]; //0x160
 	s32 unk168; //0x168

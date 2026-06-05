@@ -9,7 +9,7 @@ u32 msg_ep; //unknown since it only gets written to once and never used
 
 BOOL christineGetStatus(void) {
     PartyEntry* party = partyGetPtr(marioGetPartyId());
-    if (!party || party->currentMemberId != PARTY_GOOMBELLA || !(party->flags & 0x100)) {
+    if (!party || party->currentMemberId != PARTY_MEMBER_GOOMBELLA || !(party->flags & 0x100)) {
         return FALSE;
     }
     return TRUE;

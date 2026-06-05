@@ -126,7 +126,7 @@ BOOL marioItemGetOk(void) {
 }
 
 BOOL marioCaseEventValidChk(void) {
-	if (mp->currMotionId == kPlane) {
+	if (mp->currMotionId == MARIO_MOTION_PLANE) {
 		return FALSE;
 	}
 	else {
@@ -135,7 +135,7 @@ BOOL marioCaseEventValidChk(void) {
 }
 
 BOOL mario8005BB80(void) {
-	if (mp->currMotionId == kRoll || mp->flags & 0x100000) {
+	if (mp->currMotionId == MARIO_MOTION_ROLL || mp->flags & 0x100000) {
 		return FALSE;
 	}
 	return TRUE;
@@ -285,7 +285,7 @@ void mario80058374(void) {
 	MarioMotion mot = wp->currMotionId;
 	s32 flags;
 
-	if (mot != kShip && mot != kRoll && mot != kPlane && mot != kJabara && mot != kYoshi) {
+	if (mot != MARIO_MOTION_SHIP && mot != MARIO_MOTION_ROLL && mot != MARIO_MOTION_PLANE && mot != MARIO_MOTION_JABARA && mot != MARIO_MOTION_YOSHI) {
 		flags = wp->dispFlags;
 		if (!(flags & 0x1000000)) {
 			marioChgPose("M_D_1"); //inline
