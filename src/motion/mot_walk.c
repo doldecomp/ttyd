@@ -1,5 +1,9 @@
 #include "dolphin/types.h"
+#include "driver/hitdrv.h"
+#include "pmario_sound.h"
 #include "mario/mario.h"
+
+extern s32 gp; // m2c
 
 // void mot_dash(void) {
 //     f32 var_f31;
@@ -290,65 +294,65 @@ f32 marioGetWalkSpd(void) {
     return walkSpeed;
 }
 
-// void marioWalkDashSe(s32 arg0, u32 arg1) {
-//     s32 temp_r3;
-//     void* temp_r31;
+void marioWalkDashSe(HitObj* hitObj, u32 arg1) {
+    s32 hitAttr;
+    MarioWork* mario;
 
-//     temp_r31 = marioGetPtr();
-//     temp_r3 = hitGetAttr(arg0);
-//     if ((temp_r31->unk48 % arg1) == 0) {
-//         if (temp_r3 & 0x100) {
-//             psndSFXOn_3D(0x143, temp_r31 + 0x8C);
-//             return;
-//         }
-//         if (temp_r3 & 0x200000) {
-//             psndSFXOn_3D(0x145, temp_r31 + 0x8C);
-//             return;
-//         }
-//         if (temp_r3 & 0x100000) {
-//             psndSFXOn_3D(0x147, temp_r31 + 0x8C);
-//             return;
-//         }
-//         if (temp_r3 & 0x1000) {
-//             if (strncmp(gp + 0x12C, "mri", 3) != 0) {
-//                 psndSFXOn_3D(0x149, temp_r31 + 0x8C);
-//                 return;
-//             }
-//             psndSFXOn_3D(0x143, temp_r31 + 0x8C);
-//             return;
-//         }
-//         if (temp_r3 & 0x400000) {
-//             psndSFXOn_3D(0x14B, temp_r31 + 0x8C);
-//             return;
-//         }
-//         psndSFXOn_3D(0x141, temp_r31 + 0x8C);
-//         return;
-//     }
-//     if ((temp_r31->unk48 % (arg1 >> 1U)) == 0) {
-//         if (temp_r3 & 0x100) {
-//             psndSFXOn_3D(0x142, temp_r31 + 0x8C);
-//             return;
-//         }
-//         if (temp_r3 & 0x200000) {
-//             psndSFXOn_3D(0x144, temp_r31 + 0x8C);
-//             return;
-//         }
-//         if (temp_r3 & 0x100000) {
-//             psndSFXOn_3D(0x146, temp_r31 + 0x8C);
-//             return;
-//         }
-//         if (temp_r3 & 0x1000) {
-//             if (strncmp(gp + 0x12C, "mri", 3) != 0) {
-//                 psndSFXOn_3D(0x148, temp_r31 + 0x8C);
-//                 return;
-//             }
-//             psndSFXOn_3D(0x142, temp_r31 + 0x8C);
-//             return;
-//         }
-//         if (temp_r3 & 0x400000) {
-//             psndSFXOn_3D(0x14A, temp_r31 + 0x8C);
-//             return;
-//         }
-//         psndSFXOn_3D(0x140, temp_r31 + 0x8C);
-//     }
-// }
+    mario = marioGetPtr();
+    hitAttr = hitGetAttr(hitObj);
+    if ((mario->multiTimer % arg1) == 0) {
+        if (hitAttr & 0x100) {
+            psndSFXOn_3D((char*)0x143, &mario->position);
+            return;
+        }
+        if (hitAttr & 0x200000) {
+            psndSFXOn_3D((char*)0x145, &mario->position);
+            return;
+        }
+        if (hitAttr & 0x100000) {
+            psndSFXOn_3D((char*)0x147, &mario->position);
+            return;
+        }
+        if (hitAttr & 0x1000) {
+            if (strncmp((char*)(gp + 0x12C), "mri", 3) != 0) {
+                psndSFXOn_3D((char*)0x149, &mario->position);
+                return;
+            }
+            psndSFXOn_3D((char*)0x143, &mario->position);
+            return;
+        }
+        if (hitAttr & 0x400000) {
+            psndSFXOn_3D((char*)0x14B, &mario->position);
+            return;
+        }
+        psndSFXOn_3D((char*)0x141, &mario->position);
+        return;
+    }
+    if ((mario->multiTimer % (arg1 >> 1U)) == 0) {
+        if (hitAttr & 0x100) {
+            psndSFXOn_3D((char*)0x142, &mario->position);
+            return;
+        }
+        if (hitAttr & 0x200000) {
+            psndSFXOn_3D((char*)0x144, &mario->position);
+            return;
+        }
+        if (hitAttr & 0x100000) {
+            psndSFXOn_3D((char*)0x146, &mario->position);
+            return;
+        }
+        if (hitAttr & 0x1000) {
+            if (strncmp((char*)(gp + 0x12C), "mri", 3) != 0) {
+                psndSFXOn_3D((char*)0x148, &mario->position);
+                return;
+            }
+            psndSFXOn_3D((char*)0x142, &mario->position);
+            return;
+        }
+        if (hitAttr & 0x400000) {
+            psndSFXOn_3D((char*)0x14A, &mario->position);
+            return;
+        }
+        psndSFXOn_3D((char*)0x140, &mario->position);
+    }
+}
