@@ -268,25 +268,27 @@ f32 marioGetDashSpd(void) {
     return dashSpeed;
 }
 
-// f32 marioGetWalkSpd(void) {
-//     f32 var_f31;
-//     u8 temp_r0;
-//     u8 temp_r3_2;
-//     void* temp_r3;
+f32 marioGetWalkSpd(void) {
+    f32 walkSpeed;
+    u8 stickDir2;
+    u8 stickDir1;
+    MarioWork* mario;
 
-//     temp_r3 = marioGetPtr();
-//     var_f31 = temp_r3->unk184;
-//     if (temp_r3->unk0 & 0x100000) {
-//         temp_r3_2 = temp_r3->unk24E;
-//         temp_r0 = temp_r3->unk24F;
-//         if ((s32) (((s8) temp_r3_2 * (s8) temp_r3_2) + ((s8) temp_r0 * (s8) temp_r0)) <= 0xBD1) {
-//             var_f31 *= 0.5f;
-//         }
-//     } else if (marioBgmodeChk() == 1) {
-//         var_f31 *= 0.5f;
-//     }
-//     return var_f31 * temp_r3->unk224;
-// }
+    mario = marioGetPtr();
+    walkSpeed = mario->mBaseWalkSpeed;
+    if (mario->flags & MARIO_FLAG_PAPER_MODE) {
+        stickDir1 = mario->wStickDir1;
+        stickDir2 = mario->wStickDir2;
+        if (((s8) stickDir1 * (s8) stickDir1) + ((s8) stickDir2 * (s8) stickDir2) <= 0xBD1) {
+            walkSpeed *= 0.5f;
+        }
+    } else if (marioBgmodeChk() == 1) {
+        walkSpeed *= 0.5f;
+    }
+    
+    walkSpeed *= mario->playerGravity;
+    return walkSpeed;
+}
 
 // void marioWalkDashSe(s32 arg0, u32 arg1) {
 //     s32 temp_r3;
