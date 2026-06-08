@@ -12,6 +12,52 @@
 
 extern s32 gp; // m2c
 
+f32 marioGetDashSpd(void) {
+    MarioWork* mario;
+    f32 dashSpeed;
+    s8 stickDir2;
+    s8 stickDir1;
+
+    mario = marioGetPtr();
+    dashSpeed = mario->mBaseDashSpeed;
+    if (mario->flags & MARIO_FLAG_PAPER_MODE) {
+        stickDir1 = mario->wStickDir1;
+        stickDir2 = mario->wStickDir2;
+        dashSpeed = mario->mBaseWalkSpeed;
+
+        if ((stickDir1 * stickDir1) + (stickDir2 * stickDir2) <= 0xBD1) {
+            dashSpeed *= 0.5f;
+        }
+    } else if (marioBgmodeChk() == TRUE) {
+        dashSpeed *= 0.5f;
+    }
+
+    dashSpeed *= mario->playerGravity;
+    return dashSpeed;
+}
+
+f32 marioGetWalkSpd(void) {
+    f32 walkSpeed;
+    s8 stickDir2;
+    s8 stickDir1;
+    MarioWork* mario;
+
+    mario = marioGetPtr();
+    walkSpeed = mario->mBaseWalkSpeed;
+    if (mario->flags & MARIO_FLAG_PAPER_MODE) {
+        stickDir1 = mario->wStickDir1;
+        stickDir2 = mario->wStickDir2;
+        if ((stickDir1 * stickDir1) + (stickDir2 * stickDir2) <= 0xBD1) {
+            walkSpeed *= 0.5f;
+        }
+    } else if (marioBgmodeChk() == TRUE) {
+        walkSpeed *= 0.5f;
+    }
+
+    walkSpeed *= mario->playerGravity;
+    return walkSpeed;
+}
+
 void marioWalkDashSe(HitObj* hitObj, u32 arg1) {
     s32 hitAttr;
     MarioWork* mario;
@@ -82,12 +128,9 @@ void mot_dash(void) {
     s32 unkArgMarioWalkDashSe;
     s8 characterId;
     s8 stickDir2;
-    s8 _stickDir2;
     s8 stickDir1;
-    s8 _stickDir1;
     MarioWork* player;
     CaseEntry* caseEntry;
-    MarioWork* _player;
 
     player = marioGetPtr();
     characterId = player->characterId;
@@ -140,20 +183,7 @@ void mot_dash(void) {
             marioChgPose("M_W_1");
         }
         if (player->forceMoveTimer == 0) {
-            _player = marioGetPtr();
-            dashSpeed = _player->mBaseDashSpeed;
-            if (_player->flags & MARIO_FLAG_PAPER_MODE) {
-                stickDir1 = _player->wStickDir1;
-                stickDir2 = _player->wStickDir2;
-                dashSpeed = _player->mBaseWalkSpeed;
-                if ((stickDir1 * stickDir1) + (stickDir2 * stickDir2) <= 0xBD1) {
-                    dashSpeed *= 0.5f;
-                }
-            } else if (marioBgmodeChk() == TRUE) {
-                dashSpeed *= 0.5f;
-            }
-            dashSpeed *= _player->playerGravity;
-            player->baseSpeed = dashSpeed;
+            player->baseSpeed = marioGetDashSpd();
         }
     }
     if (!(player->flags & MARIO_FLAG_IS_CARRYING_BOBBERY) &&
@@ -182,9 +212,9 @@ void mot_dash(void) {
         }
         player->multiTimer = player->multiTimer + 1;
         if (!(player->flags & MARIO_FLAG_FORCED_MOVEMENT)) {
-            _stickDir1 = player->wStickDir1;
-            _stickDir2 = player->wStickDir2;
-            if ((_stickDir1 * _stickDir1) + (_stickDir2 * _stickDir2) <= 0xBD1) {
+            stickDir1 = player->wStickDir1;
+            stickDir2 = player->wStickDir2;
+            if ((stickDir1 * stickDir1) + (stickDir2 * stickDir2) <= 0xBD1) {
                 marioChgMot(MARIO_MOTION_WALK);
                 return;
             }
@@ -206,13 +236,10 @@ void mot_walk(void) {
     BOOL unkConditionActive;
     s32 unkArgMarioWalkDashSe;
     s8 characterId;
-    s8 _stickDir2;
     s8 stickDir2;
-    s8 _stickDir1;
     s8 stickDir1;
     MarioWork* player;
     CaseEntry* caseEntry;
-    MarioWork* _player;
 
     player = marioGetPtr();
     characterId = player->characterId;
@@ -252,19 +279,7 @@ void mot_walk(void) {
             motSlitContinue();
         }
         if (player->forceMoveTimer == 0) {
-            _player = marioGetPtr();
-            walkSpeed = _player->mBaseWalkSpeed;
-            if (_player->flags & MARIO_FLAG_PAPER_MODE) {
-                _stickDir1 = _player->wStickDir1;
-                _stickDir2 = _player->wStickDir2;
-                if ((_stickDir1 * _stickDir1) + (_stickDir2 * _stickDir2) <= 0xBD1) {
-                    walkSpeed *= 0.5f;
-                }
-            } else if (marioBgmodeChk() == TRUE) {
-                walkSpeed *= 0.5f;
-            }
-            walkSpeed *= _player->playerGravity;
-            player->baseSpeed = walkSpeed;
+            player->baseSpeed = marioGetWalkSpd();
         }
         flags = player->flags;
         if (flags & MARIO_FLAG_IS_CARRYING_BOBBERY) {
@@ -326,50 +341,4 @@ void mot_walk(void) {
             }
         }
     }
-}
-
-f32 marioGetDashSpd(void) {
-    MarioWork* mario;
-    f32 dashSpeed;
-    s8 stickDir2;
-    s8 stickDir1;
-
-    mario = marioGetPtr();
-    dashSpeed = mario->mBaseDashSpeed;
-    if (mario->flags & MARIO_FLAG_PAPER_MODE) {
-        stickDir1 = mario->wStickDir1;
-        stickDir2 = mario->wStickDir2;
-        dashSpeed = mario->mBaseWalkSpeed;
-
-        if ((stickDir1 * stickDir1) + (stickDir2 * stickDir2) <= 0xBD1) {
-            dashSpeed *= 0.5f;
-        }
-    } else if (marioBgmodeChk() == TRUE) {
-        dashSpeed *= 0.5f;
-    }
-
-    dashSpeed *= mario->playerGravity;
-    return dashSpeed;
-}
-
-f32 marioGetWalkSpd(void) {
-    f32 walkSpeed;
-    s8 stickDir2;
-    s8 stickDir1;
-    MarioWork* mario;
-
-    mario = marioGetPtr();
-    walkSpeed = mario->mBaseWalkSpeed;
-    if (mario->flags & MARIO_FLAG_PAPER_MODE) {
-        stickDir1 = mario->wStickDir1;
-        stickDir2 = mario->wStickDir2;
-        if ((stickDir1 * stickDir1) + (stickDir2 * stickDir2) <= 0xBD1) {
-            walkSpeed *= 0.5f;
-        }
-    } else if (marioBgmodeChk() == TRUE) {
-        walkSpeed *= 0.5f;
-    }
-
-    walkSpeed *= mario->playerGravity;
-    return walkSpeed;
 }
