@@ -8,6 +8,7 @@
 #include "mario/mario_motion.h"
 #include "koopa_motion.h"
 #include "peach.h"
+#include "mario/mario_pouch.h"
 
 extern s32 gp; // m2c
 
@@ -198,127 +199,132 @@ void mot_dash(void) {
     }
 }
 
-// void mot_walk(void) {
-//     f32 var_f31;
-//     s32 temp_r3_3;
-//     s32 temp_r3_6;
-//     s32 var_r0;
-//     u8 temp_r0;
-//     u8 temp_r0_2;
-//     u8 temp_r0_3;
-//     u8 temp_r3_5;
-//     u8 temp_r3_7;
-//     void* temp_r3;
-//     void* temp_r3_2;
-//     void* temp_r3_4;
+void mot_walk(void) {
+    f32 walkSpeed;
+    s32 trigFlags;
+    s32 flags;
+    BOOL unkConditionActive;
+    s32 unkArgMarioWalkDashSe;
+    s8 characterId;
+    s8 _stickDir2;
+    s8 stickDir2;
+    s8 _stickDir1;
+    s8 stickDir1;
+    MarioWork* player;
+    CaseEntry* caseEntry;
+    MarioWork* _player;
 
-//     temp_r3 = marioGetPtr();
-//     temp_r0 = temp_r3->unk3C;
-//     if ((s8) temp_r0 == 2) {
-//         kpa_walk();
-//         return;
-//     }
-//     if ((s8) temp_r0 == 1) {
-//         peach_walk();
-//         return;
-//     }
-//     if (temp_r3->unk0 & 0x8000) {
-//         if ((u32) temp_r3->unk1EC == 0U) {
-//             var_r0 = 0;
-//         } else {
-//             temp_r3_2 = caseCheckHitObj();
-//             if ((temp_r3_2 != NULL) && ((s32) temp_r3_2->unk4 == 0xA)) {
-//                 var_r0 = 1;
-//             } else {
-//                 var_r0 = 0;
-//             }
-//         }
-//         if (var_r0 == 0) {
-//             temp_r3->unk0 = (s32) (temp_r3->unk0 & 0xFFFF7FFF);
-//             if ((marioChkPushAnime() != 0) && (marioBgmodeChk() == 0)) {
-//                 marioChgPose("M_W_1");
-//             }
-//         }
-//     }
-//     temp_r3_3 = temp_r3->unkC;
-//     if (temp_r3_3 & 1) {
-//         temp_r3->unkC = (s32) (temp_r3_3 & 0xFFFFFFFE);
-//         temp_r3->unk0 = (s32) (temp_r3->unk0 & 0xFFF0FFFF);
-//         marioResetCamFollowRate();
-//         if (temp_r3->unk0 & 0x100000) {
-//             motSlitContinue();
-//         }
-//         if ((s16) temp_r3->unk4E == 0) {
-//             temp_r3_4 = marioGetPtr();
-//             var_f31 = temp_r3_4->unk184;
-//             if (temp_r3_4->unk0 & 0x100000) {
-//                 temp_r3_5 = temp_r3_4->unk24E;
-//                 temp_r0_2 = temp_r3_4->unk24F;
-//                 if ((s32) (((s8) temp_r3_5 * (s8) temp_r3_5) + ((s8) temp_r0_2 * (s8) temp_r0_2)) <= 0xBD1) {
-//                     var_f31 *= 0.5f;
-//                 }
-//             } else if (marioBgmodeChk() == 1) {
-//                 var_f31 *= 0.5f;
-//             }
-//             temp_r3->unk180 = (f32) (var_f31 * temp_r3_4->unk224);
-//         }
-//         temp_r3_6 = temp_r3->unk0;
-//         if (temp_r3_6 & 0x2000) {
-//             marioChgPose("M_W_7");
-//         } else if (temp_r3_6 & 0x8000) {
-//             if (marioChkPushAnime() == 0) {
-//                 marioChgPose("M_O_1");
-//             }
-//         } else if (marioBgmodeChk() == 0) {
-//             marioChgPose("M_W_1");
-//         }
-//         if (!(temp_r3->unk4 & 0x01000000)) {
-//             temp_r3->unk44 = 0;
-//         }
-//         temp_r3->unk48 = 0;
-//     }
-//     if (!(temp_r3->unk0 & 0x2000) && ((strcmp(temp_r3->unk18, "M_I_Y") == 0) || ((s8) temp_r3->unk40 > 0xA))) {
-//         marioChgMot(0);
-//         return;
-//     }
-//     if (temp_r3->unk0 & 0x2000) {
-//         temp_r3->unk1A0 = (f32) temp_r3->unk194;
-//         if (temp_r3->unk190 == 0.0f) {
-//             marioChgMot(0);
-//         }
-//     } else {
-//         if ((marioSlitAbilityChk() != 0) && (marioSlitButton() == 1)) {
-//             marioChgMot(0x15);
-//             return;
-//         }
-//         if (marioChkItemMotion() == 0) {
-//             marioChkJump();
-//             marioChkTransform();
-//             if (pouchEquipCheckBadge(0x143) == 0) {
-//                 temp_r3_7 = temp_r3->unk24E;
-//                 temp_r0_3 = temp_r3->unk24F;
-//                 if ((s32) (((s8) temp_r3_7 * (s8) temp_r3_7) + ((s8) temp_r0_3 * (s8) temp_r0_3)) > 0xBD1) {
-//                     marioChgMot(2);
-//                     return;
-//                 }
-//             }
-//             temp_r3->unk1A0 = (f32) temp_r3->unk194;
-//             if ((u32) temp_r3->unk1E4 != 0U) {
-//                 if (temp_r3->unk224 == 1.0f) {
-
-//                 }
-//                 marioWalkDashSe(0x28);
-//             }
-//             temp_r3->unk48 = (s32) (temp_r3->unk48 + 1);
-//             if ((temp_r3->unk0 & 0x8000) && (marioChkPushAnime() == 0)) {
-//                 marioChgPose("M_O_1");
-//             }
-//             if (temp_r3->unk190 == 0.0f) {
-//                 marioChgMot(0);
-//             }
-//         }
-//     }
-// }
+    player = marioGetPtr();
+    characterId = player->characterId;
+    if (characterId == 2) {
+        kpa_walk();
+        return;
+    }
+    if (characterId == 1) {
+        peach_walk();
+        return;
+    }
+    if (player->flags & MARIO_FLAG_IS_PUSHING) {
+        if (player->hitobjPush == NULL) {
+            unkConditionActive = FALSE;
+        } else {
+            caseEntry = caseCheckHitObj(player->hitobjPush);
+            if (caseEntry != NULL && caseEntry->activeConditionId == 0xA) {
+                unkConditionActive = TRUE;
+            } else {
+                unkConditionActive = FALSE;
+            }
+        }
+        if (!unkConditionActive) {
+            player->flags = player->flags & ~MARIO_FLAG_IS_PUSHING;
+            if (marioChkPushAnime() && !marioBgmodeChk()) {
+                marioChgPose("M_W_1");
+            }
+        }
+    }
+    trigFlags = player->trigFlags;
+    if (trigFlags & MARIO_TRIG_FLAG_IS_STARTING_NEW_MOTION) {
+        player->trigFlags = trigFlags & ~MARIO_TRIG_FLAG_IS_STARTING_NEW_MOTION;
+        player->flags = player->flags & ~(MARIO_FLAG_HAS_INPUT_JUMP | MARIO_FLAG_IS_JUMPING | MARIO_FLAG_IS_FALLING | MARIO_FLAG_IS_STEPPING);
+        marioResetCamFollowRate();
+        if (player->flags & MARIO_FLAG_PAPER_MODE) {
+            motSlitContinue();
+        }
+        if (player->forceMoveTimer == 0) {
+            _player = marioGetPtr();
+            walkSpeed = _player->mBaseWalkSpeed;
+            if (_player->flags & MARIO_FLAG_PAPER_MODE) {
+                _stickDir1 = _player->wStickDir1;
+                _stickDir2 = _player->wStickDir2;
+                if ((_stickDir1 * _stickDir1) + (_stickDir2 * _stickDir2) <= 0xBD1) {
+                    walkSpeed *= 0.5f;
+                }
+            } else if (marioBgmodeChk() == 1) {
+                walkSpeed *= 0.5f;
+            }
+            walkSpeed *= _player->playerGravity;
+            player->baseSpeed = walkSpeed;
+        }
+        flags = player->flags;
+        if (flags & MARIO_FLAG_IS_CARRYING_BOBBERY) {
+            marioChgPose("M_W_7");
+        } else if (flags & MARIO_FLAG_IS_PUSHING) {
+            if (!marioChkPushAnime()) {
+                marioChgPose("M_O_1");
+            }
+        } else if (!marioBgmodeChk()) {
+            marioChgPose("M_W_1");
+        }
+        if (!(player->dispFlags & (1 << 24))) {
+            player->currSubMotionId = 0;
+        }
+        player->multiTimer = 0;
+    }
+    if (!(player->flags & MARIO_FLAG_IS_CARRYING_BOBBERY) && (strcmp(player->animName, "M_I_Y") == 0 || (s8) player->wMotionTimer > 0xA)) {
+        marioChgMot(MARIO_MOTION_STAY);
+        return;
+    }
+    if (player->flags & MARIO_FLAG_IS_CARRYING_BOBBERY) {
+        player->directionView = player->controlStickAngle;
+        if (!player->controlStickSensitivity) {
+            marioChgMot(MARIO_MOTION_STAY);
+        }
+    } else {
+        if (marioSlitAbilityChk() && marioSlitButton() == 1) {
+            marioChgMot(MARIO_MOTION_SLIT);
+            return;
+        }
+        if (!marioChkItemMotion()) {
+            marioChkJump();
+            marioChkTransform();
+            if (pouchEquipCheckBadge(0x143) == 0) {
+                stickDir1 = player->wStickDir1;
+                stickDir2 = player->wStickDir2;
+                if ((stickDir1 * stickDir1) + (stickDir2 * stickDir2) > 0xBD1) {
+                    marioChgMot(MARIO_MOTION_DASH);
+                    return;
+                }
+            }
+            player->directionView = (f32) player->controlStickAngle ;
+            if ((u32) player->hitobjStandOn != 0U) {
+                // Redundant, but doesn't match otherwise
+                if (player->playerGravity == 1.0f) {
+                    unkArgMarioWalkDashSe = 0x28;
+                } else { 
+                    unkArgMarioWalkDashSe = 0x28;
+                }
+                marioWalkDashSe(player->hitobjStandOn, unkArgMarioWalkDashSe);
+            }
+            player->multiTimer = (s32) (player->multiTimer + 1);
+            if (player->flags & MARIO_FLAG_IS_PUSHING && !marioChkPushAnime()) {
+                marioChgPose("M_O_1");
+            }
+            if (!player->controlStickSensitivity) {
+                marioChgMot(MARIO_MOTION_STAY);
+            }
+        }
+    }
+}
 
 f32 marioGetDashSpd(void) {
     MarioWork* mario;
