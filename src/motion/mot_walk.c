@@ -73,7 +73,7 @@ void marioWalkDashSe(HitObj* hitObj, u32 arg1) {
 void mot_dash(void) {
     f32 dashSpeed;
     s32 temp_r3_3;
-    s32 var_r0;
+    s32 conditionActive;
     s32 var_r4;
     u8 characterId;
     u8 stickDir2;
@@ -95,17 +95,17 @@ void mot_dash(void) {
         return;
     }
     if (player->hitobjPush == NULL) {
-        var_r0 = 0;
+        conditionActive = FALSE;
     } else {
         caseEntry = caseCheckHitObj();
-        if ((caseEntry != NULL) && ((s32) caseEntry->activeConditionId == 0xA)) {
-            var_r0 = 1;
+        if (caseEntry != NULL && caseEntry->activeConditionId == 0xA) {
+            conditionActive = TRUE;
         } else {
-            var_r0 = 0;
+            conditionActive = FALSE;
         }
     }
-    if ((var_r0 == 0) && ((u32) player->hitobjPush == 0U)) {
-        player->flags = (s32) (player->flags & 0xFFFF7FFF);
+    if (conditionActive == 0 && player->hitobjPush == NULL) {
+        player->flags = player->flags & 0xFFFF7FFF;
         if ((marioChkPushAnime() != 0) && (marioBgmodeChk() == 0)) {
             marioChgPose("M_R_1");
         }
