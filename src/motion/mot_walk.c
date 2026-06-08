@@ -3,6 +3,11 @@
 #include "pmario_sound.h"
 #include "mario/mario.h"
 #include "driver/casedrv.h"
+#include "mot/mot_slit.h"
+#include "mario/mario_cam.h"
+#include "mario/mario_motion.h"
+#include "koopa_motion.h"
+#include "peach.h"
 
 extern s32 gp; // m2c
 
@@ -151,7 +156,7 @@ void mot_dash(void) {
             player->baseSpeed = dashSpeed;
         }
     }
-    if (!(player->flags & MARIO_FLAG_IS_CARRYING_BOBBERY) && ((strcmp(player->animName, "M_I_Y") == 0) || ((s8) player->wMotionTimer > 0xA))) {
+    if (!(player->flags & MARIO_FLAG_IS_CARRYING_BOBBERY) && (strcmp(player->animName, "M_I_Y") == 0 || (s8) player->wMotionTimer > 0xA)) {
         marioChgMot(MARIO_MOTION_STAY);
         return;
     }
@@ -159,11 +164,11 @@ void mot_dash(void) {
         marioChgMot(MARIO_MOTION_WALK);
         return;
     }
-    if ((marioSlitAbilityChk() != 0) && (marioSlitButton() == 1)) {
+    if (marioSlitAbilityChk() && marioSlitButton() == 1) {
         marioChgMot(MARIO_MOTION_SLIT);
         return;
     }
-    if (marioChkItemMotion() == 0) {
+    if (!marioChkItemMotion()) {
         marioChkJump();
         marioChkTransform();
         if (player->hitobjStandOn != NULL) {
