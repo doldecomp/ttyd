@@ -85,6 +85,29 @@ typedef enum MarioFlags {
 } MarioFlags;
 #pragma enumsalwaysint on
 
+#pragma enumsalwaysint off
+typedef enum MarioTrigFlags {
+	MARIO_TRIG_FLAG_IS_STARTING_NEW_MOTION = (1 << 0),
+	MARIO_TRIG_FLAG_USE_PARTNER = (1 << 1),
+	MARIO_TRIG_FLAG_SHIP_PLANE_EVT_ON = (1 << 2),
+	MARIO_TRIG_FLAG_DISP_DIR_CORRECTION = (1 << 8),
+	MARIO_TRIG_FLAG_DISP_DIR_LEFT = (1 << 9),
+	MARIO_TRIG_FLAG_DISP_DIR_RIGHT = (1 << 10),
+	MARIO_TRIG_FLAG_CHG_ANIM = (1 << 12),
+	MARIO_TRIG_FLAG_CHG_PAPER_ANIM = (1 << 14),
+	MARIO_TRIG_FLAG_SET_JUMP_PARAMS = (1 << 16),
+	MARIO_TRIG_FLAG_DISABLE_JUMP_KEMURI = (1 << 17),
+	MARIO_TRIG_FLAG_JABARA_CHK = (1 << 20),
+	MARIO_TRIG_FLAG_JABARA_MOVE_CHK = (1 << 21),
+	MARIO_TRIG_FLAG_START_JABARA_SPIN = (1 << 22),
+	MARIO_TRIG_FLAG_DISABLE_UNUSED_INPUT = (1 << 24),
+	MARIO_TRIG_FLAG_DISABLE_TRIGGERS = (1 << 25),
+	MARIO_TRIG_FLAG_DISABLE_SUB_STICK = (1 << 26),
+	MARIO_TRIG_FLAG_DISABLE_STICK = (1 << 27),
+	MARIO_TRIG_FLAG_DISABLE_PARTY_SLIT = (1 << 30)
+} MarioTrigFlags;
+#pragma enumsalwaysint on
+
 //TODO: US struct is bigger, 0x2F8 vs 0x2E0
 typedef struct MarioWork {
 	u32 flags; //0x0
@@ -140,7 +163,7 @@ typedef struct MarioWork {
 	u8 unk160[0x168 - 0x160]; //0x160
 	s32 unk168; //0x168
 	s32 unk16C; //0x16C
-	u8 unk170[0x184 - 0x170]; //0x170
+	u8 unk170[0x180 - 0x170]; //0x170
 	f32 baseSpeed; // 0x180, same on US
 	f32 mBaseWalkSpeed; //0x184
 	f32 mBaseDashSpeed; //0x188, same on US

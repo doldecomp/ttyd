@@ -72,120 +72,122 @@ void marioWalkDashSe(HitObj* hitObj, u32 arg1) {
 
 void mot_dash(void) {
     f32 dashSpeed;
-    s32 temp_r3_3;
-    s32 conditionActive;
-    s32 var_r4;
-    u8 characterId;
-    u8 stickDir2;
-    u8 _stickDir2;
-    u8 stickDir1;
-    u8 _stickDir1;
+    u32 trigFlags;
+    BOOL unkConditionActive;
+    s32 unkArgMarioWalkDashSe;
+    s8 characterId;
+    s8 stickDir2;
+    s8 _stickDir2;
+    s8 stickDir1;
+    s8 _stickDir1;
     MarioWork* player;
     CaseEntry* caseEntry;
     MarioWork* _player;
+    void* hitobjPush;
 
     player = marioGetPtr();
     characterId = player->characterId;
-    if ((s8) characterId == 2) {
+    if (characterId == 2) {
         kpa_dash();
         return;
     }
-    if ((s8) characterId == 1) {
+    if (characterId == 1) {
         peach_dash();
         return;
     }
     if (player->hitobjPush == NULL) {
-        conditionActive = FALSE;
+        unkConditionActive = FALSE;
     } else {
-        caseEntry = caseCheckHitObj();
+        caseEntry = caseCheckHitObj(player->hitobjPush);
         if (caseEntry != NULL && caseEntry->activeConditionId == 0xA) {
-            conditionActive = TRUE;
+            unkConditionActive = TRUE;
         } else {
-            conditionActive = FALSE;
+            unkConditionActive = FALSE;
         }
     }
-    if (conditionActive == 0 && player->hitobjPush == NULL) {
-        player->flags = player->flags & 0xFFFF7FFF;
-        if ((marioChkPushAnime() != 0) && (marioBgmodeChk() == 0)) {
+    if (!unkConditionActive && player->hitobjPush == NULL) {
+        player->flags = player->flags & ~MARIO_FLAG_IS_PUSHING;
+        if (marioChkPushAnime() && !marioBgmodeChk()) {
             marioChgPose("M_R_1");
         }
     }
-    temp_r3_3 = player->trigFlags;
-    if (temp_r3_3 & 1) {
-        player->trigFlags = (s32) (temp_r3_3 & 0xFFFFFFFE);
-        player->flags = (s32) (player->flags & 0xFFF0FFFF);
+    trigFlags = player->trigFlags;
+    if (trigFlags & MARIO_TRIG_FLAG_IS_STARTING_NEW_MOTION) {
+        player->trigFlags = trigFlags & ~MARIO_TRIG_FLAG_IS_STARTING_NEW_MOTION;
+        player->flags = player->flags & ~(MARIO_FLAG_HAS_INPUT_JUMP | MARIO_FLAG_IS_JUMPING | MARIO_FLAG_IS_FALLING | MARIO_FLAG_IS_STEPPING);
         marioResetCamFollowRate();
-        if (player->flags & 0x100000) {
+        if (player->flags & MARIO_FLAG_PAPER_MODE) {
             motSlitContinue();
         }
         if (player->playerGravity == 1.0f) {
-            if (player->flags & 0x8000) {
-                if (marioChkPushAnime() == 0) {
+            if (player->flags & MARIO_FLAG_IS_PUSHING) {
+                if (!marioChkPushAnime()) {
                     marioChgPose("M_O_1");
                 }
-            } else if (marioBgmodeChk() == 0) {
+            } else if (!marioBgmodeChk()) {
                 marioChgPose("M_R_1");
             }
-        } else if (player->flags & 0x8000) {
-            if (marioChkPushAnime() == 0) {
+        } else if (player->flags & MARIO_FLAG_IS_PUSHING) {
+            if (!marioChkPushAnime()) {
                 marioChgPose("M_O_1");
             }
         } else {
             marioChgPose("M_W_1");
         }
-        if ((s16) player->forceMoveTimer == 0) {
+        if (player->forceMoveTimer == 0) {
             _player = marioGetPtr();
             dashSpeed = _player->mBaseDashSpeed;
-            if (_player->flags & 0x100000) {
+            if (_player->flags & MARIO_FLAG_PAPER_MODE) {
                 stickDir1 = _player->wStickDir1;
                 stickDir2 = _player->wStickDir2;
                 dashSpeed = _player->mBaseWalkSpeed;
-                if ((s32) (((s8) stickDir1 * (s8) stickDir1) + ((s8) stickDir2 * (s8) stickDir2)) <= 0xBD1) {
+                if ((stickDir1 * stickDir1) + (stickDir2 * stickDir2) <= 0xBD1) {
                     dashSpeed *= 0.5f;
                 }
             } else if (marioBgmodeChk() == 1) {
                 dashSpeed *= 0.5f;
             }
-            player->baseSpeed = (f32) (dashSpeed * _player->playerGravity);
+            dashSpeed *= _player->playerGravity;
+            player->baseSpeed = dashSpeed;
         }
     }
     if (!(player->flags & MARIO_FLAG_IS_CARRYING_BOBBERY) && ((strcmp(player->animName, "M_I_Y") == 0) || ((s8) player->wMotionTimer > 0xA))) {
-        marioChgMot(0);
+        marioChgMot(MARIO_MOTION_STAY);
         return;
     }
     if (player->flags & MARIO_FLAG_IS_CARRYING_BOBBERY) {
-        marioChgMot(1);
+        marioChgMot(MARIO_MOTION_WALK);
         return;
     }
     if ((marioSlitAbilityChk() != 0) && (marioSlitButton() == 1)) {
-        marioChgMot(0x15);
+        marioChgMot(MARIO_MOTION_SLIT);
         return;
     }
     if (marioChkItemMotion() == 0) {
         marioChkJump();
         marioChkTransform();
-        if ((u32) player->multiTimer != 0U) {
+        if (player->hitobjStandOn != NULL) {
             if (player->playerGravity == 1.0f) {
-                var_r4 = 0x14;
+                unkArgMarioWalkDashSe = 0x14;
             } else {
-                var_r4 = 0x28;
+                unkArgMarioWalkDashSe = 0x28;
             }
-            marioWalkDashSe(player->hitobjStandOn, var_r4);
+            marioWalkDashSe(player->hitobjStandOn, unkArgMarioWalkDashSe);
         }
-        player->multiTimer = (s32) (player->multiTimer + 1);
-        if (!(player->flags & 0x20)) {
+        player->multiTimer = player->multiTimer + 1;
+        if (!(player->flags & MARIO_FLAG_FORCED_MOVEMENT)) {
             _stickDir1 = player->wStickDir1;
             _stickDir2 = player->wStickDir2;
-            if (((s8) _stickDir1 * (s8) _stickDir1) + ((s8) _stickDir2 * (s8) _stickDir2) <= 0xBD1) {
-                marioChgMot(1);
+            if ((_stickDir1 * _stickDir1) + (_stickDir2 * _stickDir2) <= 0xBD1) {
+                marioChgMot(MARIO_MOTION_WALK);
                 return;
             }
-            player->directionView = (f32) player->controlStickAngle;
-            if ((player->flags & 0x8000) && (marioChkPushAnime() == 0)) {
+            player->directionView = player->controlStickAngle;
+            if ((player->flags & MARIO_FLAG_IS_PUSHING) && !marioChkPushAnime()) {
                 marioChgPose("M_O_1");
             }
-            if (player->controlStickSensitivity == 0.0f) {
-                marioChgMot(0);
+            if (!player->controlStickSensitivity) {
+                marioChgMot(MARIO_MOTION_STAY);
             }
         }
     }
