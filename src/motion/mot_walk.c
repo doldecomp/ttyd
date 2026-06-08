@@ -149,7 +149,7 @@ void mot_dash(void) {
                 if ((stickDir1 * stickDir1) + (stickDir2 * stickDir2) <= 0xBD1) {
                     dashSpeed *= 0.5f;
                 }
-            } else if (marioBgmodeChk() == 1) {
+            } else if (marioBgmodeChk() == TRUE) {
                 dashSpeed *= 0.5f;
             }
             dashSpeed *= _player->playerGravity;
@@ -260,7 +260,7 @@ void mot_walk(void) {
                 if ((_stickDir1 * _stickDir1) + (_stickDir2 * _stickDir2) <= 0xBD1) {
                     walkSpeed *= 0.5f;
                 }
-            } else if (marioBgmodeChk() == 1) {
+            } else if (marioBgmodeChk() == TRUE) {
                 walkSpeed *= 0.5f;
             }
             walkSpeed *= _player->playerGravity;
@@ -344,7 +344,7 @@ f32 marioGetDashSpd(void) {
         if ((stickDir1 * stickDir1) + (stickDir2 * stickDir2) <= 0xBD1) {
             dashSpeed *= 0.5f;
         }
-    } else if (marioBgmodeChk() == 1) {
+    } else if (marioBgmodeChk() == TRUE) {
         dashSpeed *= 0.5f;
     }
 
@@ -366,7 +366,7 @@ f32 marioGetWalkSpd(void) {
         if ((stickDir1 * stickDir1) + (stickDir2 * stickDir2) <= 0xBD1) {
             walkSpeed *= 0.5f;
         }
-    } else if (marioBgmodeChk() == 1) {
+    } else if (marioBgmodeChk() == TRUE) {
         walkSpeed *= 0.5f;
     }
 
