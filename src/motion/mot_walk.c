@@ -88,7 +88,6 @@ void mot_dash(void) {
     MarioWork* player;
     CaseEntry* caseEntry;
     MarioWork* _player;
-    void* hitobjPush;
 
     player = marioGetPtr();
     characterId = player->characterId;
