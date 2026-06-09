@@ -27,4 +27,4 @@ typedef struct BattleVulnerableStatus {
 	u8 instaKillRate; //0x15
 } BattleVulnerableStatus;
 
-s32 BattleCheckDamage(struct BattleWorkUnit* unit1, struct BattleWorkUnit* unit2, struct BattleWorkUnitPart* part, struct BattleWeapon* weapon, s32 flags);
+s32 BattleCheckDamage(struct BattleUnit* unit1, struct BattleUnit* unit2, struct BattleWorkUnitPart* part, struct BattleWeapon* weapon, s32 flags);

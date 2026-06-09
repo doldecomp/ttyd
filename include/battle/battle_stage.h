@@ -25,7 +25,7 @@ typedef struct BattleStageData {
 	BattleStageObjectData* mObjects; //0xC, TODO extern?
 } BattleStageData;
 
-typedef struct BattleStage {
+typedef struct BattleWorkStage {
 	u8 field_0x0[0xB3C - 0x0]; //0x0
 } BattleStage;
 

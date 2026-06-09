@@ -17,8 +17,6 @@ typedef struct BattleWorkStatusIcon {
 	u8 field_0x796[0x7A0 - 0x796]; //0x796
 } BattleWorkStatusIcon;
 
-void BattleStatusIconInit(struct BattleWorkUnit* unit);
-void BattleStatusIconMain(struct BattleWorkUnit* unit);
-void BattleStatusIconDelete(struct BattleWorkUnit* unit);
-
-
+void BattleStatusIconInit(struct BattleUnit* unit);
+void BattleStatusIconMain(struct BattleUnit* unit);
+void BattleStatusIconDelete(struct BattleUnit* unit);

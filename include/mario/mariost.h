@@ -95,6 +95,7 @@ typedef struct GlobalWork {
 	u8 rumbleStatus[4]; //0x13D0
 	u8 prevRumbleStatus[4]; //0x13D4
 } GlobalWork;
+extern GlobalWork* gp;
 
 void marioStInit(void);
 void marioStMain(void);

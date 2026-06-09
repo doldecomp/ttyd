@@ -7,7 +7,7 @@ extern BattleWork* _battleWorkPointer;
 typedef struct IconDispTableEntry IconDispTableEntry;
 struct IconDispTableEntry {
 	s32 id;
-	BOOL (*callback)(BattleWorkUnit* unit, IconDispTableEntry* disp, BattleWorkStatusIconEntry* entry); //0x4
+	BOOL (*callback)(BattleUnit* unit, IconDispTableEntry* disp, BattleWorkStatusIconEntry* entry); //0x4
 	s32 something;
 	s32 something2;
 };
@@ -19,17 +19,17 @@ IconDispTableEntry _disp_table[] = {
 //local prototypes
 void BattleStatusIconDisp(CameraId camId, void* param);
 
-void BattleStatusIconInit(BattleWorkUnit* unit) {
+void BattleStatusIconInit(BattleUnit* unit) {
 	memset(&unit->mStatusIconWork, 0, sizeof(BattleWorkStatusIcon));
 }
 
-void BattleStatusIconMain(BattleWorkUnit* unit) {
+void BattleStatusIconMain(BattleUnit* unit) {
 	BattleWorkStatusIcon* icon = &unit->mStatusIconWork;
 	BattleWork* work = _battleWorkPointer;
 	int i;
 
 	icon->mNumStatusIcons = 0;
-	if (work->flags & 0x10000 || work->mIconFlags & 1) {
+	if (work->flags & 0x10000 || work->dispFlags & 1) {
 		BtlUnit_GetPos(unit, &icon->mPosition.x, &icon->mPosition.y, &icon->mPosition.z);
 		icon->mPosition.x += ((f32)(unit->mStatusIconOffset[0]) * unit->mSizeMultiplier);
 		icon->mPosition.y += ((f32)(unit->mStatusIconOffset[1]) * unit->mSizeMultiplier);
@@ -57,10 +57,10 @@ void BattleStatusIconMain(BattleWorkUnit* unit) {
 	}
 }
 
-void BattleStatusIconDelete(BattleWorkUnit* unit) {
+void BattleStatusIconDelete(BattleUnit* unit) {
 	; //stubbed in retail
 }
 
 void BattleStatusIconDisp(CameraId camId, void* param) {
-	BattleWorkUnit* unit = param; //cast to proper type
+	BattleUnit* unit = param; //cast to proper type
 }

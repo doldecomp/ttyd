@@ -14,5 +14,5 @@ typedef struct TattleEntry {
 } TattleEntry;
 
 TattleEntry* battleGetUnitMonosiriPtr(s32 id);
-BOOL battleCheckUnitMonosiriFlag(BattleWorkUnit* unit);
+BOOL battleCheckUnitMonosiriFlag(BattleUnit* unit);
 void battleSetUnitMonosiriFlag(BattleUnitType kind);

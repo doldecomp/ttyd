@@ -316,7 +316,7 @@ config.libs = [
         "cflags": cflags_static,
         "progress_category": "game",
         "objects": [
-            Object(NonMatching, "battle/battle.c"),
+            Object(NonMatching, "battle/battle.c", cflags=[*cflags_static, "-O4,s", "-inline off"]),
             Object(NonMatching, "battle/battle_evt_cmd.c"),
             Object(NonMatching, "battle/battle_ac.c"),
             Object(NonMatching, "battle/battle_damage.c"),

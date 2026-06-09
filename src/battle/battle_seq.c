@@ -39,7 +39,7 @@ void BattleSequenceManager(void) { //1:1
 }
 
 void BattleCheckAllPinchStatus(BattleWork* wp, BOOL a2) { //1:1, needs stmw forced
-	BattleWorkUnit* unit;
+	BattleUnit* unit;
 	BOOL v6;
 	int i;
 
@@ -74,7 +74,7 @@ void BattleCheckAllPinchStatus(BattleWork* wp, BOOL a2) { //1:1, needs stmw forc
 		wp->alertTick--;
 		if (wp->alertTick <= 0) {
 			wp->alertTick = 60;
-			if (wp->commandMenu.unk4 & 1) {
+			if (wp->commandMenu.field_4 & 1) {
 				psndSFXOn("SFX_BTL_DANGER1");
 			}
 		}
@@ -103,7 +103,7 @@ void BattleCheckAllPinchStatus(BattleWork* wp, BOOL a2) { //1:1, needs stmw forc
 			wp->alertTick--;
 			if (wp->alertTick <= 0) {
 				wp->alertTick = 60;
-				if (wp->commandMenu.unk4 & 1) {
+				if (wp->commandMenu.field_4 & 1) {
 					psndSFXOn("SFX_BTL_PINCH1");
 				}
 			}

@@ -388,7 +388,7 @@ void pouchRevisePartyParam(void) {
 	int i, count;
 
 	for (i = 0, count = 0; i < 200; i++) {
-		if (mpp->equippedBadges[i] == kItemHpPlusP) {
+		if (mpp->equippedBadges[i] == ITEM_HP_PLUS_P) {
 			count++;
 		}
 	}
@@ -413,10 +413,10 @@ void pouchReviseMarioParam(void) {
 
 	for (i = 0; i < 200; i++) {
 		switch (mpp->equippedBadges[i]) {
-			case kItemHpPlus:
+			case ITEM_HP_PLUS:
 				mpp->maximumHP += 5;
 				break;
-			case kItemFpPlus:
+			case ITEM_FP_PLUS:
 				mpp->maximumFP += 5;
 				break;
 		}
@@ -470,13 +470,13 @@ s16 pouchGetPartyAttackLv(MarioPartner partnerId) {
 s32 pouchGetHammerLv(void) {
 	s8 level = 0;
 
-	if (pouchCheckItem(kItemUltraHammer)) {
+	if (pouchCheckItem(ITEM_ULTRA_HAMMER)) {
 		level = 3;
 	}
-	else if (pouchCheckItem(kItemSuperHammer)) {
+	else if (pouchCheckItem(ITEM_SUPER_HAMMER)) {
 		level = 2;
 	}
-	else if (pouchCheckItem(kItemHammer)) {
+	else if (pouchCheckItem(ITEM_HAMMER)) {
 		level = 1;
 	}
 	mpp->hammerLevel = level;
@@ -486,13 +486,13 @@ s32 pouchGetHammerLv(void) {
 s32 pouchGetJumpLv(void) {
 	s8 level = 0;
 
-	if (pouchCheckItem(kItemUltraBoots)) {
+	if (pouchCheckItem(ITEM_ULTRA_BOOTS)) {
 		level = 3;
 	}
-	else if (pouchCheckItem(kItemSuperBoots)) {
+	else if (pouchCheckItem(ITEM_SUPER_BOOTS)) {
 		level = 2;
 	}
-	else if (pouchCheckItem(kItemBoots)) {
+	else if (pouchCheckItem(ITEM_BOOTS)) {
 		level = 1;
 	}
 	mpp->jumpLevel = level;

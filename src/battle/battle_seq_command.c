@@ -12,20 +12,20 @@ void BattleDrawEnemyHP(CameraId camId, void* param);
 
 void BattleDrawEnemyHP(CameraId camId, void* param) {
 	BattleWork* wp = param;
-	BattleWorkUnit* unit;
+	BattleUnit* unit;
 	Vec position;
 	int i;
 
 	camGetPtr(CAMERA_2D); //unused, probably just stored
 
 	for (i = 0; i < 64; i++) {
-		unit = wp->mUnits[i];
+		unit = wp->units[i];
 		if (unit) {
 			if (!BtlUnit_CheckStatus(unit, kStatusInstantKill)) {
 				if (battleCheckUnitMonosiriFlag(unit)) {
 					if (!unit->mAttributeFlags & 0x2000000) {
-						if (wp->commandMenu.unk4 & 0x1000000) {
-							if (unit->mFlags & 1) {
+						if (wp->commandMenu.field_4 & 0x1000000) {
+							if (unit->flags & 1) {
 								position.x = unit->mPosition.x;
 								position.y = unit->mPosition.y;
 								position.z = unit->mPosition.z;

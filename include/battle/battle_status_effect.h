@@ -36,11 +36,11 @@ typedef enum StatusEffectType {
 	kStatusInvalid //0x1C
 } StatusEffectType;
 
-void BattleStatusEffectInit(struct BattleWorkUnit* unit);
-void BattleStatusEffectMain(struct BattleWorkUnit* unit);
-void BSE_TurnFirstProcessEffectEntry(struct BattleWorkUnit* unit, s16 active);
-BOOL BSE_TurnFirstProcessEffectMain(struct BattleWorkUnit* unit);
-void BattleStatusChangeInfoWorkInit(struct BattleWorkUnit* unit);
+void BattleStatusEffectInit(struct BattleUnit* unit);
+void BattleStatusEffectMain(struct BattleUnit* unit);
+void BSE_TurnFirstProcessEffectEntry(struct BattleUnit* unit, s16 active);
+BOOL BSE_TurnFirstProcessEffectMain(struct BattleUnit* unit);
+void BattleStatusChangeInfoWorkInit(struct BattleUnit* unit);
 
 
 

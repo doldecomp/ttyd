@@ -2,8 +2,6 @@
 #include "battle/battle.h"
 #include "memory.h"
 
-extern BattleWork* _battleWorkPointer;
-
 //.sbss
 static BattleSpotWork work;
 

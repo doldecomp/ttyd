@@ -2,18 +2,19 @@
 #include "battle/battle.h"
 #include "data/item_data.h"
 #include "evt/evt_cmd.h"
+#include "manager/evtmgr_cmd.h"
 #include <string.h>
 
 extern BattleWork* _battleWorkPointer;
 extern ItemData* itemDataTable;
 extern int sprintf(char* str, const char* format, ...);
 
-BattleWorkIcon* BtlIconGetPtr(s32 index) {
-	BattleWorkIcon* icon;
+BattleIcon* BtlIconGetPtr(s32 index) {
+	BattleIcon* icon;
 	int i;
 
 	for (i = 0; i < 16; i++) {
-		icon = &_battleWorkPointer->iconWork[i];
+		icon = &_battleWorkPointer->icons[i];
 		if (icon->flags & 1 && icon->index == index) {
 			return icon; //TODO: redo bwp->iconWork?
 		}
@@ -22,18 +23,18 @@ BattleWorkIcon* BtlIconGetPtr(s32 index) {
 }
 
 void BattleIconInit(void) {
-	memset(_battleWorkPointer->iconWork, 0, sizeof(_battleWorkPointer->iconWork));
+	memset(_battleWorkPointer->icons, 0, sizeof(_battleWorkPointer->icons));
 }
 
 void BattleIconMain(void) {
 	BattleWork* wp;
-	BattleWorkIcon* icon;
+	BattleIcon* icon;
 	IconEntry* base;
 	int i;
 
 	wp = _battleWorkPointer;
 	for (i = 0; i < 16; i++) {
-		icon = &wp->iconWork[i];
+		icon = &wp->icons[i];
 		if (icon->flags & 1) { //in use
 			base = icon->base;
 			if (base) {
@@ -55,23 +56,23 @@ void BattleIconEnd(void) {
 	int i;
 
 	for (i = 0; i < 16; i++) {
-		BtlIcon_Delete(&wp->iconWork[i]);
+		BtlIcon_Delete(&wp->icons[i]);
 	}
 }
 
-BattleWorkIcon* BtlIcon_Entry(s16 iconId, f32 x, f32 y, f32 z) {
-	BattleWorkIcon* icon;
+BattleIcon* BtlIcon_Entry(s16 iconId, f32 x, f32 y, f32 z) {
+	BattleIcon* icon;
 	int i;
 	char name[32];
 
 	for (i = 0; i < 16; i++) {
-		icon = &_battleWorkPointer->iconWork[i];
+		icon = &_battleWorkPointer->icons[i];
 		if (!(icon->flags & 1)) {
 			break; //found one not in use
 		}
 	}
 	if (i < 16) {
-		memset(icon, 0, sizeof(BattleWorkIcon));
+		memset(icon, 0, sizeof(BattleIcon));
 		icon->index = i;
 		icon->flags = 1;
 		icon->field_0x14 = 1.0f;
@@ -89,7 +90,7 @@ BattleWorkIcon* BtlIcon_Entry(s16 iconId, f32 x, f32 y, f32 z) {
 	}
 }
 
-void BtlIcon_Delete(BattleWorkIcon* icon) {
+void BtlIcon_Delete(BattleIcon* icon) {
 	if (icon->flags & 1) {
 		iconDelete(icon->base->name);
 		icon->flags &= ~1;
@@ -99,7 +100,7 @@ void BtlIcon_Delete(BattleWorkIcon* icon) {
 //s32 iconId, f32 x, f32 y, f32 z, s32 evtIndex
 USER_FUNC(btlevtcmd_BtlIconEntry) {
 	s32* args = event->args;
-	BattleWorkIcon* icon;
+	BattleIcon* icon;
 	s32 iconId, index;
 	f32 x, y, z;
 
@@ -116,7 +117,7 @@ USER_FUNC(btlevtcmd_BtlIconEntry) {
 //s32 itemId (index for itemDataTable) , f32 x, f32 y, f32 z, s32 evtIndex
 USER_FUNC(btlevtcmd_BtlIconEntryItemId) {
 	s32* args = event->args;
-	BattleWorkIcon* icon;
+	BattleIcon* icon;
 	s32 itemId, index;
 	f32 x, y, z;
 
@@ -132,7 +133,7 @@ USER_FUNC(btlevtcmd_BtlIconEntryItemId) {
 
 //s32 index for BtlIconGetPtr
 USER_FUNC(btlevtcmd_BtlIconDelete) {
-	BattleWorkIcon* icon;
+	BattleIcon* icon;
 	s32 value;
 
 	value = evtGetValue(event, *event->args);
@@ -144,7 +145,7 @@ USER_FUNC(btlevtcmd_BtlIconDelete) {
 //s32 index for BtlIconGetPtr, f32 x, f32 y, f32 z
 USER_FUNC(btlevtcmd_BtlIconSetPosition) {
 	s32* args = event->args;
-	BattleWorkIcon* icon;
+	BattleIcon* icon;
 	f32 x, y, z;
 	s32 index;
 
@@ -161,11 +162,12 @@ USER_FUNC(btlevtcmd_BtlIconSetPosition) {
 USER_FUNC(btlevtcmd_BtlIconSetFallAccel) {
 	s32* args = event->args;
 	s32 index = evtGetValue(event, args[0]);
-	BattleWorkIcon* icon = BtlIconGetPtr(index);
+	BattleIcon* icon = BtlIconGetPtr(index);
 	icon->fallAccel = evtGetFloat(event, args[1]);
 	return EVT_RETURN_DONE;
 }
 
 USER_FUNC(btlevtcmd_BtlIconJumpPosition) {
 	//TODO: revisit when more of BattleWorkIcon is filled out
+	return 2;
 }

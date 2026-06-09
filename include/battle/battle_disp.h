@@ -18,7 +18,7 @@ void btlDispTexPlane(u32 id, GXColor color, f32 tX, f32 tY, f32 tZ, f32 sX, f32 
 void btlDispTexPlane2(Mtx mtx, u32 id, GXColor color);
 void btlDispTexPlane3(Mtx mtx, u32 id, GXColor color0, GXColor color1, GXColor color2, GXColor color3);
 void btlDispInit(void);
-StatusEffectType _GetStatusPoseType(BattleWorkUnit* unit);
+StatusEffectType _GetStatusPoseType(BattleUnit* unit);
 
 
 void btlDispMain(void);
@@ -26,5 +26,4 @@ void btlDispMain(void);
 
 
 
-void btlDispEntAnime(BattleWorkUnit* unit);
-
+void btlDispEntAnime(BattleUnit* unit);

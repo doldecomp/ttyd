@@ -20,8 +20,8 @@ void BattleAudienceGuestTPLRead(s32 index, AudienceMemberType member, const char
 void BattleAudienceCtrlProcess(void);
 BOOL BattleAudienceItemOn(s32 index, u16 itemId, s32 numItems);
 void BattleAudienceSetThrowItemMax(void);
-BattleWorkUnit* BattleAudienceDetectTargetAll(void);
-BattleWorkUnit* BattleAudienceDetectTargetPlayer(void);
+BattleUnit* BattleAudienceDetectTargetAll(void);
+BattleUnit* BattleAudienceDetectTargetPlayer(void);
 void BattleAudienceItemCtrlProcess(void);
 void BattleAudienceApSrcCtrlProcess(void);
 BOOL BattleAudienceApSrcEntry(void);
@@ -189,11 +189,11 @@ BOOL BattleAudience_CheckReaction(void) {
 
 	audience = BattleAudienceBaseGetPtr();
 	BattleAudienceGetPtr(0); //unused
-	evt = audience->evt;
+	evt = audience->event;
 	if (evt && evtCheckID(evt->eventId)) {
 		return TRUE;
 	}
-	audience->evt = NULL;
+	audience->event = NULL;
 	return FALSE;
 }
 
@@ -313,8 +313,8 @@ BOOL BattleAudience_CheckReactionPerPhase(void) {
 			audience->mCheckPhaseReactionState = 9;
 			return TRUE;
 		case 9:
-			if (!evtCheckID(audience->evt->eventId)) {
-				audience->evt = NULL;
+			if (!evtCheckID(audience->event->eventId)) {
+				audience->event = NULL;
 				audience->mCheckPhaseReactionState = 10;
 			}
 			return TRUE;
@@ -329,8 +329,8 @@ BOOL BattleAudience_CheckReactionPerPhase(void) {
 			}
 			return TRUE;
 		case 11:
-			if (!evtCheckID(audience->evt->eventId)) {
-				audience->evt = NULL;
+			if (!evtCheckID(audience->event->eventId)) {
+				audience->event = NULL;
 				audience->mCheckPhaseReactionState = 15;
 			}
 			return TRUE;
@@ -424,11 +424,11 @@ void BattleAudienceSetThrowItemMax(void) {
 
 }
 
-BattleWorkUnit* BattleAudienceDetectTargetAll(void) {
+BattleUnit* BattleAudienceDetectTargetAll(void) {
 	return NULL;
 }
 
-BattleWorkUnit* BattleAudienceDetectTargetPlayer(void) {
+BattleUnit* BattleAudienceDetectTargetPlayer(void) {
 	return NULL;
 }
 

@@ -673,7 +673,7 @@ event/evt_bg.c:
 	.text       start:0x800F23D8 end:0x800F2568
 	.sbss2      start:0x80422FE8 end:0x80422FF0
 
-battle.c:
+battle/battle.c:
 	.text       start:0x800F2568 end:0x800F4144
 	.data       start:0x8034A0C0 end:0x8034A578
 	.sdata      start:0x80410CA0 end:0x80410D00

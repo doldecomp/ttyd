@@ -1,7 +1,8 @@
 #include "battle/battle_disp.h"
 #include "battle/battle.h"
 #include "battle/battle_menu_disp.h"
-#include "texPalette.h"
+#include "battle/battle_unit.h"
+#include "sdk/texPalette.h"
 
 extern BattleWork* _battleWorkPointer;
 
@@ -214,12 +215,13 @@ void btlDispGetTexSize(u32 id, u16* width, u16* height) {
 
 void btlDispInit(void) {
 	BattleWork* wp = _battleWorkPointer;
+	
 	battleCameraInit();
 	battleMenuDispInit();
-	wp->mIconFlags |= 2;
+	wp->dispFlags |= 2;
 }
 
-StatusEffectType _GetStatusPoseType(BattleWorkUnit* unit) { //TODO: extsb
+StatusEffectType _GetStatusPoseType(BattleUnit* unit) { //TODO: extsb
 	s32* table = _status_pose_table;
 	StatusEffectType type;
 
@@ -238,13 +240,13 @@ StatusEffectType _GetStatusPoseType(BattleWorkUnit* unit) { //TODO: extsb
 }
 
 void btlDispMain(void) {
-	BattleWorkUnit* unit;
+	BattleUnit* unit;
 	int i;
 
 	for (i = 0; i < 0x40; i++) {
 		unit = BattleGetUnitPtr(_battleWorkPointer, i);
 		if (unit) {
-			if (unit->currentKind == kUnitShellShield) {
+			if (unit->currentKind == UNIT_SHELL_SHIELD) {
 
 			}
 		}
@@ -262,7 +264,7 @@ void btlUnitPartsDisp(CameraId camId, BattleWorkUnitPart* parts) {
 
 
 
-void btlDispEntAnime(BattleWorkUnit* unit) {
+void btlDispEntAnime(BattleUnit* unit) {
 
 }
 void _partsBlurControl(BattleWorkUnitPart* part, s32 flags, Mtx orientation, GXColor color, f32 rotation);

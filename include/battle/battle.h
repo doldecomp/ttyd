@@ -17,7 +17,7 @@
 
 typedef struct BattleWork BattleWork;
 typedef struct BattleWorkCommand BattleWorkCommand;
-typedef struct BattleWorkAlliance BattleWorkAlliance;
+typedef struct BattleAlliance BattleAlliance;
 typedef struct BattleWorkCommandAction BattleWorkCommandAction;
 typedef struct BattleWorkCommandWeapon BattleWorkCommandWeapon;
 typedef struct BattleWorkCommandOperation BattleWorkCommandOperation;
@@ -122,62 +122,68 @@ typedef struct BattleWorkActRecord {
     u8 field_0x0[0x24 - 0x0]; // 0x0
 } BattleWorkActRecord;
 
-struct BattleWorkAlliance {
-    s16 mAllianceId;        // 0x0
-    s8 mAttackDirection;    // 0x2
-    u8 pad_3;               // 0x3, TODO remove?
-    u32 mClearConditionMet; // 0x4
+struct BattleAlliance {
+    s16 allianceId;     // 0x0
+    s8 attackDirection; // 0x2
+    // pad 1 byte
+    u32 clearConditionMet; // 0x4
 };
 
+typedef struct BattleWorkPartyInfo {
+    f32 field_0;              // 0x0
+    u8 field_4[0x1E];         // 0x4
+    u8 field_22[0x24 - 0x22]; // 0x22
+    s32 field_24;             // 0x24
+} BattleWorkPartyInfo;
+
 struct BattleWork {
-    u16 mTurnCount;                        // 0x0
-    u16 pad_0x2;                           // 0x2
-    u32 mSeq_Unknown;                      // 0x4
-    BattleWorkAlliance mAllianceInfo[3];   // 0x8
-    BattleWorkUnit* mUnits[64];            // 0x20
-    u8 field_0x120[0x424 - 0x120];         // 0x120
-    s32 field_0x424;                       // 0x424
-    u8 field_0x428[0xEF4 - 0x428];         // 0x428
-    BattleFlags flags;                     // 0xEF4
-    s32 mIconFlags;                        // 0xEF8, TODO better name?
-    u8 field_0xEFC[0xF0C - 0xEFC];         // 0xEFC
-    u32 mSeqInit;                          // 0xF0C
-    u32 mSeqFirstAct;                      // 0xF10
-    u32 mSeqTurn;                          // 0xF14
-    u32 mSeqPhase;                         // 0xF18
-    u32 mSeqMove;                          // 0xF1C
-    u32 mSeqAct;                           // 0xF20
-    u32 mSeqEnd;                           // 0xF24
-    BattleSeqEndWork* seqEndWork;          // 0xF28
-    BattleWorkPad mPadWork[4];             // 0xF2C
-    BattleCommand commandMenu;             // 0x171C
-    BattleACManager actionCommands;        // 0x1C90
-    FieldBattleInfo* fbatInfo;             // 0x2738
-    u8 field_0x273C[0x2754 - 0x273C];      // 0x273C
-    BattleCameraWork cameraWork;           // 0x2754
-    BattleAudience audience;               // 0x2858
-    u8 field_0x1616C[0x163B8 - 0x1616C];   // 0x1616C
-    u32 mTattledUnitTypeFlags[8];          // 0x163B8 JP, 0x163D4 US
-    s32 mBadgeEquippedFlags;               // 0x163D8
-    FileEntry* menuTex;                    // 0x163DC JP, 0x163F8 US, battle_menu_disp
-    u8 field_0x163DC[0x163E0 - 0x163DC];   // 0x163DC
-    BattleStage stage;                     // 0x163E0 JP, 0x163FC US
-    u8 field_16F1C[0x17140 - 0x16F1C];     // 0x16F1C
-    BattleStageObject stageObjects[32];    // 0x17140 JP, 0x1715C US
-    u8 field_0x180C0[0x182B0 - 0x180C0];   // 0x180C0, 0x180DC in US
-    BattleWorkIcon iconWork[16];           // 0x182B0, TODO: rename to just "icon"?
-    s16 field_0x18C70;                     // 0x18C70 JP, 0x18C8C US, _disp Xpos something
-    s16 field_0x18C82;                     // 0x18C72 JP, 0x18C7E US, _disp Ypos something
-    u8 field_0x18C84[0x18FE0 - 0x18C84];   // 0x18C84
-    s8 alertTick;                          // 0x18FE0 JP, 0x18FF8 US
-    u8 field_0x18FE1[3];                   // 0x18FE1, padding?
-    StarPowerInfo mImpendingWeaponBonuses; // 0x18FE4, 0x18FFC in US
-    u8 field_0x18FF0[0x19050 - 0x18FF0];   // 0x18FF0
-    u32 mReserveItems[4];                  // 0x19050
-    s32 field_0x19060;                     // 0x19060
-    u8 field_0x19064[0x19088 - 0x19064];   // 0x19064
+    s16 turnCount;                      // 0x0
+    u8 field_2[0x8 - 0x2];              // 0x2
+    BattleAlliance alliances[3];        // 0x8
+    BattleUnit* units[64];              // 0x20
+    u8 field_120[0x420 - 0x120];        // 0x120
+    s32 activeUnitId;                   // 0x420
+    s32 field_424;                      // 0x424
+    u8 field_428[0xEF4 - 0x428];        // 0x428
+    u32 flags;                          // 0xEF4
+    s32 dispFlags;                      // 0xEF8
+    u8 field_EFC[0xF28 - 0xEFC];        // 0xEFC
+    BattleSeqEndWork* seqEndWork;       // 0xF28
+    BattleWorkPad padWork[4];           // 0xF2C
+    BattleCommand commandMenu;          // 0x171C
+    BattleActions actionCommands;       // 0x1C90
+    u8 field_1F9C[0x271C - 0x1F9C];     // 0x1F9C
+    s32 mStylishCurFrame;               // 0x271C
+    s32 mStylishWindowStart;            // 0x2720
+    s32 mStylishWindowEnd;              // 0x2724
+    s32 mStylishEndFrame;               // 0x2728
+    s32 mStylishUnitId;                 // 0x272C
+    s32 mStylishResult;                 // 0x2730
+    s32 mStylishEarlyFrames;            // 0xA2734
+    FieldBattleInfo* fbatInfo;          // 0x2738
+    u8 field_273C[0x2754 - 0x273C];     // 0x273C
+    BattleCameraWork cameraWork;        // 0x2754
+    BattleAudience audience;            // 0x2858
+    u8 field_1616C[0x162A0 - 0x1616C];  // 0x1616C
+    BattleWorkPartyInfo partyInfo[7];   // 0x162A0
+    u32 tattledUnitTypeFlags[8];        // 0x163B8
+    s32 badgeEquippedFlags;             // 0x163D8
+    FileEntry* menuTex;                 // 0x163DC
+    BattleStage stage;                  // 0x163E0
+    u8 field_16F1C[0x17140 - 0x16F1C];  // 0x16F1C
+    BattleStageObject stageObjects[32]; // 0x17140
+    u8 field_180C0[0x182B0 - 0x180C0];  // 0x180C0
+    BattleIcon icons[10];               // 0x182B0
+    u8 field_188C8[0x18FE0 - 0x188C8];  // 0x188C8
+    s8 alertTick;                       // 0x18FE0
+    u8 field_18FE1[0x18FE4 - 0x18FE1];  // 0x18FE1
+    StarPowerInfo impendingBonuses;     // 0x18FE4
+    u8 field_18FF0[0x19050 - 0x18FF0];  // 0x18FF0
+    u32 reserveItems[4];                // 0x19050
+    s32 field_19060;                    // 0x19060
+    u8 field_19064[0x19088 - 0x19064];  // 0x19064
 };
-// u32 test = sizeof(BattleWorkCommand);
+extern BattleWork* _battleWorkPointer;
 
 void battleMain(void);
 
@@ -185,25 +191,25 @@ void battle_exit(void);
 BOOL battle_init(void);
 void BattleAfterReactionQueueInit(void);
 
-BattleWorkUnit* BattleGetPartnerPtr(BattleWork* work, BattleWorkUnit* unit);
-BattleWorkUnit* BattleGetPartyPtr(BattleWork* work);
-BattleWorkUnit* BattleGetMarioPtr(BattleWork* work);
-BattleWorkUnit* BattleGetSystemPtr(BattleWork* work);
+BattleUnit* BattleGetPartnerPtr(BattleWork* work, BattleUnit* unit);
+BattleUnit* BattleGetPartyPtr(BattleWork* work);
+BattleUnit* BattleGetMarioPtr(BattleWork* work);
+BattleUnit* BattleGetSystemPtr(BattleWork* work);
 BattleWorkUnitPart* BattleGetUnitPartsPtr(s32 index, s32 partNum);
-void BattleSetUnitPtr(BattleWork* work, s32 index, BattleWorkUnit* unit);
-BattleWorkUnit* BattleGetUnitPtr(BattleWork* work, s32 index);
+void BattleSetUnitPtr(BattleWork* work, s32 index, BattleUnit* unit);
+BattleUnit* BattleGetUnitPtr(BattleWork* work, s32 index);
 void BattleFree(void* ptr);
 void* BattleAlloc(u32 size);
 void BattleIncSeq(BattleWork* work, s32 seq);
-u32 BattleGetSeq(BattleWork* work, BattleSequence seq);
+s32 BattleGetSeq(BattleWork* work, BattleSequence seq);
 void BattleSetSeq(BattleWork* work, BattleSequence seq, u32 num);
 void BattleSetMarioParamToFieldBattle(BattleWork* work);
-void Btl_UnitSetup(BattleWork* work);
+BOOL Btl_UnitSetup(BattleWork* work);
 void BattleEnd(void);
 void BattleInit(FieldBattleInfo* info);
 BOOL battleSeqEndCheck(void);
 
-struct BattleWorkUnit* BattleChangeParty(BattleWork* wp);
+struct BattleUnit* BattleChangeParty(BattleWork* wp);
 s32 BattleTransPartyId(BattleUnitType kind);
 
 BOOL battleDisableHResetCheck(void);

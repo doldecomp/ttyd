@@ -6,6 +6,7 @@
  */
 #include "event.h"
 #include "driver/swdrv.h"
+#include "evt/evt_cmd.h"
 #include "manager/evtmgr_cmd.h"
 #include "mario/mario_party.h"
 #include "mario/mario_pouch.h"
@@ -560,9 +561,9 @@ EventDtor event_dt[] = {
 void stg0_00_init(void) {
 	pouchGetPtr(); //leftover from development, return value never used for pouchInit
 	pouchInit();
-	pouchGetItem(kItemBoots);
-	pouchGetItem(kItemMagicalMap);
-	pouchGetItem(kItemHammer);
+	pouchGetItem(ITEM_BOOTS);
+	pouchGetItem(ITEM_MAGICAL_MAP);
+	pouchGetItem(ITEM_HAMMER);
 	pouchSetCoin(100);
 	pouchReviseMarioParam();
 	badgeShop_init();
@@ -590,7 +591,7 @@ void stg0_12_02_init(void) {
 }
 
 void stg0_13_init(void) {
-	pouchGetItem(kItemPlaneCurse);
+	pouchGetItem(ITEM_PLANE_CURSE);
 	swSet(0x539);
 }
 
@@ -610,9 +611,9 @@ void stg1_03_init(void) {
 }
 
 void stg1_06_01_init(void) {
-	pouchGetItem(kItemMoonStone);
+	pouchGetItem(ITEM_MOON_STONE);
 	swSet(0x6EF);
-	pouchGetItem(kItemSunStone);
+	pouchGetItem(ITEM_SUN_STONE);
 	swSet(0x6EE);
 }
 
@@ -623,8 +624,8 @@ void stg1_08_init(void) {
 }
 
 void stg1_09_init(void) {
-	pouchRemoveItem(kItemMoonStone);
-	pouchRemoveItem(kItemSunStone);
+	pouchRemoveItem(ITEM_MOON_STONE);
+	pouchRemoveItem(ITEM_SUN_STONE);
 }
 
 void stg1_09_02_init(void) {
@@ -636,49 +637,49 @@ void stg1_10_init(void) {
 }
 
 void stg1_12_02_init(void) {
-	pouchGetItem(kItemCastleKey_0x0d);
+	pouchGetItem(ITEM_CASTLE_KEY_0x0D);
 }
 
 void stg1_13_init(void) {
-	pouchRemoveItem(kItemCastleKey_0x0d);
+	pouchRemoveItem(ITEM_CASTLE_KEY_0x0D);
 }
 
 void stg1_13_01_init(void) {
-	pouchGetItem(kItemBlackKey_0x22);
+	pouchGetItem(ITEM_BLACK_KEY_0x22);
 }
 
 void stg1_13_02_init(void) {
-	pouchRemoveItem(kItemBlackKey_0x22);
-	pouchGetItem(kItemPaperCurse);
+	pouchRemoveItem(ITEM_BLACK_KEY_0x22);
+	pouchGetItem(ITEM_PAPER_CURSE);
 }
 
 void stg1_13_03_init(void) {
-	pouchGetItem(kItemCastleKey_0x0c);
+	pouchGetItem(ITEM_CASTLE_KEY_0x0C);
 }
 
 void stg1_14_init(void) {
-	pouchRemoveItem(kItemCastleKey_0x0c);
+	pouchRemoveItem(ITEM_CASTLE_KEY_0x0C);
 }
 
 void stg1_15_02_init(void) {
-	pouchGetItem(kItemCastleKey_0x0f);
+	pouchGetItem(ITEM_CASTLE_KEY_0x0F);
 }
 
 void stg1_15_03_init(void) {
-	pouchRemoveItem(kItemCastleKey_0x0f);
+	pouchRemoveItem(ITEM_CASTLE_KEY_0x0F);
 }
 
 void stg1_15_04_init(void) {
-	pouchGetItem(kItemCastleKey_0x0e);
+	pouchGetItem(ITEM_CASTLE_KEY_0x0E);
 }
 
 void stg1_16_init00(void) {
-	pouchRemoveItem(kItemCastleKey_0x0e);
-	pouchGetItem(kItemAttackFxR);
-	pouchGetItem(kItemPowerBounce);
-	pouchGetItem(kItemMultibounce);
-	pouchGetItem(kItemPowerSmash);
-	pouchEquipBadgeID(kItemAttackFxR);
+	pouchRemoveItem(ITEM_CASTLE_KEY_0x0E);
+	pouchGetItem(ITEM_ATTACK_FX_R);
+	pouchGetItem(ITEM_POWER_BOUNCE);
+	pouchGetItem(ITEM_MULTIBOUNCE);
+	pouchGetItem(ITEM_POWER_SMASH);
+	pouchEquipBadgeID(ITEM_ATTACK_FX_R);
 	pouchReviseMarioParam();
 }
 
@@ -687,7 +688,7 @@ void stg1_16_init01(void) {
 }
 
 void stg1_17_init(void) {
-	pouchGetItem(kItemDiamondStar);
+	pouchGetItem(ITEM_DIAMOND_STAR);
 	pouchGetStarStone(1);
 }
 
@@ -731,11 +732,11 @@ void stg2_03_03_init(void) {
 }
 
 void stg2_09_init(void) {
-	pouchGetItem(kItemNecklace);
+	pouchGetItem(ITEM_NECKLACE);
 }
 
 void stg2_10_init(void) {
-	pouchRemoveItem(kItemNecklace);
+	pouchRemoveItem(ITEM_NECKLACE);
 	partyJoin(PARTNER_FLURRIE);
 	swSet(0x11);
 	pouchReceiveMail(0x1B);
@@ -751,12 +752,12 @@ void stg2_12_01_init(void) {
 }
 
 void stg2_14_init(void) {
-	pouchGetItem(kItemRedKey);
+	pouchGetItem(ITEM_RED_KEY);
 	swSet(0xB17);
 }
 
 void stg2_15_init(void) {
-	pouchRemoveItem(kItemRedKey);
+	pouchRemoveItem(ITEM_RED_KEY);
 	swSet(0xB10);
 	swSet(0xB11);
 }
@@ -764,7 +765,7 @@ void stg2_15_init(void) {
 void stg2_16_init00(void) {
 	swSet(0xB3F);
 	swByteSet(0x28B, 9);
-	pouchGetItem(kItemPuniOrb);
+	pouchGetItem(ITEM_PUNI_ORB);
 }
 
 void stg2_16_init01(void) {
@@ -782,7 +783,7 @@ void stg2_18_init01(void) {
 
 void stg2_19_init(void) {
 	swSet(0xB24);
-	pouchGetItem(kItemBlueKey);
+	pouchGetItem(ITEM_BLUE_KEY);
 }
 
 void stg2_20_init(void) {
@@ -790,7 +791,7 @@ void stg2_20_init(void) {
 }
 
 void stg2_21_init00(void) {
-	pouchRemoveItem(kItemBlueKey);
+	pouchRemoveItem(ITEM_BLUE_KEY);
 	swSet(0xB12);
 	swSet(0xB13);
 	swSet(0xB3D);
@@ -828,7 +829,7 @@ void stg2_21_03_init(void) {
 }
 
 void stg2_21_04_init(void) {
-	pouchGetItem(kItemSuperBoots);
+	pouchGetItem(ITEM_SUPER_BOOTS);
 }
 
 void stg2_21_06_init00(void) {
@@ -862,7 +863,7 @@ void stg2_23_01_init(void) {
 
 void stg2_25_init(void) {
 	swClear(0xB40);
-	pouchGetItem(kItemEmeraldStar);
+	pouchGetItem(ITEM_EMERALD_STAR);
 	pouchGetStarStone(2);
 }
 
@@ -885,7 +886,7 @@ void stg2_44_init(void) {
 }
 
 void stg2_47_init(void) {
-	pouchGetItem(kItemBlimpTicket);
+	pouchGetItem(ITEM_BLIMP_TICKET);
 }
 
 void stg2_end_init(void) {
@@ -1047,7 +1048,7 @@ void stg3_20_01_init(void) {
 }
 
 void stg3_20_02_init(void) {
-	pouchGetItem(kItemSuperHammer);
+	pouchGetItem(ITEM_SUPER_HAMMER);
 	pouchReceiveMail(8);
 	pouchOpenMail(8);
 }
@@ -1105,7 +1106,7 @@ void stg3_20_06_init(void) {
 }
 
 void stg3_20_07_00_init(void) {
-	pouchGetItem(kItemStorageKey_0x12);
+	pouchGetItem(ITEM_STORAGE_KEY_0x12);
 }
 
 void stg3_20_08_init(void) {
@@ -1119,7 +1120,7 @@ void stg3_20_09_init(void) {
 }
 
 void stg3_20_12_init00(void) {
-	pouchRemoveItem(kItemStorageKey_0x12);
+	pouchRemoveItem(ITEM_STORAGE_KEY_0x12);
 	swSet(0x979);
 	swSet(0x97A);
 	swSet(0x97B);
@@ -1173,13 +1174,13 @@ void stg3_20_14_init(void) {
 }
 
 void stg3_20_15_init(void) {
-	pouchGetItem(kItemStorageKey_0x13);
+	pouchGetItem(ITEM_STORAGE_KEY_0x13);
 	pouchReceiveMail(15);
 	pouchOpenMail(15);
 }
 
 void stg3_20_16_init(void) {
-	pouchRemoveItem(kItemStorageKey_0x13);
+	pouchRemoveItem(ITEM_STORAGE_KEY_0x13);
 }
 
 void stg3_21_init(void) {
@@ -1213,7 +1214,7 @@ void stg3_30_init00(void) {
 
 void stg3_30_init01(void) {
 	swClear(0x955);
-	pouchGetItem(kItemChampsBelt);
+	pouchGetItem(ITEM_CHAMPS_BELT);
 	pouchReceiveMail(0x2B);
 	pouchOpenMail(0x2B);
 }
@@ -1227,7 +1228,7 @@ void stg3_32_init(void) {
 }
 
 void stg3_33_init(void) {
-	pouchGetItem(kItemGoldStar);
+	pouchGetItem(ITEM_GOLD_STAR);
 	pouchGetStarStone(3);
 }
 
@@ -1246,7 +1247,7 @@ void stg3_34_init(void) {
 	swSet(0x962);
 	swSet(0x963);
 	//marioSetCharMode(0); mario.c
-	pouchRemoveItem(kItemChampsBelt);
+	pouchRemoveItem(ITEM_CHAMPS_BELT);
 	for (i = 0; i < 20; i++) {
 		swClear(i + 0x9A1);
 	}
@@ -1283,28 +1284,28 @@ void stg4_00_init(void) {
 }
 
 void stg4_04_init(void) {
-	pouchGetItem(kItemShopKey);
+	pouchGetItem(ITEM_SHOP_KEY);
 }
 
 void stg4_04_01_init(void) {
-	pouchRemoveItem(kItemShopKey);
+	pouchRemoveItem(ITEM_SHOP_KEY);
 	swSet(0x82B);
-	pouchGetItem(kItemBlackKey_0x23);
+	pouchGetItem(ITEM_BLACK_KEY_0x23);
 }
 
 void stg4_05_init(void) {
-	pouchRemoveItem(kItemBlackKey_0x23);
-	pouchGetItem(kItemTubeCurse);
+	pouchRemoveItem(ITEM_BLACK_KEY_0x23);
+	pouchGetItem(ITEM_TUBE_CURSE);
 	swSet(0x13);
 	pouchReceiveMail(0x1D);
 }
 
 void stg4_09_05_init(void) {
-	pouchGetItem(kItemSteepleKey_0x16);
+	pouchGetItem(ITEM_STEEPLE_KEY_0x16);
 }
 
 void stg4_10_init(void) {
-	pouchRemoveItem(kItemSteepleKey_0x16);
+	pouchRemoveItem(ITEM_STEEPLE_KEY_0x16);
 }
 
 void stg4_11_init(void) {
@@ -1318,11 +1319,11 @@ void stg4_11_init(void) {
 }
 
 void stg4_13_init(void) {
-	pouchGetItem(kItemSuperbombomb);
+	pouchGetItem(ITEM_SUPERBOMBOMB);
 }
 
 void stg4_13_02_init(void) {
-	pouchRemoveItem(kItemSuperbombomb);
+	pouchRemoveItem(ITEM_SUPERBOMBOMB);
 	partyJoin(PARTNER_VIVIAN);
 }
 
@@ -1331,14 +1332,14 @@ void stg4_13_03_init(void) {
 }
 
 void stg4_14_init(void) {
-	pouchGetItem(kItemTheLetterP);
+	pouchGetItem(ITEM_THE_LETTER_P);
 	swSet(0x81B);
 	swSet(0x8B6);
 	swSet(0x8B7);
 }
 
 void stg4_15_init(void) {
-	pouchRemoveItem(kItemTheLetterP);
+	pouchRemoveItem(ITEM_THE_LETTER_P);
 }
 
 void stg4_15_03_init(void) {
@@ -1346,7 +1347,7 @@ void stg4_15_03_init(void) {
 	partyJoin(PARTNER_KOOPS);
 	partyJoin(PARTNER_FLURRIE);
 	partyJoin(PARTNER_YOSHI);
-	pouchGetItem(kItemRubyStar);
+	pouchGetItem(ITEM_RUBY_STAR);
 	pouchGetStarStone(4);
 }
 
@@ -1365,11 +1366,11 @@ void stg4_35_init(void) {
 }
 
 void stg4_36_init(void) {
-	pouchGetItem(kItemOldLetter);
+	pouchGetItem(ITEM_OLD_LETTER);
 }
 
 void stg4_37_init(void) {
-	pouchRemoveItem(kItemOldLetter);
+	pouchRemoveItem(ITEM_OLD_LETTER);
 }
 
 void stg4_end_init(void) {
@@ -1390,16 +1391,16 @@ void stg5_15_init01(void) {
 }
 
 void stg5_17_init(void) {
-	pouchGetItem(kItemCoconut);
+	pouchGetItem(ITEM_COCONUT);
 }
 
 void stg5_18_init(void) {
-	pouchGetItem(kItemChuckolaCola);
-	pouchRemoveItem(kItemCoconut);
+	pouchGetItem(ITEM_CHUCKOLA_COLA);
+	pouchRemoveItem(ITEM_COCONUT);
 }
 
 void stg5_18_02_init(void) {
-	pouchRemoveItem(kItemChuckolaCola);
+	pouchRemoveItem(ITEM_CHUCKOLA_COLA);
 	partyJoin(PARTNER_BOBBERY);
 }
 
@@ -1408,11 +1409,11 @@ void stg5_19_init00(void) {
 }
 
 void stg5_19_init01(void) {
-	pouchGetItem(kItemSkullGem);
+	pouchGetItem(ITEM_SKULL_GEM);
 }
 
 void stg5_19_init02(void) {
-	pouchRemoveItem(kItemSkullGem);
+	pouchRemoveItem(ITEM_SKULL_GEM);
 	swSet(0xC43);
 	swSet(0xC4D);
 }
@@ -1435,20 +1436,20 @@ void stg5_21_init02(void) {
 }
 
 void stg5_21_01_init(void) {
-	pouchGetItem(kItemBlackKey_0x24);
+	pouchGetItem(ITEM_BLACK_KEY_0x24);
 }
 
 void stg5_22_init00(void) {
-	pouchRemoveItem(kItemBlackKey_0x24);
-	pouchGetItem(kItemBoatCurse);
+	pouchRemoveItem(ITEM_BLACK_KEY_0x24);
+	pouchGetItem(ITEM_BOAT_CURSE);
 }
 
 void stg5_22_init01(void) {
-	pouchGetItem(kItemGateHandle);
+	pouchGetItem(ITEM_GATE_HANDLE);
 }
 
 void stg5_29_init(void) {
-	pouchRemoveItem(kItemGateHandle);
+	pouchRemoveItem(ITEM_GATE_HANDLE);
 }
 
 void stg5_30_init00(void) {
@@ -1462,7 +1463,7 @@ void stg5_30_init01(void) {
 }
 
 void stg5_43_init(void) {
-	pouchGetItem(kItemSapphireStar);
+	pouchGetItem(ITEM_SAPPHIRE_STAR);
 	pouchGetStarStone(5);
 }
 
@@ -1502,11 +1503,11 @@ void stg5_64_init(void) {
 
 void stg5_64_01_init(void) {
 	swSet(0xC47);
-	pouchGetItem(kItemWeddingRing);
+	pouchGetItem(ITEM_WEDDING_RING);
 }
 
 void stg5_64_02_init(void) {
-	pouchRemoveItem(kItemWeddingRing);
+	pouchRemoveItem(ITEM_WEDDING_RING);
 }
 
 void stg5_64_03_init(void) {
@@ -1519,7 +1520,7 @@ void stg5_65_init(void) {
 }
 
 void stg5_66_init(void) {
-	pouchGetItem(kItemTrainTicket);
+	pouchGetItem(ITEM_TRAIN_TICKET);
 	swSet(0x4CF);
 }
 
@@ -1529,28 +1530,28 @@ void stg6_00_init(void) {
 }
 
 void stg6_06_init(void) {
-	pouchGetItem(kItemGalleyPot);
+	pouchGetItem(ITEM_GALLEY_POT);
 }
 
 void stg6_12_init(void) {
-	pouchGetItem(kItemAutograph);
+	pouchGetItem(ITEM_AUTOGRAPH);
 }
 
 void stg6_13_init(void) {
-	pouchRemoveItem(kItemAutograph);
+	pouchRemoveItem(ITEM_AUTOGRAPH);
 }
 
 void stg6_18_init(void) {
-	pouchGetItem(kItemRaggedDiary);
+	pouchGetItem(ITEM_RAGGED_DIARY);
 }
 
 void stg6_19_init(void) {
-	pouchRemoveItem(kItemRaggedDiary);
-	pouchGetItem(kItemBlanket);
+	pouchRemoveItem(ITEM_RAGGED_DIARY);
+	pouchGetItem(ITEM_BLANKET);
 }
 
 void stg6_20_init(void) {
-	pouchRemoveItem(kItemBlanket);
+	pouchRemoveItem(ITEM_BLANKET);
 }
 
 void stg6_22_init(void) {
@@ -1559,29 +1560,29 @@ void stg6_22_init(void) {
 }
 
 void stg6_24_init(void) {
-	pouchGetItem(kItemVitalPaper);
+	pouchGetItem(ITEM_VITAL_PAPER);
 }
 
 void stg6_27_init(void) {
-	pouchRemoveItem(kItemVitalPaper);
-	pouchGetItem(kItemGoldRing);
-	pouchGetItem(kItemShellEarrings);
+	pouchRemoveItem(ITEM_VITAL_PAPER);
+	pouchGetItem(ITEM_GOLD_RING);
+	pouchGetItem(ITEM_SHELL_EARRINGS);
 }
 
 void stg6_29_init(void) {
-	pouchGetItem(kItemSteepleKey_0x18);
+	pouchGetItem(ITEM_STEEPLE_KEY_0x18);
 }
 
 void stg6_30_init(void) {
-	pouchRemoveItem(kItemSteepleKey_0x18);
+	pouchRemoveItem(ITEM_STEEPLE_KEY_0x18);
 }
 
 void stg6_32_init(void) {
-	pouchGetItem(kItemSteepleKey_0x19);
+	pouchGetItem(ITEM_STEEPLE_KEY_0x19);
 }
 
 void stg6_33_init(void) {
-	pouchRemoveItem(kItemSteepleKey_0x19);
+	pouchRemoveItem(ITEM_STEEPLE_KEY_0x19);
 }
 
 void stg6_34_init(void) {
@@ -1599,15 +1600,15 @@ void stg6_34_init(void) {
 }
 
 void stg6_37_init(void) {
-	pouchGetItem(kItemUltraBoots);
+	pouchGetItem(ITEM_ULTRA_BOOTS);
 }
 
 void stg6_38_init(void) {
-	pouchGetItem(kItemElevatorKey_0x1a);
+	pouchGetItem(ITEM_ELEVATOR_KEY_0x1A);
 }
 
 void stg6_39_init(void) {
-	pouchRemoveItem(kItemElevatorKey_0x1a);
+	pouchRemoveItem(ITEM_ELEVATOR_KEY_0x1A);
 }
 
 void stg6_44_init(void) {
@@ -1621,7 +1622,7 @@ void stg6_47_00_init(void) {
 }
 
 void stg6_54_init(void) {
-	pouchGetItem(kItemGarnetStar);
+	pouchGetItem(ITEM_GARNET_STAR);
 	pouchGetStarStone(6);
 }
 
@@ -1645,7 +1646,7 @@ void stg6_72_init01(void) {
 }
 
 void stg6_end_init00(void) {
-	pouchGetItem(kItemUltraHammer);
+	pouchGetItem(ITEM_ULTRA_HAMMER);
 	swSet(0x4AB);
 }
 
@@ -1661,7 +1662,7 @@ void stg7_03_init00(void) {
 	swSet(0x16);
 	pouchReceiveMail(0x20);
 	swSet(0xF22);
-	pouchGetItem(kItemGoldbobGuide);
+	pouchGetItem(ITEM_GOLDBOB_GUIDE);
 }
 
 void stg7_03_init01(void) {
@@ -1691,45 +1692,45 @@ void stg7_04_init(void) {
 }
 
 void stg7_06_init(void) {
-	pouchRemoveItem(kItemGoldbobGuide);
+	pouchRemoveItem(ITEM_GOLDBOB_GUIDE);
 }
 
 void stg7_10_init(void) {
-	pouchGetItem(kItemElevatorKey_0x1b);
+	pouchGetItem(ITEM_ELEVATOR_KEY_0x1B);
 }
 
 void stg7_11_init(void) {
-	pouchRemoveItem(kItemElevatorKey_0x1b);
+	pouchRemoveItem(ITEM_ELEVATOR_KEY_0x1B);
 }
 
 void stg7_15_init00(void) {
-	pouchGetItem(kItemElevatorKey_0x1c);
+	pouchGetItem(ITEM_ELEVATOR_KEY_0x1C);
 }
 
 void stg7_15_init01(void) {
-	pouchRemoveItem(kItemElevatorKey_0x1c);
+	pouchRemoveItem(ITEM_ELEVATOR_KEY_0x1C);
 }
 
 void stg7_15_init02(void) {
-	pouchGetItem(kItemCardKey_0x1d);
+	pouchGetItem(ITEM_CARD_KEY_0x1D);
 	swSet(0x1056);
 }
 
 void stg7_15_init03(void) {
-	pouchGetItem(kItemCardKey_0x1e);
+	pouchGetItem(ITEM_CARD_KEY_0x1E);
 	swSet(0x1057);
 }
 
 void stg7_16_init(void) {
-	pouchGetItem(kItemCardKey_0x1f);
+	pouchGetItem(ITEM_CARD_KEY_0x1F);
 	swSet(0x1054);
 	swSet(0x1063);
 }
 
 void stg7_17_init(void) {
-	pouchRemoveItem(kItemCardKey_0x1d);
-	pouchRemoveItem(kItemCardKey_0x1e);
-	pouchRemoveItem(kItemCardKey_0x1f);
+	pouchRemoveItem(ITEM_CARD_KEY_0x1D);
+	pouchRemoveItem(ITEM_CARD_KEY_0x1E);
+	pouchRemoveItem(ITEM_CARD_KEY_0x1F);
 	swSet(0x105F);
 	swSet(0x1060);
 	swSet(0x1061);
@@ -1737,15 +1738,15 @@ void stg7_17_init(void) {
 
 void stg7_19_init(void) {
 	swSet(0x1055);
-	pouchGetItem(kItemCardKey_0x20);
+	pouchGetItem(ITEM_CARD_KEY_0x20);
 }
 
 void stg7_20_init(void) {
-	pouchRemoveItem(kItemCardKey_0x20);
+	pouchRemoveItem(ITEM_CARD_KEY_0x20);
 }
 
 void stg7_25_00_init(void) {
-	pouchGetItem(kItemCrystalStar);
+	pouchGetItem(ITEM_CRYSTAL_STAR);
 	pouchGetStarStone(7);
 }
 
@@ -1766,11 +1767,11 @@ void stg7_52_init(void) {
 }
 
 void stg8_01_02_init(void) {
-	pouchGetItem(kItemPalaceKey_0x2e);
+	pouchGetItem(ITEM_PALACE_KEY_0x2E);
 }
 
 void stg8_02_init(void) {
-	pouchRemoveItem(kItemPalaceKey_0x2e);
+	pouchRemoveItem(ITEM_PALACE_KEY_0x2E);
 }
 
 void stg8_05_init(void) {
@@ -1780,11 +1781,11 @@ void stg8_05_init(void) {
 	swSet(0x10E8);
 	swSet(0x10E9);
 	swSet(0x1109);
-	pouchGetItem(kItemStarKey);
+	pouchGetItem(ITEM_STAR_KEY);
 }
 
 void stg8_06_init(void) {
-	pouchRemoveItem(kItemStarKey);
+	pouchRemoveItem(ITEM_STAR_KEY);
 	swSet(0x10EA);
 	swSet(0x10EB);
 	swSet(0x10EC);
@@ -1821,11 +1822,11 @@ void stg8_06_init(void) {
 }
 
 void stg8_10_init(void) {
-	pouchGetItem(kItemPalaceKey_0x2f);
+	pouchGetItem(ITEM_PALACE_KEY_0x2F);
 }
 
 void stg8_11_init(void) {
-	pouchRemoveItem(kItemPalaceKey_0x2f);
+	pouchRemoveItem(ITEM_PALACE_KEY_0x2F);
 	swSet(0x1103);
 }
 
@@ -1836,12 +1837,12 @@ void stg8_13_init(void) {
 }
 
 void stg8_14_init(void) {
-	pouchGetItem(kItemPalaceKey_0x30);
+	pouchGetItem(ITEM_PALACE_KEY_0x30);
 	swSet(0x1112);
 }
 
 void stg8_14_01_init(void) {
-	pouchRemoveItem(kItemPalaceKey_0x30);
+	pouchRemoveItem(ITEM_PALACE_KEY_0x30);
 	swSet(0x1107);
 }
 

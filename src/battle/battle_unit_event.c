@@ -2,7 +2,7 @@
 #include "battle/battle_unit_event.h"
 
 BOOL BattleCheckEndUnitInitEvent(BattleWork* wp) {
-    BattleWorkUnit* unit;
+    BattleUnit* unit;
     s32 i, eventId;
     BOOL valid;
 
@@ -24,7 +24,7 @@ BOOL BattleCheckEndUnitInitEvent(BattleWork* wp) {
     return valid;
 }
 
-s32 BattleRunHitEventDirect(BattleWorkUnit* unit, s32 damageCode, void* code) {
+s32 BattleRunHitEventDirect(BattleUnit* unit, s32 damageCode, void* code) {
     EventEntry* evt;
     s32 id, newId;
 
@@ -55,7 +55,7 @@ s32 BattleRunHitEventDirect(BattleWorkUnit* unit, s32 damageCode, void* code) {
 
     if (code) {
         evt = evtEntry(code, 0xA, 0x20);
-        evt->unitId = unit->mUnitId;
+        evt->unitId = unit->unitId;
         unit->damageCode = damageCode;
         newId = evt->eventId;
         unit->damageEventId = newId;
@@ -63,7 +63,7 @@ s32 BattleRunHitEventDirect(BattleWorkUnit* unit, s32 damageCode, void* code) {
     return newId;
 }
 
-s32 BattleRunHitEvent(BattleWorkUnit* unit, s32 damageCode) {
+s32 BattleRunHitEvent(BattleUnit* unit, s32 damageCode) {
     void* code;
     BOOL valid;
     s32 id;
@@ -83,7 +83,7 @@ s32 BattleRunHitEvent(BattleWorkUnit* unit, s32 damageCode) {
     return id;
 }
 
-s32 BattleRunPhaseEvent(BattleWorkUnit* unit, BOOL isUnison) {
+s32 BattleRunPhaseEvent(BattleUnit* unit, BOOL isUnison) {
     EventEntry* evt = NULL;
     s32 id = 0;
     void* code;
@@ -101,14 +101,14 @@ s32 BattleRunPhaseEvent(BattleWorkUnit* unit, BOOL isUnison) {
         }
     }
     if (evt) {
-        evt->unitId = unit->mUnitId;
+        evt->unitId = unit->unitId;
         id = evt->eventId;
         unit->phaseEventId = id;
     }
     return id;
 }
 
-void BattlePhaseEventStartDeclare(BattleWorkUnit* unit) {
+void BattlePhaseEventStartDeclare(BattleUnit* unit) {
     s32 id;
 
     id = unit->damageEventId;
@@ -130,7 +130,7 @@ void BattlePhaseEventStartDeclare(BattleWorkUnit* unit) {
     }
 }
 
-s32 BattleRunWaitEvent(BattleWorkUnit* unit) {
+s32 BattleRunWaitEvent(BattleUnit* unit) {
     EventEntry* evt;
     void* code;
     s32 id;
@@ -144,7 +144,7 @@ s32 BattleRunWaitEvent(BattleWorkUnit* unit) {
     code = unit->waitEventCode;
     if (code) {
         evt = evtEntry(code, 0xA, 0);
-        evt->unitId = unit->mUnitId;
+        evt->unitId = unit->unitId;
         unit->waitEventId = evt->eventId;
     }
     return 0; //unused

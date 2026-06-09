@@ -1,255 +1,256 @@
 //Goombella Tattle Details
 #include "battle/battle_monosiri.h"
+#include "battle/battle_unit.h"
 #include "driver/swdrv.h"
 
 extern BattleWork* _battleWorkPointer;
 
 //.sdata
 BattleUnitType same_tbl_gesso[] = {
-	kUnitBlooper,
-	kUnitBlooperLeftTentacle,
-	kUnitBlooperRightTentacle,
-	kNullUnitKind
+	UNIT_BLOOPER,
+	UNIT_BLOOPER_LEFT_TENTACLE,
+	UNIT_BLOOPER_RIGHT_TENTACLE,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_gesso_arm_l[] = {
-	kUnitBlooperLeftTentacle,
-	kUnitBlooper,
-	kUnitBlooperRightTentacle,
-	kNullUnitKind
+	UNIT_BLOOPER_LEFT_TENTACLE,
+	UNIT_BLOOPER,
+	UNIT_BLOOPER_RIGHT_TENTACLE,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_gesso_arm_r[] = {
-	kUnitBlooperRightTentacle,
-	kUnitBlooper,
-	kUnitBlooperLeftTentacle,
-	kNullUnitKind
+	UNIT_BLOOPER_RIGHT_TENTACLE,
+	UNIT_BLOOPER,
+	UNIT_BLOOPER_LEFT_TENTACLE,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_majolyne_1[] = {
-	kUnitBeldamChapter2,
-	kUnitUnusedBeldam2,
-	kUnitUnusedBeldam3,
-	kUnitBeldamChapter8,
-	kNullUnitKind
+	UNIT_BELDAM_CHAPTER2,
+	UNIT_UNUSED_BELDAM2,
+	UNIT_UNUSED_BELDAM3,
+	UNIT_BELDAM_CHAPTER8,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_majolyne_2[] = {
-	kUnitUnusedBeldam2,
-	kUnitBeldamChapter2,
-	kUnitUnusedBeldam3,
-	kUnitBeldamChapter8,
-	kNullUnitKind
+	UNIT_UNUSED_BELDAM2,
+	UNIT_BELDAM_CHAPTER2,
+	UNIT_UNUSED_BELDAM3,
+	UNIT_BELDAM_CHAPTER8,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_majolyne_3[] = {
-	kUnitUnusedBeldam3,
-	kUnitBeldamChapter2,
-	kUnitUnusedBeldam2,
-	kUnitBeldamChapter8,
-	kNullUnitKind
+	UNIT_UNUSED_BELDAM3,
+	UNIT_BELDAM_CHAPTER2,
+	UNIT_UNUSED_BELDAM2,
+	UNIT_BELDAM_CHAPTER8,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_majolyne_4[] = {
-	kUnitBeldamChapter8,
-	kUnitBeldamChapter2,
-	kUnitUnusedBeldam2,
-	kUnitUnusedBeldam3,
-	kNullUnitKind
+	UNIT_BELDAM_CHAPTER8,
+	UNIT_BELDAM_CHAPTER2,
+	UNIT_UNUSED_BELDAM2,
+	UNIT_UNUSED_BELDAM3,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_marilyn_1[] = {
-	kUnitMarilynChapter2,
-	kUnitUnusedMarilyn2,
-	kUnitUnusedMarilyn3,
-	kUnitMarilynChapter8,
-	kNullUnitKind
+	UNIT_MARILYN_CHAPTER2,
+	UNIT_UNUSED_MARILYN2,
+	UNIT_UNUSED_MARILYN3,
+	UNIT_MARILYN_CHAPTER8,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_marilyn_2[] = {
-	kUnitUnusedMarilyn2,
-	kUnitMarilynChapter2,
-	kUnitUnusedMarilyn3,
-	kUnitMarilynChapter8,
-	kNullUnitKind
+	UNIT_UNUSED_MARILYN2,
+	UNIT_MARILYN_CHAPTER2,
+	UNIT_UNUSED_MARILYN3,
+	UNIT_MARILYN_CHAPTER8,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_marilyn_3[] = {
-	kUnitUnusedMarilyn3,
-	kUnitMarilynChapter2,
-	kUnitUnusedMarilyn2,
-	kUnitMarilynChapter8,
-	kNullUnitKind
+	UNIT_UNUSED_MARILYN3,
+	UNIT_MARILYN_CHAPTER2,
+	UNIT_UNUSED_MARILYN2,
+	UNIT_MARILYN_CHAPTER8,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_marilyn_4[] = {
-	kUnitMarilynChapter8,
-	kUnitMarilynChapter2,
-	kUnitUnusedMarilyn2,
-	kUnitUnusedMarilyn3,
-	kNullUnitKind
+	UNIT_MARILYN_CHAPTER8,
+	UNIT_MARILYN_CHAPTER2,
+	UNIT_UNUSED_MARILYN2,
+	UNIT_UNUSED_MARILYN3,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_vivian_1[] = {
-	kUnitVivianChapter2,
-	kUnitUnusedVivian2,
-	kNullUnitKind
+	UNIT_VIVIAN_CHAPTER2,
+	UNIT_UNUSED_VIVIAN2,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_vivian_2[] = {
-	kUnitUnusedVivian2,
-	kUnitVivianChapter2,
-	kNullUnitKind
+	UNIT_UNUSED_VIVIAN2,
+	UNIT_VIVIAN_CHAPTER2,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_koopa_1[] = {
-	kUnitBowserChapter3,
-	kUnitBowserChapter8,
-	kNullUnitKind
+	UNIT_BOWSER_CHAPTER3,
+	UNIT_BOWSER_CHAPTER8,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_koopa_2[] = {
-	kUnitBowserChapter8,
-	kUnitBowserChapter3,
-	kNullUnitKind
+	UNIT_BOWSER_CHAPTER8,
+	UNIT_BOWSER_CHAPTER3,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_kamec[] = {
-	kUnitMagikoopa,
-	kUnitMagikoopaClone,
-	kNullUnitKind
+	UNIT_MAGIKOOPA,
+	UNIT_MAGIKOOPA_CLONE,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_kamec_bunshin[] = {
-	kUnitMagikoopaClone,
-	kUnitMagikoopa,
-	kNullUnitKind
+	UNIT_MAGIKOOPA_CLONE,
+	UNIT_MAGIKOOPA,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_black_peach[] = {
-	kUnitShadowQueenPeach,
-	kUnitShadowQueenDemon,
-	kUnitShadowQueenLeftRightHand,
-	kUnitShadowQueenDeadHands,
-	kUnitShadowQueenInvincible,
-	kNullUnitKind
+	UNIT_SHADOW_QUEEN_PEACH,
+	UNIT_SHADOW_QUEEN_DEMON,
+	UNIT_SHADOW_QUEEN_LEFT_RIGHT_HAND,
+	UNIT_SHADOW_QUEEN_DEAD_HANDS,
+	UNIT_SHADOW_QUEEN_INVINCIBLE,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_kamec_red[] = {
-	kUnitRedMagikoopa,
-	kUnitRedMagikoopaClone,
-	kNullUnitKind
+	UNIT_RED_MAGIKOOPA,
+	UNIT_RED_MAGIKOOPA_CLONE,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_kamec_red_bunshin[] = {
-	kUnitRedMagikoopaClone,
-	kUnitRedMagikoopa,
-	kNullUnitKind
+	UNIT_RED_MAGIKOOPA_CLONE,
+	UNIT_RED_MAGIKOOPA,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_kamec_white[] = {
-	kUnitWhiteMagikoopa,
-	kUnitWhiteMagikoopaClone,
-	kNullUnitKind
+	UNIT_WHITE_MAGIKOOPA,
+	UNIT_WHITE_MAGIKOOPA_CLONE,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_kamec_white_bunshin[] = {
-	kUnitWhiteMagikoopaClone,
-	kUnitWhiteMagikoopa,
-	kNullUnitKind
+	UNIT_WHITE_MAGIKOOPA_CLONE,
+	UNIT_WHITE_MAGIKOOPA,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_kamec_green[] = {
-	kUnitGreenMagikoopa,
-	kUnitGreenMagikoopaClone,
-	kNullUnitKind
+	UNIT_GREEN_MAGIKOOPA,
+	UNIT_GREEN_MAGIKOOPA_CLONE,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_kamec_green_bunshin[] = {
-	kUnitGreenMagikoopaClone,
-	kUnitGreenMagikoopa,
-	kNullUnitKind
+	UNIT_GREEN_MAGIKOOPA_CLONE,
+	UNIT_GREEN_MAGIKOOPA,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_super_mahorn[] = {
-	kUnitDarkWizzerd,
-	kUnitDarkWizzerdClone,
-	kNullUnitKind
+	UNIT_DARK_WIZZERD,
+	UNIT_DARK_WIZZERD_CLONE,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_super_mahorn_bunshin[] = {
-	kUnitDarkWizzerdClone,
-	kUnitDarkWizzerd,
-	kNullUnitKind
+	UNIT_DARK_WIZZERD_CLONE,
+	UNIT_DARK_WIZZERD,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_mahorn_custom[] = {
-	kUnitEliteWizzerd,
-	kUnitEliteWizzerdClone,
-	kNullUnitKind
+	UNIT_ELITE_WIZZERD,
+	UNIT_ELITE_WIZZERD_CLONE,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_mahorn_custom_bunshin[] = {
-	kUnitEliteWizzerdClone,
-	kUnitEliteWizzerd,
-	kNullUnitKind
+	UNIT_ELITE_WIZZERD_CLONE,
+	UNIT_ELITE_WIZZERD,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_kuriboo[] = {
-	kUnitGoomba,
-	kUnitGoombaGlitzville,
-	kNullUnitKind
+	UNIT_GOOMBA,
+	UNIT_GOOMBA_GLITZVILLE,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_chorobon[] = {
-	kUnitFuzzy,
-	kUnitFuzzyHorde,
-	kNullUnitKind
+	UNIT_FUZZY,
+	UNIT_FUZZY_HORDE,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_gundan_zako[] = {
-	kUnitXNaut,
-	kUnitXNautsCrumpFormation1,
-	kUnitXNautsCrumpFormation2,
-	kUnitXNautsCrumpFormation3,
-	kNullUnitKind
+	UNIT_X_NAUT,
+	UNIT_X_NAUTS_CRUMP_FORMATION1,
+	UNIT_X_NAUTS_CRUMP_FORMATION2,
+	UNIT_X_NAUTS_CRUMP_FORMATION3,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_cortez[] = {
-	kUnitCortez,
-	kUnitCortezBonePile,
-	kUnitCortezSword,
-	kUnitCortezHook,
-	kUnitCortezRapier,
-	kUnitCortezSaber,
-	kNullUnitKind
+	UNIT_CORTEZ,
+	UNIT_CORTEZ_BONE_PILE,
+	UNIT_CORTEZ_SWORD,
+	UNIT_CORTEZ_HOOK,
+	UNIT_CORTEZ_RAPIER,
+	UNIT_CORTEZ_SABER,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_magunum_battender[] = {
-	kUnitMagnus,
-	kUnitXFist,
-	kNullUnitKind
+	UNIT_MAGNUS,
+	UNIT_X_FIST,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_magunum_battender_mkii[] = {
-	kUnitMagnus20,
-	kUnitXPunch,
-	kNullUnitKind
+	UNIT_MAGNUS2_0,
+	UNIT_X_PUNCH,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_moamoa[] = {
-	kUnitSmorg,
-	kUnitSmorgMiasmaTentacleC,
-	kUnitSmorgMiasmaTentacleB,
-	kUnitSmorgMiasmaTentacleA,
-	kUnitSmorgMiasmaClaw,
-	kNullUnitKind
+	UNIT_SMORG,
+	UNIT_SMORG_MIASMA_TENTACLE_C,
+	UNIT_SMORG_MIASMA_TENTACLE_B,
+	UNIT_SMORG_MIASMA_TENTACLE_A,
+	UNIT_SMORG_MIASMA_CLAW,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_iron_sinemon[] = {
-	kUnitIronCleftRed,
-	kUnitIronCleftGreen,
-	kNullUnitKind
+	UNIT_IRON_CLEFT_RED,
+	UNIT_IRON_CLEFT_GREEN,
+	UNIT_NULL
 };
 
 //.data
@@ -488,195 +489,195 @@ TattleEntry monosiriMessageTable[] = {
 };
 
 BattleUnitType same_tbl_rampell_1[] = {
-	kUnitDooplissChapter4Fight1,
-	kUnitDooplissChapter8,
-	kUnitDooplissChapter4Fight2,
-	kUnitDooplissChapter4Invincible,
-	kUnitDooplissChapter8Mario,
-	kUnitDooplissChapter8Goombella,
-	kUnitDooplissChapter8Koops,
-	kUnitDooplissChapter8Yoshi,
-	kUnitDooplissChapter8Flurrie,
-	kUnitDooplissChapter8Vivian,
-	kUnitDooplissChapter8Bobbery,
-	kUnitDooplissChapter8MsMowz,
-	kNullUnitKind
+	UNIT_DOOPLISS_CHAPTER4_FIGHT1,
+	UNIT_DOOPLISS_CHAPTER8,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT2,
+	UNIT_DOOPLISS_CHAPTER4_INVINCIBLE,
+	UNIT_DOOPLISS_CHAPTER8_MARIO,
+	UNIT_DOOPLISS_CHAPTER8_GOOMBELLA,
+	UNIT_DOOPLISS_CHAPTER8_KOOPS,
+	UNIT_DOOPLISS_CHAPTER8_YOSHI,
+	UNIT_DOOPLISS_CHAPTER8_FLURRIE,
+	UNIT_DOOPLISS_CHAPTER8_VIVIAN,
+	UNIT_DOOPLISS_CHAPTER8_BOBBERY,
+	UNIT_DOOPLISS_CHAPTER8_MS_MOWZ,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_rampell_2[] = {
-	kUnitDooplissChapter8,
-	kUnitDooplissChapter4Fight1,
-	kUnitDooplissChapter4Fight2,
-	kUnitDooplissChapter4Invincible,
-	kUnitDooplissChapter8Mario,
-	kUnitDooplissChapter8Goombella,
-	kUnitDooplissChapter8Koops,
-	kUnitDooplissChapter8Yoshi,
-	kUnitDooplissChapter8Flurrie,
-	kUnitDooplissChapter8Vivian,
-	kUnitDooplissChapter8Bobbery,
-	kUnitDooplissChapter8MsMowz,
-	kNullUnitKind
+	UNIT_DOOPLISS_CHAPTER8,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT1,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT2,
+	UNIT_DOOPLISS_CHAPTER4_INVINCIBLE,
+	UNIT_DOOPLISS_CHAPTER8_MARIO,
+	UNIT_DOOPLISS_CHAPTER8_GOOMBELLA,
+	UNIT_DOOPLISS_CHAPTER8_KOOPS,
+	UNIT_DOOPLISS_CHAPTER8_YOSHI,
+	UNIT_DOOPLISS_CHAPTER8_FLURRIE,
+	UNIT_DOOPLISS_CHAPTER8_VIVIAN,
+	UNIT_DOOPLISS_CHAPTER8_BOBBERY,
+	UNIT_DOOPLISS_CHAPTER8_MS_MOWZ,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_rampell_faker_1[] = {
-	kUnitDooplissChapter4Fight2,
-	kUnitDooplissChapter4Fight1,
-	kUnitDooplissChapter8,
-	kUnitDooplissChapter4Invincible,
-	kUnitDooplissChapter8Mario,
-	kUnitDooplissChapter8Goombella,
-	kUnitDooplissChapter8Koops,
-	kUnitDooplissChapter8Yoshi,
-	kUnitDooplissChapter8Flurrie,
-	kUnitDooplissChapter8Vivian,
-	kUnitDooplissChapter8Bobbery,
-	kUnitDooplissChapter8MsMowz,
-	kNullUnitKind
+	UNIT_DOOPLISS_CHAPTER4_FIGHT2,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT1,
+	UNIT_DOOPLISS_CHAPTER8,
+	UNIT_DOOPLISS_CHAPTER4_INVINCIBLE,
+	UNIT_DOOPLISS_CHAPTER8_MARIO,
+	UNIT_DOOPLISS_CHAPTER8_GOOMBELLA,
+	UNIT_DOOPLISS_CHAPTER8_KOOPS,
+	UNIT_DOOPLISS_CHAPTER8_YOSHI,
+	UNIT_DOOPLISS_CHAPTER8_FLURRIE,
+	UNIT_DOOPLISS_CHAPTER8_VIVIAN,
+	UNIT_DOOPLISS_CHAPTER8_BOBBERY,
+	UNIT_DOOPLISS_CHAPTER8_MS_MOWZ,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_rampell_faker_2[] = {
-	kUnitDooplissChapter4Invincible,
-	kUnitDooplissChapter4Fight1,
-	kUnitDooplissChapter8,
-	kUnitDooplissChapter4Fight2,
-	kUnitDooplissChapter8Mario,
-	kUnitDooplissChapter8Goombella,
-	kUnitDooplissChapter8Koops,
-	kUnitDooplissChapter8Yoshi,
-	kUnitDooplissChapter8Flurrie,
-	kUnitDooplissChapter8Vivian,
-	kUnitDooplissChapter8Bobbery,
-	kUnitDooplissChapter8MsMowz,
-	kNullUnitKind
+	UNIT_DOOPLISS_CHAPTER4_INVINCIBLE,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT1,
+	UNIT_DOOPLISS_CHAPTER8,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT2,
+	UNIT_DOOPLISS_CHAPTER8_MARIO,
+	UNIT_DOOPLISS_CHAPTER8_GOOMBELLA,
+	UNIT_DOOPLISS_CHAPTER8_KOOPS,
+	UNIT_DOOPLISS_CHAPTER8_YOSHI,
+	UNIT_DOOPLISS_CHAPTER8_FLURRIE,
+	UNIT_DOOPLISS_CHAPTER8_VIVIAN,
+	UNIT_DOOPLISS_CHAPTER8_BOBBERY,
+	UNIT_DOOPLISS_CHAPTER8_MS_MOWZ,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_rampell_faker_3[] = {
-	kUnitDooplissChapter8Mario,
-	kUnitDooplissChapter4Fight1,
-	kUnitDooplissChapter8,
-	kUnitDooplissChapter4Fight2,
-	kUnitDooplissChapter4Invincible,
-	kUnitDooplissChapter8Goombella,
-	kUnitDooplissChapter8Koops,
-	kUnitDooplissChapter8Yoshi,
-	kUnitDooplissChapter8Flurrie,
-	kUnitDooplissChapter8Vivian,
-	kUnitDooplissChapter8Bobbery,
-	kUnitDooplissChapter8MsMowz,
-	kNullUnitKind
+	UNIT_DOOPLISS_CHAPTER8_MARIO,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT1,
+	UNIT_DOOPLISS_CHAPTER8,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT2,
+	UNIT_DOOPLISS_CHAPTER4_INVINCIBLE,
+	UNIT_DOOPLISS_CHAPTER8_GOOMBELLA,
+	UNIT_DOOPLISS_CHAPTER8_KOOPS,
+	UNIT_DOOPLISS_CHAPTER8_YOSHI,
+	UNIT_DOOPLISS_CHAPTER8_FLURRIE,
+	UNIT_DOOPLISS_CHAPTER8_VIVIAN,
+	UNIT_DOOPLISS_CHAPTER8_BOBBERY,
+	UNIT_DOOPLISS_CHAPTER8_MS_MOWZ,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_rampell_faker_4[] = {
-	kUnitDooplissChapter8Goombella,
-	kUnitDooplissChapter4Fight1,
-	kUnitDooplissChapter8,
-	kUnitDooplissChapter4Fight2,
-	kUnitDooplissChapter4Invincible,
-	kUnitDooplissChapter8Mario,
-	kUnitDooplissChapter8Koops,
-	kUnitDooplissChapter8Yoshi,
-	kUnitDooplissChapter8Flurrie,
-	kUnitDooplissChapter8Vivian,
-	kUnitDooplissChapter8Bobbery,
-	kUnitDooplissChapter8MsMowz,
-	kNullUnitKind
+	UNIT_DOOPLISS_CHAPTER8_GOOMBELLA,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT1,
+	UNIT_DOOPLISS_CHAPTER8,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT2,
+	UNIT_DOOPLISS_CHAPTER4_INVINCIBLE,
+	UNIT_DOOPLISS_CHAPTER8_MARIO,
+	UNIT_DOOPLISS_CHAPTER8_KOOPS,
+	UNIT_DOOPLISS_CHAPTER8_YOSHI,
+	UNIT_DOOPLISS_CHAPTER8_FLURRIE,
+	UNIT_DOOPLISS_CHAPTER8_VIVIAN,
+	UNIT_DOOPLISS_CHAPTER8_BOBBERY,
+	UNIT_DOOPLISS_CHAPTER8_MS_MOWZ,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_rampell_faker_5[] = {
-	kUnitDooplissChapter8Koops,
-	kUnitDooplissChapter4Fight1,
-	kUnitDooplissChapter8,
-	kUnitDooplissChapter4Fight2,
-	kUnitDooplissChapter4Invincible,
-	kUnitDooplissChapter8Mario,
-	kUnitDooplissChapter8Goombella,
-	kUnitDooplissChapter8Yoshi,
-	kUnitDooplissChapter8Flurrie,
-	kUnitDooplissChapter8Vivian,
-	kUnitDooplissChapter8Bobbery,
-	kUnitDooplissChapter8MsMowz,
-	kNullUnitKind
+	UNIT_DOOPLISS_CHAPTER8_KOOPS,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT1,
+	UNIT_DOOPLISS_CHAPTER8,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT2,
+	UNIT_DOOPLISS_CHAPTER4_INVINCIBLE,
+	UNIT_DOOPLISS_CHAPTER8_MARIO,
+	UNIT_DOOPLISS_CHAPTER8_GOOMBELLA,
+	UNIT_DOOPLISS_CHAPTER8_YOSHI,
+	UNIT_DOOPLISS_CHAPTER8_FLURRIE,
+	UNIT_DOOPLISS_CHAPTER8_VIVIAN,
+	UNIT_DOOPLISS_CHAPTER8_BOBBERY,
+	UNIT_DOOPLISS_CHAPTER8_MS_MOWZ,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_rampell_faker_6[] = {
-	kUnitDooplissChapter8Yoshi,
-	kUnitDooplissChapter4Fight1,
-	kUnitDooplissChapter8,
-	kUnitDooplissChapter4Fight2,
-	kUnitDooplissChapter4Invincible,
-	kUnitDooplissChapter8Mario,
-	kUnitDooplissChapter8Goombella,
-	kUnitDooplissChapter8Koops,
-	kUnitDooplissChapter8Flurrie,
-	kUnitDooplissChapter8Vivian,
-	kUnitDooplissChapter8Bobbery,
-	kUnitDooplissChapter8MsMowz,
-	kNullUnitKind
+	UNIT_DOOPLISS_CHAPTER8_YOSHI,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT1,
+	UNIT_DOOPLISS_CHAPTER8,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT2,
+	UNIT_DOOPLISS_CHAPTER4_INVINCIBLE,
+	UNIT_DOOPLISS_CHAPTER8_MARIO,
+	UNIT_DOOPLISS_CHAPTER8_GOOMBELLA,
+	UNIT_DOOPLISS_CHAPTER8_KOOPS,
+	UNIT_DOOPLISS_CHAPTER8_FLURRIE,
+	UNIT_DOOPLISS_CHAPTER8_VIVIAN,
+	UNIT_DOOPLISS_CHAPTER8_BOBBERY,
+	UNIT_DOOPLISS_CHAPTER8_MS_MOWZ,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_rampell_faker_7[] = {
-	kUnitDooplissChapter8Flurrie,
-	kUnitDooplissChapter4Fight1,
-	kUnitDooplissChapter8,
-	kUnitDooplissChapter4Fight2,
-	kUnitDooplissChapter4Invincible,
-	kUnitDooplissChapter8Mario,
-	kUnitDooplissChapter8Goombella,
-	kUnitDooplissChapter8Koops,
-	kUnitDooplissChapter8Yoshi,
-	kUnitDooplissChapter8Vivian,
-	kUnitDooplissChapter8Bobbery,
-	kUnitDooplissChapter8MsMowz,
-	kNullUnitKind
+	UNIT_DOOPLISS_CHAPTER8_FLURRIE,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT1,
+	UNIT_DOOPLISS_CHAPTER8,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT2,
+	UNIT_DOOPLISS_CHAPTER4_INVINCIBLE,
+	UNIT_DOOPLISS_CHAPTER8_MARIO,
+	UNIT_DOOPLISS_CHAPTER8_GOOMBELLA,
+	UNIT_DOOPLISS_CHAPTER8_KOOPS,
+	UNIT_DOOPLISS_CHAPTER8_YOSHI,
+	UNIT_DOOPLISS_CHAPTER8_VIVIAN,
+	UNIT_DOOPLISS_CHAPTER8_BOBBERY,
+	UNIT_DOOPLISS_CHAPTER8_MS_MOWZ,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_rampell_faker_8[] = {
-	kUnitDooplissChapter8Vivian,
-	kUnitDooplissChapter4Fight1,
-	kUnitDooplissChapter8,
-	kUnitDooplissChapter4Fight2,
-	kUnitDooplissChapter4Invincible,
-	kUnitDooplissChapter8Mario,
-	kUnitDooplissChapter8Goombella,
-	kUnitDooplissChapter8Koops,
-	kUnitDooplissChapter8Yoshi,
-	kUnitDooplissChapter8Flurrie,
-	kUnitDooplissChapter8Bobbery,
-	kUnitDooplissChapter8MsMowz,
-	kNullUnitKind
+	UNIT_DOOPLISS_CHAPTER8_VIVIAN,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT1,
+	UNIT_DOOPLISS_CHAPTER8,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT2,
+	UNIT_DOOPLISS_CHAPTER4_INVINCIBLE,
+	UNIT_DOOPLISS_CHAPTER8_MARIO,
+	UNIT_DOOPLISS_CHAPTER8_GOOMBELLA,
+	UNIT_DOOPLISS_CHAPTER8_KOOPS,
+	UNIT_DOOPLISS_CHAPTER8_YOSHI,
+	UNIT_DOOPLISS_CHAPTER8_FLURRIE,
+	UNIT_DOOPLISS_CHAPTER8_BOBBERY,
+	UNIT_DOOPLISS_CHAPTER8_MS_MOWZ,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_rampell_faker_9[] = {
-	kUnitDooplissChapter8Bobbery,
-	kUnitDooplissChapter4Fight1,
-	kUnitDooplissChapter8,
-	kUnitDooplissChapter4Fight2,
-	kUnitDooplissChapter4Invincible,
-	kUnitDooplissChapter8Mario,
-	kUnitDooplissChapter8Goombella,
-	kUnitDooplissChapter8Koops,
-	kUnitDooplissChapter8Yoshi,
-	kUnitDooplissChapter8Flurrie,
-	kUnitDooplissChapter8Vivian,
-	kUnitDooplissChapter8MsMowz,
-	kNullUnitKind
+	UNIT_DOOPLISS_CHAPTER8_BOBBERY,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT1,
+	UNIT_DOOPLISS_CHAPTER8,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT2,
+	UNIT_DOOPLISS_CHAPTER4_INVINCIBLE,
+	UNIT_DOOPLISS_CHAPTER8_MARIO,
+	UNIT_DOOPLISS_CHAPTER8_GOOMBELLA,
+	UNIT_DOOPLISS_CHAPTER8_KOOPS,
+	UNIT_DOOPLISS_CHAPTER8_YOSHI,
+	UNIT_DOOPLISS_CHAPTER8_FLURRIE,
+	UNIT_DOOPLISS_CHAPTER8_VIVIAN,
+	UNIT_DOOPLISS_CHAPTER8_MS_MOWZ,
+	UNIT_NULL
 };
 
 BattleUnitType same_tbl_rampell_faker_10[] = {
-	kUnitDooplissChapter8MsMowz,
-	kUnitDooplissChapter4Fight1,
-	kUnitDooplissChapter8,
-	kUnitDooplissChapter4Fight2,
-	kUnitDooplissChapter4Invincible,
-	kUnitDooplissChapter8Mario,
-	kUnitDooplissChapter8Goombella,
-	kUnitDooplissChapter8Koops,
-	kUnitDooplissChapter8Yoshi,
-	kUnitDooplissChapter8Flurrie,
-	kUnitDooplissChapter8Vivian,
-	kUnitDooplissChapter8Bobbery,
-	kNullUnitKind
+	UNIT_DOOPLISS_CHAPTER8_MS_MOWZ,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT1,
+	UNIT_DOOPLISS_CHAPTER8,
+	UNIT_DOOPLISS_CHAPTER4_FIGHT2,
+	UNIT_DOOPLISS_CHAPTER4_INVINCIBLE,
+	UNIT_DOOPLISS_CHAPTER8_MARIO,
+	UNIT_DOOPLISS_CHAPTER8_GOOMBELLA,
+	UNIT_DOOPLISS_CHAPTER8_KOOPS,
+	UNIT_DOOPLISS_CHAPTER8_YOSHI,
+	UNIT_DOOPLISS_CHAPTER8_FLURRIE,
+	UNIT_DOOPLISS_CHAPTER8_VIVIAN,
+	UNIT_DOOPLISS_CHAPTER8_BOBBERY,
+	UNIT_NULL
 };
 
 BattleUnitType* battle_monosiri_same_tbl[] = {
@@ -734,17 +735,17 @@ TattleEntry* battleGetUnitMonosiriPtr(s32 id) {
 	return &monosiriMessageTable[id];
 }
 
-BOOL battleCheckUnitMonosiriFlag(BattleWorkUnit* unit) { //needs stmw, swGet | fix
+BOOL battleCheckUnitMonosiriFlag(BattleUnit* unit) { //needs stmw, swGet | fix
 	BattleWork* wp = _battleWorkPointer;
 	BattleUnitType kind = unit->currentKind;
 	u32 flag;
-	if (wp->mBadgeEquippedFlags & 2) {
+	if (wp->badgeEquippedFlags & 2) {
 		return TRUE;
 	}
-	flag = swGet(kind + 0x117A) | (wp->mTattledUnitTypeFlags[kind / 32] & (1 << (kind % 32)));
-	if (unit->mFlags & 4) {
-		kind = unit->mInitialKind;
-		flag |= wp->mTattledUnitTypeFlags[kind / 32] & (1 << (kind % 32));
+	flag = swGet(kind + 0x117A) | (wp->tattledUnitTypeFlags[kind / 32] & (1 << (kind % 32)));
+	if (unit->flags & 4) {
+		kind = unit->initialKind;
+		flag |= wp->tattledUnitTypeFlags[kind / 32] & (1 << (kind % 32));
 	}
 	if (flag) //TODO: should be able to permute to != 0 like swGet
 		return TRUE;
@@ -766,7 +767,7 @@ void battleSetUnitMonosiriFlag(BattleUnitType kind) { //very non-matching, TODO 
 				k = 0;
 				while (table[i][k]) { //write bits for all entries
 					swSet(table[i][k] + 0x117A);
-					wp->mTattledUnitTypeFlags[table[i][k] / 32] |= 1 << (table[i][k] % 32);
+					wp->tattledUnitTypeFlags[table[i][k] / 32] |= 1 << (table[i][k] % 32);
 					k++;
 				}
 				return;
@@ -777,5 +778,5 @@ void battleSetUnitMonosiriFlag(BattleUnitType kind) { //very non-matching, TODO 
 	}
 	//no group found, just write the single bit
 	swSet(kind + 0x117A);
-	wp->mTattledUnitTypeFlags[kind / 32] |= 1 << (kind % 32);
+	wp->tattledUnitTypeFlags[kind / 32] |= 1 << (kind % 32);
 }

@@ -14,7 +14,7 @@ void BattlePadInit(void) {
 	int i;
 
 	for (i = 0; i < 4; i++) {
-		BtlPad_WorkInit(&_battleWorkPointer->mPadWork[i]);
+		BtlPad_WorkInit(&_battleWorkPointer->padWork[i]);
 	}
 }
 
@@ -22,7 +22,7 @@ void BattlePadManager(void) {
 	int i;
 
 	for (i = 0; i < 4; i++) {
-		BtlPad_WorkUpdate(&_battleWorkPointer->mPadWork[i], i);
+		BtlPad_WorkUpdate(&_battleWorkPointer->padWork[i], i);
 	}
 }
 
@@ -141,11 +141,11 @@ void BtlPad_WorkUpdate(BattleWorkPad* pad, s32 chan) {
 }
 
 u32 BattlePadGetTrigger(void) {
-	return _battleWorkPointer->mPadWork[0].mButtonsPressedHistory[0];
+	return _battleWorkPointer->padWork[0].mButtonsPressedHistory[0];
 }
 
 u32 BattlePadGetNow(void) {
-	return _battleWorkPointer->mPadWork[0].mButtonsHistory[0];
+	return _battleWorkPointer->padWork[0].mButtonsHistory[0];
 }
 
 u32 BattlePadCheckTrigger(s32 mask) {
@@ -153,7 +153,7 @@ u32 BattlePadCheckTrigger(s32 mask) {
 }
 
 u32  BattlePadMultiCheckTrigger(s32 chan, s32 mask) {
-	u32* history = _battleWorkPointer->mPadWork[chan].mButtonsPressedHistory;
+	u32* history = _battleWorkPointer->padWork[chan].mButtonsPressedHistory;
 	return history[0] & mask;
 }
 
@@ -162,7 +162,7 @@ u32 BattlePadCheckRecordTrigger(s32 frame, s32 mask) {
 }
 
 u32 BattlePadMultiCheckRecordTrigger(s32 chan, s32 frame, s32 mask) {
-	u32* history = _battleWorkPointer->mPadWork[chan].mButtonsPressedHistory;
+	u32* history = _battleWorkPointer->padWork[chan].mButtonsPressedHistory;
 	return mask & history[frame];
 }
 
@@ -171,7 +171,7 @@ u32 BattlePadCheckNow(s32 mask) {
 }
 
 u32 BattlePadMultiCheckNow(s32 chan, s32 mask) {
-	u32* history = _battleWorkPointer->mPadWork[chan].mButtonsHistory;
+	u32* history = _battleWorkPointer->padWork[chan].mButtonsHistory;
 	return history[0] & mask;
 }
 
@@ -180,7 +180,7 @@ u32 BattlePadCheckUp(s32 mask) {
 }
 
 u32 BattlePadMultiCheckUp(s32 chan, s32 mask) {
-	u32* history = _battleWorkPointer->mPadWork[chan].mButtonsReleasedHistory;
+	u32* history = _battleWorkPointer->padWork[chan].mButtonsReleasedHistory;
 	return history[0] & mask;
 }
 
@@ -189,6 +189,6 @@ u32 BattlePadCheckRepeat(s32 mask) {
 }
 
 u32 BattlePadMultiCheckRepeat(s32 chan, s32 mask) {
-	u32* history = _battleWorkPointer->mPadWork[chan].mButtonsHeldHistory;
+	u32* history = _battleWorkPointer->padWork[chan].mButtonsHeldHistory;
 	return history[0] & mask;
 }

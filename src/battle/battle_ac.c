@@ -54,15 +54,15 @@ void BattleActionCommandDeclareACResult(BattleWork* work, BattleWeapon* weapon, 
 		//BattleAudience_Case_ActionCommandBad(weapon);
 	}
 	else {
-		work->mImpendingWeaponBonuses.mWeapon = weapon;
-		work->mImpendingWeaponBonuses.mSpAcSuccessMultiplier = ((f32)result * 0.25f) + 0.5f;
-		work->mImpendingWeaponBonuses.field_0x9 = weapon->field_0x19;
-		work->mImpendingWeaponBonuses.mBingoSlotChance = weapon->mBingoSlotChance;
+		work->impendingBonuses.mWeapon = weapon;
+		work->impendingBonuses.mSpAcSuccessMultiplier = ((f32)result * 0.25f) + 0.5f;
+		work->impendingBonuses.field_0x9 = weapon->field_0x19;
+		work->impendingBonuses.mBingoSlotChance = weapon->mBingoSlotChance;
 		//BattleAudience_Case_ActionCommandGood();
 	}
 }
 
-void BattleActionCommandSetup(BattleWork* work, s32 id, BattleWorkUnit* unit, s32 a4, s32 a5) {
+void BattleActionCommandSetup(BattleWork* work, s32 id, BattleUnit* unit, s32 a4, s32 a5) {
 	ActionCommandEntry* entry; // r6
 
 	work->actionCommands.mAcUnit = unit;
@@ -101,7 +101,7 @@ void BattleActionCommandStop(BattleWork* work) {
 }
 
 //TODO: a2 is some pointer
-s32 BattleActionCommandCheckDefence(BattleWorkUnit* unit, int a2) {
+s32 BattleActionCommandCheckDefence(BattleUnit* unit, int a2) {
 	return -2;
 }
 
@@ -122,11 +122,11 @@ s8 BattleActionCommandGetDifficulty(BattleWork* work) {
 	return work->actionCommands.mAcDifficulty;
 }
 
-void BattleActionCommandSetDifficulty(BattleWork* work, BattleWorkUnit* unit, s32 difficulty) {
+void BattleActionCommandSetDifficulty(BattleWork* work, BattleUnit* unit, s32 difficulty) {
 	s32 adjusted;
 
 	work->actionCommands.mBaseAcDifficulty = difficulty;
-	adjusted = difficulty - unit->mBadgesEquipped.mSimplifier + unit->mBadgesEquipped.mUnsimplifier;
+	adjusted = difficulty - unit->badgesEquipped.Simplifier + unit->badgesEquipped.Unsimplifier;
 	if (adjusted < 0) {
 		adjusted = 0;
 	}

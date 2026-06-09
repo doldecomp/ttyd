@@ -14,10 +14,10 @@ typedef struct BattleWorkIcon {
 	u8 field_0x20[0x4C - 0x20]; //0x20
 	f32 fallAccel; //0x4C
 	u8 field_0x50[0x9C - 0x50]; //0x50
-} BattleWorkIcon;
+} BattleIcon;
 
 void BattleIconInit(void);
 void BattleIconMain(void);
 void BattleIconEnd(void);
-BattleWorkIcon* BtlIcon_Entry(s16 iconId, f32 x, f32 y, f32 z);
-void BtlIcon_Delete(BattleWorkIcon* icon);
+BattleIcon* BtlIcon_Entry(s16 iconId, f32 x, f32 y, f32 z);
+void BtlIcon_Delete(BattleIcon* icon);

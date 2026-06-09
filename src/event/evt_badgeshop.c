@@ -6,54 +6,55 @@
  */
 #include "evt/evt_badgeshop.h"
 #include "manager/evtmgr.h"
+#include "manager/evtmgr_cmd.h"
 #include "mario/mario_pouch.h"
 #include "system.h"
 #include <string.h>
 
 //.data
 s32 badge_starmaniac_table[] = { //Dazzle
-	kItemAttackFxY, kItemChillOut, kItemPrettyLucky, kItemHappyHeart,
-	kItemHappyFlower, kItemHappyHeartP, kItemItemHog, kItemHeartFinder,
-	kItemFlowerFinder, kItemPeekaboo, kItemQuickChange, kItemFlowerSaver,
-	kItemFlowerSaverP, kItemPowerPlus, kItemPowerPlusP, ITEM_NULL
+	ITEM_ATTACK_FX_Y, ITEM_CHILL_OUT, ITEM_PRETTY_LUCKY, ITEM_HAPPY_HEART,
+	ITEM_HAPPY_FLOWER, ITEM_HAPPY_HEART_P, ITEM_ITEM_HOG, ITEM_HEART_FINDER,
+	ITEM_FLOWER_FINDER, ITEM_PEEKABOO, ITEM_QUICK_CHANGE, ITEM_FLOWER_SAVER,
+	ITEM_FLOWER_SAVER_P, ITEM_POWER_PLUS, ITEM_POWER_PLUS_P, ITEM_NULL
 };
 
 s32 badge_bottakuru_table[] = { //Charlieton Rogueport
 	ITEM_SHOOTING_STAR, ITEM_EARTH_QUAKE, ITEM_BOOS_SHEET, ITEM_REPEL_CAPE,
 	ITEM_STOPWATCH, ITEM_ULTRA_SHROOM, ITEM_JAMMIN_JELLY, ITEM_DRIED_SHROOM,
-	kItemDoublePain, kItemJumpman, kItemHammerman, kItemAttackFxG,
-	kItemSlowGo, kItemMegaRush, kItemTimingTutor, kItemWEmblem, ITEM_NULL
+	ITEM_DOUBLE_PAIN, ITEM_JUMPMAN, ITEM_HAMMERMAN, ITEM_ATTACK_FX_G,
+	ITEM_SLOW_GO, ITEM_MEGA_RUSH, ITEM_TIMING_TUTOR, ITEM_W_EMBLEM, ITEM_NULL
 };
 
 //.sdata
 s32 badge_special_table[] = { //Lovely Howz of Badges
-	kItemPiercingBlow, kItemPowerJump, kItemSimplifier, kItemUnsimplifier,
-	kItemFpDrain, kItemLastStand, kItemLastStandP, kItemHappyFlower,
-	kItemSuperAppeal, ITEM_NULL
+	ITEM_PIERCING_BLOW, ITEM_POWER_JUMP, ITEM_SIMPLIFIER, ITEM_UNSIMPLIFIER,
+	ITEM_FP_DRAIN, ITEM_LAST_STAND, ITEM_LAST_STAND_P, ITEM_HAPPY_FLOWER,
+	ITEM_SUPER_APPEAL, ITEM_NULL
 };
 
 s32 badge_special_table_stage_1_clear[] = { //Hooktail Castle
-	kItemCloseCall, kItemCloseCallP, kItemSleepyStomp, ITEM_NULL
+	ITEM_CLOSE_CALL, ITEM_CLOSE_CALL_P, ITEM_SLEEPY_STOMP, ITEM_NULL
 };
 
 s32 badge_special_table_stage_2_clear[] = { //Boggly Tree
-	kItemFirstAttack, kItemPrettyLuckyP, kItemPowerRush, ITEM_NULL
+	ITEM_FIRST_ATTACK, ITEM_PRETTY_LUCKY_P, ITEM_POWER_RUSH, ITEM_NULL
 };
 
 s32 badge_special_table_stage_3_clear[] = { //Glitz Pit
-	kItemShrinkStomp, kItemIceSmash, kItemPowerRushP, ITEM_NULL
+	ITEM_SHRINK_STOMP, ITEM_ICE_SMASH, ITEM_POWER_RUSH_P, ITEM_NULL
 };
 
 s32 badge_special_table_stage_4_clear[] = { //Creepy Steeple
-	kItemSoftStomp, kItemHeadRattle, kItemDamageDodge, ITEM_NULL
+	ITEM_SOFT_STOMP, ITEM_HEAD_RATTLE, ITEM_DAMAGE_DODGE, ITEM_NULL
 };
 
 s32 badge_special_table_stage_5_clear[] = { //Keelhaul Key
-	kItemSuperAppealP, kItemDamageDodgeP, kItemFireDrive, ITEM_NULL
+	ITEM_SUPER_APPEAL_P, ITEM_DAMAGE_DODGE_P, ITEM_FIRE_DRIVE, ITEM_NULL
 };
 
 s32 badge_special_table_stage_6_clear[] = { //Poshley Heights
-	kItemSimplifier, kItemUnsimplifier, kItemAttackFxP, ITEM_NULL
+	ITEM_SIMPLIFIER, ITEM_UNSIMPLIFIER, ITEM_ATTACK_FX_P, ITEM_NULL
 };
 
 s32 badge_bottakuru100_table[] = { //Charlieton Pit of 100 Trials
@@ -62,24 +63,24 @@ s32 badge_bottakuru100_table[] = { //Charlieton Pit of 100 Trials
 };
 
 s32 badge_bteresa_table[] = { //Pianta Parlor
-	ITEM_SUPER_SHROOM, kItemCakeMix, kItemSuperAppeal, kItemRefund, ITEM_NULL
+	ITEM_SUPER_SHROOM, ITEM_CAKE_MIX, ITEM_SUPER_APPEAL, ITEM_REFUND, ITEM_NULL
 };
 
 s32 badge_bteresa_table_card_special[] = { //Pianta Parlor Special Card
-	ITEM_MAPLE_SYRUP, kItemPowerJump, kItemHpPlus, kItemFpPlus, ITEM_NULL
+	ITEM_MAPLE_SYRUP, ITEM_POWER_JUMP, ITEM_HP_PLUS_P, ITEM_FP_PLUS, ITEM_NULL
 };
 
 s32 badge_bteresa_table_card_silver[] = { //Pianta Parlor Silver Card
-	kItemGoldBarX3, kItemPowerSmash, kItemHpPlusP, ITEM_NULL
+	ITEM_GOLD_BAR_X3, ITEM_POWER_SMASH, ITEM_HP_PLUS_P, ITEM_NULL
 };
 
 s32 badge_bteresa_table_card_gold[] = { //Pianta Parlor Gold Card
-	kItemHammerThrow, kItemPowerRush, kItemTornadoJump, kItemMultibounce,
-	kItemPowerRushP, ITEM_NULL
+	ITEM_HAMMER_THROW, ITEM_POWER_RUSH, ITEM_TORNADO_JUMP, ITEM_MULTIBOUNCE,
+	ITEM_POWER_RUSH_P, ITEM_NULL
 };
 
 s32 badge_bteresa_table_card_platinum[] = { //Pianta Parlor Platinum Card
-	kItemQuakeHammer, kItemMoneyMoney, ITEM_ULTRA_SHROOM, ITEM_JAMMIN_JELLY, ITEM_NULL
+	ITEM_QUAKE_HAMMER, ITEM_MONEY_MONEY, ITEM_ULTRA_SHROOM, ITEM_JAMMIN_JELLY, ITEM_NULL
 };
 
 //.bss
@@ -180,7 +181,7 @@ void badgeShop_bottakuruGeneration(void) {
 void badgeShop_bteresaGeneration(void) {
 	s32* ptr;
 
-	if (pouchCheckItem(kItemSpecialCard)) {
+	if (pouchCheckItem(ITEM_SPECIAL_CARD)) {
 		if (!evtGetValue(NULL, GSWF(246))) {
 			evtSetValue(NULL, GSWF(246), 1);
 			for (ptr = badge_bteresa_table_card_special; *ptr; ptr++) {
@@ -189,7 +190,7 @@ void badgeShop_bteresaGeneration(void) {
 		}
 	}
 
-	if (pouchCheckItem(kItemSilverCard)) {
+	if (pouchCheckItem(ITEM_SILVER_CARD)) {
 		if (!evtGetValue(NULL, GSWF(247))) {
 			evtSetValue(NULL, GSWF(247), 1);
 			for (ptr = badge_bteresa_table_card_silver; *ptr; ptr++) {
@@ -198,7 +199,7 @@ void badgeShop_bteresaGeneration(void) {
 		}
 	}
 
-	if (pouchCheckItem(kItemGoldCard)) {
+	if (pouchCheckItem(ITEM_GOLD_CARD)) {
 		if (!evtGetValue(NULL, GSWF(248))) {
 			evtSetValue(NULL, GSWF(248), 1);
 			for (ptr = badge_bteresa_table_card_gold; *ptr; ptr++) {
@@ -207,7 +208,7 @@ void badgeShop_bteresaGeneration(void) {
 		}
 	}
 
-	if (pouchCheckItem(kItemPlatinumCard)) {
+	if (pouchCheckItem(ITEM_PLATINUM_CARD)) {
 		if (!evtGetValue(NULL, GSWF(249))) {
 			evtSetValue(NULL, GSWF(249), 1);
 			for (ptr = badge_bteresa_table_card_platinum; *ptr; ptr++) {

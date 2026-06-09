@@ -4,7 +4,7 @@
 extern BattleWork* _battleWorkPointer;
 
 void btlsubResetMoveColorLvAll(BattleWork* work) {
-	BattleWorkUnit* unit;
+	BattleUnit* unit;
 	int i;
 
 	for (i = 0; i < 64; i++) {
@@ -16,27 +16,27 @@ void btlsubResetMoveColorLvAll(BattleWork* work) {
 }
 
 s32 BattleTransID(EventEntry* evt, s32 type) {
-	BattleWorkUnit* unit;
+	BattleUnit* unit;
 
 	switch (type) {
 		case -1:
 			return -1;
 		case -3:
 			unit = BattleGetMarioPtr(_battleWorkPointer);
-			return unit->mUnitId;
+			return unit->unitId;
 		case -4:
 			unit = BattleGetPartyPtr(_battleWorkPointer);
 			if (unit) {
-				return unit->mUnitId;
+				return unit->unitId;
 			}
 			else {
 				return -1;
 			}
 		case -5:
 			unit = BattleGetSystemPtr(_battleWorkPointer);
-			return unit->mUnitId;
+			return unit->unitId;
 		case -6:
-			return _battleWorkPointer->field_0x424;
+			return _battleWorkPointer->field_424;
 		default:
 			return type;
 	}

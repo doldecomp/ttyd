@@ -3,6 +3,6 @@
 
 extern BattleWork* _battleWorkPointer;
 
-BattleACExtraParams* GetBakuGamePtr(void) {
+/*BattleACExtraParams* GetBakuGamePtr(void) {
 	return &_battleWorkPointer->actionCommands.extraParams;
-}
+}*/
