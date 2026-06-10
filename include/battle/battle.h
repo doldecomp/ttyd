@@ -138,7 +138,8 @@ typedef struct BattleWorkPartyInfo {
 
 struct BattleWork {
     s16 turnCount;                      // 0x0
-    u8 field_2[0x8 - 0x2];              // 0x2
+    u8 field_2[0x4 - 0x2];              // 0x2
+    s32 seqUnknownValue;                // 0x4
     BattleAlliance alliances[3];        // 0x8
     BattleUnit* units[64];              // 0x20
     u8 field_120[0x420 - 0x120];        // 0x120
@@ -147,7 +148,14 @@ struct BattleWork {
     u8 field_428[0xEF4 - 0x428];        // 0x428
     u32 flags;                          // 0xEF4
     s32 dispFlags;                      // 0xEF8
-    u8 field_EFC[0xF28 - 0xEFC];        // 0xEFC
+    u8 field_EFC[0xF0C - 0xEFC];        // 0xEFC
+    s32 seqInitValue;                   // 0xF0C
+    s32 seqFirstActValue;               // 0xF10
+    s32 seqTurnValue;                   // 0xF14
+    s32 seqPhaseValue;                  // 0xF18
+    s32 seqMoveValue;                   // 0xF1C
+    s32 seqActValue;                    // 0xF20
+    s32 seqEndValue;                    // 0xF24
     BattleSeqEndWork* seqEndWork;       // 0xF28
     BattleWorkPad padWork[4];           // 0xF2C
     BattleCommand commandMenu;          // 0x171C
@@ -192,17 +200,17 @@ BOOL battle_init(void);
 void BattleAfterReactionQueueInit(void);
 
 BattleUnit* BattleGetPartnerPtr(BattleWork* work, BattleUnit* unit);
-BattleUnit* BattleGetPartyPtr(BattleWork* work);
+BattleUnit* BattleGetPartyPtr(BattleWork* wp);
 BattleUnit* BattleGetMarioPtr(BattleWork* work);
 BattleUnit* BattleGetSystemPtr(BattleWork* work);
 BattleWorkUnitPart* BattleGetUnitPartsPtr(s32 index, s32 partNum);
-void BattleSetUnitPtr(BattleWork* work, s32 index, BattleUnit* unit);
+void BattleSetUnitPtr(BattleWork* wp, s32 index, BattleUnit* unit);
 BattleUnit* BattleGetUnitPtr(BattleWork* work, s32 index);
 void BattleFree(void* ptr);
 void* BattleAlloc(u32 size);
-void BattleIncSeq(BattleWork* work, s32 seq);
-s32 BattleGetSeq(BattleWork* work, BattleSequence seq);
-void BattleSetSeq(BattleWork* work, BattleSequence seq, u32 num);
+void BattleIncSeq(BattleWork* wp, BattleSequence seq);
+s32 BattleGetSeq(BattleWork* wp, BattleSequence seq);
+void BattleSetSeq(BattleWork* wp, BattleSequence seq, u32 value);
 void BattleSetMarioParamToFieldBattle(BattleWork* work);
 BOOL Btl_UnitSetup(BattleWork* work);
 void BattleEnd(void);

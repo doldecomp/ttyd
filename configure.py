@@ -231,7 +231,7 @@ if args.debug:
     # Or -sym dwarf-2 for Wii compilers
     cflags_base.extend(["-sym on", "-DDEBUG=1"])
 else:
-    cflags_base.append("-DNDEBUG=1")
+    cflags_base.extend(["-sym on", "-DNDEBUG=1"])
 
 # Metrowerks library flags
 cflags_runtime = [
@@ -276,7 +276,7 @@ def DolphinLib(lib_name: str, cflags: Any, objects: List[Object]) -> Dict[str, A
     return {
         "lib": lib_name,
         "mw_version": "GC/1.2.5n",
-        "cflags": cflags,
+        "cflags": [*cflags, "-DDOLPHIN_SDK"],
         "progress_category": "sdk",
         "src_dir": "libs/dolsdk2004/src",
         "objects": objects,
@@ -1044,7 +1044,7 @@ config.libs = [
             Object(
                 Matching,
                 "exi/EXIBios.c",
-                cflags=[x for x in cflags_base if x != "-O4,p"] + ["-O3,p"],
+                cflags=[x for x in cflags_base if x != "-O4,p"] + ["-O3,p", "-DDOLPHIN_SDK"],
             ),
             Object(Matching, "exi/EXIUart.c"),
         ],
@@ -1088,7 +1088,7 @@ config.libs = [
             Object(
                 Matching,
                 "OdemuExi2/DebuggerDriver.c",
-                cflags=[*cflags_base, "-inline auto,deferred"],
+                cflags=[*cflags_base, "-inline auto,deferred", "-DDOLPHIN_SDK"],
             ),
         ],
     ),

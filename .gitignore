@@ -36,3 +36,5 @@ compile_commands.json
 
 # Files for in-development testing
 data/*
+mwcc_debugger.py
+retrowin32

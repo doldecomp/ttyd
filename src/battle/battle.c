@@ -252,6 +252,108 @@ BOOL Btl_UnitSetup(BattleWork* wp) {
     return TRUE;
 }
 
+void BattleSetMarioParamToFieldBattle(BattleWork* wp) {
+    BattleUnit* mario;
+    BattleUnit* party;
+
+    mario = BattleGetMarioPtr(wp);
+    BtlUnit_SetParamToPouch(mario);
+    party = BattleGetPartyPtr(wp);
+    if (party) {
+        BtlUnit_SetParamToPouch(party);
+    }
+}
+
+void BattleSetSeq(BattleWork* wp, BattleSequence seq, u32 value) {
+    switch (seq) {
+        case SEQ_UNKNOWN:
+            wp->seqUnknownValue = value;
+            break;
+        case SEQ_INIT:
+            wp->seqInitValue = value;
+            break;
+        case SEQ_FIRST_ACT:
+            wp->seqFirstActValue = value;
+            break;
+        case SEQ_TURN:
+            wp->seqTurnValue = value;
+            break;
+        case SEQ_PHASE:
+            wp->seqPhaseValue = value;
+            break;
+        case SEQ_MOVE:
+            wp->seqMoveValue = value;
+            break;
+        case SEQ_ACT:
+            wp->seqActValue = value;
+            break;
+        case SEQ_END:
+            wp->seqEndValue = value;
+            break;
+    }
+}
+
+s32 BattleGetSeq(BattleWork* wp, BattleSequence seq) {
+    switch (seq) {
+        case SEQ_UNKNOWN:
+            return wp->seqUnknownValue;
+        case SEQ_INIT:
+            return wp->seqInitValue;
+        case SEQ_FIRST_ACT:
+            return wp->seqFirstActValue;
+        case SEQ_TURN:
+            return wp->seqTurnValue;
+        case SEQ_PHASE:
+            return wp->seqPhaseValue;
+        case SEQ_MOVE:
+            return wp->seqMoveValue;
+        case SEQ_ACT:
+            return wp->seqActValue;
+        case SEQ_END:
+            return wp->seqEndValue;
+        default:
+            return 0;
+    }
+}
+
+void BattleIncSeq(BattleWork* wp, BattleSequence seq) {
+    s32 value = BattleGetSeq(wp, seq);
+    BattleSetSeq(wp, seq, value + 1);
+}
+
+void* BattleAlloc(u32 size) {
+    return __memAlloc(HEAP_BATTLE, size);
+}
+
+void BattleFree(void* ptr) {
+    if (ptr)
+        __memFree(HEAP_BATTLE, ptr);
+}
+
+BattleUnit* BattleGetUnitPtr(BattleWork* wp, s32 index) {
+    if (index == -1) {
+        return NULL;
+    }
+    if (index < -1) {
+        return NULL;
+    }
+    if (index < 64) {
+        return wp->units[index];
+    }
+
+    return NULL;
+}
+
+void BattleSetUnitPtr(BattleWork* wp, s32 index, BattleUnit* unit) {
+    if (index < 64) {
+        wp->units[index] = unit;
+    }
+}
+BattleWorkUnitPart* BattleGetUnitPartsPtr(s32 index, s32 partNum) {
+    BattleUnit* unit = BattleGetUnitPtr(_battleWorkPointer, index);
+    return BtlUnit_GetPartsPtr(unit, partNum);
+}
+
 void BtlUnit_EquipItem(BattleUnit* unit, EquipFlags flags, ItemType type) {
     PouchData* pouch = pouchGetPtr();
     int i;
@@ -512,4 +614,12 @@ void BattlePartyInfoWorkInit(BattleWork* wp) {
 }
 
 void BattleCheckUnitBroken(BattleWork* wp) {
+    s32 i;
+
+    for (i = 0; i < 64; i++) {
+        BattleUnit* unit = BattleGetUnitPtr(wp, i);
+        if (unit && unit->flags & 0x80000000) {
+            BtlUnit_Delete(unit);
+        }
+    }
 }
