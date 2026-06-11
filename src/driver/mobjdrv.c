@@ -324,3 +324,16 @@ BOOL mobjGetHint(MapObjectEntry* entry) {
     }
     return (entry->flags >> 5) & 1;
 }
+
+BOOL mobjCheckExec() {
+    MapObjectWork * wp;
+    int i;
+    MapObjectEntry* entry;
+
+    wp = mobjGetWork();
+    for (i = 0, entry = wp->entries; i < wp->count; entry++, i++) {
+        if (entry->flags & (1 << 9))
+            return TRUE;
+    }
+    return FALSE;
+}
