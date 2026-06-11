@@ -3,6 +3,7 @@
 #include "driver/dispdrv.h"
 #include "driver/hitdrv.h"
 #include "driver/offscreendrv.h"
+#include "manager/evtmgr.h"
 #include "mario/mario.h"
 #include "mario/mariost.h"
 #include "memory.h"
@@ -296,4 +297,22 @@ MapObject* mobjHitObjPtrToPtr(HitObj* hitObj) {
     }
 
     return 0;
+}
+
+EventEntry* mobjRunEvent(MapObjectEntry* entry, s32* eventCode) {
+    EventEntry* event;
+
+    if (eventCode == 0) {
+        return NULL;
+    }
+    if (evtCheckID(entry->eventId)) {
+        return NULL;
+    }
+    
+    entry->eventId = 0;
+    event = evtEntryType(eventCode, 0x1E, 0, 0x1A);
+    event->thisMapObj = entry;
+    entry->eventId = event->eventId;
+    
+    return event;
 }
