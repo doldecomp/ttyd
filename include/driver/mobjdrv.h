@@ -12,11 +12,15 @@ typedef struct MapObjectHitEntry {
 
 typedef struct MapObjectEntry {
     s32 flags;                   // 0x0
-    u8 unk4[0x38 - 0x4];         // 0x4
+    u8 camId;                    // 0x4
+    char name[16];               // 0x5
+    u8 unk4[0x38 - 0x7];         // 0x7
     Vec position;                // 0x38
     Vec scale;                   // 0x44
     Vec rotation;                // 0x50
-    u8 unk5C[0x70 - 0x5C];       // 0x5C
+    Vec unk5C;                   // 0x5C
+    f32 unk68;                   // 0x68
+    f32 unk6C;                   // 0x6C
     s32 poseId;                  // 0x70
     MapObjectHitEntry hitObj[2]; // 0x74
     Vec scale2;                  // 0x184

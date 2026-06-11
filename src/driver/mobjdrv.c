@@ -155,5 +155,46 @@ void mobjHitEntry(MapObjectEntry* entry, s32 type) {
     bboxMax = pose->bboxMax;
 }
 
+int mobjEntry(const char* name, const char* animPoseName) {
+    MapObjectWork* wp;
+    s32 entryCount;
+    int i;
+    MapObjectEntry* entry;
+ 
+    wp = mobjGetWork();
+    
+    entryCount = wp->count;
+    for (i = 0, entry = wp->entries; i < entryCount; i++, entry++) {
+        if ((entry->flags & 1) && (strcmp(entry->name, name) == 0))
+            break;
+    }
+    // SPM uses this to assert the name isn't duplicate, here it's just pointless
+
+    for (i = 0, entry = wp->entries; i < entryCount; i++, entry++) {
+        if ((entry->flags & 1) == 0)
+            break;
+    }
+
+    memset(entry, 0, sizeof(*entry));
+    entry->flags |= 1;
+    strcpy(entry->name, name);
+
+    entry->position = (Vec) {0.0f, 0.0f, 0.0f};
+    entry->scale = (Vec) {1.0f, 1.0f, 1.0f};
+    entry->rotation = (Vec) {0.0f, 0.0f, 0.0f};
+    entry->unk5C = (Vec) {0.0f, 0.0f, 0.0f};
+    entry->unk68 = 1.0f;
+    entry->unk6C = 1.0f;
+    entry->camId = 4;
+    entry->poseId = animPoseEntry(animPoseName, gp->inBattle != 0);
+    animPosePeraOff(entry->poseId);
+    strcpy(entry->name, animPoseName);
+    animPoseSetAnim(entry->poseId, "S_1", 1);
+    animPoseSetMaterialLightFlagOn(entry->poseId, 2);
+    mobjHitEntry(entry, 0);
+    entry->offscreenId = -1;
+    return i;
+}
+
 void mobjMain(void) {
 }
