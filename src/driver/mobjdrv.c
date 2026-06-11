@@ -244,5 +244,24 @@ void mobjSetPosition(const char* name, f32 x, f32 y, f32 z) {
     entry->position.z = z;
 }
 
+MapObjectEntry* mobjNameToPtr(const char* name) {
+    int i;
+    s32 entryCount;
+    MapObjectEntry* entry;
+    MapObjectWork* wp;
+
+    wp = mobjGetWork();
+
+    entryCount = wp->count;
+    entry = wp->entries;
+    for (i = 0; i < entryCount; i++, entry++) {
+        if((entry->flags & 1) && strcmp(entry->name, name) == 0) {
+            break;
+        }
+    }
+
+    return entry;
+}
+
 void mobjMain(void) {
 }
