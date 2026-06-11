@@ -15,7 +15,7 @@ typedef struct MapObjectEntry {
     s32 flags;                   // 0x0
     u8 camId;                    // 0x4
     char name[16];               // 0x5
-    u8 unk4[0x38 - 0x15];         // 0x15
+    u8 unk4[0x38 - 0x15];        // 0x15
     Vec position;                // 0x38
     Vec scale;                   // 0x44
     Vec rotation;                // 0x50

@@ -203,10 +203,11 @@ void mobjDelete(const char* name) {
     int i;
     MapObjectEntry* entry;
 
-    wp = koopaRunFlag ? &work[2] : gp->inBattle ? &work[1] : &work[0];
+    wp = mobjGetWork();
 
     entryCount = wp->count;
-    for (i = 0, entry = wp->entries; i < entryCount; i++, entry++) {
+    entry = wp->entries;
+    for (i = 0; i < entryCount; i++, entry++) {
         if((entry->flags & 1) && strcmp(entry->name, name) == 0) {
             for (i = 0; i < 2; i++) {
                 if((entry->hitObj[i].name) != NULL) {
@@ -220,31 +221,27 @@ void mobjDelete(const char* name) {
             break;
         }
     }
+}
 
+void mobjSetPosition(const char* name, f32 x, f32 y, f32 z) {
+    MapObjectWork* wp;
+    MapObjectEntry* entry;
+    s32 entryCount;
+    int i;
 
-// loop_15:
-//     if (i >= count) {
-//         return;
-//     }
-//     if ((entries->flags & 1) && (strcmp(entries->name, name) == 0)) {
-//         var_r30 = 0;
-//         var_r31_2 = entries;
-//         do {
-//             if ((var_r31_2 + 0x78) != NULL) {
-//                 if ((s32) gp->inBattle == 0) {
-//                     marioResetHitObj(var_r31_2 + 0x78);
-//                 }
-//                 hitDelete(var_r31_2 + 0x78);
-//             }
-//             var_r30 += 1;
-//             var_r31_2 += 0x88;
-//         } while (var_r30 < 2);
-//         entries->flags &= 0xFFFFFFFE;
-//         return;
-//     }
-//     i += 1;
-//     entries += 0x23C;
-//     goto loop_15;
+    wp = mobjGetWork();
+
+    entryCount = wp->count;
+    entry = wp->entries;
+    for (i = 0; i < entryCount; i++, entry++) {
+        if((entry->flags & 1) && strcmp(entry->name, name) == 0) {
+            break;
+        }
+    }
+
+    entry->position.x = x;
+    entry->position.y = y + 0.1f;
+    entry->position.z = z;
 }
 
 void mobjMain(void) {
