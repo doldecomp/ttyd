@@ -1,6 +1,7 @@
 #include "driver/mobjdrv.h"
 #include "driver/animdrv.h"
 #include "driver/dispdrv.h"
+#include "driver/hitdrv.h"
 #include "driver/offscreendrv.h"
 #include "mario/mario.h"
 #include "mario/mariost.h"
@@ -287,4 +288,12 @@ MapObjectEntry* mobjNameToPtrNoAssert(const char* name) {
     }
 
     return entry;
+}
+
+MapObject* mobjHitObjPtrToPtr(HitObj* hitObj) {
+    if (hitObj->attributes & (1 << 31)) {
+        return hitObj->mapObj;
+    }
+
+    return 0;
 }
