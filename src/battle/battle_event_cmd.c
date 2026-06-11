@@ -216,7 +216,7 @@ USER_FUNC(btlevtcmd_KillUnit) {
         return EVT_RETURN_DONE;
     }
     else {
-        BtlUnit_SetStatus(unit, kStatusInstantKill, 1, 1);
+        BtlUnit_SetStatus(unit, STATUS_INSTANT_KILL, 1, 1);
         if (!(flags & 1)) {
             unit->flags |= 0x80000000;
         }

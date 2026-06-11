@@ -21,7 +21,7 @@ void BattleDrawEnemyHP(CameraId camId, void* param) {
 	for (i = 0; i < 64; i++) {
 		unit = wp->units[i];
 		if (unit) {
-			if (!BtlUnit_CheckStatus(unit, kStatusInstantKill)) {
+			if (!BtlUnit_CheckStatus(unit, STATUS_INSTANT_KILL)) {
 				if (battleCheckUnitMonosiriFlag(unit)) {
 					if (!unit->mAttributeFlags & 0x2000000) {
 						if (wp->commandMenu.field_4 & 0x1000000) {

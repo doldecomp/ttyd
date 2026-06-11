@@ -55,7 +55,7 @@ void BattleCheckAllPinchStatus(BattleWork* wp, BOOL a2) { //1:1, needs stmw forc
 		unit = BattleGetUnitPtr(wp, i);
 		if (unit) {
 			if ((unit->mStatusFlags & 0x20000000) &&
-				!BtlUnit_CheckStatus(unit, kStatusInstantKill) &&
+				!BtlUnit_CheckStatus(unit, STATUS_INSTANT_KILL) &&
 				!BtlUnit_GetBelong(unit))
 			{
 				if (unit->currentKind == UNIT_MARIO ||
@@ -85,7 +85,7 @@ void BattleCheckAllPinchStatus(BattleWork* wp, BOOL a2) { //1:1, needs stmw forc
 			unit = BattleGetUnitPtr(wp, i);
 			if (unit) {
 				if ((unit->mStatusFlags & 0x20000000) &&
-					!BtlUnit_CheckStatus(unit, kStatusInstantKill) &&
+					!BtlUnit_CheckStatus(unit, STATUS_INSTANT_KILL) &&
 					!BtlUnit_GetBelong(unit))
 				{
 					if (unit->currentKind == UNIT_MARIO ||

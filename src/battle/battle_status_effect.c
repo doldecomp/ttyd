@@ -4,30 +4,30 @@
 //.sdata
 //Status Type Priority Data
 s8 _st_pri_data[] = {
-	kStatusCharge, //charge is elevated
-	kStatusPoison, //poison is elevated
-	kStatusSleep,
-	kStatusStop,
-	kStatusDizzy,
-	kStatusConfuse,
-	kStatusElectric,
-	kStatusDodgy,
-	kStatusBurn,
-	kStatusFreeze,
-	kStatusHuge,
-	kStatusTiny,
-	kStatusAttackUp,
-	kStatusAttackDown,
-	kStatusDefenseUp,
-	kStatusDefenseDown,
-	kStatusAllergic,
-	kStatusInvisible,
-	kStatusFast,
-	kStatusSlow,
-	kStatusPayback,
-	kStatusHoldFast,
-	kStatusHpRegen,
-	kStatusFpRegen,
+	STATUS_CHARGE, //charge is elevated
+	STATUS_POISON, //poison is elevated
+	STATUS_SLEEP,
+	STATUS_STOP,
+	STATUS_DIZZY,
+	STATUS_CONFUSE,
+	STATUS_ELECTRIC,
+	STATUS_DODGY,
+	STATUS_BURN,
+	STATUS_FREEZE,
+	STATUS_HUGE,
+	STATUS_TINY,
+	STATUS_ATTACK_UP,
+	STATUS_ATTACK_DOWN,
+	STATUS_DEFENSE_UP,
+	STATUS_DEFENSE_DOWN,
+	STATUS_ALLERGIC,
+	STATUS_INVISIBLE,
+	STATUS_FAST,
+	STATUS_SLOW,
+	STATUS_PAYBACK,
+	STATUS_HOLD_FAST,
+	STATUS_HP_REGEN,
+	STATUS_FP_REGEN,
 	-1
 };
 

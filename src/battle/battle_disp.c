@@ -8,13 +8,13 @@ extern BattleWork* _battleWorkPointer;
 
 //.sdata
 s32 _status_pose_table[] = {
-	kStatusInstantKill,
-	kStatusStop,
-	kStatusFreeze,
-	kStatusSleep,
-	kStatusPoison,
-	kStatusConfuse,
-	kStatusDizzy,
+	STATUS_INSTANT_KILL,
+	STATUS_STOP,
+	STATUS_FREEZE,
+	STATUS_SLEEP,
+	STATUS_POISON,
+	STATUS_CONFUSE,
+	STATUS_DIZZY,
 	-1
 };
 
@@ -226,7 +226,7 @@ StatusEffectType _GetStatusPoseType(BattleUnit* unit) { //TODO: extsb
 	StatusEffectType type;
 
 	if (unit->mAttributeFlags & 0x20000) {
-		return kStatusInstantKill;
+		return STATUS_INSTANT_KILL;
 	}
 	while (1) {
 		type = *table;
@@ -236,7 +236,7 @@ StatusEffectType _GetStatusPoseType(BattleUnit* unit) { //TODO: extsb
 		}
 		table++;
 	}
-	return kStatusInvalid;
+	return STATUS_INVALID;
 }
 
 void btlDispMain(void) {

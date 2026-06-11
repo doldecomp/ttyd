@@ -613,119 +613,119 @@ void BtlUnit_GetStatus(BattleUnit* unit, StatusEffectType type, s8* turns, s8* s
     s8 status_turns, status_strength;
 
     switch (type) {
-        case kStatusSleep:
+        case STATUS_SLEEP:
             status_strength = unit->mSleepTurns;
             status_turns = status_strength;
             break;
-        case kStatusStop:
+        case STATUS_STOP:
             status_strength = unit->mStopTurns;
             status_turns = status_strength;
             break;
-        case kStatusDizzy:
+        case STATUS_DIZZY:
             status_strength = unit->mDizzyTurns;
             status_turns = status_strength;
             break;
-        case kStatusPoison:
+        case STATUS_POISON:
             status_turns = unit->mPoisonTurns;
             status_strength = unit->mPoisonStrength;
             break;
-        case kStatusConfuse:
+        case STATUS_CONFUSE:
             status_strength = unit->mConfusionTurns;
             status_turns = status_strength;
             break;
-        case kStatusElectric:
+        case STATUS_ELECTRIC:
             status_strength = unit->mElectricTurns;
             status_turns = status_strength;
             break;
-        case kStatusDodgy:
+        case STATUS_DODGY:
             status_strength = unit->mDodgyTurns;
             status_turns = status_strength;
             break;
-        case kStatusBurn:
+        case STATUS_BURN:
             status_strength = unit->mBurnTurns;
             status_turns = status_strength;
             break;
-        case kStatusFreeze:
+        case STATUS_FREEZE:
             status_strength = unit->mFreezeTurns;
             status_turns = status_strength;
             break;
-        case kStatusHuge:
+        case STATUS_HUGE:
             if (unit->mSizeChangeStrength > 0) {
                 status_turns = unit->mSizeChangeTurns;
                 status_strength = unit->mSizeChangeStrength;
             }
             break;
-        case kStatusTiny:
+        case STATUS_TINY:
             if (unit->mSizeChangeStrength < 0) {
                 status_turns = unit->mSizeChangeTurns;
                 status_strength = unit->mSizeChangeStrength;
             }
             break;
-        case kStatusAttackUp:
+        case STATUS_ATTACK_UP:
             if (unit->mAtkChangeStrength > 0) {
                 status_turns = unit->mAtkChangeTurns;
                 status_strength = unit->mAtkChangeStrength;
             }
             break;
-        case kStatusAttackDown:
+        case STATUS_ATTACK_DOWN:
             if (unit->mAtkChangeStrength < 0) {
                 status_turns = unit->mAtkChangeTurns;
                 status_strength = unit->mAtkChangeStrength;
             }
             break;
-        case kStatusDefenseUp:
+        case STATUS_DEFENSE_UP:
             if (unit->mDefChangeStrength > 0) {
                 status_turns = unit->mDefChangeTurns;
                 status_strength = unit->mDefChangeStrength;
             }
             break;
-        case kStatusDefenseDown:
+        case STATUS_DEFENSE_DOWN:
             if (unit->mDefChangeStrength < 0) {
                 status_turns = unit->mDefChangeTurns;
                 status_strength = unit->mDefChangeStrength;
             }
             break;
-        case kStatusFast:
+        case STATUS_FAST:
             status_strength = unit->mFastTurns;
             status_turns = status_strength;
             break;
-        case kStatusSlow:
+        case STATUS_SLOW:
             status_strength = unit->mSlowTurns;
             status_turns = status_strength;
             break;
-        case kStatusCharge:
+        case STATUS_CHARGE:
             status_strength = unit->mChargeStrength;
             status_turns = status_strength;
             break;
-        case kStatusAllergic:
+        case STATUS_ALLERGIC:
             status_strength = unit->mAllergicTurns;
             status_turns = status_strength;
             break;
-        case kStatusFlipped:
+        case STATUS_FLIPPED:
             status_strength = unit->flippedTurns;
             status_turns = status_strength;
             break;
-        case kStatusInvisible:
+        case STATUS_INVISIBLE:
             status_strength = unit->mInvisibleTurns;
             status_turns = status_strength;
             break;
-        case kStatusPayback:
+        case STATUS_PAYBACK:
             status_strength = unit->mPaybackTurns;
             status_turns = status_strength;
             break;
-        case kStatusHoldFast:
+        case STATUS_HOLD_FAST:
             status_strength = unit->mHoldFastTurns;
             status_turns = status_strength;
             break;
-        case kStatusHpRegen:
+        case STATUS_HP_REGEN:
             status_turns = unit->mHpRegenTurns;
             status_strength = unit->mHpRegenStrength;
             break;
-        case kStatusFpRegen:
+        case STATUS_FP_REGEN:
             status_turns = unit->mFpRegenTurns;
             status_strength = unit->mFpRegenStrength;
             break;
-        case kStatusInstantKill:
+        case STATUS_INSTANT_KILL:
             status_strength = unit->mInstantKillStrength;
             status_turns = status_strength;
             break;
@@ -742,47 +742,47 @@ void BtlUnit_GetStatus(BattleUnit* unit, StatusEffectType type, s8* turns, s8* s
 
 BOOL BtlUnit_SetStatus(BattleUnit* unit, StatusEffectType type, s8 turns, s8 strength) {
     switch (type) {
-        case kStatusSleep:
+        case STATUS_SLEEP:
             unit->mSleepTurns = turns;
             unit->mSleepStrength = 0;
             break;
-        case kStatusStop:
+        case STATUS_STOP:
             unit->mStopTurns = turns;
             break;
-        case kStatusDizzy:
+        case STATUS_DIZZY:
             unit->mDizzyTurns = turns;
             break;
-        case kStatusPoison:
+        case STATUS_POISON:
             unit->mPoisonTurns = turns;
             unit->mPoisonStrength = strength;
             break;
-        case kStatusConfuse:
+        case STATUS_CONFUSE:
             unit->mConfusionTurns = turns;
             break;
-        case kStatusElectric:
+        case STATUS_ELECTRIC:
             unit->mElectricTurns = turns;
             break;
-        case kStatusDodgy:
+        case STATUS_DODGY:
             unit->mDodgyTurns = turns;
             break;
-        case kStatusBurn:
+        case STATUS_BURN:
             if (unit->mFreezeTurns) {
                 unit->mFreezeTurns = 0;
                 return FALSE;
             }
             unit->mBurnTurns = turns;
             break;
-        case kStatusFreeze:
+        case STATUS_FREEZE:
             if (unit->mBurnTurns) {
                 unit->mBurnTurns = 0;
                 return FALSE;
             }
             unit->mFreezeTurns = turns;
             break;
-        case kStatusHuge:
-        case kStatusTiny:
+        case STATUS_HUGE:
+        case STATUS_TINY:
             if (!strength) {
-                if (type == kStatusHuge) {
+                if (type == STATUS_HUGE) {
                     if (unit->mSizeChangeStrength >= 0) {
                         unit->mSizeChangeTurns = 0;
                         unit->mSizeChangeStrength = 0;
@@ -799,7 +799,7 @@ BOOL BtlUnit_SetStatus(BattleUnit* unit, StatusEffectType type, s8 turns, s8 str
             unit->mSizeChangeTurns = turns;
             unit->mSizeChangeStrength = strength;
             break;
-        case kStatusAttackUp:
+        case STATUS_ATTACK_UP:
             if (!strength) {
                 if (unit->mAtkChangeStrength >= 0) {
                     unit->mAtkChangeTurns = 0;
@@ -810,7 +810,7 @@ BOOL BtlUnit_SetStatus(BattleUnit* unit, StatusEffectType type, s8 turns, s8 str
             unit->mAtkChangeTurns = turns;
             unit->mAtkChangeStrength = strength;
             break;
-        case kStatusAttackDown:
+        case STATUS_ATTACK_DOWN:
             if (!strength) {
                 if (unit->mAtkChangeStrength <= 0) {
                     unit->mAtkChangeTurns = 0;
@@ -821,11 +821,11 @@ BOOL BtlUnit_SetStatus(BattleUnit* unit, StatusEffectType type, s8 turns, s8 str
             unit->mAtkChangeTurns = turns;
             unit->mAtkChangeStrength = strength;
             break;
-        case kStatusDefenseUp:
-        case kStatusDefenseDown:
+        case STATUS_DEFENSE_UP:
+        case STATUS_DEFENSE_DOWN:
             if (strength <= 0) {
                 if (!strength) {
-                    if (type == kStatusDefenseDown) {
+                    if (type == STATUS_DEFENSE_DOWN) {
                         if (unit->mDefChangeStrength <= 0) {
                             unit->mDefChangeTurns = 0;
                             unit->mDefChangeStrength = 0;
@@ -855,7 +855,7 @@ BOOL BtlUnit_SetStatus(BattleUnit* unit, StatusEffectType type, s8 turns, s8 str
                 unit->mDefChangeStrength = strength;
             }
             break;
-        case kStatusCharge:
+        case STATUS_CHARGE:
             unit->mChargeStrength += strength;
             if (unit->mChargeStrength < 0) {
                 unit->mChargeStrength = 0;
@@ -865,30 +865,30 @@ BOOL BtlUnit_SetStatus(BattleUnit* unit, StatusEffectType type, s8 turns, s8 str
                 unit->mChargeStrength = 99;
             }
             break;
-        case kStatusAllergic:
+        case STATUS_ALLERGIC:
             if (turns <= 0) {
                 unit->mAllergicTurns = 0;
                 return FALSE;
             }
             unit->mAllergicTurns = turns;
             break;
-        case kStatusFlipped:
+        case STATUS_FLIPPED:
             unit->flippedTurns = turns;
             break;
-        case kStatusInvisible:
+        case STATUS_INVISIBLE:
             unit->mInvisibleTurns = turns;
             break;
-        case kStatusPayback:
+        case STATUS_PAYBACK:
             if (turns <= 0) {
                 unit->mPaybackTurns = 0;
                 return FALSE;
             }
             unit->mPaybackTurns = turns;
             break;
-        case kStatusHoldFast:
+        case STATUS_HOLD_FAST:
             unit->mHoldFastTurns = turns;
             break;
-        case kStatusFast:
+        case STATUS_FAST:
             if (unit->mSlowTurns <= 0) {
                 unit->mFastTurns = turns;
             }
@@ -902,7 +902,7 @@ BOOL BtlUnit_SetStatus(BattleUnit* unit, StatusEffectType type, s8 turns, s8 str
             }
             _CheckMoveCount(unit);
             break;
-        case kStatusSlow:
+        case STATUS_SLOW:
             if (unit->mFastTurns <= 0) {
                 unit->mSlowTurns = turns;
             }
@@ -916,15 +916,15 @@ BOOL BtlUnit_SetStatus(BattleUnit* unit, StatusEffectType type, s8 turns, s8 str
             }
             _CheckMoveCount(unit);
             break;
-        case kStatusHpRegen:
+        case STATUS_HP_REGEN:
             unit->mHpRegenTurns = turns;
             unit->mHpRegenStrength = strength;
             break;
-        case kStatusFpRegen:
+        case STATUS_FP_REGEN:
             unit->mFpRegenTurns = turns;
             unit->mFpRegenStrength = strength;
             break;
-        case kStatusInstantKill:
+        case STATUS_INSTANT_KILL:
             unit->mInstantKillStrength = turns;
             break;
         default:
@@ -936,7 +936,7 @@ BOOL BtlUnit_SetStatus(BattleUnit* unit, StatusEffectType type, s8 turns, s8 str
 //TODO: define that chunk of statuses to do sizeof?
 void BtlUnit_ClearStatus(BattleUnit* unit) {
     memset(&unit->mSleepTurns, 0, 0x1Eu);
-    BtlUnit_SetStatus(unit, kStatusCharge, 1, -99);
+    BtlUnit_SetStatus(unit, STATUS_CHARGE, 1, -99);
     BattleStatusChangeInfoWorkInit(unit);
 }
 
@@ -946,7 +946,7 @@ BOOL BtlUnit_CheckRecoveryStatus(BattleUnit* unit, StatusEffectType type) {
     if (!unit) {
         return FALSE;
     }
-    if (BtlUnit_CheckStatus(unit, kStatusInstantKill)) {
+    if (BtlUnit_CheckStatus(unit, STATUS_INSTANT_KILL)) {
         return FALSE;
     }
     if (unit->currentHp <= 0) {
@@ -957,7 +957,7 @@ BOOL BtlUnit_CheckRecoveryStatus(BattleUnit* unit, StatusEffectType type) {
         return FALSE;
     }
     switch (type) {
-        case kStatusSleep:
+        case STATUS_SLEEP:
             if (turns <= 1) {
                 turns = 0;
             }
@@ -966,19 +966,19 @@ BOOL BtlUnit_CheckRecoveryStatus(BattleUnit* unit, StatusEffectType type) {
             }
             unit->mSleepTurns = turns;
             return turns == 0;
-        case kStatusAllergic:
-        case kStatusStop:
-        case kStatusDizzy:
-        case kStatusConfuse:
-        case kStatusElectric:
-        case kStatusDodgy:
-        case kStatusBurn:
-        case kStatusFreeze:
-        case kStatusInvisible:
-        case kStatusFast:
-        case kStatusSlow:
-        case kStatusPayback:
-        case kStatusHoldFast:
+        case STATUS_ALLERGIC:
+        case STATUS_STOP:
+        case STATUS_DIZZY:
+        case STATUS_CONFUSE:
+        case STATUS_ELECTRIC:
+        case STATUS_DODGY:
+        case STATUS_BURN:
+        case STATUS_FREEZE:
+        case STATUS_INVISIBLE:
+        case STATUS_FAST:
+        case STATUS_SLOW:
+        case STATUS_PAYBACK:
+        case STATUS_HOLD_FAST:
             if (turns < 0) {
                 turns++;
             }
@@ -996,8 +996,8 @@ BOOL BtlUnit_CheckRecoveryStatus(BattleUnit* unit, StatusEffectType type) {
             }
             BtlUnit_SetStatus(unit, type, turns, strength);
             return turns == 0;
-        case kStatusHuge:
-        case kStatusTiny:
+        case STATUS_HUGE:
+        case STATUS_TINY:
             if (turns <= 0) {
                 if (turns >= 0) {
                     return FALSE;
@@ -1013,8 +1013,8 @@ BOOL BtlUnit_CheckRecoveryStatus(BattleUnit* unit, StatusEffectType type) {
             unit->mSizeChangeTurns = turns;
             unit->mSizeChangeStrength = strength;
             return turns == 0;
-        case kStatusAttackUp:
-        case kStatusAttackDown:
+        case STATUS_ATTACK_UP:
+        case STATUS_ATTACK_DOWN:
             if (turns <= 0) {
                 if (turns >= 0) {
                     return FALSE;
@@ -1030,11 +1030,11 @@ BOOL BtlUnit_CheckRecoveryStatus(BattleUnit* unit, StatusEffectType type) {
             unit->mAtkChangeTurns = turns;
             unit->mAtkChangeStrength = strength;
             return turns == 0;
-        case kStatusPoison:
-        case kStatusDefenseUp:
-        case kStatusDefenseDown:
-        case kStatusHpRegen:
-        case kStatusFpRegen:
+        case STATUS_POISON:
+        case STATUS_DEFENSE_UP:
+        case STATUS_DEFENSE_DOWN:
+        case STATUS_HP_REGEN:
+        case STATUS_FP_REGEN:
             if (turns < 0) {
                 turns++;
             }
@@ -1061,7 +1061,7 @@ BOOL BtlUnit_CheckStatus(BattleUnit* unit, StatusEffectType type) {
     if (turns) {
         return TRUE;
     }
-    return type == kStatusElectric && unit->badgesEquipped.ZapTap;
+    return type == STATUS_ELECTRIC && unit->badgesEquipped.ZapTap;
 }
 
 s32 BtlUnit_CheckStatusFlag(BattleUnit* unit, s32 flags) {

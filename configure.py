@@ -411,7 +411,7 @@ config.libs = [
         "objects": [
             Object(NonMatching, "data/item_data.c"),
             Object(NonMatching, "data/mail_data.c"),
-            Object(NonMatching, "data/mapdata.c"),
+            Object(Matching, "data/mapdata.c"),
             Object(NonMatching, "data/npc_data.c"),
         ],
     },
@@ -1175,6 +1175,12 @@ config.libs = [
             Object(NonMatching, "mri_puni.c"),
         ],
     ),
+    Rel(
+        "pik",
+        [
+            Object(NonMatching, "unit/unit_purple_teresa.c"),
+        ]
+    )
 ]
 
 # Optional extra categories for progress tracking

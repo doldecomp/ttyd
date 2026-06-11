@@ -4,4 +4,4 @@
 #include "manager/evtmgr.h"
 
 void btlsubResetMoveColorLvAll(BattleWork* work);
-s32 BattleTransID(EventEntry* evt, s32 type);
+s32 BattleTransID(EventEntry* event, s32 type);

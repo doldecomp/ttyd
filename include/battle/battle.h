@@ -205,7 +205,7 @@ BattleUnit* BattleGetMarioPtr(BattleWork* work);
 BattleUnit* BattleGetSystemPtr(BattleWork* work);
 BattleWorkUnitPart* BattleGetUnitPartsPtr(s32 index, s32 partNum);
 void BattleSetUnitPtr(BattleWork* wp, s32 index, BattleUnit* unit);
-BattleUnit* BattleGetUnitPtr(BattleWork* work, s32 index);
+BattleUnit* BattleGetUnitPtr(BattleWork* wp, s32 index);
 void BattleFree(void* ptr);
 void* BattleAlloc(u32 size);
 void BattleIncSeq(BattleWork* wp, BattleSequence seq);
