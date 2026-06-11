@@ -2,6 +2,7 @@
 #include "driver/animdrv.h"
 #include "driver/dispdrv.h"
 #include "driver/offscreendrv.h"
+#include "mario/mario.h"
 #include "mario/mariost.h"
 #include "memory.h"
 #include "system.h"
@@ -194,6 +195,56 @@ int mobjEntry(const char* name, const char* animPoseName) {
     mobjHitEntry(entry, 0);
     entry->offscreenId = -1;
     return i;
+}
+
+void mobjDelete(const char* name) {
+    MapObjectWork* wp;
+    s32 entryCount;
+    int i;
+    MapObjectEntry* entry;
+
+    wp = koopaRunFlag ? &work[2] : gp->inBattle ? &work[1] : &work[0];
+
+    entryCount = wp->count;
+    for (i = 0, entry = wp->entries; i < entryCount; i++, entry++) {
+        if((entry->flags & 1) && strcmp(entry->name, name) == 0) {
+            for (i = 0; i < 2; i++) {
+                if((entry->hitObj[i].name) != NULL) {
+                    if(!gp->inBattle) {
+                        marioResetHitObj(entry->hitObj[i].name);
+                    }
+                    hitDelete(entry->hitObj[i].name);
+                }
+            }
+            entry->flags &= ~1;
+            break;
+        }
+    }
+
+
+// loop_15:
+//     if (i >= count) {
+//         return;
+//     }
+//     if ((entries->flags & 1) && (strcmp(entries->name, name) == 0)) {
+//         var_r30 = 0;
+//         var_r31_2 = entries;
+//         do {
+//             if ((var_r31_2 + 0x78) != NULL) {
+//                 if ((s32) gp->inBattle == 0) {
+//                     marioResetHitObj(var_r31_2 + 0x78);
+//                 }
+//                 hitDelete(var_r31_2 + 0x78);
+//             }
+//             var_r30 += 1;
+//             var_r31_2 += 0x88;
+//         } while (var_r30 < 2);
+//         entries->flags &= 0xFFFFFFFE;
+//         return;
+//     }
+//     i += 1;
+//     entries += 0x23C;
+//     goto loop_15;
 }
 
 void mobjMain(void) {

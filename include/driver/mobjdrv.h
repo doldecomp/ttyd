@@ -6,15 +6,16 @@
 #include <dolphin/mtx.h>
 
 typedef struct MapObjectHitEntry {
-    HitObj* hitObject;   // 0x0
-    u8 unk4[0x88 - 0x4]; // 0x4
+    HitObj* hitObject;    // 0x0
+    char name[16];        // 0x4
+    u8 unk4[0x88 - 0x14]; // 0x14
 } MapObjectHitEntry;
 
 typedef struct MapObjectEntry {
     s32 flags;                   // 0x0
     u8 camId;                    // 0x4
     char name[16];               // 0x5
-    u8 unk4[0x38 - 0x7];         // 0x7
+    u8 unk4[0x38 - 0x15];         // 0x15
     Vec position;                // 0x38
     Vec scale;                   // 0x44
     Vec rotation;                // 0x50
