@@ -313,6 +313,13 @@ EventEntry* mobjRunEvent(MapObjectEntry* entry, s32* eventCode) {
     event = evtEntryType(eventCode, 0x1E, 0, 0x1A);
     event->thisMapObj = entry;
     entry->eventId = event->eventId;
-    
+
     return event;
+}
+
+s32 mobjGetHint(s32* arg0) { // Not certain what this is: entry->flags maybe?
+    if (arg0 == NULL) {
+        return 0;
+    }
+    return (*arg0 >> 5) & 1;
 }
