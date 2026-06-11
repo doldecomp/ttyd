@@ -1,4 +1,5 @@
 #include "driver/mobjdrv.h"
+#include "dolphin/types.h"
 #include "driver/animdrv.h"
 #include "driver/dispdrv.h"
 #include "driver/hitdrv.h"
@@ -317,9 +318,9 @@ EventEntry* mobjRunEvent(MapObjectEntry* entry, s32* eventCode) {
     return event;
 }
 
-s32 mobjGetHint(s32* arg0) { // Not certain what this is: entry->flags maybe?
-    if (arg0 == NULL) {
+BOOL mobjGetHint(MapObjectEntry* entry) {
+    if (entry == NULL) {
         return 0;
     }
-    return (*arg0 >> 5) & 1;
+    return (entry->flags >> 5) & 1;
 }
