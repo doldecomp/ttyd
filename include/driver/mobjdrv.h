@@ -15,7 +15,8 @@ typedef struct MapObjectEntry {
     s32 flags;                   // 0x0
     u8 camId;                    // 0x4
     char name[16];               // 0x5
-    u8 unk4[0x38 - 0x15];        // 0x15
+    char animName[16];           // 0x15
+    u8 unk4[0x38 - 0x25];        // 0x25
     Vec position;                // 0x38
     Vec scale;                   // 0x44
     Vec rotation;                // 0x50
@@ -29,7 +30,9 @@ typedef struct MapObjectEntry {
     s32 offscreenId;             // 0x19C
     u8 unk1A0[0x1CC - 0x1A0];    // 0x1A0
     s32 eventId;                 // 0x1CC
-    u8 unk1A4[0x1E8 - 0x1D0];    // 0x1D0
+    u8 unk1A4[0x1DC - 0x1D0];    // 0x1D0
+    s32 unk1DC;                  // 0x1DC
+    u8 unk1E0[0x1E8 - 0x1E0];    // 0x1E0
     GXTexObj paperTexObj;        // 0x1E8
     void* unk208;                // 0x208
     Mtx paperTexMtx;             // 0x20C
