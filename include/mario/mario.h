@@ -85,6 +85,29 @@ typedef enum MarioFlags {
 } MarioFlags;
 #pragma enumsalwaysint on
 
+#pragma enumsalwaysint off
+typedef enum MarioTrigFlags {
+	MARIO_TRIG_FLAG_IS_STARTING_NEW_MOTION = (1 << 0),
+	MARIO_TRIG_FLAG_USE_PARTNER = (1 << 1),
+	MARIO_TRIG_FLAG_SHIP_PLANE_EVT_ON = (1 << 2),
+	MARIO_TRIG_FLAG_DISP_DIR_CORRECTION = (1 << 8),
+	MARIO_TRIG_FLAG_DISP_DIR_LEFT = (1 << 9),
+	MARIO_TRIG_FLAG_DISP_DIR_RIGHT = (1 << 10),
+	MARIO_TRIG_FLAG_CHG_ANIM = (1 << 12),
+	MARIO_TRIG_FLAG_CHG_PAPER_ANIM = (1 << 14),
+	MARIO_TRIG_FLAG_SET_JUMP_PARAMS = (1 << 16),
+	MARIO_TRIG_FLAG_DISABLE_JUMP_KEMURI = (1 << 17),
+	MARIO_TRIG_FLAG_JABARA_CHK = (1 << 20),
+	MARIO_TRIG_FLAG_JABARA_MOVE_CHK = (1 << 21),
+	MARIO_TRIG_FLAG_START_JABARA_SPIN = (1 << 22),
+	MARIO_TRIG_FLAG_DISABLE_UNUSED_INPUT = (1 << 24),
+	MARIO_TRIG_FLAG_DISABLE_TRIGGERS = (1 << 25),
+	MARIO_TRIG_FLAG_DISABLE_SUB_STICK = (1 << 26),
+	MARIO_TRIG_FLAG_DISABLE_STICK = (1 << 27),
+	MARIO_TRIG_FLAG_DISABLE_PARTY_SLIT = (1 << 30)
+} MarioTrigFlags;
+#pragma enumsalwaysint on
+
 //TODO: US struct is bigger, 0x2F8 vs 0x2E0
 typedef struct MarioWork {
 	u32 flags; //0x0
@@ -103,10 +126,13 @@ typedef struct MarioWork {
 	u8 field_0x32[0x3C - 0x32]; //0x32
 	s8 characterId; //0x3C
 	s8 colorId; //0x3D
-	u8 field_0x3E[0x44 - 0x3E]; //0x3E
+	u8 field_0x3E[0x40 - 0x3E]; //0x3E
+	s8 wMotionTimer; //0x40
+	u8 field_0x41[0x44 - 0x41]; //0x41
 	u32 currSubMotionId; //0x44
 	u32 multiTimer; //0x48, ???
-	u8 field_0x4C[0x50 - 0x4C]; //0x4C
+	u16 unk4C; // 0x4C
+	s16 forceMoveTimer; //0x4E
 	s16 airTimer; // 0x50
 	u8 field_0x52[0x5C - 0x52]; //0x52
 	s16 unk5C; //0x5C
@@ -137,25 +163,38 @@ typedef struct MarioWork {
 	u8 unk160[0x168 - 0x160]; //0x160
 	s32 unk168; //0x168
 	s32 unk16C; //0x16C
-	u8 unk170[0x184 - 0x170]; //0x170
+	u8 unk170[0x180 - 0x170]; //0x170
+	f32 baseSpeed; // 0x180, same on US
 	f32 mBaseWalkSpeed; //0x184
 	f32 mBaseDashSpeed; //0x188, same on US
-	u8 unk18C[0x198 - 0x18C]; //0x18C
+	u8 unk18C[0x190 - 0x18C]; //0x18C
+	f32 controlStickSensitivity; //0x190
+	f32 controlStickAngle; //0x194
 	f32 targetYaw; //0x198
-	u8 unk19C[0x1A8 - 0x19C]; //0x19C
+	u8 unk19C[0x1A0 - 0x19C]; //0x19C
+	f32 directionView; //0x1A0
+	f32 forceDirection; //0x1A4
 	f32 unk1A8; //0x1A8
 	u8 unk1AC[0x1B4 - 0x1AC]; //0x1AC
 	Vec wPlayerCollisionBox; //0x1B4 JP, 0x1B8 US
 	u8 field_0x1C0[0x1D8 - 0x1C0]; //0x1C0
 	s32 field_0x1D8; //0x1D8
-	u8 field_0x1DC[0x228 - 0x1DC]; //0x1DC
+	u8 field_0x1DC[0x1E4 - 0x1DC]; //0x1DC
+	void* hitobjStandOn; //0x1E4, 0x1E8 US HitEntry
+	void* hitobjJumpFrom; //0x1E8, 0x1EC US HitEntry
+	void* hitobjPush; //0x1EC JP, 0x1F0 US HitEntry
+	u8 field_0x1F0[0x224 - 0x1F0]; //0x1F0
+	f32 playerGravity; //0x224 JP, 228 US
 	s32 paperAnimGroupId[3]; //0x228 JP, 0x22C US
 	u8 field_0x234[0x23C - 0x234]; //0x234
 	s32 paperPoseId; //0x23C JP, 0x240 US
 	u8 field_0x240[0x241 - 0x240]; //0x240
 	s8 currPartySlotId[2]; //0x241 JP, 0x245 US
     s8 prevPartyMemberId[2]; //0x243 JP, 0x247 US
-	u8 field_0x245[0x288 - 0x245]; //0x245
+	u8 field_0x245[0x24E - 0x245]; //0x245
+	u8 wStickDir1; //0x24E JP, 0x252 US
+	u8 wStickDir2; //0x24F JP, 0x253 US
+	u8 field_0x250[0x288 - 0x250]; //0x250
 	void* motStruct; //0x288, motion userdata, TODO rename?
 	u8 field_0x28C[0x2A8 - 0x28C]; //0x28C
 	f32 wCamVal1; //0x2A8, TODO: double check

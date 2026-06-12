@@ -2,20 +2,6 @@
 #include "memory.h"
 #include <string.h>
 
-typedef struct CaseEntry {
-	u16 flags; //0x0
-	u8 pad_2[2]; //0x2
-	s32 activeConditionId; //0x4, TODO rename
-	char hitObjName[0x40]; //0x8
-	s32 caseId; //0x48
-	u32 swFlag; //0x4C
-	void* activeFunc; //0x50
-	s32 lwData[16]; //0x54
-	u8 field_0x94[4]; //0x94
-	void* evtCode; //0x98, TODO re-type
-	s32 priority; //0x9C
-} CaseEntry;
-
 typedef struct CaseWork {
 	s32 count; //0x0
 	CaseEntry* entries; //0x4
