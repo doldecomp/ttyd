@@ -352,3 +352,60 @@ BOOL mobjCheckItemboxOpen(MapObjectEntry * entry) {
         return 0;
     }
 }
+
+MapObjectEntry * mobjNearDistCheck2(f32 x, f32 y, f32 z, f32 minMagnitude, char ** names) {
+    int limit;
+    Vec pos;
+    Vec dist;
+    Vec _pos;
+    MapObjectWork * wp;
+    MapObjectEntry * entry;
+    MapObjectEntry * ret;
+    int i, j;
+    float mag;
+    s32 var_r0;
+
+    wp = mobjGetWork();
+    _pos = (Vec) {0.0f, 0.0f, 0.0f};
+    _pos.x = x;
+    _pos.y = y;
+    _pos.z = z;
+    pos = _pos;
+
+    ret = 0;
+    limit = wp->count;
+    entry = wp->entries;
+    for (i = 0; i < limit; i++, entry++) {
+        if ((entry->flags & 1) == 0) continue;
+
+        for (j = 0; names[j] != 0; j++) {
+            if (strcmp(entry->animName, names[j]) != 0)
+                continue;
+
+            if (strcmp(entry->animName, "MOBJ_TreasureBox") == 0
+             || strcmp(entry->animName, "MOBJ_BigTreasureBox") == 0
+			 || strcmp(entry->animName, "MOBJ_GrayTreasureBox") == 0
+			 || strcmp(entry->animName, "MOBJ_BlackTreasureBox") == 0) {
+                //Inlined
+                if (mobjCheckItemboxOpen(entry) == 1)
+                    continue;
+
+            }
+            else if (strcmp(entry->animName, "MOBJ_KururinFloor") == 0) {
+                //Probably inline?
+                if (mobjCheckKururingFloorItem(entry) == 2)
+                    continue;
+            }
+            
+            PSVECSubtract(&entry->position, &pos, &dist);
+            mag = PSVECMag(&dist);
+            if (mag < minMagnitude) {
+                minMagnitude = mag;
+                ret = entry;
+                break;
+            }
+        }
+    }
+
+    return ret;
+}
