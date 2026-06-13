@@ -166,14 +166,14 @@ void mobjReset(BOOL inBattle) {
     koopaRunFlag = FALSE;
 }
 
-void mobjHitEntry(MapObjectEntry* entry, s32 type) {
-    AnimationPoseData* pose;
-    Vec bboxMin, bboxMax;
+// void mobjHitEntry(MapObjectEntry* entry, s32 type) {
+//     AnimationPoseData* pose;
+//     Vec bboxMin, bboxMax;
 
-    pose = animPoseGetAnimBaseDataPtr(entry->poseId);
-    bboxMin = pose->bboxMin;
-    bboxMax = pose->bboxMax;
-}
+//     pose = animPoseGetAnimBaseDataPtr(entry->poseId);
+//     bboxMin = pose->bboxMin;
+//     bboxMax = pose->bboxMax;
+// }
 
 int mobjEntry(const char* name, const char* animPoseName) {
     MapObjectWork* wp;
@@ -208,7 +208,7 @@ int mobjEntry(const char* name, const char* animPoseName) {
     entry->camId = 4;
     entry->poseId = animPoseEntry(animPoseName, gp->inBattle != 0);
     animPosePeraOff(entry->poseId);
-    strcpy(entry->name, animPoseName);
+    strcpy(entry->animName, animPoseName);
     animPoseSetAnim(entry->poseId, "S_1", 1);
     animPoseSetMaterialLightFlagOn(entry->poseId, 2);
     mobjHitEntry(entry, 0);
