@@ -1,4 +1,5 @@
 #include "driver/mobjdrv.h"
+#include "dolphin/mtx.h"
 #include "dolphin/types.h"
 #include "driver/animdrv.h"
 #include "driver/dispdrv.h"
@@ -332,6 +333,36 @@ EventEntry* mobjRunEvent(MapObjectEntry* entry, s32* eventCode) {
     entry->eventId = event->eventId;
 
     return event;
+}
+
+void mobjCalcMtx2(MapObjectEntry* entry) {
+    Mtx mtx;
+    Mtx zRot;
+    Mtx yRot;
+    Mtx xRot;
+    Mtx scale;
+    Mtx trans;
+    Vec position;
+    s32 i;
+
+    PSVECAdd(&entry->position, &entry->translation, &position);
+
+    // TODO: Try matching using calcMtx inline function - had issues with lining up the stack offsets
+    // Matches fine here
+    PSMTXTrans(trans, position.x, position.y, position.z);
+    PSMTXScale(scale, entry->scale2.x, entry->scale2.y, entry->scale2.z);
+    PSMTXRotRad(xRot, 0x78, MTXDegToRad(entry->rotation.x));
+    PSMTXRotRad(yRot, 0x79, MTXDegToRad(entry->rotation.y));
+    PSMTXRotRad(zRot, 0x7A, MTXDegToRad(entry->rotation.z));
+    PSMTXConcat(trans, zRot, trans);
+    PSMTXConcat(trans, yRot, trans);
+    PSMTXConcat(trans, xRot, trans);
+    PSMTXConcat(trans, scale, mtx);
+
+    for (i = 0; i < 2; i++) {
+        if (entry->hitObj[i].hitObject != 0)
+            hitReCalcMatrix(entry->hitObj[i].hitObject, mtx);
+    }
 }
 
 BOOL mobjGetHint(MapObjectEntry* entry) {

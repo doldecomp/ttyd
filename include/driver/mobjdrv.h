@@ -26,7 +26,7 @@ typedef struct MapObjectEntry {
     s32 poseId;                  // 0x70
     MapObjectHitEntry hitObj[2]; // 0x74
     Vec scale2;                  // 0x184
-    u8 unk190[0x19C - 0x190];    // 0x190
+    Vec translation;             // 0x190
     s32 offscreenId;             // 0x19C
     u8 unk1A0[0x1CC - 0x1A0];    // 0x1A0
     s32 eventId;                 // 0x1CC
