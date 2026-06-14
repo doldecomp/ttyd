@@ -61,12 +61,11 @@ inline int mobjCheckKururingFloorItem(MapObjectEntry* entry) { // was always inl
         ItemEntry* item = itemNameToPtr(entry->name);
         if ((item != NULL && (item->flags & 1) && evtGetValue(0, entry->unk1E4) == 0))
             return 1;
-        else if((evtGetValue(0, entry->unk1E4) != 0))
+        else if ((evtGetValue(0, entry->unk1E4) != 0))
             return 1;
         else
             return 2;
-    }
-    else {
+    } else {
         return 0;
     }
 }
@@ -122,11 +121,11 @@ void mobjDisp(CameraId camId, void* param) {
 
 void mobjDisp_OffscreenXLU(CameraId camId, void* param) {
     MapObjectEntry* entry = param; // cast to correct type
-	u16 left, top, right, bottom;
+    u16 left, top, right, bottom;
 
-  sysWaitDrawSync();
-  GXClearBoundingBox();
-	    if (entry->flags & 0x400) {
+    sysWaitDrawSync();
+    GXClearBoundingBox();
+    if (entry->flags & 0x400) {
         animSetPaperTexMtx(entry->paperTexMtx, NULL, NULL);
         animSetPaperTexObj(&entry->paperTexObj, NULL, NULL, entry->unk208, NULL, NULL, 1, 1);
     }
@@ -140,20 +139,20 @@ void mobjDisp_OffscreenXLU(CameraId camId, void* param) {
         animSetPaperTexMtx(NULL, NULL, NULL);
         animSetPaperTexObj(NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
     }
-	  sysWaitDrawSync();
-  GXReadBoundingBox(&left, &top, &right, &bottom);
-  offscreenAddBoundingBox(entry->offscreenId, left, top, right, bottom);
+    sysWaitDrawSync();
+    GXReadBoundingBox(&left, &top, &right, &bottom);
+    offscreenAddBoundingBox(entry->offscreenId, left, top, right, bottom);
 }
 
 void mobjInit(void) {
-	MapObjectWork* wp;
+    MapObjectWork* wp;
 
-	wp = &work[0];
+    wp = &work[0];
     wp->count = 16;
     wp->entries = __memAlloc(HEAP_DEFAULT, sizeof(MapObjectEntry) * wp->count);
     memset(wp->entries, 0, sizeof(MapObjectEntry) * wp->count);
 
-	wp = &work[1];
+    wp = &work[1];
     wp->count = 8;
     wp->entries = __memAlloc(HEAP_DEFAULT, sizeof(MapObjectEntry) * wp->count);
     memset(wp->entries, 0, sizeof(MapObjectEntry) * wp->count);
@@ -181,9 +180,9 @@ int mobjEntry(const char* name, const char* animPoseName) {
     s32 entryCount;
     int i;
     MapObjectEntry* entry;
- 
+
     wp = mobjGetWork();
-    
+
     entryCount = wp->count;
     for (i = 0, entry = wp->entries; i < entryCount; i++, entry++) {
         if ((entry->flags & 1) && (strcmp(entry->name, name) == 0))
@@ -200,10 +199,10 @@ int mobjEntry(const char* name, const char* animPoseName) {
     entry->flags |= 1;
     strcpy(entry->name, name);
 
-    entry->position = (Vec) {0.0f, 0.0f, 0.0f};
-    entry->scale = (Vec) {1.0f, 1.0f, 1.0f};
-    entry->rotation = (Vec) {0.0f, 0.0f, 0.0f};
-    entry->unk5C = (Vec) {0.0f, 0.0f, 0.0f};
+    entry->position = (Vec){ 0.0f, 0.0f, 0.0f };
+    entry->scale = (Vec){ 1.0f, 1.0f, 1.0f };
+    entry->rotation = (Vec){ 0.0f, 0.0f, 0.0f };
+    entry->unk5C = (Vec){ 0.0f, 0.0f, 0.0f };
     entry->unk68 = 1.0f;
     entry->unk6C = 1.0f;
     entry->camId = 4;
@@ -228,10 +227,10 @@ void mobjDelete(const char* name) {
     entryCount = wp->count;
     entry = wp->entries;
     for (i = 0; i < entryCount; i++, entry++) {
-        if((entry->flags & 1) && strcmp(entry->name, name) == 0) {
+        if ((entry->flags & 1) && strcmp(entry->name, name) == 0) {
             for (i = 0; i < 2; i++) {
-                if((entry->hitObj[i].name) != NULL) {
-                    if(!gp->inBattle) {
+                if ((entry->hitObj[i].name) != NULL) {
+                    if (!gp->inBattle) {
                         marioResetHitObj(entry->hitObj[i].name);
                     }
                     hitDelete(entry->hitObj[i].name);
@@ -254,7 +253,7 @@ void mobjSetPosition(const char* name, f32 x, f32 y, f32 z) {
     entryCount = wp->count;
     entry = wp->entries;
     for (i = 0; i < entryCount; i++, entry++) {
-        if((entry->flags & 1) && strcmp(entry->name, name) == 0) {
+        if ((entry->flags & 1) && strcmp(entry->name, name) == 0) {
             break;
         }
     }
@@ -278,7 +277,7 @@ MapObjectEntry* mobjNameToPtr(const char* name) {
     entryCount = wp->count;
     entry = wp->entries;
     for (i = 0; i < entryCount; i++, entry++) {
-        if((entry->flags & 1) && strcmp(entry->name, name) == 0) {
+        if ((entry->flags & 1) && strcmp(entry->name, name) == 0) {
             break;
         }
     }
@@ -297,7 +296,7 @@ MapObjectEntry* mobjNameToPtrNoAssert(const char* name) {
     entryCount = wp->count;
     entry = wp->entries;
     for (i = 0; i < entryCount; i++, entry++) {
-        if((entry->flags & 1) && strcmp(entry->name, name) == 0) {
+        if ((entry->flags & 1) && strcmp(entry->name, name) == 0) {
             break;
         }
     }
@@ -326,7 +325,7 @@ EventEntry* mobjRunEvent(MapObjectEntry* entry, s32* eventCode) {
     if (evtCheckID(entry->eventId)) {
         return NULL;
     }
-    
+
     entry->eventId = 0;
     event = evtEntryType(eventCode, 0x1E, 0, 0x1A);
     event->thisMapObj = entry;
@@ -373,7 +372,7 @@ BOOL mobjGetHint(MapObjectEntry* entry) {
 }
 
 BOOL mobjCheckExec() {
-    MapObjectWork * wp;
+    MapObjectWork* wp;
     int i;
     MapObjectEntry* entry;
 
@@ -385,22 +384,19 @@ BOOL mobjCheckExec() {
     return FALSE;
 }
 
-BOOL mobjCheckItemboxOpen(MapObjectEntry * entry) {
-    if (strcmp(entry->animName, "MOBJ_TreasureBox") == 0
-     || strcmp(entry->animName, "MOBJ_BigTreasureBox") == 0
-     || strcmp(entry->animName, "MOBJ_GrayTreasureBox") == 0
-     || strcmp(entry->animName, "MOBJ_BlackTreasureBox") == 0) {
+BOOL mobjCheckItemboxOpen(MapObjectEntry* entry) {
+    if (strcmp(entry->animName, "MOBJ_TreasureBox") == 0 || strcmp(entry->animName, "MOBJ_BigTreasureBox") == 0 ||
+        strcmp(entry->animName, "MOBJ_GrayTreasureBox") == 0 || strcmp(entry->animName, "MOBJ_BlackTreasureBox") == 0) {
         if (entry->unk1DC == 99)
             return 2;
         else
             return 1;
-    }
-    else {
+    } else {
         return 0;
     }
 }
 
-MapObjectEntry* mobjNearDistCheck2(f32 x, f32 y, f32 z, f32 minMagnitude, char ** names) {
+MapObjectEntry* mobjNearDistCheck2(f32 x, f32 y, f32 z, f32 minMagnitude, char** names) {
     int entryCount;
     Vec pos;
     Vec dist;
@@ -416,35 +412,35 @@ MapObjectEntry* mobjNearDistCheck2(f32 x, f32 y, f32 z, f32 minMagnitude, char *
     entryCount = wp->count;
     entry = wp->entries;
     ret = NULL;
-    
-    _pos = (Vec) {0.0f, 0.0f, 0.0f};
+
+    _pos = (Vec){ 0.0f, 0.0f, 0.0f };
     _pos.x = x;
     _pos.y = y;
     _pos.z = z;
     pos = _pos;
 
     for (i = 0; i < entryCount; i++, entry++) {
-        if ((entry->flags & 1) == 0) continue;
+        if ((entry->flags & 1) == 0)
+            continue;
 
         j = names;
-        while(*j != NULL) {
+        while (*j != NULL) {
             if (strcmp(entry->animName, *j) == 0) {
-                if (strcmp(entry->animName, "MOBJ_TreasureBox") == 0
-                || strcmp(entry->animName, "MOBJ_BigTreasureBox") == 0
-                || strcmp(entry->animName, "MOBJ_GrayTreasureBox") == 0
-                || strcmp(entry->animName, "MOBJ_BlackTreasureBox") == 0) {
+                if (strcmp(entry->animName, "MOBJ_TreasureBox") == 0 ||
+                    strcmp(entry->animName, "MOBJ_BigTreasureBox") == 0 ||
+                    strcmp(entry->animName, "MOBJ_GrayTreasureBox") == 0 ||
+                    strcmp(entry->animName, "MOBJ_BlackTreasureBox") == 0) {
                     if (mobjCheckItemboxOpen(entry) != 1) {
                         j++;
                         continue;
                     }
-                }
-                else if (strcmp(entry->animName, "MOBJ_KururinFloor") == 0) {
+                } else if (strcmp(entry->animName, "MOBJ_KururinFloor") == 0) {
                     if (mobjCheckKururingFloorItem(entry) != 2) {
                         j++;
                         continue;
                     }
                 }
-                
+
                 PSVECSubtract(&entry->position, &pos, &dist);
                 mag = PSVECMag(&dist);
                 if (mag < minMagnitude) {
