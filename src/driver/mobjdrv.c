@@ -309,7 +309,7 @@ MapObject* mobjHitObjPtrToPtr(HitObj* hitObj) {
 EventEntry* mobjRunEvent(MapObjectEntry* entry, s32* eventCode) {
     EventEntry* event;
 
-    if (eventCode == 0) {
+    if (eventCode == NULL) {
         return NULL;
     }
     if (evtCheckID(entry->eventId)) {
