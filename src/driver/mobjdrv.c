@@ -14,13 +14,15 @@
 #include "system.h"
 #include <string.h>
 
+#define MAX_MOBJ_WORK 3
+
 extern GlobalWork* gp;
 
 //.sbss
 BOOL koopaRunFlag;
 
 //.bss
-static MapObjectWork work[3];
+static MapObjectWork work[MAX_MOBJ_WORK];
 
 #define mobjGetWorkFlag(flag) (flag ? &work[1] : &work[0])
 
