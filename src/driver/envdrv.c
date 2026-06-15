@@ -365,7 +365,7 @@ void envDisp_DepthOfField(void) {
     temp_r29 = &wp->unk88;
     if (wp->flags & 0x80000000) {
         temp_r27 = camGetPtr(CAMERA_2D);
-        GXSetProjection(camGetPtr(CAMERA_2D)->projection, temp_r27->type);
+        GXSetProjection(camGetPtr(CAMERA_2D)->projection, temp_r27->projType);
         GXLoadPosMtxImm(camGetPtr(CAMERA_2D)->view, 0);
         GXSetCurrentMtx(0);
         texobj = smartTexObj(&wp->captureObj, (void**)wp->capture);

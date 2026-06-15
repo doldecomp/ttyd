@@ -422,7 +422,7 @@ config.libs = [
         "progress_category": "game",
         "objects": [
             Object(NonMatching, "driver/bgdrv.c"),
-            Object(NonMatching, "driver/camdrv.c"),
+            Object(Matching, "driver/camdrv.c"),
             Object(NonMatching, "driver/dispdrv.c"),
             Object(NonMatching, "driver/fadedrv.c"),
             Object(NonMatching, "driver/hitdrv.c"),

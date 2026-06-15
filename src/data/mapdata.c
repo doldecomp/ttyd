@@ -1,24 +1,5 @@
 #include "data/mapdata.h"
 
-typedef struct MapData {
-    const char* mapName;
-    s32* eventAddr;
-} MapData;
-
-typedef struct AreaData {
-    const char* areaName;
-    const char* areaJpName;
-    void* field_8;
-    void* field_C;
-    MapData* maps[];
-} AreaData;
-
-typedef struct WorldData {
-    const char* worldName;
-    const char* worldJpName;
-    AreaData* areas[64];
-} WorldData;
-
 MapData tst_bt00 = { "tst_bt00", NULL };
 MapData tst_00 = { "tst_00", NULL };
 MapData tst_01 = { "tst_01", NULL };

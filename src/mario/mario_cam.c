@@ -14,9 +14,9 @@ void marioResetCamShift(void) {
     mario->unk138 = 0.0f;
     mario->unk140 = 0.0f;
     mario->unk148 = 0.0f;
-    mario->unk64 = 0.0f;
-    mario->unk68 = 2.0f;
-    mario->unk6C = (Vec){ 0.0f, 0.0f, 0.0f };
+    mario->field_64 = 0.0f;
+    mario->field_68 = 2.0f;
+    mario->field_6C = (Vec){ 0.0f, 0.0f, 0.0f };
 }
 
 void marioResetCamShiftRate(void) {
@@ -25,9 +25,9 @@ void marioResetCamShiftRate(void) {
     mario->unk150.x = 0.03;
     mario->unk150.y = 0.06;
     mario->unk150.z = 0.06;
-    mario->unk64 = 0.0f;
-    mario->unk68 = 2.0f;
-    mario->unk6C = (Vec){ 0.0f, 0.0f, 0.0f };
+    mario->field_64 = 0.0f;
+    mario->field_68 = 2.0f;
+    mario->field_6C = (Vec){ 0.0f, 0.0f, 0.0f };
 }
 
 void marioInitCamId(void) {
@@ -69,7 +69,7 @@ void marioCamMain(void) {
 
 void marioUpdateCamCollision(Vec collision) {
     MarioWork* mario = marioGetPtr();
-    mario->camCollision = collision;
+    mario->field_F8 = collision;
     mario->dispFlags |= 0x40000;
 }
 
@@ -169,7 +169,7 @@ BOOL marioCamZoomUp(void) {
     }
 
     if (!party || party->currentMemberId != 5 || !(party->flags & 0x100)) {
-        if (camGetPtr(CAMERA_3D)->unk4) {
+        if (camGetPtr(CAMERA_3D)->stateA) {
             return FALSE;
         }
 
@@ -178,7 +178,7 @@ BOOL marioCamZoomUp(void) {
         }
     } else {
         camGetPtr(CAMERA_3D);
-        if (camGetPtr(CAMERA_3D)->unk4 && mario->dispFlags & 0x100000) {
+        if (camGetPtr(CAMERA_3D)->stateA && mario->dispFlags & 0x100000) {
             return TRUE;
         }
     }
@@ -205,15 +205,15 @@ BOOL marioCamZoomUp(void) {
     camera = camGetPtr(CAMERA_3D);
 
     sp8 = (Vec){ 0.0f, 0.0f, 0.0f };
-    sp8.x = camera->target.x + xOffset;
-    sp8.y = camera->target.y + yOffset;
-    sp8.z = camera->target.z;
+    sp8.x = camera->cameraAt.x + xOffset;
+    sp8.y = camera->cameraAt.y + yOffset;
+    sp8.z = camera->cameraAt.z;
     cloudPos = sp8;
 
     cloudGetAt(&cloudPos);
     targetPos = cloudPos;
 
-    PSVECSubtract(&camera->cameraPos, &camera->target, &cameraDir);
+    PSVECSubtract(&camera->cameraPos, &camera->cameraAt, &cameraDir);
     PSVECNormalize(&cameraDir, &cameraDir);
     PSVECScale(&cameraDir, &cameraDir, zoomDistance);
     PSVECAdd(&targetPos, &cameraDir, &targetPos);

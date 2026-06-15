@@ -179,7 +179,7 @@ void bgMain(void) {
 			width = gp->fbWidth / GXGetTexObjWidth(&texobj);
 		}
 		if (!(bgwork->flags & 8)) {
-			v8 = (0.001f * ((cosangle * camera->target.x) - (sinangle * camera->target.z))) + v8;
+			v8 = (0.001f * ((cosangle * camera->cameraAt.x) - (sinangle * camera->cameraAt.z))) + v8;
 		}
 		v11 = 4.0f * (camGetPtr(CAMERA_3D)->viewYaw / 360.0f);
 		bgwork->trans_x = ((f32)width * v11) + v8;

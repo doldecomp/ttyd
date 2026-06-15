@@ -317,7 +317,7 @@ void cardCopy2Main(s32 slot) {
     gp->unk11B8 = backup6;
     gp->mapAlloc = backup2;
     gp->unk8 = 0;
-    gp->unkC = 0;
+    gp->field_C = 0;
     if (backup3 != 0) {
         gp->flags |= 8;
     }

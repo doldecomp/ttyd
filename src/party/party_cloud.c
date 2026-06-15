@@ -23,7 +23,7 @@ void cloudGetAt(Vec* position) {
     if ((mario->dispFlags & (1 << 20)) == 0) {
         CameraEntry* camera = camGetPtr(CAMERA_3D);
 
-        if(camera->unk4 == 0) {
+        if(camera->stateA == 0) {
             cloud_at = *position;
         }
         else {
@@ -38,9 +38,9 @@ void cloudResetAt() {
     PartyEntry* party = partyGetPtr(partyId);
 
     if(party != NULL && party->currentMemberId == PARTY_MEMBER_FLURRIE) {
-        cloud_at.x = camGetPtr(CAMERA_3D)->target.x;
-        cloud_at.y = camGetPtr(CAMERA_3D)->target.y;
-        cloud_at.z = camGetPtr(CAMERA_3D)->target.z;
+        cloud_at.x = camGetPtr(CAMERA_3D)->cameraAt.x;
+        cloud_at.y = camGetPtr(CAMERA_3D)->cameraAt.y;
+        cloud_at.z = camGetPtr(CAMERA_3D)->cameraAt.z;
 
         marioCamZoomOffReq2(600);
     }

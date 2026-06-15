@@ -482,6 +482,16 @@ void effUltraHammerMain(EffectEntry* effect) {
     dispEntry(CAMERA_3D, 2, effUltraHammerDisp, effect, dispCalcZ(&position));
 }
 
+// unknown function, is used for many functions to "initialize"/copy some value into the local stack, with an extra vec
+inline Vec initializeVec(Vec* input) {
+    Vec temp = (Vec){ 0.0f, 0.0f, 0.0f };
+    temp.x = input->x;
+    temp.y = input->y;
+    temp.z = input->z;
+    return temp;
+}
+
+
 void effUltraHammerDisp(enum CameraId camId, void *param) { //minor regalloc
     EffectEntry *effect;
     EffUltraHammerData *data;

@@ -458,7 +458,7 @@ void marioGetScreenPos(Vec position, f32* x, f32* y, f32* z) { //1:1
 	f32 view[6];
 
 	camera = camGetPtr(CAMERA_3D);
-	GXSetProjection(camera->projection, camera->type);
+	GXSetProjection(camera->projection, camera->projType);
 	GXGetProjectionv(proj);
 	GXGetViewportv(view);
 	GXProject(position.x, position.y, position.z, camera->view, proj, view, x, y, z);

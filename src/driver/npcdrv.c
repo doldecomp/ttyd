@@ -127,7 +127,7 @@ void mtx_setup(NpcEntry* entry, Mtx mtx, s32 history) { //1:1 once "!= 0.0f" che
 	scaleSign = 1.0f;
 	if (!(entry->flags & 0x2000000) && !(entry->flags & 0x8000000)) {
 		camera = camGetCurPtr();
-		targetAngle = angleABf(camera->cameraPos.x, camera->cameraPos.z, camera->target.x, camera->target.z);
+		targetAngle = angleABf(camera->cameraPos.x, camera->cameraPos.z, camera->cameraAt.x, camera->cameraAt.z);
 		positionAngle = angleABf(camera->cameraPos.x, camera->cameraPos.z, entry->position.x, entry->position.z);
 		rotationAngle = reviseAngle(targetAngle - positionAngle);
 	}

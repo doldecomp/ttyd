@@ -3,7 +3,7 @@
 #include <dolphin/types.h>
 #include "driver/camdrv.h"
 
-typedef void (*DispCallback)(CameraId camId, void* param);
+typedef void (*DispCallback)(CameraId cameraId, void* param);
 
 #pragma warn_padding off
 typedef struct DispEntry {
@@ -18,8 +18,8 @@ typedef struct DispEntry {
 
 void dispInit(void);
 void dispReInit(void);
-void dispEntry(CameraId camId, s32 renderMode, DispCallback callback, void* param, f32 order);
+void dispEntry(CameraId camera, s32 renderMode, DispCallback callback, void* param, f32 order);
 void dispSort(void);
-void dispDraw(CameraId camId);
+void dispDraw(CameraId cameraId);
 f32 dispCalcZ(Vec* input);
 DispEntry* dispGetCurWork(void);
