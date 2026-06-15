@@ -174,20 +174,20 @@ void mobjReset(BOOL inBattle) {
 //     bboxMax = pose->bboxMax;
 // }
 
-int mobjEntry(const char* name, const char* animPoseName) {
+s32 mobjEntry(const char* name, const char* animPoseName) {
     MapObjectWork* wp = mobjGetWork();
     s32 entryCount;
-    int i;
+    s32 idx;
     MapObjectEntry* entry;
 
     entryCount = wp->count;
-    for (i = 0, entry = wp->entries; i < entryCount; i++, entry++) {
+    for (idx = 0, entry = wp->entries; idx < entryCount; idx++, entry++) {
         if ((entry->flags & 1) && (strcmp(entry->name, name) == 0))
             break;
     }
     // SPM uses this to assert the name isn't duplicate, here it's just pointless
 
-    for (i = 0, entry = wp->entries; i < entryCount; i++, entry++) {
+    for (idx = 0, entry = wp->entries; idx < entryCount; idx++, entry++) {
         if ((entry->flags & 1) == 0)
             break;
     }
@@ -210,7 +210,7 @@ int mobjEntry(const char* name, const char* animPoseName) {
     animPoseSetMaterialLightFlagOn(entry->poseId, 2);
     mobjHitEntry(entry, 0);
     entry->offscreenId = -1;
-    return i;
+    return idx;
 }
 
 void mobjDelete(const char* name) {
