@@ -338,15 +338,15 @@ void mobjCalcMtx2(MapObjectEntry* entry) {
 
     // TODO: Try matching using calcMtx inline function - had issues with lining up the stack offsets
     // Matches fine here
-    PSMTXTrans(trans, position.x, position.y, position.z);
-    PSMTXScale(scale, entry->scale2.x, entry->scale2.y, entry->scale2.z);
-    PSMTXRotRad(xRot, 0x78, MTXDegToRad(entry->rotation.x));
-    PSMTXRotRad(yRot, 0x79, MTXDegToRad(entry->rotation.y));
-    PSMTXRotRad(zRot, 0x7A, MTXDegToRad(entry->rotation.z));
-    PSMTXConcat(trans, zRot, trans);
-    PSMTXConcat(trans, yRot, trans);
-    PSMTXConcat(trans, xRot, trans);
-    PSMTXConcat(trans, scale, mtx);
+    MTXTrans(trans, position.x, position.y, position.z);
+    MTXScale(scale, entry->scale2.x, entry->scale2.y, entry->scale2.z);
+    MTXRotRad(xRot, 0x78, MTXDegToRad(entry->rotation.x));
+    MTXRotRad(yRot, 0x79, MTXDegToRad(entry->rotation.y));
+    MTXRotRad(zRot, 0x7A, MTXDegToRad(entry->rotation.z));
+    MTXConcat(trans, zRot, trans);
+    MTXConcat(trans, yRot, trans);
+    MTXConcat(trans, xRot, trans);
+    MTXConcat(trans, scale, mtx);
 
     for (i = 0; i < 2; i++) {
         if (entry->hitObj[i].hitObject != 0)
