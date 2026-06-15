@@ -303,7 +303,7 @@ MapObject* mobjHitObjPtrToPtr(HitObj* hitObj) {
         return hitObj->mapObj;
     }
 
-    return 0;
+    return NULL;
 }
 
 EventEntry* mobjRunEvent(MapObjectEntry* entry, s32* eventCode) {
