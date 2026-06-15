@@ -145,9 +145,8 @@ void mobjDisp_OffscreenXLU(CameraId camId, void* param) {
 }
 
 void mobjInit(void) {
-    MapObjectWork* wp;
+    MapObjectWork* wp = &work[0];
 
-    wp = &work[0];
     wp->count = 16;
     wp->entries = __memAlloc(HEAP_DEFAULT, sizeof(MapObjectEntry) * wp->count);
     memset(wp->entries, 0, sizeof(MapObjectEntry) * wp->count);
@@ -176,12 +175,10 @@ void mobjReset(BOOL inBattle) {
 // }
 
 int mobjEntry(const char* name, const char* animPoseName) {
-    MapObjectWork* wp;
+    MapObjectWork* wp = mobjGetWork();
     s32 entryCount;
     int i;
     MapObjectEntry* entry;
-
-    wp = mobjGetWork();
 
     entryCount = wp->count;
     for (i = 0, entry = wp->entries; i < entryCount; i++, entry++) {
@@ -217,12 +214,10 @@ int mobjEntry(const char* name, const char* animPoseName) {
 }
 
 void mobjDelete(const char* name) {
-    MapObjectWork* wp;
+    MapObjectWork* wp = mobjGetWork();
     s32 entryCount;
     int i;
     MapObjectEntry* entry;
-
-    wp = mobjGetWork();
 
     entryCount = wp->count;
     entry = wp->entries;
@@ -243,12 +238,10 @@ void mobjDelete(const char* name) {
 }
 
 void mobjSetPosition(const char* name, f32 x, f32 y, f32 z) {
-    MapObjectWork* wp;
+    MapObjectWork* wp = mobjGetWork();
     MapObjectEntry* entry;
     s32 entryCount;
     int i;
-
-    wp = mobjGetWork();
 
     entryCount = wp->count;
     entry = wp->entries;
@@ -270,9 +263,7 @@ MapObjectEntry* mobjNameToPtr(const char* name) {
     int i;
     s32 entryCount;
     MapObjectEntry* entry;
-    MapObjectWork* wp;
-
-    wp = mobjGetWork();
+    MapObjectWork* wp = mobjGetWork();
 
     entryCount = wp->count;
     entry = wp->entries;
@@ -289,9 +280,7 @@ MapObjectEntry* mobjNameToPtrNoAssert(const char* name) {
     int i;
     s32 entryCount;
     MapObjectEntry* entry;
-    MapObjectWork* wp;
-
-    wp = mobjGetWork();
+    MapObjectWork* wp = mobjGetWork();
 
     entryCount = wp->count;
     entry = wp->entries;
@@ -402,13 +391,12 @@ MapObjectEntry* mobjNearDistCheck2(f32 x, f32 y, f32 z, f32 minMagnitude, char**
     Vec dist;
     Vec _pos;
     MapObjectEntry* entry;
-    MapObjectWork* wp;
+    MapObjectWork* wp = mobjGetWork();
     MapObjectEntry* ret;
     int i;
     float mag;
     char** j;
 
-    wp = mobjGetWork();
     entryCount = wp->count;
     entry = wp->entries;
     ret = NULL;

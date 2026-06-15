@@ -1,6 +1,7 @@
 #pragma once
 
 #include "dolphin/gx/GXStruct.h"
+#include "driver/camdrv.h"
 #include "driver/hitdrv.h"
 #include <dolphin/types.h>
 #include <dolphin/mtx.h>
