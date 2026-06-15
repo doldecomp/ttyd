@@ -373,7 +373,7 @@ BOOL mobjCheckExec() {
     return FALSE;
 }
 
-BOOL mobjCheckItemboxOpen(MapObjectEntry* entry) {
+s32 mobjCheckItemboxOpen(MapObjectEntry* entry) {
     if (strcmp(entry->animName, "MOBJ_TreasureBox") == 0 || strcmp(entry->animName, "MOBJ_BigTreasureBox") == 0 ||
         strcmp(entry->animName, "MOBJ_GrayTreasureBox") == 0 || strcmp(entry->animName, "MOBJ_BlackTreasureBox") == 0) {
         if (entry->unk1DC == 99)
