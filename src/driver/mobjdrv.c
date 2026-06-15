@@ -2,6 +2,7 @@
 #include "dolphin/mtx.h"
 #include "dolphin/types.h"
 #include "driver/animdrv.h"
+#include "driver/camdrv.h"
 #include "driver/dispdrv.h"
 #include "driver/hitdrv.h"
 #include "driver/offscreendrv.h"
@@ -202,7 +203,7 @@ s32 mobjEntry(const char* name, const char* animPoseName) {
     entry->unk5C = (Vec){ 0.0f, 0.0f, 0.0f };
     entry->unk68 = 1.0f;
     entry->unk6C = 1.0f;
-    entry->camId = 4;
+    entry->camId = CAMERA_3D;
     entry->poseId = animPoseEntry(animPoseName, gp->inBattle != 0);
     animPosePeraOff(entry->poseId);
     strcpy(entry->animName, animPoseName);
