@@ -395,7 +395,7 @@ MapObjectEntry* mobjNearDistCheck2(f32 x, f32 y, f32 z, f32 minMagnitude, char**
     MapObjectEntry* ret;
     int i;
     float mag;
-    char** j;
+    char** animName;
 
     entryCount = wp->count;
     entry = wp->entries;
@@ -411,20 +411,20 @@ MapObjectEntry* mobjNearDistCheck2(f32 x, f32 y, f32 z, f32 minMagnitude, char**
         if ((entry->flags & 1) == 0)
             continue;
 
-        j = names;
-        while (*j != NULL) {
-            if (strcmp(entry->animName, *j) == 0) {
+        animName = names;
+        while (*animName != NULL) {
+            if (strcmp(entry->animName, *animName) == 0) {
                 if (strcmp(entry->animName, "MOBJ_TreasureBox") == 0 ||
                     strcmp(entry->animName, "MOBJ_BigTreasureBox") == 0 ||
                     strcmp(entry->animName, "MOBJ_GrayTreasureBox") == 0 ||
                     strcmp(entry->animName, "MOBJ_BlackTreasureBox") == 0) {
                     if (mobjCheckItemboxOpen(entry) != 1) {
-                        j++;
+                        animName++;
                         continue;
                     }
                 } else if (strcmp(entry->animName, "MOBJ_KururinFloor") == 0) {
                     if (mobjCheckKururingFloorItem(entry) != 2) {
-                        j++;
+                        animName++;
                         continue;
                     }
                 }
@@ -438,7 +438,7 @@ MapObjectEntry* mobjNearDistCheck2(f32 x, f32 y, f32 z, f32 minMagnitude, char**
                 }
                 break;
             }
-            j++;
+            animName++;
         }
     }
 
