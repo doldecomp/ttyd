@@ -429,8 +429,8 @@ MapObjectEntry* mobjNearDistCheck2(f32 x, f32 y, f32 z, f32 minMagnitude, char**
                     }
                 }
 
-                PSVECSubtract(&entry->position, &pos, &dist);
-                mag = PSVECMag(&dist);
+                VECSubtract(&entry->position, &pos, &dist);
+                mag = VECMag(&dist);
                 if (mag < minMagnitude) {
                     minMagnitude = mag;
                     ret = entry;
