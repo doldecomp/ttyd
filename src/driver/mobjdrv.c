@@ -1,11 +1,20 @@
 #include "driver/mobjdrv.h"
+#include "dolphin/mtx.h"
+#include "dolphin/types.h"
 #include "driver/animdrv.h"
+#include "driver/camdrv.h"
 #include "driver/dispdrv.h"
+#include "driver/hitdrv.h"
 #include "driver/offscreendrv.h"
+#include "driver/itemdrv.h"
+#include "manager/evtmgr.h"
+#include "mario/mario.h"
 #include "mario/mariost.h"
 #include "memory.h"
 #include "system.h"
 #include <string.h>
+
+#define MAX_MOBJ_WORK 3
 
 extern GlobalWork* gp;
 
@@ -13,7 +22,7 @@ extern GlobalWork* gp;
 BOOL koopaRunFlag;
 
 //.bss
-static MapObjectWork work[3];
+static MapObjectWork work[MAX_MOBJ_WORK];
 
 #define mobjGetWorkFlag(flag) (flag ? &work[1] : &work[0])
 
@@ -48,6 +57,20 @@ inline void calcMtx(MapObjectEntry* entry, Mtx dest, Vec position) { // guessing
     MTXConcat(trans, yrot, trans);
     MTXConcat(trans, xrot, trans);
     MTXConcat(trans, scale, dest);
+}
+
+inline int mobjCheckKururingFloorItem(MapObjectEntry* entry) { // was always inlined in retail but not in demo
+    if (!strcmp(entry->animName, "MOBJ_KururinFloor")) {
+        ItemEntry* item = itemNameToPtr(entry->name);
+        if ((item != NULL && (item->flags & 1) && evtGetValue(0, entry->unk1E4) == 0))
+            return 1;
+        else if ((evtGetValue(0, entry->unk1E4) != 0))
+            return 1;
+        else
+            return 2;
+    } else {
+        return 0;
+    }
 }
 
 void mobjDispXLU(CameraId camId, void* param) {
@@ -101,11 +124,11 @@ void mobjDisp(CameraId camId, void* param) {
 
 void mobjDisp_OffscreenXLU(CameraId camId, void* param) {
     MapObjectEntry* entry = param; // cast to correct type
-	u16 left, top, right, bottom;
+    u16 left, top, right, bottom;
 
-  sysWaitDrawSync();
-  GXClearBoundingBox();
-	    if (entry->flags & 0x400) {
+    sysWaitDrawSync();
+    GXClearBoundingBox();
+    if (entry->flags & 0x400) {
         animSetPaperTexMtx(entry->paperTexMtx, NULL, NULL);
         animSetPaperTexObj(&entry->paperTexObj, NULL, NULL, entry->unk208, NULL, NULL, 1, 1);
     }
@@ -119,20 +142,19 @@ void mobjDisp_OffscreenXLU(CameraId camId, void* param) {
         animSetPaperTexMtx(NULL, NULL, NULL);
         animSetPaperTexObj(NULL, NULL, NULL, NULL, NULL, NULL, 1, 1);
     }
-	  sysWaitDrawSync();
-  GXReadBoundingBox(&left, &top, &right, &bottom);
-  offscreenAddBoundingBox(entry->offscreenId, left, top, right, bottom);
+    sysWaitDrawSync();
+    GXReadBoundingBox(&left, &top, &right, &bottom);
+    offscreenAddBoundingBox(entry->offscreenId, left, top, right, bottom);
 }
 
 void mobjInit(void) {
-	MapObjectWork* wp;
+    MapObjectWork* wp = &work[0];
 
-	wp = &work[0];
     wp->count = 16;
     wp->entries = __memAlloc(HEAP_DEFAULT, sizeof(MapObjectEntry) * wp->count);
     memset(wp->entries, 0, sizeof(MapObjectEntry) * wp->count);
 
-	wp = &work[1];
+    wp = &work[1];
     wp->count = 8;
     wp->entries = __memAlloc(HEAP_DEFAULT, sizeof(MapObjectEntry) * wp->count);
     memset(wp->entries, 0, sizeof(MapObjectEntry) * wp->count);
@@ -146,14 +168,281 @@ void mobjReset(BOOL inBattle) {
     koopaRunFlag = FALSE;
 }
 
-void mobjHitEntry(MapObjectEntry* entry, s32 type) {
-    AnimationPoseData* pose;
-    Vec bboxMin, bboxMax;
+// void mobjHitEntry(MapObjectEntry* entry, s32 type) {
+//     AnimationPoseData* pose;
+//     Vec bboxMin, bboxMax;
 
-    pose = animPoseGetAnimBaseDataPtr(entry->poseId);
-    bboxMin = pose->bboxMin;
-    bboxMax = pose->bboxMax;
+//     pose = animPoseGetAnimBaseDataPtr(entry->poseId);
+//     bboxMin = pose->bboxMin;
+//     bboxMax = pose->bboxMax;
+// }
+
+s32 mobjEntry(const char* name, const char* animPoseName) {
+    MapObjectWork* wp = mobjGetWork();
+    s32 entryCount;
+    s32 idx;
+    MapObjectEntry* entry;
+
+    entryCount = wp->count;
+    for (idx = 0, entry = wp->entries; idx < entryCount; idx++, entry++) {
+        if ((entry->flags & 1) && (strcmp(entry->name, name) == 0))
+            break;
+    }
+    // SPM uses this to assert the name isn't duplicate, here it's just pointless
+
+    for (idx = 0, entry = wp->entries; idx < entryCount; idx++, entry++) {
+        if ((entry->flags & 1) == 0)
+            break;
+    }
+
+    memset(entry, 0, sizeof(*entry));
+    entry->flags |= 1;
+    strcpy(entry->name, name);
+
+    entry->position = (Vec){ 0.0f, 0.0f, 0.0f };
+    entry->scale = (Vec){ 1.0f, 1.0f, 1.0f };
+    entry->rotation = (Vec){ 0.0f, 0.0f, 0.0f };
+    entry->unk5C = (Vec){ 0.0f, 0.0f, 0.0f };
+    entry->unk68 = 1.0f;
+    entry->unk6C = 1.0f;
+    entry->camId = CAMERA_3D;
+    entry->poseId = animPoseEntry(animPoseName, gp->inBattle != 0);
+    animPosePeraOff(entry->poseId);
+    strcpy(entry->animName, animPoseName);
+    animPoseSetAnim(entry->poseId, "S_1", 1);
+    animPoseSetMaterialLightFlagOn(entry->poseId, 2);
+    mobjHitEntry(entry, 0);
+    entry->offscreenId = -1;
+    return idx;
+}
+
+void mobjDelete(const char* name) {
+    MapObjectWork* wp = mobjGetWork();
+    s32 entryCount;
+    int i;
+    MapObjectEntry* entry;
+
+    entryCount = wp->count;
+    entry = wp->entries;
+    for (i = 0; i < entryCount; i++, entry++) {
+        if ((entry->flags & 1) && strcmp(entry->name, name) == 0) {
+            for (i = 0; i < 2; i++) {
+                if ((entry->hitObj[i].name) != NULL) {
+                    if (!gp->inBattle) {
+                        marioResetHitObj(entry->hitObj[i].name);
+                    }
+                    hitDelete(entry->hitObj[i].name);
+                }
+            }
+            entry->flags &= ~1;
+            break;
+        }
+    }
+}
+
+void mobjSetPosition(const char* name, f32 x, f32 y, f32 z) {
+    MapObjectWork* wp = mobjGetWork();
+    MapObjectEntry* entry;
+    s32 entryCount;
+    int i;
+
+    entryCount = wp->count;
+    entry = wp->entries;
+    for (i = 0; i < entryCount; i++, entry++) {
+        if ((entry->flags & 1) && strcmp(entry->name, name) == 0) {
+            break;
+        }
+    }
+
+    entry->position.x = x;
+    entry->position.y = y + 0.1f;
+    entry->position.z = z;
 }
 
 void mobjMain(void) {
+}
+
+MapObjectEntry* mobjNameToPtr(const char* name) {
+    int i;
+    s32 entryCount;
+    MapObjectEntry* entry;
+    MapObjectWork* wp = mobjGetWork();
+
+    entryCount = wp->count;
+    entry = wp->entries;
+    for (i = 0; i < entryCount; i++, entry++) {
+        if ((entry->flags & 1) && strcmp(entry->name, name) == 0) {
+            break;
+        }
+    }
+
+    return entry;
+}
+
+MapObjectEntry* mobjNameToPtrNoAssert(const char* name) {
+    int i;
+    s32 entryCount;
+    MapObjectEntry* entry;
+    MapObjectWork* wp = mobjGetWork();
+
+    entryCount = wp->count;
+    entry = wp->entries;
+    for (i = 0; i < entryCount; i++, entry++) {
+        if ((entry->flags & 1) && strcmp(entry->name, name) == 0) {
+            break;
+        }
+    }
+
+    if (i >= entryCount) {
+        return NULL;
+    }
+
+    return entry;
+}
+
+MapObject* mobjHitObjPtrToPtr(HitObj* hitObj) {
+    if (hitObj->attributes & (1 << 31)) {
+        return hitObj->mapObj;
+    }
+
+    return NULL;
+}
+
+EventEntry* mobjRunEvent(MapObjectEntry* entry, s32* eventCode) {
+    EventEntry* event;
+
+    if (eventCode == NULL) {
+        return NULL;
+    }
+    if (evtCheckID(entry->eventId)) {
+        return NULL;
+    }
+
+    entry->eventId = 0;
+    event = evtEntryType(eventCode, 0x1E, 0, 0x1A);
+    event->thisMapObj = entry;
+    entry->eventId = event->eventId;
+
+    return event;
+}
+
+void mobjCalcMtx2(MapObjectEntry* entry) {
+    Mtx mtx;
+    Mtx zRot;
+    Mtx yRot;
+    Mtx xRot;
+    Mtx scale;
+    Mtx trans;
+    Vec position;
+    s32 i;
+
+    PSVECAdd(&entry->position, &entry->translation, &position);
+
+    // TODO: Try matching using calcMtx inline function - had issues with lining up the stack offsets
+    // Matches fine here
+    MTXTrans(trans, position.x, position.y, position.z);
+    MTXScale(scale, entry->scale2.x, entry->scale2.y, entry->scale2.z);
+    MTXRotRad(xRot, 'x', MTXDegToRad(entry->rotation.x));
+    MTXRotRad(yRot, 'y', MTXDegToRad(entry->rotation.y));
+    MTXRotRad(zRot, 'z', MTXDegToRad(entry->rotation.z));
+    MTXConcat(trans, zRot, trans);
+    MTXConcat(trans, yRot, trans);
+    MTXConcat(trans, xRot, trans);
+    MTXConcat(trans, scale, mtx);
+
+    for (i = 0; i < 2; i++) {
+        if (entry->hitObj[i].hitObject != 0)
+            hitReCalcMatrix(entry->hitObj[i].hitObject, mtx);
+    }
+}
+
+BOOL mobjGetHint(MapObjectEntry* entry) {
+    if (entry == NULL) {
+        return 0;
+    }
+    return (entry->flags >> 5) & 1;
+}
+
+BOOL mobjCheckExec() {
+    MapObjectWork* wp = mobjGetWork();
+    int i;
+    MapObjectEntry* entry;
+
+    for (i = 0, entry = wp->entries; i < wp->count; entry++, i++) {
+        if (entry->flags & (1 << 9))
+            return TRUE;
+    }
+    return FALSE;
+}
+
+s32 mobjCheckItemboxOpen(MapObjectEntry* entry) {
+    if (strcmp(entry->animName, "MOBJ_TreasureBox") == 0 || strcmp(entry->animName, "MOBJ_BigTreasureBox") == 0 ||
+        strcmp(entry->animName, "MOBJ_GrayTreasureBox") == 0 || strcmp(entry->animName, "MOBJ_BlackTreasureBox") == 0) {
+        if (entry->unk1DC == 99)
+            return 2;
+        else
+            return 1;
+    } else {
+        return 0;
+    }
+}
+
+MapObjectEntry* mobjNearDistCheck2(f32 x, f32 y, f32 z, f32 minMagnitude, char** names) {
+    int entryCount;
+    Vec pos;
+    Vec dist;
+    Vec _pos;
+    MapObjectEntry* entry;
+    MapObjectWork* wp = mobjGetWork();
+    MapObjectEntry* ret;
+    int i;
+    float mag;
+    char** animName;
+
+    entryCount = wp->count;
+    entry = wp->entries;
+    ret = NULL;
+
+    _pos = (Vec){ 0.0f, 0.0f, 0.0f };
+    _pos.x = x;
+    _pos.y = y;
+    _pos.z = z;
+    pos = _pos;
+
+    for (i = 0; i < entryCount; i++, entry++) {
+        if ((entry->flags & 1) == 0)
+            continue;
+
+        animName = names;
+        while (*animName != NULL) {
+            if (strcmp(entry->animName, *animName) == 0) {
+                if (strcmp(entry->animName, "MOBJ_TreasureBox") == 0 ||
+                    strcmp(entry->animName, "MOBJ_BigTreasureBox") == 0 ||
+                    strcmp(entry->animName, "MOBJ_GrayTreasureBox") == 0 ||
+                    strcmp(entry->animName, "MOBJ_BlackTreasureBox") == 0) {
+                    if (mobjCheckItemboxOpen(entry) != 1) {
+                        animName++;
+                        continue;
+                    }
+                } else if (strcmp(entry->animName, "MOBJ_KururinFloor") == 0) {
+                    if (mobjCheckKururingFloorItem(entry) != 2) {
+                        animName++;
+                        continue;
+                    }
+                }
+
+                VECSubtract(&entry->position, &pos, &dist);
+                mag = VECMag(&dist);
+                if (mag < minMagnitude) {
+                    minMagnitude = mag;
+                    ret = entry;
+                    break;
+                }
+                break;
+            }
+            animName++;
+        }
+    }
+
+    return ret;
 }
