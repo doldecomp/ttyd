@@ -394,7 +394,7 @@ typedef struct BattleWorkUnitPart {
     struct BattleUnit* mOwner;                     // 0x4EC
     GXColor color;                                 // 0x4F0
     u8 field_0x4F4[0x500 - 0x4F4];                 // 0x4F4
-} BattleWorkUnitPart;
+} BattleUnitPart;
 
 typedef struct BattleWorkUnitBadgesEquipped {
     u8 CloseCall;     // 0x0
@@ -468,7 +468,7 @@ typedef struct BattleUnit {
     s8 groupSetupId;                             // 0xE
     u8 pad_0xF;                                  // 0xF
     struct BattleUnitKind* mKindParams;          // 0x10
-    BattleWorkUnitPart* mParts;                  // 0x14
+    BattleUnitPart* mParts;                  // 0x14
     BattleDataEntry* dataTable;                  // 0x18
     s32 flags;                                   // 0x1C
     s8 moveState;                                // 0x20
@@ -556,7 +556,7 @@ typedef struct BattleUnit {
     u8 field_0x186[0x1F8 - 0x186];               // 0x186
     BattleWorkHpGauge hpGauge;                   // 0x1F8
     s32 work[16];                                // 0x214
-    BattleWorkUnitPart* currentTarget;           // 0x254
+    BattleUnitPart* currentTarget;           // 0x254
     u8 field_0x258[0x25C - 0x258];               // 0x258
     s16 hpDamageCount;                           // 0x25C, number of damaging moves
     u8 field_0x25E[0x260 - 0x25E];               // 0x25E
@@ -604,7 +604,7 @@ typedef struct BattleUnitKind {
     u8 mLevel;                  // 0xE
     u8 mBonusExp;               // 0xF
     u8 field_0x10[0xB8 - 0x10]; // 0x10
-    BattleWorkUnitPart* mParts; // 0xB8
+    BattleUnitPart* mParts; // 0xB8
     u8 field_0xBC[4];           // 0xBC
     BattleDataEntry* dataTable; // 0xC0
 } BattleUnitKind;
@@ -621,62 +621,62 @@ BattleUnit* BtlUnit_Entry(BattleUnitSetup* setup);
 BOOL BtlUnit_Delete(BattleUnit* unit);
 BattleUnit* BtlUnit_Spawn(BattleUnitSetup* setup, s32 flags);
 s32 BtlUnit_GetUnitId(BattleUnit* unit);
-BattleWorkUnitPart* BtlUnit_GetPartsPtr(BattleUnit* unit, s32 partNum);
+BattleUnitPart* BtlUnit_GetPartsPtr(BattleUnit* unit, s32 partNum);
 s32 BtlUnit_GetBodyPartsId(BattleUnit* unit);
 void BtlUnit_GetPos(BattleUnit* unit, f32* x, f32* y, f32* z);
 void BtlUnit_SetPos(BattleUnit* unit, f32 x, f32 y, f32 z);
 void BtlUnit_AddPos(BattleUnit* unit, f32 x, f32 y, f32 z);
-void BtlUnit_GetPartsPos(BattleWorkUnitPart* part, f32* x, f32* y, f32* z);
-void BtlUnit_SetPartsPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
-void BtlUnit_AddPartsPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
-void BtlUnit_GetPartsWorldPos(BattleWorkUnitPart* part, f32* x, f32* y, f32* z);
-void BtlUnit_GetHitPos(BattleUnit* unit, BattleWorkUnitPart* part, f32* x, f32* y, f32* z);
-void BtlUnit_SetHitOffset(BattleUnit* unit, BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
-void BtlUnit_SetHitCursorOffset(BattleUnit* unit, BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_GetPartsPos(BattleUnitPart* part, f32* x, f32* y, f32* z);
+void BtlUnit_SetPartsPos(BattleUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_AddPartsPos(BattleUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_GetPartsWorldPos(BattleUnitPart* part, f32* x, f32* y, f32* z);
+void BtlUnit_GetHitPos(BattleUnit* unit, BattleUnitPart* part, f32* x, f32* y, f32* z);
+void BtlUnit_SetHitOffset(BattleUnit* unit, BattleUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_SetHitCursorOffset(BattleUnit* unit, BattleUnitPart* part, f32 x, f32 y, f32 z);
 void BtlUnit_GetHomePos(BattleUnit* unit, f32* x, f32* y, f32* z);
 void BtlUnit_SetHomePos(BattleUnit* unit, f32 x, f32 y, f32 z);
 void BtlUnit_AddHomePos(BattleUnit* unit, f32 x, f32 y, f32 z);
-void BtlUnit_SetPartsHomePos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_SetPartsHomePos(BattleUnitPart* part, f32 x, f32 y, f32 z);
 void BtlUnit_SetRotate(BattleUnit* unit, f32 x, f32 y, f32 z);
 void BtlUnit_GetRotate(BattleUnit* unit, f32* x, f32* y, f32* z);
 void BtlUnit_AddRotate(BattleUnit* unit, f32 x, f32 y, f32 z);
-void BtlUnit_SetPartsRotate(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
-void BtlUnit_GetPartsRotate(BattleWorkUnitPart* part, f32* x, f32* y, f32* z);
-void BtlUnit_AddPartsRotate(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_SetPartsRotate(BattleUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_GetPartsRotate(BattleUnitPart* part, f32* x, f32* y, f32* z);
+void BtlUnit_AddPartsRotate(BattleUnitPart* part, f32 x, f32 y, f32 z);
 void BtlUnit_SetBaseRotate(BattleUnit* unit, f32 x, f32 y, f32 z);
 void BtlUnit_GetBaseRotate(BattleUnit* unit, f32* x, f32* y, f32* z);
-void BtlUnit_SetPartsBaseRotate(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
-void BtlUnit_GetPartsBaseRotate(BattleWorkUnitPart* part, f32* x, f32* y, f32* z);
+void BtlUnit_SetPartsBaseRotate(BattleUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_GetPartsBaseRotate(BattleUnitPart* part, f32* x, f32* y, f32* z);
 void BtlUnit_SetRotateOffset(BattleUnit* unit, f32 x, f32 y, f32 z);
-void BtlUnit_SetPartsRotateOffset(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
-void BtlUnit_AddPartsRotateOffset(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_SetPartsRotateOffset(BattleUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_AddPartsRotateOffset(BattleUnitPart* part, f32 x, f32 y, f32 z);
 void BtlUnit_SetBaseScale(BattleUnit* unit, f32 x, f32 y, f32 z);
 void BtlUnit_GetScale(BattleUnit* unit, f32* x, f32* y, f32* z);
 void BtlUnit_SetScale(BattleUnit* unit, f32 x, f32 y, f32 z);
 void BtlUnit_AddScale(BattleUnit* unit, f32 x, f32 y, f32 z);
-void BtlUnit_SetPartsBaseScale(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
-void BtlUnit_SetPartsScale(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
-void BtlUnit_AddPartsScale(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_SetPartsBaseScale(BattleUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_SetPartsScale(BattleUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_AddPartsScale(BattleUnitPart* part, f32 x, f32 y, f32 z);
 s16 BtlUnit_GetWidth(BattleUnit* unit);
 s16 BtlUnit_GetHeight(BattleUnit* unit);
 void BtlUnit_SetHeight(BattleUnit* unit, s16 height);
 void BtlUnit_SetOffsetPos(BattleUnit* unit, f32 x, f32 y, f32 z);
-void BtlUnit_GetPartsOffsetPos(BattleWorkUnitPart* part, f32* x, f32* y, f32* z);
-void BtlUnit_SetPartsOffsetPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
-void BtlUnit_AddPartsOffsetPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_GetPartsOffsetPos(BattleUnitPart* part, f32* x, f32* y, f32* z);
+void BtlUnit_SetPartsOffsetPos(BattleUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_AddPartsOffsetPos(BattleUnitPart* part, f32 x, f32 y, f32 z);
 void BtlUnit_SetDispOffset(BattleUnit* unit, f32 x, f32 y, f32 z);
-void BtlUnit_SetPartsDispOffset(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
-void BtlUnit_AddPartsDispOffset(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_SetPartsDispOffset(BattleUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_AddPartsDispOffset(BattleUnitPart* part, f32 x, f32 y, f32 z);
 void BtlUnit_SetMoveStartPos(BattleUnit* unit, f32 x, f32 y, f32 z);
-void BtlUnit_SetPartsMoveStartPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_SetPartsMoveStartPos(BattleUnitPart* part, f32 x, f32 y, f32 z);
 void BtlUnit_SetMoveCurrentPos(BattleUnit* unit, f32 x, f32 y, f32 z);
-void BtlUnit_SetPartsMoveCurrentPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_SetPartsMoveCurrentPos(BattleUnitPart* part, f32 x, f32 y, f32 z);
 void BtlUnit_SetMoveTargetPos(BattleUnit* unit, f32 x, f32 y, f32 z);
-void BtlUnit_SetPartsMoveTargetPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z);
+void BtlUnit_SetPartsMoveTargetPos(BattleUnitPart* part, f32 x, f32 y, f32 z);
 void BtlUnit_SetFallAccel(BattleUnit* unit, f32 fallAccel);
-void BtlUnit_SetPartsFallAccel(BattleWorkUnitPart* part, f32 fallAccel);
+void BtlUnit_SetPartsFallAccel(BattleUnitPart* part, f32 fallAccel);
 void BtlUnit_SetMoveSpeed(BattleUnit* unit, f32 moveSpeedXZ);
-void BtlUnit_SetPartsMoveSpeed(BattleWorkUnitPart* part, f32 moveSpeedXZ);
+void BtlUnit_SetPartsMoveSpeed(BattleUnitPart* part, f32 moveSpeedXZ);
 void BtlUnit_SetJumpSpeed(BattleUnit* unit, f32 moveSpeedY);
 s8 BtlUnit_GetBelong(BattleUnit* unit);
 void BtlUnit_GetStatus(BattleUnit* unit, StatusEffectType type, s8* turns, s8* strength);
@@ -690,7 +690,7 @@ void BtlUnit_OffStatusFlag(BattleUnit* unit, s32 flags);
 s32 BtlUnit_CheckUnitFlag(BattleUnit* unit, s32 flags);
 void BtlUnit_OnUnitFlag(BattleUnit* unit, s32 flags);
 void BtlUnit_OffUnitFlag(BattleUnit* unit, s32 flags);
-char* BtlUnit_GetPoseNameFromType(BattleWorkUnitPart* part, s32 type);
+char* BtlUnit_GetPoseNameFromType(BattleUnitPart* part, s32 type);
 
 void BtlUnit_CheckPinchStatus(BattleUnit* unit, BOOL a2);
 

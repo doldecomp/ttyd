@@ -203,7 +203,7 @@ BattleUnit* BattleGetPartnerPtr(BattleWork* work, BattleUnit* unit);
 BattleUnit* BattleGetPartyPtr(BattleWork* wp);
 BattleUnit* BattleGetMarioPtr(BattleWork* work);
 BattleUnit* BattleGetSystemPtr(BattleWork* work);
-BattleWorkUnitPart* BattleGetUnitPartsPtr(s32 index, s32 partNum);
+BattleUnitPart* BattleGetUnitPartsPtr(s32 index, s32 partNum);
 void BattleSetUnitPtr(BattleWork* wp, s32 index, BattleUnit* unit);
 BattleUnit* BattleGetUnitPtr(BattleWork* wp, s32 index);
 void BattleFree(void* ptr);

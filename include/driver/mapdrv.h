@@ -3,7 +3,7 @@
 #include <dolphin/gx.h>
 #include <dolphin/mtx.h>
 
-/*typedef struct DisplayList {
+typedef struct DisplayList {
     u32 offset;      // 0x00 - Offset to vertex data
     u32 vertexCount; // 0x04 - Number of vertices
 } DisplayList;
@@ -12,7 +12,7 @@ typedef struct PackedDisplayList {
     u32 offset;      // 0x00 - Offset to packed data
     u16 vertexCount; // 0x04 - Number of vertices
     u8 padding[2];   // 0x06
-} PackedDisplayList;*/
+} PackedDisplayList;
 
 typedef struct MapFileMesh {
     u8 unk0;              // 0x0
@@ -21,10 +21,10 @@ typedef struct MapFileMesh {
     s32 displayListCount; // 0x4
     u32 elementMask;      // 0x8
     u32 vcdTableOffset;   // 0xC
-    union {
-        u32* displayLists;      // 0x10
-        u8* packedDisplayLists; // 0x10
-    } displayLists[];
+  union {
+    u32* normalLists[1];               // unpacked: stride 4, count = *normalLists[j]
+    PackedDisplayList packedLists[1];  // packed:   stride 8, count = *(u16*)((u8*)packedLists[j].offset + 1)
+} displayLists;  // at 0x10
 } MapFileMesh;
 
 typedef struct MapFileJointPart {
@@ -127,13 +127,13 @@ typedef struct MapEntry {
     u32 tplSize;                   // 0x88
     u8 field_0x8C[0xA8 - 0x8C];    // 0x8C
     MapObject* rootMapObj;         // 0xA8
-    struct HitObj* rootHitObj;     // 0xAC
+    struct HitEntry* rootHitObj;     // 0xAC
     Vec bbox[8];                   // 0xB0
     u8 field_110[0x150 - 0x110];   // 0x110
     s32 numJoints;                 // 0x150, TODO: rename? see: hitNumJoints
     MapObject* objects;            // 0x154, TODO: rename? see: hitNumJoints
     s32 hitNumJoints;              // 0x158
-    struct HitObj* hitObjects;     // 0x15C
+    struct HitEntry* hitEntries;     // 0x15C
     u8 field_0x160[0x164 - 0x160]; // 0x160
     MapEntryAnimData* animData;    // 0x164
     u8 field_0x168[0x178 - 0x168]; // 0x168

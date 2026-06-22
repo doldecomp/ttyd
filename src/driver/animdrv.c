@@ -56,7 +56,7 @@ AnimationWork* animGetPtr(void) {
 }
 
 OSTime animTimeGetTime(BOOL globalTime) {
-    if (globalTime == 0) {
+    if (globalTime == FALSE) {
         return OSTicksToMilliseconds(gp->renderFieldTime);
     }
     return OSTicksToMilliseconds(gp->renderTime);

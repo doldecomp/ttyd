@@ -1,7 +1,5 @@
 #pragma once
 
-#include "manager/evtmgr.h"
-
 #include <dolphin/types.h>
 
 // Script Helpers
@@ -24,24 +22,27 @@
 // Used to define native C functions that scripts can call
 #define USER_FUNC(function) s32(function)(EventEntry * event, BOOL isFirstCall)
 
+// Termination
 #define END EVT_CMD(0, OPCODE_END_SCRIPT),
 #define RETURN() EVT_CMD(0, OPCODE_END_EVENT),
 
+// Labels / Jumps
 #define LABEL(LABEL_ID) EVT_CMD(1, OPCODE_LABEL), LABEL_ID,
 #define GOTO(LABEL_ID) EVT_CMD(1, OPCODE_GOTO), LABEL_ID,
-#define JUMP(EVT_SOURCE) EVT_CMD(1, OPCODE_GOTO), EVT_SOURCE,
 
+// Loops
 #define LOOP(LOOP_COUNT) EVT_CMD(1, OPCODE_DO), LOOP_COUNT,
 #define END_LOOP EVT_CMD(0, OPCODE_WHILE),
 #define BREAK_LOOP EVT_CMD(0, OPCODE_DO_BREAK),
 #define CONTINUE_LOOP EVT_CMD(0, OPCODE_DO_CONTINUE),
 
+// Waiting
 #define WAIT_FRAMES(FRAMES) EVT_CMD(1, OPCODE_WAIT_FRAME), FRAMES,
 #define WAIT_MS(MILLISECONDS) EVT_CMD(1, OPCODE_WAIT_MSEC), MILLISECONDS,
+// Blocks the current script as long as (expr) is true.
+#define WAIT_WHILE(expr) EVT_CMD(1, OPCODE_HALT), expr,
 
-// stall thread until expression is false
-#define WAIT_UNTIL(expr) EVT_CMD(1, OPCODE_HALT), expr,
-
+// Conditionals
 #define IF_STR_EQUAL(var1, var2) EVT_CMD(2, OPCODE_IF_STR_EQUAL), var1, var2,
 #define IF_STR_NOT_EQUAL(var1, var2) EVT_CMD(2, OPCODE_IF_STR_NOT_EQUAL), var1, var2,
 #define IF_STR_LESS(var1, var2) EVT_CMD(2, OPCODE_IF_STR_LESS), var1, var2,
@@ -68,6 +69,8 @@
 
 #define ELSE EVT_CMD(0, OPCODE_ELSE),
 #define END_IF EVT_CMD(0, OPCODE_END_IF),
+
+// Switch Statements
 #define SWITCH(expr) EVT_CMD(1, OPCODE_SWITCH), expr,
 #define SWITCH_RAW(expr) EVT_CMD(1, OPCODE_SWITCHI), expr,
 #define CASE_EQUAL(expr) EVT_CMD(1, OPCODE_CASE_EQUAL), expr,
@@ -85,91 +88,96 @@
 #define BREAK_SWITCH EVT_CMD(0, OPCODE_SWITCH_BREAK),
 #define END_SWITCH EVT_CMD(0, OPCODE_END_SWITCH),
 
-#define SET_VALUE(expr1, expr2) EVT_CMD(2, OPCODE_SET), expr1, expr2,
-#define SET_RAW_VALUE(expr1, expr2) EVT_CMD(2, OPCODE_SETI), expr1, expr2,
-#define SET_FLOAT_VALUE(expr1, expr2) EVT_CMD(2, OPCODE_SETF), expr1, expr2,
+// Assignment
+#define SET_VALUE(target, expr) EVT_CMD(2, OPCODE_SET), target, expr,
+#define SET_RAW_VALUE(target, literal) EVT_CMD(2, OPCODE_SETI), target, literal,
+#define SET_FLOAT_VALUE(target, expr) EVT_CMD(2, OPCODE_SETF), target, expr,
 
-// int expressions
-#define ADD(expr1, expr2) EVT_CMD(2, OPCODE_ADD), expr1, expr2,
-#define SUBTRACT(expr1, expr2) EVT_CMD(2, OPCODE_SUB), expr1, expr2,
-#define MULTIPLY(expr1, expr2) EVT_CMD(2, OPCODE_MUL), expr1, expr2,
-#define DIVIDE(expr1, expr2) EVT_CMD(2, OPCODE_DIV), expr1, expr2,
-#define MODULO(expr1, expr2) EVT_CMD(2, OPCODE_MOD), expr1, expr2,
+// Arithmetic
+#define ADD(target, expr) EVT_CMD(2, OPCODE_ADD), target, expr,
+#define SUBTRACT(target, expr) EVT_CMD(2, OPCODE_SUB), target, expr,
+#define MULTIPLY(target, expr) EVT_CMD(2, OPCODE_MUL), target, expr,
+#define DIVIDE(target, expr) EVT_CMD(2, OPCODE_DIV), target, expr,
+#define MODULO(target, expr) EVT_CMD(2, OPCODE_MOD), target, expr,
 
-// float expressions
-#define ADD_FLOAT(expr1, expr2) EVT_CMD(2, OPCODE_ADDF), expr1, expr2,
-#define SUBTRACT_FLOAT(expr1, expr2) EVT_CMD(2, OPCODE_SUBF), expr1, expr2,
-#define MULTIPLY_FLOAT(expr1, expr2) EVT_CMD(2, OPCODE_MULF), expr1, expr2,
-#define DIVIDE_FLOAT(expr1, expr2) EVT_CMD(2, OPCODE_DIVF), expr1, expr2,
+#define ADD_FLOAT(target, expr) EVT_CMD(2, OPCODE_ADDF), target, expr,
+#define SUBTRACT_FLOAT(target, expr) EVT_CMD(2, OPCODE_SUBF), target, expr,
+#define MULTIPLY_FLOAT(target, expr) EVT_CMD(2, OPCODE_MULF), target, expr,
+#define DIVIDE_FLOAT(target, expr) EVT_CMD(2, OPCODE_DIVF), target, expr,
 
+// Sequential Reads
 #define SET_INT_READ_ADDR(ptr) EVT_CMD(1, OPCODE_SET_READ), ptr,
-#define READ_INT(expr) EVT_CMD(1, OPCODE_READ), expr,
-#define READ_INT2(expr) EVT_CMD(1, OPCODE_READ2), expr,
-#define READ_INT3(expr) EVT_CMD(1, OPCODE_READ3), expr,
-#define READ_INT4(expr) EVT_CMD(1, OPCODE_READ4), expr,
-#define READ_INT_INDEXED(expr1, expr2) EVT_CMD(2, OPCODE_READ_N), expr, expr2,
+#define READ_INT(dest) EVT_CMD(1, OPCODE_READ), dest,
+#define READ_INT2(dest) EVT_CMD(1, OPCODE_READ2), dest,
+#define READ_INT3(dest) EVT_CMD(1, OPCODE_READ3), dest,
+#define READ_INT4(dest) EVT_CMD(1, OPCODE_READ4), dest,
+#define READ_INT_INDEXED(dest, offset) EVT_CMD(2, OPCODE_READ_N), dest, offset,
 
 #define SET_FLOAT_READ_ADDR(ptr) EVT_CMD(1, OPCODE_SET_READF), ptr,
-#define READ_FLOAT(expr) EVT_CMD(1, OPCODE_READF), expr,
-#define READ_FLOAT2(expr) EVT_CMD(1, OPCODE_READF2), expr,
-#define READ_FLOAT3(expr) EVT_CMD(1, OPCODE_READF3), expr,
-#define READ_FLOAT4(expr) EVT_CMD(1, OPCODE_READF4), expr,
-#define READ_FLOAT_INDEXED(expr1, expr2) EVT_CMD(2, OPCODE_READF_N), expr, expr2,
+#define READ_FLOAT(dest) EVT_CMD(1, OPCODE_READF), dest,
+#define READ_FLOAT2(dest) EVT_CMD(1, OPCODE_READF2), dest,
+#define READ_FLOAT3(dest) EVT_CMD(1, OPCODE_READF3), dest,
+#define READ_FLOAT4(dest) EVT_CMD(1, OPCODE_READF4), dest,
+#define READ_FLOAT_INDEXED(dest, offset) EVT_CMD(2, OPCODE_READF_N), dest, offset,
 
-// User Work and User Flag base
+// User Work / User Flag Base
 #define SET_UW_BASE(expr) EVT_CMD(1, OPCODE_SET_USER_WORK), expr,
 #define SET_UF_BASE(expr) EVT_CMD(1, OPCODE_SET_USER_FLAG), expr,
+#define ALLOCATE_UW(count, destVar) EVT_CMD(2, OPCODE_ALLOC_USER_WORK), count, destVar,
 
-#define ALLOCATE_UW(val, expr) EVT_CMD(1, OPCODE_ALLOC_USER_WORK), expr,
+// Bitwise Operations
+#define AND(target, val) EVT_CMD(2, OPCODE_AND), target, val,
+#define AND_RAW(target, rawVal) EVT_CMD(2, OPCODE_ANDI), target, rawVal,
+#define OR(target, val) EVT_CMD(2, OPCODE_OR), target, val,
+#define OR_RAW(target, rawVal) EVT_CMD(2, OPCODE_ORI), target, rawVal,
 
-// bitwise operations
-#define AND(expr, val) EVT_CMD(2, OPCODE_AND), expr, val,
-#define AND_RAW(expr, rawVal) EVT_CMD(2, OPCODE_ANDI), expr, rawVal,
-#define OR(expr, val) EVT_CMD(2, OPCODE_OR), expr, val,
-#define OR_RAW(expr, rawVal) EVT_CMD(2, OPCODE_ORI), expr, rawVal,
+// Time Conversion
+#define CONVERT_MS_TO_FRAME(dest, ms) EVT_CMD(2, OPCODE_SET_FRAME_FROM_MSEC), dest, ms,
+#define CONVERT_FRAME_TO_MS(dest, frameCount) EVT_CMD(2, OPCODE_SET_MSEC_FROM_FRAME), dest, frameCount,
 
-// time conversion opcodes
-//(ms to frame count)
-#define CONVERT_MS_TO_FRAME(expr, ms) EVT_CMD(2, OPCODE_SET_FRAME_FROM_MSEC), expr, ms,
-//(frame count to ms)
-#define CONVERT_FRAME_TO_MS(expr, frameCount) EVT_CMD(2, OPCODE_SET_MSEC_FROM_FRAME), expr, frameCount,
+// Raw Memory Access
+#define POKE_INT(value, address) EVT_CMD(2, OPCODE_SET_RAM), value, address,
+#define POKE_FLOAT(value, address) EVT_CMD(2, OPCODE_SET_RAMF), value, address,
+#define PEEK_INT(destVar, address) EVT_CMD(2, OPCODE_GET_RAM), destVar, address,
+#define PEEK_FLOAT(destVar, address) EVT_CMD(2, OPCODE_GET_RAMF), destVar, address,
 
-// ptr stuff
-#define SET_INT(val, expr) EVT_CMD(2, OPCODE_SET_RAM), val, expr,
-#define SET_FLOAT(val, expr) EVT_CMD(2, OPCODE_SET_RAMF), val, expr,
-#define GET_INT(val, expr) EVT_CMD(2, OPCODE_GET_RAM), val, expr,
-#define GET_FLOAT(val, expr) EVT_CMD(2, OPCODE_GET_RAMF), val, expr,
+// Indirect Variable Access
+#define SET_INT_INDEXED(indexVar, expr) EVT_CMD(2, OPCODE_SETR), indexVar, expr,
+#define SET_FLOAT_INDEXED(indexVar, expr) EVT_CMD(2, OPCODE_SETRF), indexVar, expr,
+#define GET_INT_INDEXED(indexVar, destVar) EVT_CMD(2, OPCODE_GETR), indexVar, destVar,
+#define GET_FLOAT_INDEXED(indexVar, destVar) EVT_CMD(2, OPCODE_GETRF), indexVar, destVar,
 
-#define SET_INT_INDEXED(expr1, expr2) EVT_CMD(2, OPCODE_SETR), expr1, expr2,
-#define SET_FLOAT_INDEXED(expr1, expr2) EVT_CMD(2, OPCODE_SETRF), expr1, expr2,
-
-#define GET_INT_INDEXED(expr1, expr2) EVT_CMD(2, OPCODE_GETR), expr1, expr2,
-#define GET_FLOAT_INDEXED(expr1, expr2) EVT_CMD(2, OPCODE_GETRF), expr1, expr2,
-
+// Native Calls
 #define CALL(...) EVT_CMD(NUMARGS((s32)__VA_ARGS__), OPCODE_USER_FUNC), (s32)__VA_ARGS__,
-#define SCRIPT_ASYNC(script) EVT_CMD(1, OPCODE_RUN_EVENT), script,
-#define SCRIPT_ASYNC_TID(script, expr) EVT_CMD(2, OPCODE_RUN_EVENT_ID), script, expr,
-#define SCRIPT_SYNC(script) EVT_CMD(1, OPCODE_RUN_CHILD_EVENT), script,
-#define STOP_TID(script) EVT_CMD(1, OPCODE_DELETE_EVENT), script,
-#define RESTART_SCRIPT(script) EVT_CMD(1, OPCODE_RESTART_EVENT), script,
-#define SET_THREAD_PRIORITY(priority) EVT_CMD(1, OPCODE_SET_PRI), priority,
-#define SET_EVENT_SPEED(timeScale) EVT_CMD(1, OPCODE_SET_SPD), timeScale,
+
+// Spawning / Controlling Events
+#define SPAWN_EVENT(script) EVT_CMD(1, OPCODE_RUN_EVENT), script,
+#define SPAWN_EVENT_GET_ID(script, idOut) EVT_CMD(2, OPCODE_RUN_EVENT_ID), script, idOut,
+// Blocks until the child finished
+#define CALL_CHILD(script) EVT_CMD(1, OPCODE_RUN_CHILD_EVENT), script,
+#define DELETE_EVENT(tid) EVT_CMD(1, OPCODE_DELETE_EVENT), tid,
+#define RESTART_EVENT(script) EVT_CMD(1, OPCODE_RESTART_EVENT), script,
+
+#define SET_PRIORITY(priority) EVT_CMD(1, OPCODE_SET_PRI), priority,
+#define SET_SPEED(timeScale) EVT_CMD(1, OPCODE_SET_SPD), timeScale,
 #define SET_TYPE(type) EVT_CMD(1, OPCODE_SET_TYPE), type,
 
 #define SUSPEND_TYPES(types) EVT_CMD(1, OPCODE_STOP_ALL), types,
 #define RESUME_TYPES(types) EVT_CMD(1, OPCODE_START_ALL), types,
 #define SUSPEND_TYPES_OTHER(types) EVT_CMD(1, OPCODE_STOP_OTHER), types,
 #define RESUME_TYPES_OTHER(types) EVT_CMD(1, OPCODE_START_OTHER), types,
-#define SUSPEND_TID(expr) EVT_CMD(1, OPCODE_STOP_ID), expr,
-#define RESUME_TID(expr) EVT_CMD(1, OPCODE_START_ID), expr,
-#define CHECK_THREAD_RUNNING(expr, ret) EVT_CMD(2, OPCODE_CHECK_EVENT), expr, ret,
+#define SUSPEND_EVENT(tid) EVT_CMD(1, OPCODE_STOP_ID), tid,
+#define RESUME_EVENT(tid) EVT_CMD(1, OPCODE_START_ID), tid,
+#define IS_EVENT_RUNNING(tid, resultOut) EVT_CMD(2, OPCODE_CHECK_EVENT), tid, resultOut,
 
-#define BEGIN_THREAD EVT_CMD(0, OPCODE_INLINE_EVENT),
-#define BEGIN_THREAD_TID(expr) EVT_CMD(1, OPCODE_INLINE_EVENT_ID), expr,
-#define END_THREAD EVT_CMD(0, OPCODE_END_INLINE),
-#define BEGIN_CHILD_THREAD EVT_CMD(0, OPCODE_BROTHER_EVENT),
-#define BEGIN_CHILD_THREAD_TID(expr) EVT_CMD(1, OPCODE_BROTHER_EVENT_ID), expr,
-#define END_CHILD_THREAD EVT_CMD(0, OPCODE_END_BROTHER),
+// Inline-block Events
+#define BEGIN_INLINE_EVENT EVT_CMD(0, OPCODE_INLINE_EVENT),
+#define BEGIN_INLINE_EVENT_GET_ID(idOut) EVT_CMD(1, OPCODE_INLINE_EVENT_ID), idOut,
+#define END_INLINE_EVENT EVT_CMD(0, OPCODE_END_INLINE),
+// Siblings are tied to the current script's lifetime
+#define BEGIN_SIBLING_EVENT EVT_CMD(0, OPCODE_BROTHER_EVENT),
+#define BEGIN_SIBLING_EVENT_GET_ID(idOut) EVT_CMD(1, OPCODE_BROTHER_EVENT_ID), idOut,
+#define END_SIBLING_EVENT EVT_CMD(0, OPCODE_END_BROTHER),
 
 // Data types
 #define EVTDAT_LW_MAX -20 * 1000000

@@ -220,11 +220,11 @@ void pouchSetYoshiName(char* name) {
 	strcpy(mpp->yoshiName, name);
 }
 
-void pouchSetPartyColor(MarioPartner partnerId, u16 color) {
+void pouchSetPartyColor(PartyId partnerId, u16 color) {
 	mpp->partyData[partnerId].flags = (u16)((mpp->partyData[partnerId].flags & 0x1FFF) | (color << 13));
 }
 
-s32 pouchGetPartyColor(MarioPartner partnerId) {
+s32 pouchGetPartyColor(PartyId partnerId) {
 	return mpp->partyData[partnerId].flags >> 13;
 }
 
@@ -463,8 +463,8 @@ BOOL pouchAddKeepItem(s16 id) {
 	return FALSE;
 }
 
-s16 pouchGetPartyAttackLv(MarioPartner partnerId) {
-	return mpp->partyData[partnerId].attackLevel;
+s32 pouchGetPartyAttackLv(PartyId partyId) {
+	return mpp->partyData[partyId].attackLevel;
 }
 
 s32 pouchGetHammerLv(void) {
@@ -555,7 +555,7 @@ s16 pouchGetFP(void) {
 	return mpp->currentFP;
 }
 
-void pouchSetPartyHP(MarioPartner partnerId, s16 points) {
+void pouchSetPartyHP(PartyId partnerId, s16 points) {
 	PouchPartyData* party;
 
 	mpp->partyData[partnerId].currentHP = points;
@@ -565,7 +565,7 @@ void pouchSetPartyHP(MarioPartner partnerId, s16 points) {
 	}
 }
 
-s16 pouchGetPartyHP(MarioPartner partnerId) {
+s16 pouchGetPartyHP(PartyId partnerId) {
 	return mpp->partyData[partnerId].currentHP;
 }
 

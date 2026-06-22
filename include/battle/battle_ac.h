@@ -34,7 +34,9 @@ typedef struct BattleActions {
     s8 mAcDifficulty;                // 0x2D
     u8 field_0x2E[2];                // 0x2E
     s32 field_0x30;                  // 0x30
-    u8 field_0x34[0x8C - 0x34];      // 0x34
+    u8 field_34[0x58 - 0x34];        // 0x34
+    u32 outputParams[8];             // 0x58
+    u8 field_78[0x8C - 0x78];        // 0x78
     BattleWorkPad pad;               // 0x8C
     s32 field_0x288;                 // 0x288
     u8 field_0x28C[0x30C - 0x28C];   // 0x28C

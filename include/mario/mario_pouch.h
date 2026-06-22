@@ -377,7 +377,7 @@ typedef enum MarioPartner {
     PARTNER_FLURRIE,
     PARTNER_VIVIAN,
     PARTNER_MSMOWZ
-} MarioPartner;
+} PartyId;
 
 typedef struct PouchPartyData {
     u16 flags;       // 0x0
@@ -467,8 +467,8 @@ s16 pouchGetHP(void);
 s16 pouchGetMaxHP(void);
 void pouchSetHP(s16 points);
 void pouchSetMaxHP(s16 points);
-s16 pouchGetPartyHP(MarioPartner partnerId);
-void pouchSetPartyHP(MarioPartner partnerId, s16 points);
+s16 pouchGetPartyHP(PartyId partnerId);
+void pouchSetPartyHP(PartyId partnerId, s16 points);
 s16 pouchGetFP(void);
 s16 pouchGetMaxFP(void);
 void pouchSetFP(s16 points);
@@ -481,7 +481,7 @@ f32 pouchGetAudienceNum(void);
 void pouchSetAudienceNum(f32 num);
 s32 pouchGetJumpLv(void);
 s32 pouchGetHammerLv(void);
-s16 pouchGetPartyAttackLv(MarioPartner partnerId);
+s32 pouchGetPartyAttackLv(PartyId partyId);
 BOOL pouchAddKeepItem(s16 id);
 BOOL pouchRemoveKeepItem(s32 id, s32 index);
 void pouchReviseMarioParam(void);
@@ -504,7 +504,7 @@ s32 pouchReceiveMailCount(void);
 void pouchReceiveMail(s32 mailId);
 void pouchOpenMail(s32 mailId);
 u32 pouchCheckMail(s32 mailId);
-s32 pouchGetPartyColor(MarioPartner partnerId);
-void pouchSetPartyColor(MarioPartner partnerId, u16 color);
+s32 pouchGetPartyColor(PartyId partnerId);
+void pouchSetPartyColor(PartyId partnerId, u16 color);
 void pouchSetYoshiName(char* name);
 char* pouchGetYoshiName(void);

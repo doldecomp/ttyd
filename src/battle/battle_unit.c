@@ -61,8 +61,8 @@ s32 BtlUnit_GetUnitId(BattleUnit* unit) {
     return unit->unitId;
 }
 
-BattleWorkUnitPart* BtlUnit_GetPartsPtr(BattleUnit* unit, s32 partNum) {
-    BattleWorkUnitPart* part;
+BattleUnitPart* BtlUnit_GetPartsPtr(BattleUnit* unit, s32 partNum) {
+    BattleUnitPart* part;
 
     part = unit->mParts;
     if (partNum >= 0) {
@@ -76,7 +76,7 @@ BattleWorkUnitPart* BtlUnit_GetPartsPtr(BattleUnit* unit, s32 partNum) {
 }
 
 s32 BtlUnit_GetBodyPartsId(BattleUnit* unit) {
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     s32 ret = -1;
 
     if (unit) {
@@ -108,29 +108,29 @@ void BtlUnit_AddPos(BattleUnit* unit, f32 x, f32 y, f32 z) {
     unit->mPosition.z += z;
 }
 
-void BtlUnit_GetPartsPos(BattleWorkUnitPart* part, f32* x, f32* y, f32* z) {
+void BtlUnit_GetPartsPos(BattleUnitPart* part, f32* x, f32* y, f32* z) {
     *x = part->mPosition.x;
     *y = part->mPosition.y;
     *z = part->mPosition.z;
 }
 
-void BtlUnit_SetPartsPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetPartsPos(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     part->mPosition.x = x;
     part->mPosition.y = y;
     part->mPosition.z = z;
 }
 
-void BtlUnit_AddPartsPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_AddPartsPos(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     part->mPosition.x += x;
     part->mPosition.y += y;
     part->mPosition.z += z;
 }
 
-void BtlUnit_GetPartsWorldPos(BattleWorkUnitPart* part, f32* x, f32* y, f32* z) {
+void BtlUnit_GetPartsWorldPos(BattleUnitPart* part, f32* x, f32* y, f32* z) {
 
 }
 
-void BtlUnit_GetHitPos(BattleUnit* unit, BattleWorkUnitPart* part, f32* x, f32* y, f32* z) {
+void BtlUnit_GetHitPos(BattleUnit* unit, BattleUnitPart* part, f32* x, f32* y, f32* z) {
     f32 y_multiply = 1.0f;
     s32 direction = _battleWorkPointer->alliances[unit->mAlliance].attackDirection;
     BtlUnit_GetPartsWorldPos(part, x, y, z);
@@ -144,13 +144,13 @@ void BtlUnit_GetHitPos(BattleUnit* unit, BattleWorkUnitPart* part, f32* x, f32* 
     *z = (part->mHitOffset.z * unit->mSizeMultiplier) + *z;
 }
 
-void BtlUnit_SetHitOffset(BattleUnit* unit, BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetHitOffset(BattleUnit* unit, BattleUnitPart* part, f32 x, f32 y, f32 z) {
     part->mHitOffset.x = x;
     part->mHitOffset.y = y;
     part->mHitOffset.z = z;
 }
 
-void BtlUnit_SetHitCursorOffset(BattleUnit* unit, BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetHitCursorOffset(BattleUnit* unit, BattleUnitPart* part, f32 x, f32 y, f32 z) {
     part->mHitCursorOffset.x = x;
     part->mHitCursorOffset.y = y;
     part->mHitCursorOffset.z = z;
@@ -174,7 +174,7 @@ void BtlUnit_AddHomePos(BattleUnit* unit, f32 x, f32 y, f32 z) {
     unit->mHomePosition.z += z;
 }
 
-void BtlUnit_SetPartsHomePos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetPartsHomePos(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     part->mHomePosition.x = x;
     part->mHomePosition.y = y;
     part->mHomePosition.z = z;
@@ -223,19 +223,19 @@ void BtlUnit_AddRotate(BattleUnit* unit, f32 x, f32 y, f32 z) {
     }
 }
 
-void BtlUnit_SetPartsRotate(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetPartsRotate(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     part->mRotation.x = x;
     part->mRotation.y = y;
     part->mRotation.z = z;
 }
 
-void BtlUnit_GetPartsRotate(BattleWorkUnitPart* part, f32* x, f32* y, f32* z) {
+void BtlUnit_GetPartsRotate(BattleUnitPart* part, f32* x, f32* y, f32* z) {
     *x = part->mRotation.x;
     *y = part->mRotation.y;
     *z = part->mRotation.z;
 }
 
-void BtlUnit_AddPartsRotate(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_AddPartsRotate(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     part->mRotation.x += x;
     if (part->mRotation.x <= 360.0f) {
         if (part->mRotation.x < 0.0f) {
@@ -279,13 +279,13 @@ void BtlUnit_GetBaseRotate(BattleUnit* unit, f32* x, f32* y, f32* z) {
     *z = unit->mBaseRotation.z;
 }
 
-void BtlUnit_SetPartsBaseRotate(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetPartsBaseRotate(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     part->mBaseRotation.x = x;
     part->mBaseRotation.y = y;
     part->mBaseRotation.z = z;
 }
 
-void BtlUnit_GetPartsBaseRotate(BattleWorkUnitPart* part, f32* x, f32* y, f32* z) {
+void BtlUnit_GetPartsBaseRotate(BattleUnitPart* part, f32* x, f32* y, f32* z) {
     *x = part->mBaseRotation.x;
     *y = part->mBaseRotation.y;
     *z = part->mBaseRotation.z;
@@ -304,7 +304,7 @@ void BtlUnit_SetRotateOffset(BattleUnit* unit, f32 x, f32 y, f32 z) {
     }
 }
 
-void BtlUnit_SetPartsRotateOffset(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetPartsRotateOffset(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     f32 thefuckyone = -2.0468902587890625f;
     if (thefuckyone != x) {
         part->mRotationOffset.x = x;
@@ -317,7 +317,7 @@ void BtlUnit_SetPartsRotateOffset(BattleWorkUnitPart* part, f32 x, f32 y, f32 z)
     }
 }
 
-void BtlUnit_AddPartsRotateOffset(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_AddPartsRotateOffset(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     part->mRotationOffset.x += x;
     part->mRotationOffset.y += y;
     part->mRotationOffset.z += z;
@@ -368,7 +368,7 @@ void BtlUnit_AddScale(BattleUnit* unit, f32 x, f32 y, f32 z) {
     }
 }
 
-void BtlUnit_SetPartsBaseScale(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetPartsBaseScale(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     f32 thefuckyone = -2.0468902587890625f;
     if (thefuckyone != x) {
         part->mBaseScale.x = x;
@@ -381,7 +381,7 @@ void BtlUnit_SetPartsBaseScale(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
     }
 }
 
-void BtlUnit_SetPartsScale(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetPartsScale(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     f32 thefuckyone = -2.0468902587890625f;
     if (thefuckyone != x) {
         part->mScale.x = x;
@@ -394,7 +394,7 @@ void BtlUnit_SetPartsScale(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
     }
 }
 
-void BtlUnit_AddPartsScale(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_AddPartsScale(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     f32 thefuckyone = -2.0468902587890625f;
     if (thefuckyone != x) {
         part->mScale.x += x;
@@ -432,13 +432,13 @@ void BtlUnit_SetOffsetPos(BattleUnit* unit, f32 x, f32 y, f32 z) {
     }
 }
 
-void BtlUnit_GetPartsOffsetPos(BattleWorkUnitPart* part, f32* x, f32* y, f32* z) {
+void BtlUnit_GetPartsOffsetPos(BattleUnitPart* part, f32* x, f32* y, f32* z) {
     *x = part->mPositionOffset.x;
     *y = part->mPositionOffset.y;
     *z = part->mPositionOffset.z;
 }
 
-void BtlUnit_SetPartsOffsetPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetPartsOffsetPos(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     f32 thefuckyone = -2.0468902587890625f;
     if (thefuckyone != x) {
         part->mPositionOffset.x = x;
@@ -451,7 +451,7 @@ void BtlUnit_SetPartsOffsetPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
     }
 }
 
-void BtlUnit_AddPartsOffsetPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_AddPartsOffsetPos(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     part->mPositionOffset.x += x;
     part->mPositionOffset.y += y;
     part->mPositionOffset.z += z;
@@ -470,7 +470,7 @@ void BtlUnit_SetDispOffset(BattleUnit* unit, f32 x, f32 y, f32 z) {
     }
 }
 
-void BtlUnit_SetPartsDispOffset(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetPartsDispOffset(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     f32 thefuckyone = -2.0468902587890625f;
     if (thefuckyone != x) {
         part->mDisplayOffset.x = x;
@@ -483,7 +483,7 @@ void BtlUnit_SetPartsDispOffset(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
     }
 }
 
-void BtlUnit_AddPartsDispOffset(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_AddPartsDispOffset(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     f32 thefuckyone = -2.0468902587890625f;
     if (thefuckyone != x) {
         part->mDisplayOffset.x += x;
@@ -509,7 +509,7 @@ void BtlUnit_SetMoveStartPos(BattleUnit* unit, f32 x, f32 y, f32 z) {
     }
 }
 
-void BtlUnit_SetPartsMoveStartPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetPartsMoveStartPos(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     f32 thefuckyone = -2.0468902587890625f;
     if (thefuckyone != x) {
         part->mMoveStartPos.x = x;
@@ -535,7 +535,7 @@ void BtlUnit_SetMoveCurrentPos(BattleUnit* unit, f32 x, f32 y, f32 z) {
     }
 }
 
-void BtlUnit_SetPartsMoveCurrentPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetPartsMoveCurrentPos(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     f32 thefuckyone = -2.0468902587890625f;
     if (thefuckyone != x) {
         part->mMoveCurrentPos.x = x;
@@ -561,7 +561,7 @@ void BtlUnit_SetMoveTargetPos(BattleUnit* unit, f32 x, f32 y, f32 z) {
     }
 }
 
-void BtlUnit_SetPartsMoveTargetPos(BattleWorkUnitPart* part, f32 x, f32 y, f32 z) {
+void BtlUnit_SetPartsMoveTargetPos(BattleUnitPart* part, f32 x, f32 y, f32 z) {
     f32 thefuckyone = -2.0468902587890625f;
     if (thefuckyone != x) {
         part->mMoveTargetPos.x = x;
@@ -578,7 +578,7 @@ void BtlUnit_SetFallAccel(BattleUnit* unit, f32 fallAccel) {
     unit->mFallAccel = fallAccel;
 }
 
-void BtlUnit_SetPartsFallAccel(BattleWorkUnitPart* part, f32 fallAccel) {
+void BtlUnit_SetPartsFallAccel(BattleUnitPart* part, f32 fallAccel) {
     part->mFallAccel = fallAccel;
 }
 
@@ -586,7 +586,7 @@ void BtlUnit_SetMoveSpeed(BattleUnit* unit, f32 moveSpeedXZ) {
     unit->mMoveSpeedXZ = moveSpeedXZ;
 }
 
-void BtlUnit_SetPartsMoveSpeed(BattleWorkUnitPart* part, f32 moveSpeedXZ) {
+void BtlUnit_SetPartsMoveSpeed(BattleUnitPart* part, f32 moveSpeedXZ) {
     part->mMoveSpeedXZ = moveSpeedXZ;
 }
 
@@ -1091,7 +1091,7 @@ void BtlUnit_OffUnitFlag(BattleUnit* unit, s32 flags) {
     unit->flags &= ~flags;
 }
 
-char* BtlUnit_GetPoseNameFromType(BattleWorkUnitPart* part, s32 type) {
+char* BtlUnit_GetPoseNameFromType(BattleUnitPart* part, s32 type) {
     return NULL;
 }
 

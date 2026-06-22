@@ -60,7 +60,7 @@ s32 marioGetExtraPartyId(void) {
     return -1;
 }
 
-void partyJoin(MarioPartner partnerId) {
+void partyJoin(PartyId partnerId) {
     if (partnerId < 8) {
         pouchGetPtr()->partyData[partnerId].flags |= 1; // obtained
     }

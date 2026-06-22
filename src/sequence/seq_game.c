@@ -15,6 +15,7 @@
 
 extern GlobalWork* gp;
 
+//.sbss
 static OSTime none_key;
 
 //.sdata

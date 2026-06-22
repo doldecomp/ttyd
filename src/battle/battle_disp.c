@@ -253,7 +253,7 @@ void btlDispMain(void) {
 	}
 }
 
-void btlUnitPartsDisp(CameraId camId, BattleWorkUnitPart* parts) {
+void btlUnitPartsDisp(CameraId camId, BattleUnitPart* parts) {
 
 }
 
@@ -267,9 +267,9 @@ void btlUnitPartsDisp(CameraId camId, BattleWorkUnitPart* parts) {
 void btlDispEntAnime(BattleUnit* unit) {
 
 }
-void _partsBlurControl(BattleWorkUnitPart* part, s32 flags, Mtx orientation, GXColor color, f32 rotation);
+void _partsBlurControl(BattleUnitPart* part, s32 flags, Mtx orientation, GXColor color, f32 rotation);
 
-void btlUnitPartsBlurControl(BattleWorkUnitPart* part, s32 unused, Mtx orientation, GXColor color, f32 rotation) {
+void btlUnitPartsBlurControl(BattleUnitPart* part, s32 unused, Mtx orientation, GXColor color, f32 rotation) {
 
 	if (part->attributes & 0x4000000) {
 		_partsBlurControl(part, 1, orientation, color, rotation);
@@ -280,7 +280,7 @@ void btlUnitPartsBlurControl(BattleWorkUnitPart* part, s32 unused, Mtx orientati
 }
 
 //TODO: probably needs Entry* pointer to make offsets relative and then it should match
-void _partsBlurControl(BattleWorkUnitPart* part, s32 flags, Mtx orientation, GXColor color, f32 rotation) {
+void _partsBlurControl(BattleUnitPart* part, s32 flags, Mtx orientation, GXColor color, f32 rotation) {
 	BattleWorkUnitPartBlur* blur;
 	int i;
 

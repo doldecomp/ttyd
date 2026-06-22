@@ -230,7 +230,7 @@ USER_FUNC(btlevtcmd_ReplaceParts) {
     s32 id, transId, lookupPart, partNum;
     BattleUnitKindPart* kind;
     BattleUnit* unit;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
 
     id = evtGetValue(event, args[0]);
     transId = BattleTransID(event, id);
@@ -329,7 +329,7 @@ USER_FUNC(btlevtcmd_GetPartsPos) {
     s32 id, partId;
     s32 indexX, indexY, indexZ;
     f32 currX, currY, currZ;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
 
     id = BattleTransID(event, evtGetValue(event, args[0]));
     partId = evtGetValue(event, args[1]);
@@ -355,7 +355,7 @@ USER_FUNC(btlevtcmd_GetPartsPos) {
 USER_FUNC(btlevtcmd_SetPartsPos) {
     s32* args = event->args;
     f32 x, y, z, currX, currY, currZ;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     BattleUnit* unit;
     s32 id, partId;
 
@@ -379,7 +379,7 @@ USER_FUNC(btlevtcmd_SetPartsPos) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z
 USER_FUNC(btlevtcmd_AddPartsPos) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     s32 id, partId;
     f32 x, y, z;
 
@@ -417,7 +417,7 @@ USER_FUNC(btlevtcmd_SetDispOffset) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z
 USER_FUNC(btlevtcmd_SetPartsDispOffset) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     BattleUnit* unit;
     s32 id, partId;
     f32 x, y, z;
@@ -436,7 +436,7 @@ USER_FUNC(btlevtcmd_SetPartsDispOffset) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z
 USER_FUNC(btlevtcmd_AddPartsDispOffset) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     BattleUnit* unit;
     s32 id, partId;
     f32 x, y, z;
@@ -531,7 +531,7 @@ USER_FUNC(btlevtcmd_AddHomePos) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z
 USER_FUNC(btlevtcmd_SetPartsHomePos) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     s32 id, partId;
     f32 x, y, z;
 
@@ -549,7 +549,7 @@ USER_FUNC(btlevtcmd_SetPartsHomePos) {
 USER_FUNC(btlevtcmd_GetHitPos) {
     s32* args = event->args;
     s32 indexX, indexY, indexZ;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     BattleUnit* unit;
     s32 id, partId;
     f32 x, y, z;
@@ -577,7 +577,7 @@ USER_FUNC(btlevtcmd_GetHitPos) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z
 USER_FUNC(btlevtcmd_SetHitOffset) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     BattleUnit* unit;
     s32 id, partId;
     f32 x, y, z;
@@ -596,7 +596,7 @@ USER_FUNC(btlevtcmd_SetHitOffset) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z
 USER_FUNC(btlevtcmd_SetHitCursorOffset) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     BattleUnit* unit;
     s32 id, partId;
     f32 x, y, z;
@@ -745,7 +745,7 @@ USER_FUNC(btlevtcmd_SetAlpha) {
 USER_FUNC(btlevtcmd_GetRGB) {
     s32* args = event->args;
     s32 indexR, indexG, indexB;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     s32 id, btlId, partId;
 
     btlId = evtGetValue(event, args[0]);
@@ -764,7 +764,7 @@ USER_FUNC(btlevtcmd_GetRGB) {
 //s32* battleId, s32* partId, u8* red, u8* green, u8* blue
 USER_FUNC(btlevtcmd_SetRGB) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     s32 id, btlId, partId;
     u8 r, g, b;
 
@@ -856,7 +856,7 @@ USER_FUNC(btlevtcmd_AddRotate) {
 USER_FUNC(btlevtcmd_GetPartsRotate) {
     s32* args = event->args;
     s32 id, partId, indexX, indexY, indexZ;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     f32 x, y, z;
 
     id = BattleTransID(event, evtGetValue(event, args[0]));
@@ -875,7 +875,7 @@ USER_FUNC(btlevtcmd_GetPartsRotate) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z
 USER_FUNC(btlevtcmd_SetPartsRotate) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     s32 id, partId, x, y, z;
 
     id = BattleTransID(event, evtGetValue(event, args[0]));
@@ -891,7 +891,7 @@ USER_FUNC(btlevtcmd_SetPartsRotate) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z
 USER_FUNC(btlevtcmd_AddPartsRotate) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     s32 id, partId, x, y, z;
 
     id = BattleTransID(event, evtGetValue(event, args[0]));
@@ -936,7 +936,7 @@ USER_FUNC(btlevtcmd_SetBaseRotate) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z (can be EVTDAT_POINTER_MAX to skip)
 USER_FUNC(btlevtcmd_SetPartsBaseRotate) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     f32 currX, currY, currZ;
     s32 id, partId;
     f32 x, y, z;
@@ -980,7 +980,7 @@ USER_FUNC(btlevtcmd_SetRotateOffset) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z
 USER_FUNC(btlevtcmd_SetPartsRotateOffset) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     s32 id, partId, x, y, z;
 
     id = BattleTransID(event, evtGetValue(event, args[0]));
@@ -996,7 +996,7 @@ USER_FUNC(btlevtcmd_SetPartsRotateOffset) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z
 USER_FUNC(btlevtcmd_AddPartsRotateOffset) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     s32 id, partId, x, y, z;
 
     id = BattleTransID(event, evtGetValue(event, args[0]));
@@ -1148,7 +1148,7 @@ USER_FUNC(btlevtcmd_SetBaseScale) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z
 USER_FUNC(btlevtcmd_SetPartsBaseScale) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     f32 x, y, z;
     s32 id;
 
@@ -1230,7 +1230,7 @@ USER_FUNC(btlevtcmd_AddScale) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z
 USER_FUNC(btlevtcmd_SetPartsScale) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     s32 id, partId;
     f32 x, y, z;
 
@@ -1249,7 +1249,7 @@ USER_FUNC(btlevtcmd_SetPartsScale) {
 //s32* battleId, s32* partId, f32* x, f32* y, f32* z
 USER_FUNC(btlevtcmd_AddPartsScale) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     s32 id, partId;
     f32 x, y, z;
 
@@ -1648,7 +1648,7 @@ USER_FUNC(btlevtcmd_SetUnitWorkFloat) {
 USER_FUNC(btlevtcmd_GetPartsWork) {
     s32* args = event->args;
     s32 btlId, id, partId, i, index;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     BattleUnit* unit;
 
     btlId = evtGetValue(event, args[0]);
@@ -2032,8 +2032,8 @@ USER_FUNC(btlevtcmd_GetPartyTechLv) {
 }
 
 USER_FUNC(btlevtcmd_CalculateFaceDirection) {
-    BattleWorkUnitPart* thisPart = NULL;
-    BattleWorkUnitPart* targetPart = NULL;
+    BattleUnitPart* thisPart = NULL;
+    BattleUnitPart* targetPart = NULL;
     s32* args = event->args;
     BattleWork* wp = _battleWorkPointer;
     s32 btlId, flags, index, value;
@@ -2265,7 +2265,7 @@ USER_FUNC(btlevtcmd_CheckPartsAttribute) {
 USER_FUNC(btlevtcmd_OnPartsAttribute) {
     s32* args = event->args;
     s32 btlId, id, partId, mask;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     BattleUnit* unit;
 
     btlId = evtGetValue(event, args[0]);
@@ -2281,7 +2281,7 @@ USER_FUNC(btlevtcmd_OnPartsAttribute) {
 USER_FUNC(btlevtcmd_OffPartsAttribute) {
     s32* args = event->args;
     s32 btlId, id, partId, mask;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     BattleUnit* unit;
 
     btlId = evtGetValue(event, args[0]);
@@ -2317,7 +2317,7 @@ USER_FUNC(btlevtcmd_CheckPartsCounterAttribute) {
 USER_FUNC(btlevtcmd_OnPartsCounterAttribute) {
     s32* args = event->args;
     s32 btlId, id, partId, mask;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     BattleUnit* unit;
 
     btlId = evtGetValue(event, args[0]);
@@ -2333,7 +2333,7 @@ USER_FUNC(btlevtcmd_OnPartsCounterAttribute) {
 USER_FUNC(btlevtcmd_OffPartsCounterAttribute) {
     s32* args = event->args;
     s32 btlId, id, partId, mask;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     BattleUnit* unit;
 
     btlId = evtGetValue(event, args[0]);
@@ -2348,7 +2348,7 @@ USER_FUNC(btlevtcmd_OffPartsCounterAttribute) {
 
 USER_FUNC(btlevtcmd_SetPartsBlur) {
     s32* args = event->args;
-    BattleWorkUnitPart* part;
+    BattleUnitPart* part;
     BattleUnit* unit;
     s8 color0, color1, color2, color3;
     s8 color4, color5, color6, color7;

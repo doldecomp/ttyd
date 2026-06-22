@@ -669,6 +669,8 @@ s32 evt_case_equal(EventEntry* entry) { // 36
             entry->nextCommand = evtSearchCase(entry);
         }
         else {
+            // Tell the top level guard on all case statements that we've matched a specific case,
+            // so the next one we encounter, act as a break; and jump to the end of the switch.
             entry->switchStates[depth] = 0;
         }
         return EVT_RETURN_DONE;

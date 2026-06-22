@@ -7,7 +7,7 @@
 #include <dolphin/mtx.h>
 
 typedef struct MapObjectHitEntry {
-    HitObj* hitObject;    // 0x0
+    HitEntry* hitObject;    // 0x0
     char name[16];        // 0x4
     u8 unk4[0x88 - 0x14]; // 0x14
 } MapObjectHitEntry;

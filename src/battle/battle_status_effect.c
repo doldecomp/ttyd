@@ -110,7 +110,7 @@ void BSE_TurnFirstProcessEffectEntry(BattleUnit* unit, s16 active) {
 }
 
 BOOL BSE_TurnFirstProcessEffectMain(BattleUnit* unit) {
-	BattleWorkUnitPart* part;
+	BattleUnitPart* part;
 
 	part = BtlUnit_GetPartsPtr(unit, BtlUnit_GetBodyPartsId(unit));
 	if (!unit->mBurnDamageFlameState) {

@@ -349,7 +349,7 @@ void BattleSetUnitPtr(BattleWork* wp, s32 index, BattleUnit* unit) {
         wp->units[index] = unit;
     }
 }
-BattleWorkUnitPart* BattleGetUnitPartsPtr(s32 index, s32 partNum) {
+BattleUnitPart* BattleGetUnitPartsPtr(s32 index, s32 partNum) {
     BattleUnit* unit = BattleGetUnitPtr(_battleWorkPointer, index);
     return BtlUnit_GetPartsPtr(unit, partNum);
 }
