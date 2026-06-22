@@ -20,7 +20,7 @@ extern void johoya_init(void);
 
 extern GlobalWork* gp;
 
-EventEvt stage0_evt[] = {
+EventData stage0_evt[] = {
 	{0, 0, 0, 0, "STG0_00", "プロローグ", "aaa_00", "prologue", stg0_00_init},
 	{0, 0, 0, 1, "STG0_01", "広場", "aaa_00", "prologue", NULL},
 	{0, 0, 0, 2, "STG0_02", "マリオの家", "aaa_00", "prologue", NULL},
@@ -48,7 +48,7 @@ EventEvt stage0_evt[] = {
 	{0, 1, 0, 22, "STG0_END", "ステージ１へ", "tik_02", "w_bero_1", NULL}
 };
 
-EventEvt stage1_evt[] = {
+EventData stage1_evt[] = {
 	{0, 1, 0, 23, "STG1_00", "はじめてきた", "sys_01", "stg_1", NULL},
 	{0, 1, 0, 24, "STG1_00_01", "ごんばばの影", "hei_00", "dokan_2", NULL},
 	{0, 1, 0, 25, "STG1_01", "スイッチで橋が出る", "hei_01", "w_bero", NULL},
@@ -105,7 +105,7 @@ EventEvt stage1_evt[] = {
 	{0, 1, 10, 70, "STG1_END", "ステージ２へ", "tik_03", "a_slit", NULL}
 };
 
-EventEvt stage2_evt[] = {
+EventData stage2_evt[] = {
 	{0, 2, 10, 71, "STG2_00", "不思議の森へご案内", "sys_01", "stg_2", stg2_00_init},
 	{0, 2, 10, 72, "STG2_01", "魔女三人組もめる", "win_00", "w_bero", NULL},
 	{0, 2, 10, 73, "STG2_02", "ガイドが大樹へ", "win_01", "w_bero", NULL},
@@ -176,7 +176,7 @@ EventEvt stage2_evt[] = {
 	{0, 5, 0, 126, "STG2_END", "ウーロン街へ", "gor_04", "s_bero", stg2_end_init}
 };
 
-EventEvt stage3_evt[] = {
+EventData stage3_evt[] = {
 	{0, 1, 0, 127, "STG3_00", "初めてのウーロン街", "tou_20", "start", NULL},
 	{0, 1, 0, 128, "STG3_01", "初めての闘技場（１Ｆ）", "tou_03", "s_bero_1", NULL},
 	{0, 1, 0, 128, "STG3_01", "初めての闘技場（２Ｆ）", "tou_03", "s_bero_2", NULL},
@@ -247,7 +247,7 @@ EventEvt stage3_evt[] = {
 	{0, 5, 0, 177, "STG3_END", "ステージ４へ", "tik_07", "e_bero", stg3_end_init}
 };
 
-EventEvt stage4_evt[] = {
+EventData stage4_evt[] = {
 	{0, 1, 0, 178, "STG4_00", "ステージ４へようこそ", "sys_01", "stg_4", stg4_00_init},
 	{0, 1, 0, 179, "STG4_01_00", "門番と話した", "usu_01", "w_bero", NULL},
 	{0, 1, 0, 180, "STG4_01", "村長がブタに！！", "usu_00", "e_bero", NULL},
@@ -303,7 +303,7 @@ EventEvt stage4_evt[] = {
 	{0, 6, 0, 229, "STG4_END", "船の出発", "gor_00", "n_bero", stg4_end_init}
 };
 
-EventEvt stage5_evt[] = {
+EventData stage5_evt[] = {
 	{0, 1, 0, 230, "STG5_00", "航海日誌", "sys_01", "stg_5", NULL},
 	{0, 1, 0, 231, "STG5_10", "怨霊襲撃", "muj_20", NULL, NULL},
 	{0, 1, 0, 232, "STG5_11", "無人島漂着", "muj_00", NULL, NULL},
@@ -373,7 +373,7 @@ EventEvt stage5_evt[] = {
 	{0, 6, 0, 281, "STG5_END", "列車発車", "gor_04", "s_bero", NULL}
 };
 
-EventEvt stage6_evt[] = {
+EventData stage6_evt[] = {
 	{0, 1, 0, 282, "STG6_00", "スタート", "sys_01", "stg_6", stg6_00_init},
 	{0, 1, 0, 283, "STG6_01", "車掌と話す", "rsh_04_a", "e_bero", NULL},
 	{0, 1, 0, 284, "STG6_02", "ランチ紛失事件", "rsh_03_a", "w_bero", NULL},
@@ -447,7 +447,7 @@ EventEvt stage6_evt[] = {
 	{0, 6, 0, 351, "STG6_END", "ボム村へ", "tik_07", "e_bero", stg6_end_init01}
 };
 
-EventEvt stage7_evt[] = {
+EventData stage7_evt[] = {
 	{0, 1, 0, 352, "STG7_00", "STG7 スタート", "sys_01", "stg_7", NULL},
 	{0, 1, 0, 353, "STG7_01", "初めてのボム村", "bom_01", "w_bero", stg7_01_init},
 	{0, 3, 0, 354, "STG7_02", "村長と会話", "bom_02", "w_bero", NULL},
@@ -490,7 +490,7 @@ EventEvt stage7_evt[] = {
 	{0, 6, 0, 381, "STG7_END", "ラストダンジョンへ", "tik_05", "e_bero", NULL}
 };
 
-EventEvt stage8_evt[] = {
+EventData stage8_evt[] = {
 	{0, 1, 0, 382, "STG8_00", "スタート", "sys_01", "stg_8", NULL},
 	{0, 1, 0, 383, "STG8_01", "１０００体カロン", "las_05", "w_bero", NULL},
 	{0, 1, 0, 384, "STG8_01_01", "かぎ", "las_05", "w_bero", NULL},
@@ -523,7 +523,7 @@ EventEvt stage8_evt[] = {
 	{0, 1, 0, 402, "STG8_END", "バトル後", "las_29", "owari", NULL}
 };
 
-EventEvt stage9_evt[] = {
+EventData stage9_evt[] = {
 	{0, 0, 0, 403, "STG9_00", "エピローグ", "gor_11", NULL, NULL},
 	{0, 0, 0, 403, "STG9_00", "ゴロツキ港", "gor_00", NULL, NULL},
 	{0, 0, 0, 403, "STG9_00", "海上", "muj_21", NULL, NULL},
@@ -544,17 +544,17 @@ EventEvt stage9_evt[] = {
 	{0, 1, 0, 406, "STG9_END", "クリア後", "gor_00", "n_bero", NULL}
 };
 
-EventDtor event_dt[] = {
-	{"オープニング", stage0_evt, sizeof(stage0_evt) / sizeof(EventEvt)},
-	{"ステージ１", stage1_evt, sizeof(stage1_evt) / sizeof(EventEvt)},
-	{"ステージ２", stage2_evt, sizeof(stage2_evt) / sizeof(EventEvt)},
-	{"ステージ３", stage3_evt, sizeof(stage3_evt) / sizeof(EventEvt)},
-	{"ステージ４", stage4_evt, sizeof(stage4_evt) / sizeof(EventEvt)},
-	{"ステージ５", stage5_evt, sizeof(stage5_evt) / sizeof(EventEvt)},
-	{"ステージ６", stage6_evt, sizeof(stage6_evt) / sizeof(EventEvt)},
-	{"ステージ７", stage7_evt, sizeof(stage7_evt) / sizeof(EventEvt)},
-	{"ステージ８", stage8_evt, sizeof(stage8_evt) / sizeof(EventEvt)},
-	{"エンディング", stage9_evt, sizeof(stage9_evt) / sizeof(EventEvt)}
+EventStage event_dt[] = {
+	{"オープニング", stage0_evt, sizeof(stage0_evt) / sizeof(EventData)},
+	{"ステージ１", stage1_evt, sizeof(stage1_evt) / sizeof(EventData)},
+	{"ステージ２", stage2_evt, sizeof(stage2_evt) / sizeof(EventData)},
+	{"ステージ３", stage3_evt, sizeof(stage3_evt) / sizeof(EventData)},
+	{"ステージ４", stage4_evt, sizeof(stage4_evt) / sizeof(EventData)},
+	{"ステージ５", stage5_evt, sizeof(stage5_evt) / sizeof(EventData)},
+	{"ステージ６", stage6_evt, sizeof(stage6_evt) / sizeof(EventData)},
+	{"ステージ７", stage7_evt, sizeof(stage7_evt) / sizeof(EventData)},
+	{"ステージ８", stage8_evt, sizeof(stage8_evt) / sizeof(EventData)},
+	{"エンディング", stage9_evt, sizeof(stage9_evt) / sizeof(EventData)}
 };
 
 // Stage 0 / Prologue -----------------------------------------------------------------
@@ -1851,10 +1851,10 @@ void stg9_02_init(void) {
 	partyJoin(PARTNER_MSMOWZ);
 }
 
-EventDtor* eventStgDtPtr(s32 stage) {
+EventStage* eventStgDtPtr(s32 stage) {
 	return &event_dt[stage];
 }
 
 s32 eventStgNum(void) {
-	return sizeof(event_dt) / sizeof(EventDtor);
+	return sizeof(event_dt) / sizeof(EventStage);
 }

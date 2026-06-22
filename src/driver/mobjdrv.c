@@ -300,7 +300,7 @@ MapObjectEntry* mobjNameToPtrNoAssert(const char* name) {
     return entry;
 }
 
-MapObject* mobjHitObjPtrToPtr(HitObj* hitObj) {
+MapObject* mobjHitObjPtrToPtr(HitEntry* hitObj) {
     if (hitObj->attributes & (1 << 31)) {
         return hitObj->mapObj;
     }

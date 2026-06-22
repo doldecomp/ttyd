@@ -4537,7 +4537,7 @@ void psndSFXAllOff(void) {
 }
 
 
-void psndSFXOn(const char* name) {
+void psndSFXOn(const char* sfx_name) {
 
 }
 

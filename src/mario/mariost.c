@@ -72,7 +72,7 @@ static BOOL off_trg[4] = {FALSE, FALSE, FALSE, FALSE};
 GlobalWork* gp = &marioSt;
 
 //.sbss
-static OSTime none_key;
+OSTime none_key;
 s32 _mariostSystemLevel;
 BOOL DvdCheckThreadOn; //DvdCheckTreadOn
 

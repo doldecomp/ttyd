@@ -1,6 +1,7 @@
 #pragma once
 
 #include <dolphin/types.h>
+#include "manager/evtmgr.h"
 
 // Script Helpers
 #define NUMARGS(...) (sizeof((s32[]){ __VA_ARGS__ }) / sizeof(s32))

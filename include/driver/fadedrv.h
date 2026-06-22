@@ -23,7 +23,10 @@ typedef enum FadeType {
 
 
 
-	TITLE_SCREEN_CURTAIN_LEAVE_GRADUAL2 = 39
+	TITLE_SCREEN_CURTAIN_LEAVE_GRADUAL2 = 39,
+
+	MARIO_HEAD_FADE_IN = 52,
+	MARIO_HEAD_FADE_OUT = 53,
 } FadeType;
 
 typedef struct FadeEntry {

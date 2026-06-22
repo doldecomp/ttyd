@@ -2,27 +2,24 @@
 
 #include <dolphin/types.h>
 
-//TODO: EventData? if it doesn't share with any evtmgr stuff
 #pragma warn_padding off
-typedef struct EventEvt {
-	u8 field_0x0; //0x0
-	u8 field_0x1[2]; //0x1
-	//will pad 1 byte
-	u16 field_0x4; //0x4
-	//will pad 2 bytes
-	const char* field_0x8; //0x8
-	const char* field_0xC; //0xC
-	const char* field_0x10; //0x10
-	const char* field_0x14; //0x14
-	void (*init_function)(void); //0x18
-} EventEvt;
+typedef struct EventData {
+    u8 motionType;           // 0x0
+    u8 partners[2];          // 0x1, TODO verify if array or two u8
+    u16 id;                  // 0x4
+    const char* field_0x8;   // 0x8
+    const char* field_0xC;   // 0xC
+    const char* mapName;     // 0x10
+    const char* beroName;    // 0x14
+    void (*initEvent)(void); // 0x18
+} EventData;
 #pragma warn_padding on
 
-typedef struct EventDtor {
-	const char* name; //0x0
-	EventEvt* events; //0x4
-	u32 num_events; //0x8
-} EventDtor;
+typedef struct EventStage {
+    const char* name; // 0x0
+    EventData* data;  // 0x4
+    s32 count;        // 0x8
+} EventStage;
 
 void stg0_00_init(void);
 void stg0_05_init(void);
@@ -251,5 +248,5 @@ void stg8_14_01_init(void);
 
 void stg9_02_init(void);
 
-EventDtor* eventStgDtPtr(s32 stage);
+EventStage* eventStgDtPtr(s32 stage);
 s32 eventStgNum(void);
