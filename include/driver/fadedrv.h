@@ -5,7 +5,7 @@
 #include <dolphin/gx.h>
 #include <dolphin/mtx.h>
 
-typedef void (*OffscreenCallback)(void* param, void* unused);
+typedef void (*OffscreenCallback)(CameraId cameraId, void* param);
 
 typedef enum FadeType {
 	FADE_IN_BLACK = 9,

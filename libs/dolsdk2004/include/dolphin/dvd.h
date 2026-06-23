@@ -23,7 +23,7 @@ extern "C" {
 #define DVD_RESULT_GOOD        0
 #define DVD_RESULT_FATAL_ERROR -1
 #define DVD_RESULT_IGNORED     -2
-#define DVD_RESULT_CANCELED    -6
+#define DVD_RESULT_CANCELED    -3
 
 #define DVD_STATE_FATAL_ERROR   -1
 #define DVD_STATE_END            0
