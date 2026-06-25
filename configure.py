@@ -263,6 +263,7 @@ cflags_rel = [
     *cflags_base,
     "-O4,s",
     "-use_lmw_stmw on",
+    "-inline auto,deferred",
     "-rostr",
     "-sdata 0",
     "-sdata2 0",
@@ -1167,6 +1168,13 @@ config.libs = [
         ],
         [
             Object(Matching, "vi/vi.c"),
+        ],
+    ),
+    Rel(
+        "dig",
+        [
+            Object(NonMatching, "dig.c"),
+            Object(NonMatching, "dig_00.c"),
         ],
     ),
     Rel(

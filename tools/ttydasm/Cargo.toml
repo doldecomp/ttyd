@@ -1,0 +1,12 @@
+[package]
+name = "ttydasm"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1"
+argp = "0.4"
+encoding_rs = "0.8"
+hashbrown = "0.17"
+object = "0.39"
+strum = { version = "0.28", features = ["derive"] }

@@ -25,7 +25,7 @@
 
 // Termination
 #define END EVT_CMD(0, OPCODE_END_SCRIPT),
-#define RETURN() EVT_CMD(0, OPCODE_END_EVENT),
+#define RETURN EVT_CMD(0, OPCODE_END_EVENT),
 
 // Labels / Jumps
 #define LABEL(LABEL_ID) EVT_CMD(1, OPCODE_LABEL), LABEL_ID,
