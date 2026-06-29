@@ -132,7 +132,7 @@ void animInit(void) {
 }
 
 void animMain(void) {
-    dispEntry(CAMERA_OFFSCREEN, 1, animPaperPoseDisp, NULL, 0.0f);
+    dispEntry(CAMERA_OFFSCREEN, 0.0f, 1, animPaperPoseDisp, NULL);
 }
 
 inline AnimationPoseData* animPoseGetBaseData(AnimationPose* pose) {
@@ -500,8 +500,8 @@ void animPoseSetMaterialLightFlagOff(s32 poseId, u32 mask) {
     wp->poses[poseId].materialLightFlag &= ~mask;
 }
 
-void animPoseSetMaterialEvtColor(s32 poseId, GXColor* color) {
-    wp->poses[poseId].materialColor = *color;
+void animPoseSetMaterialEvtColor(s32 poseId, GXColor color) {
+    wp->poses[poseId].materialColor = color;
 }
 
 u32 animPoseGetMaterialFlag(s32 poseId) {
@@ -885,7 +885,7 @@ AnimationPose* animPoseGetAnimPosePtr(s32 poseId) {
 
 AnimData* animPoseGetAnimDataPtr(s32 poseId) {
     AnimationPose* pose = animPoseGetAnimPosePtr(poseId);
-    return animPoseGetAnimBaseDataPtr(poseId)->mpAnims[pose->animId].mpAnimData;
+    return animPoseGetAnimBaseDataPtr(poseId)->mpAnims[pose->animId].data;
 }
 
 AnimationPoseData* animPoseGetAnimBaseDataPtr(s32 poseId) {

@@ -51,7 +51,7 @@ USER_FUNC(evt_npc_move_position);
 
 
 
-NpcEntry* evtNpcNameToPtr(EventEntry* evt, const char* name);
+NpcEntry* evtNpcNameToPtr(EventEntry* event, const char* name);
 NpcEntry* evtNpcNameToPtr_NoAssert(EventEntry* evt, const char* name);
 
 

@@ -358,13 +358,13 @@ void BattleAudience_Disp(void) {
 	BattleAudienceBaseGetPtr();
 	BattleAudienceAnimProcess();
 	if (!(BattleAudienceBaseGetPtr()->flags & 0x20000)) {
-		dispEntry(CAMERA_3D, 1, BattleAudienceDispAudience, NULL, 0.0f);
-		dispEntry(CAMERA_3D, 2, BattleAudienceDispAudience, NULL, 0.0f);
-		dispEntry(CAMERA_3D, 1, BattleAudienceDispItem, NULL, 0.0f);
-		dispEntry(CAMERA_2D, 0, BattleAudienceDispApSrc, NULL, 499.0f);
+		dispEntry(CAMERA_3D, 0.0f, 1, BattleAudienceDispAudience, NULL);
+		dispEntry(CAMERA_3D, 0.0f, 2, BattleAudienceDispAudience, NULL);
+		dispEntry(CAMERA_3D, 0.0f, 1, BattleAudienceDispItem, NULL);
+		dispEntry(CAMERA_2D, 499.0f, 0, BattleAudienceDispApSrc, NULL);
 	}
 	if (pouchGetPtr()->mStarPowersObtained) {
-		dispEntry(CAMERA_2D, 1, BattleAudienceDispWin, NULL, 499.0f);
+		dispEntry(CAMERA_2D, 499.0f, 1, BattleAudienceDispWin, NULL);
 	}
 }
 

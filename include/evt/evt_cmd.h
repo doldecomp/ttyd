@@ -8,6 +8,7 @@
 
 #define PTR(value) (s32)(value)
 #define STRING(value) PTR(value)
+#define FLOAT(value) ((s32)(value * 1024.0f) - EVTDAT_FLOAT_BASE)
 
 #define EVT_CMD(param_count, opcode) (((param_count) << 16) | (opcode))
 
@@ -24,7 +25,8 @@
 #define USER_FUNC(function) s32(function)(EventEntry * event, BOOL isFirstCall)
 
 // Termination
-#define END EVT_CMD(0, OPCODE_END_SCRIPT),
+//#define END EVT_CMD(0, OPCODE_END_SCRIPT),
+#define END 
 #define RETURN EVT_CMD(0, OPCODE_END_EVENT),
 
 // Labels / Jumps
@@ -152,10 +154,10 @@
 #define CALL(...) EVT_CMD(NUMARGS((s32)__VA_ARGS__), OPCODE_USER_FUNC), (s32)__VA_ARGS__,
 
 // Spawning / Controlling Events
-#define SPAWN_EVENT(script) EVT_CMD(1, OPCODE_RUN_EVENT), script,
+#define SPAWN_EVENT(script) EVT_CMD(1, OPCODE_RUN_EVENT), PTR(script),
 #define SPAWN_EVENT_GET_ID(script, idOut) EVT_CMD(2, OPCODE_RUN_EVENT_ID), script, idOut,
 // Blocks until the child finished
-#define CALL_CHILD(script) EVT_CMD(1, OPCODE_RUN_CHILD_EVENT), script,
+#define CALL_CHILD(script) EVT_CMD(1, OPCODE_RUN_CHILD_EVENT), PTR(script),
 #define DELETE_EVENT(tid) EVT_CMD(1, OPCODE_DELETE_EVENT), tid,
 #define RESTART_EVENT(script) EVT_CMD(1, OPCODE_RESTART_EVENT), script,
 

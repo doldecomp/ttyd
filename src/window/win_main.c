@@ -150,14 +150,14 @@ void winMain(void) {
                     return;
                 }
                 if (!(wp->flags & 0x1000)) {
-                    dispEntry(CAMERA_2D, 0, winDisp, NULL, 250.0f);
+                    dispEntry(CAMERA_2D, 250.0f, 0, winDisp, NULL);
                 } else {
-                    dispEntry(CAMERA_2D, 0, winDisp, NULL, 500.0f);
+                    dispEntry(CAMERA_2D, 500.0f, 0, winDisp, NULL);
                 }
                 return;
             }
             if (characterId < 3) {
-                dispEntry(CAMERA_2D, 0, winDispKoopa, NULL, 250.0f);
+                dispEntry(CAMERA_2D, 250.0f, 0, winDispKoopa, NULL);
             }
         }
     }

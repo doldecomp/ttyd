@@ -22,7 +22,7 @@ static OSTime none_key;
 EVT_BEGIN(maku_spread)
 WAIT_MS(2000)
 CALL(evt_fade_entry, TITLE_SCREEN_CURTAIN_LEAVE_GRADUAL2, 0, 0, 0, 0)
-RETURN()
+RETURN
 EVT_END()
 
 void seq_gameInit(SequenceWork* wp) {

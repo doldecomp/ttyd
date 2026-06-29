@@ -216,7 +216,7 @@ void seq_logoMain(SequenceWork* work) {
 					}
 					VIFlush();
 					VISetBlack(TRUE);
-					dispEntry(CAMERA_BACKGROUND, 0, dummy_draw, NULL, 0.0f);
+					dispEntry(CAMERA_BACKGROUND, 0.0f, 0, dummy_draw, NULL);
 					work->state++;
 				}
 			}
@@ -257,8 +257,8 @@ void seq_logoMain(SequenceWork* work) {
 	}
 
 	if (work->state < 10) {
-		dispEntry(CAMERA_2D, 0, logoDisp, NULL, 1.0f);
-		dispEntry(CAMERA_2D, 0, progDisp, NULL, 0.0f);
+		dispEntry(CAMERA_2D, 1.0f, 0, logoDisp, NULL);
+		dispEntry(CAMERA_2D, 0.0f, 0, progDisp, NULL);
 	}
 }
 
@@ -503,7 +503,7 @@ void progDisp(CameraId camId, void* param) {
 					-(0.7f * width) * 0.5f,
 					-130.0f,
 					0.7f,
-					(GXColor){0xFF, 0xFF, 0xFF, 0xFF},
+					&(GXColor){0xFF, 0xFF, 0xFF, 0xFF},
 					msg);
 
 				msg = romFontGetMessage(1); //yes/no
@@ -512,7 +512,7 @@ void progDisp(CameraId camId, void* param) {
 					-(0.7f * width) * 0.5f,
 					-160.0f,
 					0.7f,
-					(GXColor){0xFF, 0xFF, 0xFF, 0xFF},
+					&(GXColor){0xFF, 0xFF, 0xFF, 0xFF},
 					msg);
 
 				msg = romFontGetMessage(2); //selection box
@@ -521,7 +521,7 @@ void progDisp(CameraId camId, void* param) {
 					-(((0.7f * width) * 0.5f) - (f32)(75 * ((2 * wp->toggle) - 1))),
 					-160.0f,
 					0.7f,
-					(GXColor){0xFF, 0xFF, 0xFF, 0xFF},
+					&(GXColor){0xFF, 0xFF, 0xFF, 0xFF},
 					msg);
 				break;
 
@@ -539,7 +539,7 @@ void progDisp(CameraId camId, void* param) {
 					-(0.7f * (f32)width) * 0.5f,
 					-145.0f,
 					0.7f,
-					(GXColor){0xFF, 0xFF, 0xFF, 0xFF},
+					&(GXColor){0xFF, 0xFF, 0xFF, 0xFF},
 					msg);
 				break;
 

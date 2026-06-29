@@ -63,7 +63,7 @@ void winMgrMain(void) {
 				desc->main(entry);
 			}
 			if (entry->flags & 2) {
-				dispEntry((CameraId)desc->camId, 0, winMgrDisp, entry, (f32)(entry->priority + 300));
+				dispEntry((CameraId)desc->camId, (f32)(entry->priority + 300), 0, winMgrDisp, entry);
 			}
 		}
 	}

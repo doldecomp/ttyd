@@ -152,21 +152,21 @@ void iconMain(void) {
             }
             if (!(entry->flags & 2)) {
                 if (entry->flags & 0x10) {
-                    dispEntry(CAMERA_2D, 1, iconDisp, entry, 200.0f);
+                    dispEntry(CAMERA_2D, 200.0f, 1, iconDisp, entry);
                 }
                 // TODO: uncomment shadowEntry when added
                 else if (entry->flags & 0x100) {
                     // shadowEntry(entry->position.x, entry->position.y, entry->position.z, 10.0f);
-                    dispEntry(CAMERA_3D_EFFECTA, 1, iconDisp, entry, dispCalcZ(&entry->position));
+                    dispEntry(CAMERA_3D_EFFECTA, dispCalcZ(&entry->position), 1, iconDisp, entry);
                 } else if (entry->flags & 0x200) {
                     // shadowEntry(entry->position.x, entry->position.y, entry->position.z, 10.0f);
-                    dispEntry(CAMERA_3D_EFFECTB, 1, iconDisp, entry, dispCalcZ(&entry->position));
+                    dispEntry(CAMERA_3D_EFFECTB, dispCalcZ(&entry->position), 1, iconDisp, entry);
                 } else {
                     // shadowEntry(entry->position.x, entry->position.y, entry->position.z, 10.0f);
                     if (entry->color.a == 0xFF) {
-                        dispEntry(CAMERA_3D, 1, iconDisp, entry, dispCalcZ(&entry->position));
+                        dispEntry(CAMERA_3D, dispCalcZ(&entry->position), 1, iconDisp, entry);
                     } else {
-                        dispEntry(CAMERA_3D, 2, iconDisp, entry, dispCalcZ(&entry->position));
+                        dispEntry(CAMERA_3D, dispCalcZ(&entry->position), 2, iconDisp, entry);
                     }
                 }
             }

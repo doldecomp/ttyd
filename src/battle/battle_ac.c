@@ -32,7 +32,7 @@ void BattleActionCommandManager(BattleWork* wp) {
 
 		disp = wp->actionCommands.dispcb;
 		if (disp) {
-			dispEntry(CAMERA_2D, 1, disp, wp, 900.0f);
+			dispEntry(CAMERA_2D, 900.0f, 1, disp, wp);
 		}
 	}
 }

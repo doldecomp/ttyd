@@ -779,7 +779,7 @@ void camLetterBox(void) {
             camera->letterBoxAlpha = 0;
         }
     }
-    dispEntry(camera->letterBoxCamId, 3, &camLetterBoxDraw, NULL, 0.0f);
+    dispEntry(camera->letterBoxCamId, 0.0f, 3, &camLetterBoxDraw, NULL);
 }
 
 inline Vec unknownVec0(void) {

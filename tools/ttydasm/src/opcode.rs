@@ -348,4 +348,76 @@ impl Opcode {
             other => other.into(),
         }
     }
+
+    pub fn increase_indent(&self, indentation: &mut usize) {
+        match self {
+            Self::Do
+            | Self::IfStrEqual
+            | Self::IfStrNotEqual
+            | Self::IfStrLess
+            | Self::IfStrGreater
+            | Self::IfStrLessOrEqual
+            | Self::IfStrGreaterOrEqual
+            | Self::IfFloatEqual
+            | Self::IfFloatNotEqual
+            | Self::IfFloatLess
+            | Self::IfFloatGreater
+            | Self::IfFloatLessOrEqual
+            | Self::IfFloatGreaterOrEqual
+            | Self::IfIntEqual
+            | Self::IfIntNotEqual
+            | Self::IfIntLess
+            | Self::IfIntGreater
+            | Self::IfIntLessOrEqual
+            | Self::IfIntGreaterOrEqual
+            | Self::IfFlag
+            | Self::IfNotFlag
+            | Self::Switch
+            | Self::SwitchImm
+            | Self::InlineEvent
+            | Self::InlineEventId
+            | Self::SiblingEvent
+            | Self::SiblingEventId => {
+                *indentation = indentation.saturating_add(1);
+            }
+
+            _ => {}
+        }
+    }
+
+    pub fn decrease_indent(&self, indentation: &mut usize) {
+        match self {
+            Self::While | Self::EndIf | Self::EndSwitch | Self::EndInline | Self::EndSibling => {
+                *indentation = indentation.saturating_sub(1)
+            }
+
+            _ => {}
+        }
+    }
+
+    pub fn is_tag(&self) -> bool {
+        matches!(
+            self,
+            // Termination
+            Self::EndScript        // END
+            | Self::EndEvent       // RETURN
+            // Loops
+            | Self::While          // END_LOOP
+            | Self::DoBreak        // BREAK_LOOP
+            | Self::DoContinue     // CONTINUE_LOOP
+            // Conditionals
+            | Self::Else           // ELSE
+            | Self::EndIf          // END_IF
+            // Switch
+            | Self::CaseDefault    // CASE_DEFAULT
+            | Self::CaseEnd        // CASE_END
+            | Self::SwitchBreak    // BREAK_SWITCH
+            | Self::EndSwitch      // END_SWITCH
+            // Inline / sibling events
+            | Self::InlineEvent    // BEGIN_INLINE_EVENT
+            | Self::EndInline      // END_INLINE_EVENT
+            | Self::SiblingEvent   // BEGIN_SIBLING_EVENT
+            | Self::EndSibling // END_SIBLING_EVENT
+        )
+    }
 }

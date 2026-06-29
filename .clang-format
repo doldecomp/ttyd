@@ -22,3 +22,5 @@ AlignEscapedNewlines: Left
 AlignTrailingComments: true
 SortIncludes: false
 InsertNewlineAtEOF: true
+StatementMacros:
+  - extend_data

@@ -18,7 +18,7 @@ typedef struct DispEntry {
 
 void dispInit(void);
 void dispReInit(void);
-void dispEntry(CameraId camera, s32 renderMode, DispCallback callback, void* param, f32 order);
+void dispEntry(CameraId camera, f32 order, s32 renderMode, DispCallback callback, void* param);
 void dispSort(void);
 void dispDraw(CameraId cameraId);
 f32 dispCalcZ(Vec* input);

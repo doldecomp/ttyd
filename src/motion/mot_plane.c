@@ -13,7 +13,7 @@ WAIT_FRAMES(12)
 CALL(evt_snd_sfxon_3d, STRING("SFX_MARIO_AIRPLANE1"), LW(0), LW(1), LW(2), 0)
 WAIT_FRAMES(12)
 CALL(evt_snd_sfxon_3d, STRING("SFX_MARIO_AIRPLANE1"), LW(0), LW(1), LW(2), 0)
-RETURN()
+RETURN
 EVT_END()
 
 void mot_plane(void) {

@@ -121,7 +121,7 @@ typedef struct NpcEntry {
     f32 field_0x1C8;               // 0x1C8
     f32 field_0x1CC;               // 0x1CC
     f32 field_0x1D0;               // 0x1D0
-    s32 wJumpFlags;                // 0x1D4, TODO verify
+    s32 jumpFlags;                // 0x1D4, TODO verify
     // TODO: create sfx sub-struct?
     u16 field_0x1D8; // 0x1D8
     // pad 2 bytes

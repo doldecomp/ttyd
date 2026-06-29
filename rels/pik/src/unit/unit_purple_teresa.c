@@ -4,48 +4,26 @@
 #include "battle/battle_unit.h"
 #include "evt/evt_cmd.h"
 #include "manager/evtmgr_cmd.h"
+#include "forcedata.h"
 
-// NOTE: these are just to force insert these values into the start of .data, they originally got
-// included based on a #include from MSL but icbf to figure out what functions so there's this hack
-extern inline f32 forcedata0(f32 x) {
-    static u64 negone_one = 0xBF8000003F800000;
-    static u32 neg_one = 0xBF800000;
-    static f32 __local_PI = 3.1415926535897932384626433832795f;
-    static f32 __local_3PIO2 = 3.0f * 1.57079632679489661923132169163975f;
-    static u64 one_negone = 0x3F800000BF800000;
-    static f32 __local_PIO2 = 1.57079632679489661923132169163975f;
-    static f32 one = 1.0f;
-    volatile float y;
-    if (x > 0.0f) {
-        double guess = __frsqrte((double)x);                  // returns an approximation to
-        guess = negone_one * neg_one * guess * (1.5f - guess * guess * x); // now have 12 sig bits
-        guess = negone_one * neg_one * guess * (1.5f - guess * guess * x); // now have 24 sig bits
-        guess = negone_one * neg_one * guess * (1.5f - guess * guess * x); // now have 32 sig bits
-        y = (float)(x * guess);
-        return y;
-    }
-    return x;
-}
-
-extern inline f32 forcedata1(f32 x) {
-    static u64 negone_one = 0xBF8000003F800000;
-    static u32 neg_one = 0xBF800000;
-    static f32 __local_PI = 3.1415926535897932384626433832795f;
-    static f32 __local_3PIO2 = 3.0f * 1.57079632679489661923132169163975f;
-    static u64 one_negone = 0x3F800000BF800000;
-    static f32 __local_PIO2 = 1.57079632679489661923132169163975f;
-    static f32 one = 1.0f;
-    volatile float y;
-    if (x > 0.0f) {
-        double guess = __frsqrte((double)x);                  // returns an approximation to
-        guess = negone_one * neg_one * guess * (1.5f - guess * guess * x); // now have 12 sig bits
-        guess = negone_one * neg_one * guess * (1.5f - guess * guess * x); // now have 24 sig bits
-        guess = negone_one * neg_one * guess * (1.5f - guess * guess * x); // now have 32 sig bits
-        y = (float)(x * guess);
-        return y;
-    }
-    return x;
-}
+// clang-format off
+extend_data(0,
+     u64, negone_one, 0xBF8000003F800000,
+     u32, neg_one, 0xBF800000,
+     f32, __local_PI, 3.1415926535897932384626433832795f,
+     f32, __local_3PIO2, 3.0f * 1.57079632679489661923132169163975f,
+     u64, one_negone, 0x3F800000BF800000,
+     f32, __local_PIO2, 1.57079632679489661923132169163975f,
+     f32, one, 1.0f)
+extend_data(1,
+     u64, negone_one, 0xBF8000003F800000,
+     u32, neg_one, 0xBF800000,
+     f32, __local_PI, 3.1415926535897932384626433832795f,
+     f32, __local_3PIO2, 3.0f * 1.57079632679489661923132169163975f,
+     u64, one_negone, 0x3F800000BF800000,
+     f32, __local_PIO2, 1.57079632679489661923132169163975f,
+     f32, one, 1.0f)
+// clang-format on
 
 USER_FUNC(teresa_check_teresa) {
     s32* args = event->args;

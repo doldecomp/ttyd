@@ -203,19 +203,19 @@ void imgMain(void) { //1:1
 					if (!(entry->shadows[shadow].flags & 4)) break;
 				}
 				if (shadow != 3) {
-					dispEntry(entry->camId, 1, imgDisp, entry, entry->order);
+					dispEntry(entry->camId, entry->order, 1, imgDisp, entry);
 					switch (entry->shadowId) {
 						case 0:
 							animPoseSetMaterialFlagOff(entry->poseId, 0x10000);
 							break;
 						case 1:
-							dispEntry(CAMERA_SHADOW, 1, imgShadowDisp, entry, 0.0f);
-							dispEntry(CAMERA_3D_IMAGE, 5, imgDisp_ProjPlane, entry, 0.0f);
+							dispEntry(CAMERA_SHADOW, 0.0f, 1, imgShadowDisp, entry);
+							dispEntry(CAMERA_3D_IMAGE, 0.0f, 5, imgDisp_ProjPlane, entry);
 							break;
 						case 2:
 							animPoseSetMaterialFlagOn(entry->poseId, 0x10000);
-							dispEntry(CAMERA_SHADOW, 6, imgShadowDisp, entry, 0.0f);
-							dispEntry(CAMERA_3D_IMAGE, 5, imgDisp_ProjPlane, entry, 0.0f);
+							dispEntry(CAMERA_SHADOW, 0.0f, 6, imgShadowDisp, entry);
+							dispEntry(CAMERA_3D_IMAGE, 0.0f, 5, imgDisp_ProjPlane, entry);
 							break;
 					}
 				}
@@ -224,7 +224,7 @@ void imgMain(void) { //1:1
 	}
 
 	for (i = 0; i < 13; i++) {
-		dispEntry(i, 7, imgCapture, NULL, 0.0f);
+		dispEntry(i, 0.0f, 7, imgCapture, NULL);
 	}
 }
 

@@ -104,7 +104,7 @@ void effExpBomMain(EffectEntry* effect) {
 		}
 	}
 	if (disp) {
-		dispEntry(CAMERA_3D, 2, effExpBomDisp, effect, dispCalcZ(&position));
+		dispEntry(CAMERA_3D, dispCalcZ(&position), 2, effExpBomDisp, effect);
 	}
 	else {
 		effDelete(effect);

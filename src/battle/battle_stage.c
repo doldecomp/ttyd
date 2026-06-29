@@ -57,7 +57,7 @@ void batSpotMain() {
 
     while (count-- > 0) {}
     if (wp->skipRender > 0) {
-        dispEntry(6, 0, batSpotDisp, NULL, -1000.0);
+        dispEntry(CAMERA_3D_IMAGE, -1000.0f, 0, batSpotDisp, NULL);
     }
 }
 

@@ -183,7 +183,7 @@ void bgMain(void) {
 		}
 		v11 = 4.0f * (camGetPtr(CAMERA_3D)->viewYaw / 360.0f);
 		bgwork->trans_x = ((f32)width * v11) + v8;
-		dispEntry(CAMERA_BACKGROUND, 3, bgDisp, NULL, 0.0f);
+		dispEntry(CAMERA_BACKGROUND, 0.0f, 3, bgDisp, NULL);
 	}
 }
 

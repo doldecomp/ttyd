@@ -42,7 +42,7 @@ void dispReInit(void) {
 	entry_n = 0;
 }
 
-void dispEntry(CameraId camId, s32 renderMode, DispCallback callback, void* param, f32 order) {
+void dispEntry(CameraId camId, f32 order, s32 renderMode, DispCallback callback, void* param) {
 	DispEntry* entry = &pDispWork[entry_n];
 
 	if (order != order) return;

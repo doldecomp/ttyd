@@ -501,7 +501,7 @@ void* gcDvdCheckThread(void* param) {
 				width = (f32)romFontGetWidth(message);
 				MTXPerspective(mtx, 25.0f, 1.2666667f, 1.0f, 10000.0f);
 				GXSetProjection(mtx, GX_PERSPECTIVE);
-				romFontPrintGX(-width * 0.5f, 60.0f, 1.0f, (GXColor){0xFF, 0xFF, 0xFF, 0xFF}, message);
+				romFontPrintGX(-width * 0.5f, 60.0f, 1.0f, &(GXColor){0xFF, 0xFF, 0xFF, 0xFF}, message);
 			}
 			DEMODoneRender();
 			makeKey();

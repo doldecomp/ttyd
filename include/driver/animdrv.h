@@ -53,8 +53,8 @@ struct AnimData {
 };
 
 struct AnimTableEntry {
-    char mAnimName[60];   // 0x0
-    AnimData* mpAnimData; // 0x3C
+    char name[60];   // 0x0
+    AnimData* data; // 0x3C
 };
 
 typedef struct AnimPoseTexEntry {
@@ -277,7 +277,7 @@ void animPoseRelease(s32 poseId);
 GXColor* animPoseGetMaterialEvtColor(s32 poseId);
 u32 animPoseGetMaterialLightFlag(s32 poseId);
 u32 animPoseGetMaterialFlag(s32 poseId);
-void animPoseSetMaterialEvtColor(s32 poseId, GXColor* color);
+void animPoseSetMaterialEvtColor(s32 poseId, GXColor color);
 void animPoseSetMaterialLightFlagOff(s32 poseId, u32 mask);
 void animPoseSetMaterialLightFlagOn(s32 poseId, u32 mask);
 void animPoseSetMaterialFlagOff(s32 poseId, u32 mask);
@@ -306,3 +306,5 @@ const char* animPoseGetGroupName(s32 poseId, s32 group);
 void animSetPaperTexMtx(Mtx mtx1, Mtx mtx2, Mtx mtx3);
 void animSetPaperTexObj(GXTexObj* a1, GXTexObj* a2, GXTexObj* a3, void* a4, void* a5, void* a6, s32 a7, s32 a8);
 void animPoseDraw(s32 poseId, f32 x, f32 y, f32 z, f32 rotY, f32 scale, s32 xluMode);
+
+void animPoseDrawMtx(s32 poseId, Mtx matrix, s32 xluMode, f32 rotY, f32 scale);

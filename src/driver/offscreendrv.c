@@ -87,7 +87,7 @@ void offscreenMain(void) { //1:1, need variable names
 			entry->currBottom = 2;
 		}
 	}
-	dispEntry(CAMERA_OFFSCREEN2, 7, offscreenDisp, NULL, 0.0f);
+	dispEntry(CAMERA_OFFSCREEN2, 0.0f, 7, offscreenDisp, NULL);
 }
 
 void offscreenAddBoundingBox(s32 id, u16 left, u16 top, u16 right, u16 bottom) { //1:1

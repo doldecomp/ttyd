@@ -479,7 +479,7 @@ void effUltraHammerMain(EffectEntry* effect) {
             }
         }
     }
-    dispEntry(CAMERA_3D, 2, effUltraHammerDisp, effect, dispCalcZ(&position));
+    dispEntry(CAMERA_3D, dispCalcZ(&position), 2, effUltraHammerDisp, effect);
 }
 
 // unknown function, is used for many functions to "initialize"/copy some value into the local stack, with an extra vec

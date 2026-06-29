@@ -225,10 +225,10 @@ void envDisp2(CameraId camId, void *param) { //almost 1:1, needs extra addi
 }
 
 void envMain(void) {
-    dispEntry(CAMERA_3D, 7, envCapture, 0, 20.0f);
-    dispEntry(CAMERA_3D, 7, envDisp, 0, 10.0f);
-    dispEntry(CAMERA_3D, 7, envCapture2, 0, 0.0f);
-    dispEntry(CAMERA_3D, 8, envDisp2, 0, 5000.0f);
+    dispEntry(CAMERA_3D, 20.0f, 7, envCapture, NULL);
+    dispEntry(CAMERA_3D, 10.0f, 7, envDisp, NULL);
+    dispEntry(CAMERA_3D, 0.0f, 7, envCapture2, NULL);
+    dispEntry(CAMERA_3D, 5000.0f, 8, envDisp2, NULL);
 }
 
 

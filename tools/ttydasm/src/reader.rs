@@ -2,7 +2,9 @@ use std::fmt;
 
 use anyhow::Context as _;
 use hashbrown::HashMap;
-use object::{File, Object as _, ObjectSection as _, ObjectSymbol as _};
+use object::{File, Object as _, ObjectSection as _, ObjectSymbol as _, SectionKind};
+
+use crate::opcode::Opcode;
 
 #[derive(Debug, PartialEq, Eq)]
 pub(crate) enum ExpressionType {
@@ -78,7 +80,7 @@ impl fmt::Display for Arg {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::Symbol { name } => write!(f, "{name}"),
-            Self::Float(value) => write!(f, "{value:4.2}"),
+            Self::Float(value) => write!(f, "FLOAT({value:?}f)"),
             Self::Stored { location, value } => write!(f, "{location}({value})"),
             Self::Imm(value) => write!(f, "{value}"),
         }
@@ -91,7 +93,7 @@ pub(crate) struct EventScript<'a> {
     /// The raw data backing the actual script.
     data: &'a [u8],
     /// Mapping from section-relative offset -> (symbol_name, addend)
-    relocs: &'a HashMap<u64, (String, i64)>,
+    lookup: &'a HashMap<u64, String>,
     /// Section-relative address of [`Self::data`]
     base: u64,
     /// Current position within [`Self::data`]
@@ -99,8 +101,8 @@ pub(crate) struct EventScript<'a> {
 }
 
 impl<'a> EventScript<'a> {
-    pub fn new(file: File<'a>, data: &'a [u8], base: u64, relocs: &'a HashMap<u64, (String, i64)>) -> Self {
-        Self { file, data, relocs, base, pos: 0 }
+    pub fn new(file: File<'a>, data: &'a [u8], base: u64, lookup: &'a HashMap<u64, String>) -> Self {
+        Self { file, data, lookup, base, pos: 0 }
     }
 
     pub fn remaining(&self) -> usize {
@@ -129,84 +131,116 @@ impl<'a> EventScript<'a> {
         }
 
         // There may be a symbol at this offset but doesn't show up because object didn't resolve it.
-        if let Some((name, _)) = self.relocs.get(&offset) {
-            //println!("{raw}: Symbol Override");
-
+        if let Some(name) = self.lookup.get(&offset) {
             let symbol = self.file.symbol_by_name(name).context("symbol not found")?;
+
             let Some(section_index) = symbol.section_index() else {
                 return Ok(Arg::Symbol { name: name.to_string() });
             };
+
             let section = self.file.section_by_index(section_index)?;
+            if section.kind() != SectionKind::ReadOnlyData {
+                return Ok(Arg::Symbol { name: name.to_string() });
+            }
+
             let bytes = section
                 .data_range(symbol.address(), symbol.size())?
                 .context("symbol range out of section bounds")?;
             let (cow, _, had_errors) = encoding_rs::SHIFT_JIS.decode(bytes);
-            if !had_errors {
-                return Ok(Arg::Symbol { name: format!("\"{cow}\"") });
-            } else {
-                return Ok(Arg::Symbol { name: name.to_string() });
+            match had_errors {
+                true => Ok(Arg::Symbol { name: name.to_string() }),
+                false => Ok(Arg::Symbol { name: format!("STRING(\"{cow}\")") }),
             }
         } else {
-            //println!("{raw}: {category:?}");
+            match category {
+                ExpressionType::Address => {
+                    let name =
+                        self.lookup.get(&offset).context("Unable to get relocation for index {raw}")?;
+                    Ok(Arg::Symbol { name: name.to_string() })
+                }
+                ExpressionType::Pointer => {
+                    let name =
+                        self.lookup.get(&offset).context("Unable to get relocation for index {raw}")?;
+                    Ok(Arg::Symbol { name: name.to_string() })
+                }
+                ExpressionType::Float => {
+                    let value = ExpressionType::decode(raw) as f32;
+                    Ok(Arg::Float(value / 1024.0))
+                }
+                ExpressionType::UserFlag => {
+                    let value = ExpressionType::decode(raw);
+                    Ok(Arg::Stored { location: "UF", value })
+                }
+                ExpressionType::UserWork => {
+                    let value = ExpressionType::decode(raw);
+                    Ok(Arg::Stored { location: "UW", value })
+                }
+                ExpressionType::GlobalSavedWork => {
+                    let value = ExpressionType::decode(raw);
+                    Ok(Arg::Stored { location: "GSW", value })
+                }
+                ExpressionType::LocalSavedWork => {
+                    let value = ExpressionType::decode(raw);
+                    Ok(Arg::Stored { location: "LSW", value })
+                }
+                ExpressionType::GlobalSavedWorkFlag => {
+                    let value = ExpressionType::decode(raw);
+                    Ok(Arg::Stored { location: "GSWF", value })
+                }
+                ExpressionType::LocalSavedWorkFlag => {
+                    let value = ExpressionType::decode(raw);
+                    Ok(Arg::Stored { location: "LSWF", value })
+                }
+                ExpressionType::GlobalFlag => {
+                    let value = ExpressionType::decode(raw);
+                    Ok(Arg::Stored { location: "GF", value })
+                }
+                ExpressionType::LocalFlag => {
+                    let value = ExpressionType::decode(raw);
+                    Ok(Arg::Stored { location: "LF", value })
+                }
+                ExpressionType::GlobalWork => {
+                    let value = ExpressionType::decode(raw);
+                    Ok(Arg::Stored { location: "GW", value })
+                }
+                ExpressionType::LocalWork => {
+                    let value = ExpressionType::decode(raw);
+                    Ok(Arg::Stored { location: "LW", value })
+                }
+                ExpressionType::Immediate => Ok(Arg::Imm(raw)),
+            }
         }
+    }
 
-        match category {
-            ExpressionType::Address => {
-                let (name, _) =
-                    self.relocs.get(&offset).context("Unable to get relocation for index {raw}")?;
-                Ok(Arg::Symbol { name: name.to_string() })
+    pub fn extract(&mut self, symbol: &str) -> anyhow::Result<()> {
+        // TODO: I forgot to add nesting for the relevant commands, and also I need to emit
+        // STRING() if I resolve a symbol. I also need to not emit parentheses on the handful of
+        // tags we have
+        let mut indentation = 1;
+        println!("EVT_BEGIN({})", symbol);
+        while self.remaining() >= 4 {
+            let command = self.read_i32()?;
+            let argc = (command >> 16) as usize;
+            let opcode_num = command & 0xFFFF;
+            let opcode = Opcode::from_repr(opcode_num as usize)
+                .with_context(|| format!("unknown opcode {opcode_num:#04X}"))?;
+            let opcode_str: &'static str = opcode.decomp_macros();
+            opcode.decrease_indent(&mut indentation);
+            match opcode.is_tag() {
+                true => println!("{}{opcode_str}", "    ".repeat(indentation)),
+                false => {
+                    let args = (0..argc).map(|_| self.read_arg()).collect::<anyhow::Result<Vec<_>>>()?;
+                    let rendered = args
+                        .into_iter()
+                        .map(|arg0: Arg| Arg::to_string(&arg0))
+                        .collect::<Vec<_>>()
+                        .join(", ");
+                    println!("{}{opcode_str}({rendered})", "    ".repeat(indentation));
+                }
             }
-            ExpressionType::Pointer => {
-                println!("debug: need to test a script with a pointer to make sure it's correct");
-                let (name, _) =
-                    self.relocs.get(&offset).context("Unable to get relocation for index {raw}")?;
-                Ok(Arg::Symbol { name: name.to_string() })
-            }
-            ExpressionType::Float => {
-                let value = ExpressionType::decode(raw) as f32;
-                Ok(Arg::Float(value / 1024.0))
-            }
-            ExpressionType::UserFlag => {
-                let value = ExpressionType::decode(raw);
-                Ok(Arg::Stored { location: "UF", value })
-            }
-            ExpressionType::UserWork => {
-                let value = ExpressionType::decode(raw);
-                Ok(Arg::Stored { location: "UW", value })
-            }
-            ExpressionType::GlobalSavedWork => {
-                let value = ExpressionType::decode(raw);
-                Ok(Arg::Stored { location: "GSW", value })
-            }
-            ExpressionType::LocalSavedWork => {
-                let value = ExpressionType::decode(raw);
-                Ok(Arg::Stored { location: "LSW", value })
-            }
-            ExpressionType::GlobalSavedWorkFlag => {
-                let value = ExpressionType::decode(raw);
-                Ok(Arg::Stored { location: "GSWF", value })
-            }
-            ExpressionType::LocalSavedWorkFlag => {
-                let value = ExpressionType::decode(raw);
-                Ok(Arg::Stored { location: "LSWF", value })
-            }
-            ExpressionType::GlobalFlag => {
-                let value = ExpressionType::decode(raw);
-                Ok(Arg::Stored { location: "GF", value })
-            }
-            ExpressionType::LocalFlag => {
-                let value = ExpressionType::decode(raw);
-                Ok(Arg::Stored { location: "LF", value })
-            }
-            ExpressionType::GlobalWork => {
-                let value = ExpressionType::decode(raw);
-                Ok(Arg::Stored { location: "GW", value })
-            }
-            ExpressionType::LocalWork => {
-                let value = ExpressionType::decode(raw);
-                Ok(Arg::Stored { location: "LW", value })
-            }
-            ExpressionType::Immediate => Ok(Arg::Imm(raw)),
+            opcode.increase_indent(&mut indentation);
         }
+        println!("EVT_END()");
+        Ok(())
     }
 }

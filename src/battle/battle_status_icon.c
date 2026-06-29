@@ -52,7 +52,7 @@ void BattleStatusIconMain(BattleUnit* unit) {
 			}
 		}
 		if (icon->mNumStatusIcons > 0) {
-			dispEntry(CAMERA_2D, 1, BattleStatusIconDisp, unit, 901.0f);
+			dispEntry(CAMERA_2D, 901.0f, 1, BattleStatusIconDisp, unit);
 		}
 	}
 }
