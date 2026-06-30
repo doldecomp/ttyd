@@ -46,7 +46,7 @@ void dispEntry(CameraId camId, f32 order, s32 renderMode, DispCallback callback,
 	DispEntry* entry = &pDispWork[entry_n];
 
 	if (order != order) return;
-	entry->camId = camId;
+	entry->cameraId = camId;
 	entry->renderMode = (u8)renderMode;
 	entry->callback = callback;
 	entry->param = param;
@@ -91,7 +91,7 @@ void dispDraw(CameraId camId) {
 
 	for (i = 0; i < entry_n; i++) {
 		DispEntry* entry = pSortWork[i];
-		if (entry->camId == camId) {
+		if (entry->cameraId == camId) {
 			GXSetColorUpdate(GX_TRUE);
 			switch (camId) {
 				case 4:

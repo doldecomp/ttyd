@@ -1,8 +1,6 @@
 #ifndef _DOLPHIN_GX_GXSTRUCT_H_
 #define _DOLPHIN_GX_GXSTRUCT_H_
 
-#pragma warn_padding off
-
 #include <dolphin/gx/GXEnum.h>
 #include <dolphin/vi/vitypes.h>
 

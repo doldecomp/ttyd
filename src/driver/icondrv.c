@@ -9,9 +9,9 @@
 #include "system.h"
 #include "sdk/texPalette.h"
 #include <string.h>
-#pragma warn_padding off
+
 #include <stdio.h>
-#pragma warn_padding on
+
 
 extern GlobalWork* gp;
 

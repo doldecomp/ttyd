@@ -417,7 +417,7 @@ USER_FUNC(sound_fade) {
 USER_FUNC(gravity_scale) {
     const char* name = (const char*)evtGetValue(event, *event->args);
     NpcEntry* npc = npcNameToPtr(name);
-    npc->field_0x1CC = 0.1f;
+    npc->jumpGravity = 0.1f;
     return EVT_RETURN_DONE;
 }
 

@@ -3,8 +3,6 @@
 
 #include <dolphin/types.h>
 
-#pragma warn_padding off
-
 #ifdef __cplusplus
 extern "C" {
 #endif

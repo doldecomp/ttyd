@@ -334,18 +334,18 @@ s32 npcEntry(const char* a1, const char* animName) {
     entry->scale.x = 1.0f;
     entry->scale.y = 1.0f;
     entry->scale.z = 1.0f;
-    entry->field_0x154 = 1.0f;
-    entry->field_0x108 = 0;
-    entry->field_0x10C = "M_I_2";
-    entry->field_0x198 = gp->renderTime;
-    entry->field_0x188 = 0;
-    entry->field_0x1CC = 1.0f;
-    entry->field_0x1D0 = 0.0f;
-    entry->field_0x1C8 = 1.0f;
+    entry->field_154 = 1.0f;
+    entry->field_108 = 0;
+    entry->field_10C = "M_I_2";
+    entry->field_198 = gp->renderTime;
+    entry->field_188 = 0;
+    entry->jumpGravity = 1.0f;
+    entry->field_1D0 = 0.0f;
+    entry->jumpYScale = 1.0f;
     entry->color = (GXColor){ 0xFF, 0xFF, 0xFF, 0xFF };
-    entry->camId = CAMERA_3D;
-    entry->field_0x2F8 = 0;
-    entry->field_0x317 = 1;
+    entry->cameraId = CAMERA_3D;
+    entry->field_2F8 = 0;
+    entry->balloonType = 1;
     if (animPoseGetVivianType(entry->poseId)) {
         entry->flags |= 0x4000000;
     }
@@ -464,24 +464,24 @@ void npcMain(void) {
             }
 
             if (entry->jumpFlags & 0x10) {
-                entry->field_0x190 = gp->renderTime - entry->field_0x198;
-                if (OSTicksToMilliseconds(entry->field_0x190) > 500) {
-                    entry->field_0x190 = OSMillisecondsToTicks(16);
+                entry->field_190 = gp->renderTime - entry->field_198;
+                if (OSTicksToMilliseconds(entry->field_190) > 500) {
+                    entry->field_190 = OSMillisecondsToTicks(16);
                 }
                 if (entry->flags & 0x20000) {
-                    entry->field_0x178 += entry->field_0x190;
+                    entry->field_178 += entry->field_190;
                 } else {
-                    entry->field_0x178 = 0;
+                    entry->field_178 = 0;
                 }
-                entry->field_0x188 += entry->field_0x190;
-                entry->field_0x198 = gp->renderTime;
-                entry->field_0x1A0 = (f32)(OSTicksToMicroseconds(entry->field_0x188)) / 1000000.0f;
-                entry->field_0x180 = (f32)(OSTicksToMicroseconds(entry->field_0x178)) / 1000000.0f;
-                entry->field_0x1A4 = (f32)(OSTicksToMicroseconds(entry->field_0x190)) / 1000000.0f;
-                entry->field_0x1A8 = (f32)(OSTicksToMicroseconds(entry->field_0x198)) / 1000000.0f;
+                entry->field_188 += entry->field_190;
+                entry->field_198 = gp->renderTime;
+                entry->field_1A0 = (f32)(OSTicksToMicroseconds(entry->field_188)) / 1000000.0f;
+                entry->field_180 = (f32)(OSTicksToMicroseconds(entry->field_178)) / 1000000.0f;
+                entry->moveDt = (f32)(OSTicksToMicroseconds(entry->field_190)) / 1000000.0f;
+                entry->field_1A8 = (f32)(OSTicksToMicroseconds(entry->field_198)) / 1000000.0f;
 
             } else {
-                entry->field_0x198 = gp->renderTime;
+                entry->field_198 = gp->renderTime;
             }
         }
     }

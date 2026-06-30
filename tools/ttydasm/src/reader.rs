@@ -125,11 +125,6 @@ impl<'a> EventScript<'a> {
         let raw = self.read_i32()?;
         let category = ExpressionType::category(raw);
 
-        // Guard since my current test script doesn't hit this path
-        if category == ExpressionType::Address || category == ExpressionType::Pointer {
-            println!("TODO: need to fixup this once I encounter it!");
-        }
-
         // There may be a symbol at this offset but doesn't show up because object didn't resolve it.
         if let Some(name) = self.lookup.get(&offset) {
             let symbol = self.file.symbol_by_name(name).context("symbol not found")?;

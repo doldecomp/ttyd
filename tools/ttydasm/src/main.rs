@@ -10,6 +10,12 @@ mod reader;
 
 use crate::reader::EventScript;
 
+const MODULES: [&str; 31] = [
+    "aaa", "aji", "bom", "dig", "dmo", "dou", "eki", "end", "gon", "gor", "gra", "hei", "hom", "jin", "jon",
+    "kpa", "las", "moo", "mri", "muj", "nok", "pik", "qiz", "rsh", "sys", "tik", "tou", "tou2", "usu", "win",
+    "yuu",
+];
+
 struct EventReader {
     lookup: HashMap<u64, String>,
     bytes: Vec<u8>,
@@ -19,8 +25,16 @@ impl EventReader {
     fn initialize(module: &str, symbol: &str, relative_path: PathBuf) -> anyhow::Result<Self> {
         const BUILD_PATH: &str = "build/G8MJ01/";
 
-        // First, let's resolve the current module and symbol, so we can grab all relocations from that section.
-        let path = relative_path.join(BUILD_PATH).join(module).join(format!("{module}.plf"));
+        // First, let's resolve the current module and symbol, so we can grab all relocations from that
+        // section.
+        let path = match module {
+            module if MODULES.contains(&module) => {
+                relative_path.join(BUILD_PATH).join(module).join(format!("{module}.plf"))
+            }
+            "MarioSt" | "dol" => relative_path.join(BUILD_PATH).join("MarioSt.elf"),
+            _ => return Err(anyhow::anyhow!("Unknown module name: {module}")),
+        };
+
         let bytes = std::fs::read(&path).context(format!("Unable to open file: {path:?}"))?;
         let file = object::File::parse(&*bytes)?;
 

@@ -8,9 +8,9 @@
 #include "memory.h"
 #include "system.h"
 #include <math.h>
-#pragma warn_padding off
+
 #include <stdio.h>
-#pragma warn_padding on
+
 #include <string.h>
 
 #define TESTHEAP_SIZE (u32)(1.5 * 1024 * 1024)

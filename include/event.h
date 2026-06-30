@@ -2,7 +2,6 @@
 
 #include <dolphin/types.h>
 
-#pragma warn_padding off
 typedef struct EventData {
     u8 motionType;           // 0x0
     u8 partners[2];          // 0x1, TODO verify if array or two u8
@@ -13,7 +12,6 @@ typedef struct EventData {
     const char* beroName;    // 0x14
     void (*initEvent)(void); // 0x18
 } EventData;
-#pragma warn_padding on
 
 typedef struct EventStage {
     const char* name; // 0x0

@@ -5,8 +5,6 @@
 #include <dolphin/dsp.h>
 #include <dolphin/dvd.h>
 
-#pragma warn_padding off
-
 #ifdef __cplusplus
 extern "C" {
 #endif
